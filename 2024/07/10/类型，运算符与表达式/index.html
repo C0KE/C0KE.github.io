@@ -1,0 +1,472 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>类型，运算符与表达式 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="类型，运算符与表达式1.变量名  变量名以下划线“_”和字母开头，是由字母和数数字组成的序列，下划线被当成字母。 变量不能使用保留的关键字“if,else,int等。 选择的变量名要能尽量表达变量的用途。   2.数据类型及长度  C语言只提供4种基本数据类型  char 字符型，占用__一个字节__。 int 整型，通常反映了__所用机器中整数的最自然长度__。 float 单精度浮点型。 do">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类型，运算符与表达式">
+<meta property="og:url" content="http://example.com/2024/07/10/%E7%B1%BB%E5%9E%8B%EF%BC%8C%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="类型，运算符与表达式1.变量名  变量名以下划线“_”和字母开头，是由字母和数数字组成的序列，下划线被当成字母。 变量不能使用保留的关键字“if,else,int等。 选择的变量名要能尽量表达变量的用途。   2.数据类型及长度  C语言只提供4种基本数据类型  char 字符型，占用__一个字节__。 int 整型，通常反映了__所用机器中整数的最自然长度__。 float 单精度浮点型。 do">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png">
+<meta property="article:published_time" content="2024-07-10T04:04:54.213Z">
+<meta property="article:modified_time" content="2024-07-10T04:04:54.213Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://example.com/2024/07/10/%E7%B1%BB%E5%9E%8B%EF%BC%8C%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '类型，运算符与表达式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-10 12:04:54'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">369</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">类型，运算符与表达式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-10T04:04:54.213Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-10T04:04:54.213Z" title="更新于 2024-07-10 12:04:54">2024-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B0/">C语言笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="类型，运算符与表达式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="类型，运算符与表达式"><a href="#类型，运算符与表达式" class="headerlink" title="类型，运算符与表达式"></a>类型，运算符与表达式</h1><h2 id="1-变量名"><a href="#1-变量名" class="headerlink" title="1.变量名"></a>1.变量名</h2><blockquote>
+<ul>
+<li>变量名以下划线“_”和字母开头，是由字母和数数字组成的序列，下划线被当成字母。</li>
+<li>变量不能使用保留的关键字“if,else,int等。</li>
+<li>选择的变量名要能尽量表达变量的用途。</li>
+</ul>
+</blockquote>
+<h2 id="2-数据类型及长度"><a href="#2-数据类型及长度" class="headerlink" title="2.数据类型及长度"></a>2.数据类型及长度</h2><blockquote>
+<ol>
+<li><p>C语言只提供4种基本数据类型</p>
+<ul>
+<li>char 字符型，占用__一个字节__。</li>
+<li>int 整型，通常反映了__所用机器中整数的最自然长度__。</li>
+<li>float 单精度浮点型。</li>
+<li>double 双精度浮点型。</li>
+</ul>
+</li>
+<li><p>__short__与__long__两个限定符用于限定整型（int）。</p>
+<p>（声明中关键字_int_可以省略）</p>
+<ul>
+<li>long 类型通常为32位，short类型通常为16位，int类型可以为16位或32位。（根据各个硬件特性不同，长度也不同，但至少int类型长度不得大于long，不得小于short。</li>
+</ul>
+</li>
+<li><p>类型限定符__signed__和__unsigned__可用于限定char类型或任何整型。</p>
+<ul>
+<li>unsigned类型的数总是正值或零，并遵守[^算术模二]定律，不带限定符的char类型对象是否带符号则取决于具体机器，但可打印字符总是正值。</li>
+</ul>
+</li>
+<li><p>long duoble 类型表示高精度的浮点数。同整型一样，浮点数的长度也取决于具体的机器，float和double与long  double 类型可以表示相同的长度，也可以表示两种或三种不同的长度。</p>
+<p>_<em>有关这些类型长度的符号常量以及其他与机器和编译器有关的属性可以在标准头文件</em>&lt;limits.h&gt;与&lt;float.h&gt;_中找到__。</p>
+</li>
+</ol>
+</blockquote>
+<p><strong>练习题2-1：编写程序确定变量的取值范围（采用两种计算方式，一种直接打印标准库的相关头文件&lt;limits.h&gt;和&lt;float.h&gt;。一种是直接计算方式，第二种方式相对来说较困难。)</strong></p>
+<blockquote>
+<ul>
+<li>方法一</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;limits.h&gt;</span><span class="comment">//各类型变量范围均在此头文件中</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;signed char min = %d\n&quot;</span>,SCHAR_MIN);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;signed char max = %d\n&quot;</span>,SCHAR_MAX);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;signed short min = %d\n&quot;</span>,SHRT_MIN);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;signed short max = %d\n&quot;</span>,SHRT_MAX);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;signed int min = %d\n&quot;</span>,INT_MIN);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;signed int max = %d\n&quot;</span>,INT_MAX);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;signed long min = %ld\n&quot;</span>,LONG_MIN);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;signed long max = %ld\n&quot;</span>,LONG_MAX);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    <span class="comment">//printf(&quot;unsigned char min = %u\n&quot;,UCHAR_MIN);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;unsigned char max = %u\n&quot;</span>,UCHAR_MAX);</span><br><span class="line">   <span class="comment">// printf(&quot;unsigned short min = %u\n&quot;,USHRT_MIN);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;unsigned short max = %u\n&quot;</span>,USHRT_MAX);</span><br><span class="line">   <span class="comment">// printf(&quot;unsigned int min = %u\n&quot;,UINT_MIN);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;unsigned int max = %u\n&quot;</span>,UINT_MAX);</span><br><span class="line">   <span class="comment">// printf(&quot;unsigned long min =%lu\n&quot;,ULONG_MIN);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;unsigned long max = %lu\n&quot;</span>,ULONG_MAX);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>方法二</p>
+<p>数据类型范围的确定注意几点，<br>（1）所占用的字节数<br>（2）参考计算机组成原理方面的书籍，有专门讲数据类型范围的。浮点数，在内存中的存储结构是比较特殊的，只有了解存储结构才可以根据字节数算出来<br>（3）对于有符号数注意是补码的范围，组成原理书里也会有讲的。</p>
+<p><strong>上一段是摘抄csdn的一个师傅的话，本身学艺不精，对该问题还没解决，以后看了组成原理再来。</strong></p>
+</li>
+</ul>
+</blockquote>
+<h2 id="3-常量"><a href="#3-常量" class="headerlink" title="3.常量"></a>3.常量</h2><blockquote>
+<ol>
+<li><p>整型常量后面的符号‘L,l,u,U,ul,UL’。</p>
+<ul>
+<li>long类型的常量以字母l或者L结尾。</li>
+<li>无符号常量u或U结尾。</li>
+<li>unsigned long 常量后缀为ul或UL。</li>
+</ul>
+</li>
+<li><p>浮点数常量中包含一个小数点或者一个指数。</p>
+<pre><code>* 没有后缀的浮点数常量为double类型。
+* 后缀为f或者F表示float类型。
+* 后缀为l或L则表示long double类型。
+</code></pre>
+</li>
+<li><p>整型数除了用十进制表示也可以用十六进制和八进制表示</p>
+<ul>
+<li>八进制带前缀0。</li>
+<li>十六进制带前缀0x或0X。</li>
+<li>十六进制和八进制也可以用后缀表示long和unsigned类型。</li>
+</ul>
+</li>
+<li><p>一个字符常量就是一个整数，书写时将一个字符括在单引号中，如’x’。字符常量一般用来与其他字符进行比较，但也可以像其他整数一样参与数值运算。</p>
+</li>
+<li><p>某些字符可以通过转义字符序列表示为字符和字符串常量。</p>
+<ul>
+<li><p>\ooo表示1~3个八进制数字    \xhh  表示一个或者多个十六进制数字。</p>
+</li>
+<li><p><strong>\a 响铃符		\\ 反斜杠		\b 回退符		? 问号		\f 换页符		\‘单引号</strong></p>
+</li>
+<li><p><strong>\n 换行符         \“双引号        \r 回车符         \ooo八进制数                   \t横向制表符</strong></p>
+</li>
+<li><p><strong>\xhh 十六进制数                    \v纵向制表符</strong></p>
+</li>
+</ul>
+<p><strong>字符常量’\0’表示值为0的字符，也就是空字符（null）。我们通常用’\0’的形式来代替0，以强调某些表达式的字符属性，但其数字值为0。（这里的数字值为0指的是该字符的ASCII码为0）</strong></p>
+</li>
+<li><p>常量表达式是仅仅包含常量的表达式。这种表达式在编译时求值，而不在运行时求值。</p>
+<p><strong>gcc编译过程：预处理（Preprocess)，编译(Comolie)，汇编(Assemble)，链接(Link)。</strong></p>
+</li>
+<li><p>字符串常量也叫字符串字面值，是用双引号括起来的0个或者多个字符组成的字符序列。</p>
+<ul>
+<li>从技术角度来看，字符常量就是字符数组。字符串的内部表示使用一个空字符’\0’作为串的结尾，因此，__储存字符串的物理存储单元数比括在双引号的字符数多一个__。</li>
+<li>字符常量与仅包含一个字符的字符串之间的区别：__”x”和’x’是不同的，后者是一个整数，其值是字母x在机器字符集中对应的数值（内部表示值）；后者表示一个包含一个字符x以及一个结束符’\0’的字符数组。__</li>
+</ul>
+</li>
+<li><p>枚举常量数是另一种类型的常量，枚举是一个常量整型值的列表。</p>
+<ul>
+<li>不同枚举中的名字必须互不相同，同一枚举中不同的名字可以具有相同的值。</li>
+<li>枚举为建立常量值和名字之间的关联提供了一种便利的方式。</li>
+<li>相对于#define语句来说，枚举类型的优势是提供检查这种类型变量中储存的值是否是该枚举的有效值。而且，调试程序可以以符号的形式打印出枚举变量的值。</li>
+<li>枚举分为__枚举值和枚举子__</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Example</span> &#123;</span>FIRST,SECOND,THIRD&#125;; <span class="comment">// 三个枚举子对应枚举值默认是0,1,2。</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, FIRST); <span class="comment">//输出结果为：0</span></span><br><span class="line"><span class="comment">//FIRST为枚举子，0为对应的枚举值</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<h2 id="4-声明"><a href="#4-声明" class="headerlink" title="4.声明"></a>4.声明</h2><blockquote>
+<ol>
+<li><p>__所有变量都必须先声明后使用__。一个声明指定一种变量类型，后面所带的变量表可以包含一个或多个该类型的变量。</p>
+</li>
+<li><p>如果变量不是[^自动变量] ，则只能进行一次初始化操作。自动变量未初始化是的值是该内存空间以前储存的值。默认情况下，外部变量与静态变量将被初始化为0，未经显式初始化的自动变量的值为未定义值(即无效值)。</p>
+</li>
+<li><p>任何变量的声明都可以用__const__限定符限定。该限定符指定的变量的值不能被修改。对数组而言，const限定符指定数组所有元素的值都不能被修改。</p>
+<ul>
+<li><p>const限定符也可以配合数组参数使用，他表明函数不能修改数组元素的值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">strlen</span> <span class="params">(<span class="type">const</span> <span class="type">char</span>[])</span>;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>如果试图修改const限定符限定的值，其结果取决于具体的实现。</p>
+</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h2 id="5-算术运算符"><a href="#5-算术运算符" class="headerlink" title="5.算术运算符"></a>5.算术运算符</h2><blockquote>
+<ol>
+<li>二元运算符包括：+ ，- ，*，&#x2F;，%（取模运算符）。整数除法会截断结果中的小数部分。<ul>
+<li>取模运算符%不能应用于float或double类型。__在有负操作数的情况下，整数除法截取的方向以及取模运算结果的符号取决于具体机器的实现，__这和处理[^上溢和下溢] 是一样的。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h3 id="6-关系运算符与逻辑运算符"><a href="#6-关系运算符与逻辑运算符" class="headerlink" title="6.关系运算符与逻辑运算符"></a>6.关系运算符与逻辑运算符</h3><blockquote>
+<ol>
+<li><p>关系运算符包括以下几个运算符：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;  &gt;=   &lt;   &lt;=     运算符优先级比相等性运算符优先级高  ==   ！=</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>逻辑运算符&amp;&amp;与||有一些较为特殊的属性。由&amp;&amp;和||连接的表达式从左到右进行求值，并且，__在知道结果值为真或假后立即停止运算。绝大多数C语言运用了这些属性。__且&amp;&amp;比||运算符优先级高。</p>
+</li>
+<li><p>在关系表达式或逻辑表达式中，如果关系为真，则表达式的结果值为数值1；如果为假，则结果值为数值0。逻辑非运算符！的作用是将非0的操作数转换为0，将操作数0转换为1。</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="7-类型转换"><a href="#7-类型转换" class="headerlink" title="7.类型转换"></a>7.类型转换</h3><blockquote>
+<p>当一个运算符的几个操作数类型不同时，需要通过一些规则把他们转换为某种共同的类型。__一般来说，自动转换是指把“比较窄的”操作数转换为“比较宽的”操作数__并且不丢失信息的转换。</p>
+<ol>
+<li><p>计算字符对应的数字值(在标准库里对应的函数为（isdigit（c)）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s[i]-<span class="string">&#x27;0&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将大写字符转换为对应的小写字符(在标准库里对应的函数为tolower(c))</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">lower</span><span class="params">(<span class="type">int</span> c)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(c&gt;=<span class="string">&#x27;A&#x27;</span>&amp;&amp;c &lt;= <span class="string">&#x27;Z&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> c+<span class="string">&#x27;a&#x27;</span>-<span class="string">&#x27;A&#x27;</span>;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在字符类型转换为整型时，我们需要注意一点。</p>
+<ul>
+<li>C语言没有指定char类型的变量是无符号变量还是带符号变量，当把一个char类型的值转换为int类型的值时，其结果有可能转换为负整数。对于不同的机器，其结果也不同，这反映了不同结构的区别。</li>
+<li>在某些机器中，如果char类型的值最左边一位为1，则转换为负整数（<strong>进行符号扩展</strong>)。</li>
+<li>而在另一些机器中，把char类型值转换为int类型值的时候，在char类型值的左边添加0，这样导致的转换结果总是正值。</li>
+</ul>
+</li>
+<li><p>C语言的定义保证了机器的标准打印字符集的字符不会为负值，因此，在表达式中，这些字符总是正值。但是，存储在变量字符中的[^位模式] 在某些机器中可能为负，而在另一些可能是正的。</p>
+<ul>
+<li>为了保证程序的可移植性，如果要在char类型的变量中存储非字符数据，最好指定signed或unsigned限定符。</li>
+</ul>
+</li>
+<li><p>C语言中，很多情况下会进行隐式的算术类型转换。一般来说，__两个操作数类型不同，会在运算前将“较低”类型提升为“较高”类型__。</p>
+<ul>
+<li>一般来说，表达式中的float类型的操作数不会自动转换为double类型，数学函数（如标准头文件&lt;math.h&gt;中定义的函数）使用双精度类型的变量。使用float类型主要是为了在使用较大的数组时节省存储空间，有时也为了节省机器执行时间（双精度算术运算特别费时间）。</li>
+</ul>
+</li>
+<li><p>在表达式中包含unsigned类型的操作数时，转换规则要复杂一些。主要原因在于，带符号值与无符号值之间的比较运算是与机器相关的，他们取决于机器中不同整数类型的大小。 </p>
+<ul>
+<li>例如，假定int类型占16位，long类型占32位，那么，-1L &lt; 1U，这是因为unsigned int类型将被提升为signed long类型；但-1L  &lt; 1UL，这是因为-1L将被提升为unsigned long 类型，因而成为一个比较大的正数。</li>
+</ul>
+</li>
+<li><p>赋值也要进行类型转换。赋值运算符右边的值需要转换为左边变量的类型，左边变量的类型即赋值表达式结果的类型。</p>
+<ul>
+<li>前面提到过，无论进不进行符号扩展，字符型变量都将被转换为整型变量。</li>
+<li>当把较长的整数转换为较短的整数或char类型时，超出高位的部分将被丢弃。</li>
+<li>当float类型和int相互赋值时，都要进行类型转换。</li>
+<li>当把double类型转换为float时，是进行四舍五入还是截取取决于具体的实现。</li>
+</ul>
+</li>
+<li><p>强制类型转换类型的__一元运算符__可以对表达式进行强制转换。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sqrt</span>((<span class="type">double</span>)n)<span class="comment">//对n进行强制转换为double</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在通常情况下，<strong>参数是通过函数原型声明的。这样，当函数被调用时，声明将对参数进行自动强制转换。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="title function_">sqrt</span><span class="params">(<span class="type">double</span>)</span>;<span class="comment">//下面是对函数的调用</span></span><br><span class="line">root2 = <span class="built_in">sqrt</span>(<span class="number">2</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><h4 id="1-自动变量"><a href="#1-自动变量" class="headerlink" title="1.  自动变量"></a>1.  自动变量</h4><blockquote>
+<p>自动变量在C与C++中的实现即为“自动变量”（<em>Automatic Variable</em>）。默认情况下，在代码块内声明的变量都是自动变量，但亦可用自动变量的关键字auto明确标识存储类； 而如若使用register（而非auto）存储类标识代码块内的变量，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BC%96%E8%AF%91%E5%99%A8/8853067">编译器</a>就会将变量<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BC%93%E5%AD%98">缓存</a>于<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%A4%84%E7%90%86%E5%99%A8">处理器</a>内的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AF%84%E5%AD%98%E5%99%A8">寄存器</a>中，此种情况下不能对该变量或其<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F">成员变量</a>使用引用<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%93%8D%E4%BD%9C%E7%AC%A6">操作符</a>&amp;以获取其地址，因为&amp;只能获取内存空间中的地址；除此以外，由于寄存器的数量及其所能存储的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">数据类型</a>受<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%A1%AC%E4%BB%B6">硬件</a>限制而可能无法存储指定变量，编译器可以忽略<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%A3%B0%E6%98%8E">声明</a>内的register关键字。对于一个未初始化的自动变量来说，在为其赋值之前其值都为undefined（未定义）</p>
+</blockquote>
+<p> <strong>属于自动存储类别的变量具有自动存储期，块作用域且无链接。</strong></p>
+<blockquote>
+<p>1.默认情况下，声明在块或函数头的任何变量都属于自动存储类别。为了表明有意覆盖一个外部变量定义，或者强调不要把该变量改为其他存储类别，__可以显式使用关键字auto</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> <span class="type">int</span> plox;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>特别说明：关键字auto在c++中的用法完全不同，如果编写c&#x2F;c++兼容的程序，最不要使用auto作为存储类别说明符。</strong></p>
+<blockquote>
+<p>__块作用域和无链接意味着__只有在定义变量声明所在的块时变量存在，程序在退出该块时变量消失。原来该变量占用的内存位置现在做他用。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>　<span class="title function_">loop</span><span class="params">(<span class="type">int</span>　n)</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span> m; <span class="comment">// m 的作用域</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,　&amp;m);</span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span> i; <span class="comment">// m 和 i 的作用域</span></span><br><span class="line"><span class="keyword">for</span>　(i　=　m;　i　&lt;　n;　i++)</span><br><span class="line"><span class="built_in">puts</span>(<span class="string">&quot;i　is　local　to　a　sub-block\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> m; <span class="comment">// m 的作用域，i 已经消失</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p>如果内层块中声与外层变量同名时，内层块会隐藏外层块的定义。但是离开内层块后，外层块变量的作用域又回到了原来的作用域。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hiding.c -- 块中的变量</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span>　<span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span>　<span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span> x = <span class="number">30</span>;　　　　　　　<span class="comment">// 原始的 x</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;x　in　outer　block:　%d　at　%p\n&quot;</span>,　x,　&amp;x);</span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span> x = <span class="number">77</span>;　　　　 <span class="comment">// 新的 x，隐藏了原始的 x</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;x　in　inner　block:　%d　at　%p\n&quot;</span>,　x,　&amp;x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;x　in　outer　block:　%d　at　%p\n&quot;</span>,　x,　&amp;x);</span><br><span class="line"><span class="keyword">while</span> (x++ &lt; <span class="number">33</span>)　　　　<span class="comment">// 原始的 x</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span> x = <span class="number">100</span>;　　　　<span class="comment">// 新的 x，隐藏了原始的 x</span></span><br><span class="line">x++;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;x　in　while　loop:　%d　at　%p\n&quot;</span>,　x,　&amp;x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;x　in　outer　block:　%d　at　%p\n&quot;</span>,　x,　&amp;x);</span><br><span class="line"><span class="keyword">return</span>　<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">下面是该程序的输出：</span><br><span class="line">x　in　outer　block:　<span class="number">30</span>　at　<span class="number">0x7fff5fbff8c8</span></span><br><span class="line">x　in　inner　block:　<span class="number">77</span>　at　<span class="number">0x7fff5fbff8c4</span></span><br><span class="line">x　in　outer　block:　<span class="number">30</span>　at　<span class="number">0x7fff5fbff8c8</span></span><br><span class="line">x　in　<span class="keyword">while</span>　loop:　<span class="number">101</span>　at　<span class="number">0x7fff5fbff8c0</span></span><br><span class="line">x　in　<span class="keyword">while</span>　loop:　<span class="number">101</span>　at　<span class="number">0x7fff5fbff8c0</span></span><br><span class="line">x　in　<span class="keyword">while</span>　loop:　<span class="number">101</span>　at　<span class="number">0x7fff5fbff8c0</span></span><br><span class="line">x　in　outer　block:　<span class="number">34</span>　at　<span class="number">0x7fff5fbff8c8</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>c99的一个特性：作为循环或if语句的一部分，即使不使用花括 号（{}），也是一个块。更完整地说，整个循环是它所在块的子块（subblock），循环体是整个循环块的子块。与此类似，if 语句是一个块，与其 相关联的子语句是if语句的子块。这些规则会影响到声明的变量和这些变量 的作用域。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// forc99.c -- 新的 C99 块规则</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span>　<span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span>　<span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span>　n　=　<span class="number">8</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;　　Initially,　n　=　%d　at　%p\n&quot;</span>,　n,　&amp;n);</span><br><span class="line"><span class="keyword">for</span>　(<span class="type">int</span>　n　=　<span class="number">1</span>;　n　&lt;　<span class="number">3</span>;　n++)</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;　　　　loop　1:　n　=　%d　at　%p\n&quot;</span>,　n,　&amp;n);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;After　loop　1,　n　=　%d　at　%p\n&quot;</span>,　n,　&amp;n);</span><br><span class="line"><span class="keyword">for</span>　(<span class="type">int</span>　n　=　<span class="number">1</span>;　n　&lt;　<span class="number">3</span>;　n++)</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;　loop　2　index　n　=　%d　at　%p\n&quot;</span>,　n,　&amp;n);</span><br><span class="line"><span class="type">int</span>　n　=　<span class="number">6</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;　　　　loop　2:　n　=　%d　at　%p\n&quot;</span>,　n,　&amp;n);</span><br><span class="line">n++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;After　loop　2,　n　=　%d　at　%p\n&quot;</span>,　n,　&amp;n);</span><br><span class="line"><span class="keyword">return</span>　<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">假设编译器支持C语言的这个新特性，该程序的输出如下：</span><br><span class="line">Initially, n = <span class="number">8</span> at <span class="number">0x7fff5fbff8c8</span></span><br><span class="line">loop <span class="number">1</span>: n = <span class="number">1</span> at <span class="number">0x7fff5fbff8c4</span></span><br><span class="line">loop <span class="number">1</span>: n = <span class="number">2</span> at <span class="number">0x7fff5fbff8c4</span></span><br><span class="line">After loop <span class="number">1</span>, n = <span class="number">8</span> at <span class="number">0x7fff5fbff8c8</span></span><br><span class="line">loop <span class="number">2</span> index n = <span class="number">1</span> at <span class="number">0x7fff5fbff8c0</span></span><br><span class="line">loop <span class="number">2</span>: n = <span class="number">6</span> at <span class="number">0x7fff5fbff8bc</span></span><br><span class="line">loop <span class="number">2</span> index n = <span class="number">2</span> at <span class="number">0x7fff5fbff8c0</span></span><br><span class="line">loop <span class="number">2</span>: n = <span class="number">6</span> at <span class="number">0x7fff5fbff8bc</span></span><br><span class="line">After loop <span class="number">2</span>, n = <span class="number">8</span> at <span class="number">0x7fff5fbff8c8</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>自动变量的初始化，自动变量不会初始化，除非显式初始化它。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>　<span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span>　repid;</span><br><span class="line"><span class="type">int</span>　tents　=　<span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tents变量被初始化为5，但是repid变量的值是之前占用分配给repid的空 间中的任意值（如果有的话），别指望这个值是0。可以用非常量表达式 （non-constant expression）初始化自动变量，前提是所用的变量已在前面定义过</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>　<span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="type">int</span>　ruth　=　<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> rance = <span class="number">5</span> * ruth;　<span class="comment">// 使用之前定义的变量</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-函数的隐式声明"><a href="#2-函数的隐式声明" class="headerlink" title="2.函数的隐式声明"></a>2.函数的隐式声明</h3><ol>
+<li><p>在C语言中，函数调用前不一定非要声明。如果没有声明，那么编译器会自动按照一种隐式声明的规则，为调用函数的C代码产生汇编代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">double</span> x = any_name_function();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>单纯编译源代码，不会报错，只是在链接阶段找不到名为any_name_function的函数体而报错。</p>
+<p><strong>之所以编译不会报错，是因为c语言规定，对于没有声明的函数，自动使用隐式声明。相当于变成了如下代码</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">any_name_function</span><span class="params">()</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">double</span> x = any_name_function();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3-上溢下溢"><a href="#3-上溢下溢" class="headerlink" title="3.上溢下溢"></a>3.上溢下溢</h3><blockquote>
+<p>overflow：溢出<br>overflow：上溢<br>underflow：下溢<br>stack underflow：堆栈下溢；</p>
+</blockquote>
+<p>上溢下溢</p>
+<ol>
+<li><p>是当一个超长的数据进入到缓冲区时，超出部分被写入上级缓冲区，上级缓冲区存放的可能是数据、上一条指令的指针，或者是其他程序的输出内容，这些内容都被覆盖或者破坏掉。可见一小部分数据或者一套指令的溢出就可能导致一个程序或者操作系统崩溃。</p>
+</li>
+<li><p>与之对应的就是下溢，下溢是当一个超长的数据进入到缓冲区时，超出部分被写入下级缓冲区，下级缓冲区存放的是下一条指令的指针，或者是其他程序的输出内容。</p>
+</li>
+</ol>
+<p>其他解释</p>
+<blockquote>
+<p>上溢：超出所能表示的最大正数<br>下溢：超出所能表示的最小负数</p>
+</blockquote>
+<ol start="4">
+<li><p>两数相加溢出的判断</p>
+<p>同号时才可能溢出，同为正，有可能上溢，同为负，有可能下溢；</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;undefined</span><br><span class="line">   <span class="type">int</span> c = a + b;</span><br><span class="line">   <span class="keyword">if</span> ((a^b) &amp; INT_MIN == <span class="number">0</span>) &#123;undefined</span><br><span class="line">     <span class="title function_">if</span> <span class="params">((c^a) &amp; INT_MIN)</span> &#123;undefined</span><br><span class="line">       c = (a&lt;<span class="number">0</span>) ? INT_MIN : INT_MA;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-上溢下溢和缓冲区溢出"><a href="#4-上溢下溢和缓冲区溢出" class="headerlink" title="4.上溢下溢和缓冲区溢出"></a>4.上溢下溢和缓冲区溢出</h3><blockquote>
+<p><strong>上溢是当一个超长的数据进入到缓冲区时，超出部分被写入上级缓冲区，下溢是当一个超长的数据进入到缓冲区时，超出部分被写入下级缓冲区。</strong></p>
+<p>随便往缓冲区中填东西造成它溢出一般只会出现“分段错误”（Segmentation fault），而不能达到攻击的目的。</p>
+<p>最常见的手段是通过制造缓冲区溢出使程序运行一个用户shell，再通过shell执行其它命令。如果该程序有root或者suid执行权限的话，攻击者就获得了一个有root权限的shell，可以对系统进行任意操作了。</p>
+</blockquote>
+<p><strong>攻击原理：</strong></p>
+<blockquote>
+<p>通过往程序的缓冲区写超出其长度的内容，造成缓冲区的溢出，从而破坏程序的堆栈，造成程序崩溃或使程序转而执行其它指令，以达到攻击的目的。造成缓冲区溢出的原因是程序中没有仔细检查用户输入的参数。</p>
+</blockquote>
+<blockquote>
+<p>当程序需要接收用户数据，程序预先为之分配了4个格子（下图1中黄色的0~3号格子）。按照程序设计，就是要求用户输入的数据不超过4个。而用户在输入数据时，假设输入了16个数据，而且程序也没有对用户输入数据的多少进行检查。</p>
+</blockquote>
+<blockquote>
+<p>就往预先分配的格子中存放，这样不仅4个分配的格子被使用了，其后相邻的12个格子中的内容都被新数据覆盖了。这样原来12个格子中的内容就丢失了。</p>
+</blockquote>
+<h5 id="缓冲区溢出："><a href="#缓冲区溢出：" class="headerlink" title="缓冲区溢出："></a>缓冲区溢出：</h5><blockquote>
+<p>缓冲区溢出是指当计算机程序向缓冲区内填充的数据位数超过了缓冲区本身的容量。溢出的数据覆盖在合法数据上。理想情况是，程序检查数据长度并且不允许输入超过缓冲区长度的字符串。但是绝大多数程序都会假设数据长度总是与所分配的存储空间相匹配，这就为缓冲区溢出埋下隐患。操作系统所使用的缓冲区又被称为堆栈，在各个操作进程之间，指令被临时存储在堆栈当中，堆栈也会出现缓冲区溢出。</p>
+</blockquote>
+<blockquote>
+<p>上溢是当一个超长的数据进入到缓冲区时，超出部分被写入上级缓冲区，上级缓冲区存放的可能是数据、上一条指令的指针，或者是其他程序的输出内容，这些内容都被覆盖或者破坏掉。可见一小部分数据或者一套指令的溢出就可能导致一个程序或者操作系统崩溃。</p>
+</blockquote>
+<blockquote>
+<p>下溢是当一个超长的数据进入到缓冲区时，超出部分被写入下级缓冲区，下级缓冲区存放的是下一条指令的指针，或者是其他程序的输出内容。</p>
+</blockquote>
+<h5 id="缓存："><a href="#缓存：" class="headerlink" title="缓存："></a>缓存：</h5><blockquote>
+<p>缓存（Cache memory）是硬盘控制器上的一块内存芯片，具有极快的存取速度，它是硬盘内部存储和外界接口之间的缓冲器。由于硬盘的内部数据传输速度和外界介面传输速度不同，缓存在其中起到一个缓冲的作用。缓存的大小与速度是直接关系到硬盘的传输速度的重要因素，能够大幅度地提高硬盘整体性能。当硬盘存取零碎数据时需要不断地在硬盘与内存之间交换数据，如果有大缓存，则可以将那些零碎数据暂存在缓存中，减小外系统的负荷，也提高了数据的传输速度。</p>
+</blockquote>
+<blockquote>
+<p>硬盘的缓存主要起三种作用：一是预读取。当硬盘受到CPU指令控制开始读取数据时，硬盘上的控制芯片会控制磁头把正在读取的簇的下一个或者几个簇中的数据读到缓存中（由于硬盘上数据存储时是比较连续的，所以读取命中率较高），当需要读取下一个或者几个簇中的数据的时候，硬盘则不需要再次读取数据，直接把缓存中的数据传输到内存中就可以了，由于缓存的速度远远高于磁头读写的速度，所以能够达到明显改善性能的目的；二是对写入动作进行缓存。当硬盘接到写入数据的指令之后，并不会马上将数据写入到盘片上，而是先暂时存储在缓存里，然后发送一个“数据已写入”的信号给系统，这时系统就会认为数据已经写入，并继续执行下面的工作，而硬盘则在空闲（不进行读取或写入的时候）时再将缓存中的数据写入到盘片上。虽然对于写入数据的性能有一定提升，但也不可避免地带来了安全隐患——如果数据还在缓存里的时候突然掉电，那么这些数据就会丢失。对于这个问题，硬盘厂商们自然也有解决办法：掉电时，磁头会借助惯性将缓存中的数据写入零磁道以外的暂存区域，等到下次启动时再将这些数据写入目的地；第三个作用就是临时存储最近访问过的数据。有时候，某些数据是会经常需要访问的，硬盘内部的缓存会将读取比较频繁的一些数据存储在缓存中，再次读取时就可以直接从缓存中直接传输。</p>
+</blockquote>
+<blockquote>
+<p>缓存容量的大小不同品牌、不同型号的产品各不相同，早期的硬盘缓存基本都很小，只有几百KB，已无法满足用户的需求。2MB和8MB缓存是现今主流硬盘所采用，而在服务器或特殊应用领域中还有缓存容量更大的产品，甚至达到了16MB、64MB等。</p>
+</blockquote>
+<blockquote>
+<p>大容量的缓存虽然可以在硬盘进行读写工作状态下，让更多的数据存储在缓存中，以提高硬盘的访问速度，但并不意味着缓存越大就越出众。缓存的应用存在一个算法的问题，即便缓存容量很大，而没有一个高效率的算法，那将导致应用中缓存数据的命中率偏低，无法有效发挥出大容量缓存的优势。算法是和缓存容量相辅相成，大容量的缓存需要更为有效率的算法，否则性能会大大折扣，从技术角度上说，高容量缓存的算法是直接影响到硬盘性能发挥的重要因素。更大容量缓存是未来硬盘发展的必然趋势。</p>
+</blockquote>
+<p>[^算术模二]: 移位寄存器的每一级只可能有两种不同的存数(或状态)，分别用0和1来表示。这里， 0和1不再具有一般数量的含义，而只具有逻辑含义。对于这样一种只包含0和1两个元素(符号)的集合(叫做二元集)来说，普通的四则运算不再适用，因而必须重新规定一种新的运算规则。所谓模2运算就是这样一种新的运算规则定律。模2运算是一种二进制算法，CRC校验技术中的核心部分。与四则运算相同，模2运算也包括模2加、模2减、模2乘、模2除四种二进制运算。而且，模2运算也使用与四则运算相同的运算符，即“+”表示模2加，“－”表示模2减，“×”或“·”表示模2乘，“÷”或“&#x2F;”表示模2除。与四则运算不同的是<strong>模2运算不考虑进位和借位</strong>，即模2加法是不带进位的二进制加法运算，模2减法是不带借位的二进制减法运算。这样，两个二进制位相运算时，这两个位的值就能确定运算结果，不受前一次运算的影响，也不对下一次造成影响。 ↩<br>[^自动变量]: 在计算机编程领域，<strong>自动变量</strong>（<em>Automatic Variable</em>）指的是局部作用域变量，具体来说即是在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%8E%A7%E5%88%B6%E6%B5%81">控制流</a>进入变量作用域时系统自动为其分配<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4/10657950">存储空间</a>，并在离开<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BD%9C%E7%94%A8%E5%9F%9F/10944767">作用域</a>时释放空间的一类变量。在许多程序语言中，自动变量与术语“<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F/9844788">局部变量</a>”（<em>Local Variable</em>）所指的变量实际上是同一种变量，所以通常情况下“自动变量”与“局部变量”是同义的。<br>[^上溢和下溢]: 上溢：超出所能表示的最大正数 下溢：超出所能表示的最小负数</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/10/%E7%B1%BB%E5%9E%8B%EF%BC%8C%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F/">http://example.com/2024/07/10/%E7%B1%BB%E5%9E%8B%EF%BC%8C%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/10/%E8%B4%AA%E5%90%83%E8%9B%87%E4%BB%A3%E7%A0%81/" title="贪吃蛇代码"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">贪吃蛇代码</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/10/%E7%BB%99%E6%8C%87%E9%92%88%E8%B5%8B%E5%80%BC%E6%95%B4%E6%95%B0/" title="给指针赋值整数"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">给指针赋值整数</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">369</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%EF%BC%8C%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">类型，运算符与表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8F%98%E9%87%8F%E5%90%8D"><span class="toc-number">1.1.</span> <span class="toc-text">1.变量名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8F%8A%E9%95%BF%E5%BA%A6"><span class="toc-number">1.2.</span> <span class="toc-text">2.数据类型及长度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%B8%B8%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">3.常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%A3%B0%E6%98%8E"><span class="toc-number">1.4.</span> <span class="toc-text">4.声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.5.</span> <span class="toc-text">5.算术运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.5.1.</span> <span class="toc-text">6.关系运算符与逻辑运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.5.2.</span> <span class="toc-text">7.类型转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E"><span class="toc-number">1.6.</span> <span class="toc-text">补充说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%87%AA%E5%8A%A8%E5%8F%98%E9%87%8F"><span class="toc-number">1.6.0.1.</span> <span class="toc-text">1.  自动变量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%87%BD%E6%95%B0%E7%9A%84%E9%9A%90%E5%BC%8F%E5%A3%B0%E6%98%8E"><span class="toc-number">1.6.1.</span> <span class="toc-text">2.函数的隐式声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%8A%E6%BA%A2%E4%B8%8B%E6%BA%A2"><span class="toc-number">1.6.2.</span> <span class="toc-text">3.上溢下溢</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%8A%E6%BA%A2%E4%B8%8B%E6%BA%A2%E5%92%8C%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA"><span class="toc-number">1.6.3.</span> <span class="toc-text">4.上溢下溢和缓冲区溢出</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%EF%BC%9A"><span class="toc-number">1.6.3.0.1.</span> <span class="toc-text">缓冲区溢出：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%EF%BC%9A"><span class="toc-number">1.6.3.0.2.</span> <span class="toc-text">缓存：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%EF%BC%8C%E8%BF%9B%E7%A8%8B%EF%BC%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" title="线程，进程，协程的区别"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="线程，进程，协程的区别"/></a><div class="content"><a class="title" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%EF%BC%8C%E8%BF%9B%E7%A8%8B%EF%BC%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" title="线程，进程，协程的区别">线程，进程，协程的区别</a><time datetime="2024-07-10T04:04:54.315Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E8%BF%9B%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" title="进程间的通信"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="进程间的通信"/></a><div class="content"><a class="title" href="/2024/07/10/%E8%BF%9B%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" title="进程间的通信">进程间的通信</a><time datetime="2024-07-10T04:04:54.315Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/linux%E7%AE%A1%E9%81%93/" title="linux管道"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux管道"/></a><div class="content"><a class="title" href="/2024/07/10/linux%E7%AE%A1%E9%81%93/" title="linux管道">linux管道</a><time datetime="2024-07-10T04:04:54.314Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/" title="线程间的通信方式"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="线程间的通信方式"/></a><div class="content"><a class="title" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/" title="线程间的通信方式">线程间的通信方式</a><time datetime="2024-07-10T04:04:54.314Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E9%9B%B6%E4%BF%A1%E4%BB%BB%E7%BD%91%E5%85%B3/" title="零信任网关"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="零信任网关"/></a><div class="content"><a class="title" href="/2024/07/10/%E9%9B%B6%E4%BF%A1%E4%BB%BB%E7%BD%91%E5%85%B3/" title="零信任网关">零信任网关</a><time datetime="2024-07-10T04:04:54.312Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

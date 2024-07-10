@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Linux sed命令详解 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Linux sed命令详解前言linux sed 命令是利用脚本来处理文本文件。 sed命令可以依照脚本的指令来处理编辑文本文件。 Sed主要用来自动编辑一个或者多个文件，简化对文件的反复操作，编写转换程序等等。 语法1sed [-hnV][-e&lt;script&gt;][-f&lt;script文件&gt;][文本文件]  参数说明：  -e或--expression&#x3D; 以选项中指定的scr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux sed命令详解">
+<meta property="og:url" content="http://example.com/2024/07/10/Linux%20sed%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="Linux sed命令详解前言linux sed 命令是利用脚本来处理文本文件。 sed命令可以依照脚本的指令来处理编辑文本文件。 Sed主要用来自动编辑一个或者多个文件，简化对文件的反复操作，编写转换程序等等。 语法1sed [-hnV][-e&lt;script&gt;][-f&lt;script文件&gt;][文本文件]  参数说明：  -e或--expression&#x3D; 以选项中指定的scr">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png">
+<meta property="article:published_time" content="2024-07-10T04:04:54.059Z">
+<meta property="article:modified_time" content="2024-07-10T04:04:54.060Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://example.com/2024/07/10/Linux%20sed%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux sed命令详解',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-10 12:04:54'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">369</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Linux sed命令详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-10T04:04:54.059Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-10T04:04:54.060Z" title="更新于 2024-07-10 12:04:54">2024-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/PWN%E7%9A%84%E8%84%9A%E6%9C%AC%E5%92%8C%E5%B0%8F%E6%8A%80%E5%B7%A7/">PWN的脚本和小技巧</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Linux sed命令详解"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Linux-sed命令详解"><a href="#Linux-sed命令详解" class="headerlink" title="Linux sed命令详解"></a>Linux sed命令详解</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>linux sed 命令是利用脚本来处理文本文件。</p>
+<p>sed命令可以依照脚本的指令来处理编辑文本文件。</p>
+<p>Sed主要用来自动编辑一个或者多个文件，简化对文件的反复操作，编写转换程序等等。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a><strong>语法</strong></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed [-hnV][-e&lt;script&gt;][-f&lt;script文件&gt;][文本文件]</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数说明</strong>：</p>
+<ul>
+<li>-e<script>或--expression=<script> 以选项中指定的script来处理输入的文本文件。</li>
+<li>-f<script文件>或--file=<script文件> 以选项中指定的script文件来处理输入的文本文件。</li>
+<li>-h或--help 显示帮助。</li>
+<li>-n或--quiet或--silent 仅显示script处理后的结果。</li>
+<li>-V或--version 显示版本信息。</li>
+</ul>
+<p><strong>动作说明</strong>：</p>
+<ul>
+<li>a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～</li>
+<li>c ：取代， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行！</li>
+<li>d ：删除，因为是删除啊，所以 d 后面通常不接任何东东；</li>
+<li>i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；</li>
+<li>p ：打印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n 一起运行～</li>
+<li>s ：取代，可以直接进行取代的工作哩！通常这个 s 的动作可以搭配正则表达式！例如 1,20s/old/new/g 就是啦！</li>
+</ul>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>我们先创建一个 <strong>testfile</strong> 文件，内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ cat testfile #查看testfile 中的内容  </span><br><span class="line">HELLO LINUX!  </span><br><span class="line">Linux is a free unix-type opterating system.  </span><br><span class="line">This is a linux testfile!  </span><br><span class="line">Linux test </span><br><span class="line">Google</span><br><span class="line">Taobao</span><br><span class="line">Runoob</span><br><span class="line">Tesetfile</span><br><span class="line">Wiki</span><br></pre></td></tr></table></figure>
+
+<p>在 <strong>testfile</strong> 文件的第四行后添加一行，并将结果输出到标准输出，在命令行提示符下输入如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -e 4a\newLine testfile </span><br></pre></td></tr></table></figure>
+
+<p>使用 <strong>sed</strong> 命令后，输出结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ sed -e 4a\newLine testfile </span><br><span class="line">HELLO LINUX!  </span><br><span class="line">Linux is a free unix-type opterating system.  </span><br><span class="line">This is a linux testfile!  </span><br><span class="line">Linux test </span><br><span class="line">newLine</span><br><span class="line">Google</span><br><span class="line">Taobao</span><br><span class="line">Runoob</span><br><span class="line">Tesetfile</span><br><span class="line">Wiki</span><br></pre></td></tr></table></figure>
+
+<h3 id="以行为单位的新增-删除"><a href="#以行为单位的新增-删除" class="headerlink" title="以行为单位的新增/删除"></a>以行为单位的新增/删除</h3><p>将 <strong>testfile</strong> 的内容列出并且列印行号，同时，请将第 2~5 行删除！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ nl testfile | sed &#x27;2,5d&#x27;</span><br><span class="line">     1  HELLO LINUX!  </span><br><span class="line">     6  Taobao</span><br><span class="line">     7  Runoob</span><br><span class="line">     8  Tesetfile</span><br><span class="line">     9  Wiki</span><br></pre></td></tr></table></figure>
+
+<p>sed 的动作为 <strong>2,5d</strong>，那个 <strong>d</strong> 是删除的意思，因为删除了 2-5 行，所以显示的数据就没有 2-5 行了， 另外，原本应该是要下达 sed -e 才对，但没有 -e 也是可以的，同时也要注意的是， sed 后面接的动作，请务必以 <strong>'...'</strong> 两个单引号括住喔！</p>
+<p>只要删除第 2 行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed <span class="string">&#x27;2d&#x27;</span></span> </span><br><span class="line">     1  HELLO LINUX!  </span><br><span class="line">     3  This is a linux testfile!  </span><br><span class="line">     4  Linux test </span><br><span class="line">     5  Google</span><br><span class="line">     6  Taobao</span><br><span class="line">     7  Runoob</span><br><span class="line">     8  Tesetfile</span><br><span class="line">     9  Wiki</span><br></pre></td></tr></table></figure>
+
+<p>要删除第 3 到最后一行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed <span class="string">&#x27;3,$d&#x27;</span></span> </span><br><span class="line">     1  HELLO LINUX!  </span><br><span class="line">     2  Linux is a free unix-type opterating system.  </span><br></pre></td></tr></table></figure>
+
+<p>在第二行后(即加在第三行) 加上<strong>drink tea?</strong> 字样：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed <span class="string">&#x27;2a drink tea&#x27;</span></span></span><br><span class="line">     1  HELLO LINUX!  </span><br><span class="line">     2  Linux is a free unix-type opterating system.  </span><br><span class="line">drink tea</span><br><span class="line">     3  This is a linux testfile!  </span><br><span class="line">     4  Linux test </span><br><span class="line">     5  Google</span><br><span class="line">     6  Taobao</span><br><span class="line">     7  Runoob</span><br><span class="line">     8  Tesetfile</span><br><span class="line">     9  Wiki</span><br></pre></td></tr></table></figure>
+
+<p>如果是要在第二行前，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed <span class="string">&#x27;2i drink tea&#x27;</span></span> </span><br><span class="line">     1  HELLO LINUX!  </span><br><span class="line">drink tea</span><br><span class="line">     2  Linux is a free unix-type opterating system.  </span><br><span class="line">     3  This is a linux testfile!  </span><br><span class="line">     4  Linux test </span><br><span class="line">     5  Google</span><br><span class="line">     6  Taobao</span><br><span class="line">     7  Runoob</span><br><span class="line">     8  Tesetfile</span><br><span class="line">     9  Wiki</span><br></pre></td></tr></table></figure>
+
+<p>如果是要增加两行以上，在第二行后面加入两行字，例如 <strong>Drink tea or .....</strong> 与 <strong>drink beer?</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed <span class="string">&#x27;2a Drink tea or ......\</span></span></span><br><span class="line"><span class="string"><span class="language-bash">drink beer ?&#x27;</span></span></span><br><span class="line"></span><br><span class="line">1  HELLO LINUX!  </span><br><span class="line">     2  Linux is a free unix-type opterating system.  </span><br><span class="line">Drink tea or ......</span><br><span class="line">drink beer ?</span><br><span class="line">     3  This is a linux testfile!  </span><br><span class="line">     4  Linux test </span><br><span class="line">     5  Google</span><br><span class="line">     6  Taobao</span><br><span class="line">     7  Runoob</span><br><span class="line">     8  Tesetfile</span><br><span class="line">     9  Wiki</span><br></pre></td></tr></table></figure>
+
+<p>每一行之间都必须要以反斜杠 *<em>*</em> 来进行新行标记。上面的例子中，我们可以发现在第一行的最后面就有 *<em>*</em> 存在。</p>
+<h3 id="以行为单位的替换与显示"><a href="#以行为单位的替换与显示" class="headerlink" title="以行为单位的替换与显示"></a>以行为单位的替换与显示</h3><p>将第 <strong>2-5</strong> 行的内容取代成为 <strong>No 2-5 number</strong> 呢？</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed <span class="string">&#x27;2,5c No 2-5 number&#x27;</span></span></span><br><span class="line">     1  HELLO LINUX!  </span><br><span class="line">No 2-5 number</span><br><span class="line">     6  Taobao</span><br><span class="line">     7  Runoob</span><br><span class="line">     8  Tesetfile</span><br><span class="line">     9  Wiki</span><br></pre></td></tr></table></figure>
+
+<p>透过这个方法我们就能够将数据整行取代了。</p>
+<p>仅列出 testfile 文件内的第 5-7 行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed -n <span class="string">&#x27;5,7p&#x27;</span></span></span><br><span class="line">     5  Google</span><br><span class="line">     6  Taobao</span><br><span class="line">     7  Runoob</span><br></pre></td></tr></table></figure>
+
+<p>可以透过这个 sed 的以行为单位的显示功能， 就能够将某一个文件内的某些行号选择出来显示。</p>
+<h3 id="数据的搜寻并显示"><a href="#数据的搜寻并显示" class="headerlink" title="数据的搜寻并显示"></a>数据的搜寻并显示</h3><p>搜索 testfile 有 <strong>oo</strong> 关键字的行:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed -n <span class="string">&#x27;/oo/p&#x27;</span></span></span><br><span class="line">     5  Google</span><br><span class="line">     7  Runoob</span><br></pre></td></tr></table></figure>
+
+<p>如果 root 找到，除了输出所有行，还会输出匹配行。</p>
+<h3 id="数据的搜寻并删除"><a href="#数据的搜寻并删除" class="headerlink" title="数据的搜寻并删除"></a>数据的搜寻并删除</h3><p>删除 testfile 所有包含 <strong>oo</strong> 的行，其他行输出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed  <span class="string">&#x27;/oo/d&#x27;</span></span></span><br><span class="line">     1  HELLO LINUX!  </span><br><span class="line">     2  Linux is a free unix-type opterating system.  </span><br><span class="line">     3  This is a linux testfile!  </span><br><span class="line">     4  Linux test </span><br><span class="line">     6  Taobao</span><br><span class="line">     8  Tesetfile</span><br><span class="line">     9  Wiki</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据的搜寻并执行命令"><a href="#数据的搜寻并执行命令" class="headerlink" title="数据的搜寻并执行命令"></a>数据的搜寻并执行命令</h3><p>搜索 testfile，找到 <strong>oo</strong> 对应的行，执行后面花括号中的一组命令，每个命令之间用分号分隔，这里把 <strong>oo</strong> 替换为 <strong>kk</strong>，再输出这行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed -n <span class="string">&#x27;/oo/&#123;s/oo/kk/;p;q&#125;&#x27;</span></span>  </span><br><span class="line">     5  Gkkgle</span><br></pre></td></tr></table></figure>
+
+<p>最后的 <strong>q</strong> 是退出。</p>
+<h3 id="数据的查找与替换"><a href="#数据的查找与替换" class="headerlink" title="数据的查找与替换"></a>数据的查找与替换</h3><p>除了整行的处理模式之外， sed 还可以用行为单位进行部分数据的查找与替换<。</p>
+<p>sed 的查找与替换的与 <strong>vi</strong> 命令类似，语法格式如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &#x27;s/要被取代的字串/新的字串/g&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>将 testfile 文件中每行第一次出现的 oo 用字符串 kk 替换，然后将该文件内容输出到标准输出:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -e &#x27;s/oo/kk/&#x27; testfile</span><br></pre></td></tr></table></figure>
+
+<p><strong>g</strong> 标识符表示全局查找替换，使 sed 对文件中所有符合的字符串都被替换，修改后内容会到标准输出，不会修改原文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -e &#x27;s/oo/kk/g&#x27; testfile</span><br></pre></td></tr></table></figure>
+
+<p>选项 <strong>i</strong> 使 sed 修改文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/oo/kk/g&#x27; testfile</span><br></pre></td></tr></table></figure>
+
+<p>批量操作当前目录下以 <strong>test</strong> 开头的文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/oo/kk/g&#x27; ./test*</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们使用 /sbin/ifconfig 查询 IP：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">/sbin/ifconfig eth0</span></span><br><span class="line">eth0 Link encap:Ethernet HWaddr 00:90:CC:A6:34:84</span><br><span class="line">inet addr:192.168.1.100 Bcast:192.168.1.255 Mask:255.255.255.0</span><br><span class="line">inet6 addr: fe80::290:ccff:fea6:3484/64 Scope:Link</span><br><span class="line">UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1</span><br><span class="line">.....(以下省略).....</span><br></pre></td></tr></table></figure>
+
+<p>本机的 ip 是 192.168.1.100。</p>
+<p>将 IP 前面的部分予以删除：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">/sbin/ifconfig eth0 | grep <span class="string">&#x27;inet addr&#x27;</span> | sed <span class="string">&#x27;s/^.*addr://g&#x27;</span></span></span><br><span class="line">192.168.1.100 Bcast:192.168.1.255 Mask:255.255.255.0</span><br></pre></td></tr></table></figure>
+
+<p>接下来则是删除后续的部分，即：<strong>192.168.1.100 Bcast:192.168.1.255 Mask:255.255.255.0</strong>。</p>
+<p>将 IP 后面的部分予以删除:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">/sbin/ifconfig eth0 | grep <span class="string">&#x27;inet addr&#x27;</span> | sed <span class="string">&#x27;s/^.*addr://g&#x27;</span> | sed <span class="string">&#x27;s/Bcast.*$//g&#x27;</span></span></span><br><span class="line">192.168.1.100</span><br></pre></td></tr></table></figure>
+
+<h3 id="多点编辑"><a href="#多点编辑" class="headerlink" title="多点编辑"></a>多点编辑</h3><p>一条 sed 命令，删除 testfile 第三行到末尾的数据，并把 HELLO 替换为 RUNOOB :</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nl</span> testfile | sed -e <span class="string">&#x27;3,$d&#x27;</span> -e <span class="string">&#x27;s/HELLO/RUNOOB/&#x27;</span></span></span><br><span class="line">     1  RUNOOB LINUX!  </span><br><span class="line">     2  Linux is a free unix-type opterating system.  </span><br></pre></td></tr></table></figure>
+
+<p>-e 表示多点编辑，第一个编辑命令删除 testfile 第三行到末尾的数据，第二条命令搜索 HELLO 替换为 RUNOOB。</p>
+<h3 id="直接修改文件内容-危险动作"><a href="#直接修改文件内容-危险动作" class="headerlink" title="直接修改文件内容(危险动作)"></a>直接修改文件内容(危险动作)</h3><p>sed 可以直接修改文件的内容，不必使用管道命令或数据流重导向！ 不过，由于这个动作会直接修改到原始的文件，所以请你千万不要随便拿系统配置来测试！ 我们还是使用文件 regular_express.txt 文件来测试看看吧！</p>
+<p>regular_express.txt 文件内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> regular_express.txt</span> </span><br><span class="line">runoob.</span><br><span class="line">google.</span><br><span class="line">taobao.</span><br><span class="line">facebook.</span><br><span class="line">zhihu-</span><br><span class="line">weibo-</span><br></pre></td></tr></table></figure>
+
+<p>利用 sed 将 regular_express.txt 内每一行结尾若为 . 则换成 !</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed -i <span class="string">&#x27;s/\.$/\!/g&#x27;</span> regular_express.txt</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> regular_express.txt</span> </span><br><span class="line">runoob!</span><br><span class="line">google!</span><br><span class="line">taobao!</span><br><span class="line">facebook!</span><br><span class="line">zhihu-</span><br><span class="line">weibo-</span><br></pre></td></tr></table></figure>
+
+<p>:q:q</p>
+<p>利用 sed 直接在 regular_express.txt 最后一行加入 <strong># This is a test</strong>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed -i <span class="string">&#x27;$a # This is a test&#x27;</span> regular_express.txt</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> regular_express.txt</span> </span><br><span class="line">runoob!</span><br><span class="line">google!</span><br><span class="line">taobao!</span><br><span class="line">facebook!</span><br><span class="line">zhihu-</span><br><span class="line">weibo-</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">This is a <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure>
+
+<p>由于 $ 代表的是最后一行，而 a 的动作是新增，因此该文件最后新增 <strong># This is a test</strong>！</p>
+<p>sed 的 <strong>-i</strong> 选项可以直接修改文件内容，这功能非常有帮助！举例来说，如果你有一个 100 万行的文件，你要在第 100 行加某些文字，此时使用 vim 可能会疯掉！因为文件太大了！那怎办？就利用 sed 啊！透过 sed 直接修改/取代的功能，你甚至不需要使用 vim 去修订！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/10/Linux%20sed%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">http://example.com/2024/07/10/Linux%20sed%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/10/GDB%E7%9A%84%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/" title="GDB的常见用法"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">GDB的常见用法</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/10/CC++%E6%94%B9%E5%8F%98%E7%BB%88%E7%AB%AF%E8%BE%93%E5%87%BA%E5%AD%97%E4%BD%93%E7%9A%84%E9%A2%9C%E8%89%B2%EF%BC%88Linux%EF%BC%89/" title="CC++改变终端输出字体的颜色（Linux）"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CC++改变终端输出字体的颜色（Linux）</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">369</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux-sed%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">Linux sed命令详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">1.1.1.</span> <span class="toc-text">语法</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%EF%BC%8C%E8%BF%9B%E7%A8%8B%EF%BC%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" title="线程，进程，协程的区别"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="线程，进程，协程的区别"/></a><div class="content"><a class="title" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%EF%BC%8C%E8%BF%9B%E7%A8%8B%EF%BC%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" title="线程，进程，协程的区别">线程，进程，协程的区别</a><time datetime="2024-07-10T04:04:54.315Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E8%BF%9B%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" title="进程间的通信"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="进程间的通信"/></a><div class="content"><a class="title" href="/2024/07/10/%E8%BF%9B%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" title="进程间的通信">进程间的通信</a><time datetime="2024-07-10T04:04:54.315Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/linux%E7%AE%A1%E9%81%93/" title="linux管道"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux管道"/></a><div class="content"><a class="title" href="/2024/07/10/linux%E7%AE%A1%E9%81%93/" title="linux管道">linux管道</a><time datetime="2024-07-10T04:04:54.314Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/" title="线程间的通信方式"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="线程间的通信方式"/></a><div class="content"><a class="title" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/" title="线程间的通信方式">线程间的通信方式</a><time datetime="2024-07-10T04:04:54.314Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E9%9B%B6%E4%BF%A1%E4%BB%BB%E7%BD%91%E5%85%B3/" title="零信任网关"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="零信任网关"/></a><div class="content"><a class="title" href="/2024/07/10/%E9%9B%B6%E4%BF%A1%E4%BB%BB%E7%BD%91%E5%85%B3/" title="零信任网关">零信任网关</a><time datetime="2024-07-10T04:04:54.312Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

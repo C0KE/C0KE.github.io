@@ -1,0 +1,1384 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ELF文件格式 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ELF文件格式 可重定位文件，包含由编译器生成的代码和数据。链接器会将它与其他目标文件链接起来从而创建可执行文件或者目标共享文件，在linux中，这种文件后缀一般为.o  共享目标文件，包含代码和数据，这种文件是我们所称的库文件，一般是以.so结尾。 一般有两种使用情形：  链接器将其生成为另一个目标文件。 动态链接器将它与可执行文件以及其他共享目标文件组合在一起生成进程镜像。    链接视图文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELF文件格式">
+<meta property="og:url" content="http://example.com/2024/07/10/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="ELF文件格式 可重定位文件，包含由编译器生成的代码和数据。链接器会将它与其他目标文件链接起来从而创建可执行文件或者目标共享文件，在linux中，这种文件后缀一般为.o  共享目标文件，包含代码和数据，这种文件是我们所称的库文件，一般是以.so结尾。 一般有两种使用情形：  链接器将其生成为另一个目标文件。 动态链接器将它与可执行文件以及其他共享目标文件组合在一起生成进程镜像。    链接视图文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png">
+<meta property="article:published_time" content="2024-07-10T04:04:54.162Z">
+<meta property="article:modified_time" content="2024-07-10T04:04:54.163Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://example.com/2024/07/10/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ELF文件格式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-10 12:04:54'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">369</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ELF文件格式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-10T04:04:54.162Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-10T04:04:54.163Z" title="更新于 2024-07-10 12:04:54">2024-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/">程序员的自我修养</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ELF文件格式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="ELF文件格式"><a href="#ELF文件格式" class="headerlink" title="ELF文件格式"></a>ELF文件格式</h1><ul>
+<li><p>可重定位文件，包含由编译器生成的代码和数据。链接器会将它与其他目标文件链接起来从而创建可执行文件或者目标共享文件，在linux中，这种文件后缀一般为<code>.o</code></p>
+</li>
+<li><p>共享目标文件，包含代码和数据，这种文件是我们所称的库文件，一般是以<code>.so</code>结尾。</p>
+<p>一般有两种使用情形：</p>
+<ul>
+<li>链接器将其生成为另一个目标文件。</li>
+<li>动态链接器将它与可执行文件以及其他共享目标文件组合在一起生成进程镜像。</li>
+</ul>
+</li>
+</ul>
+<h2 id="链接视图"><a href="#链接视图" class="headerlink" title="链接视图"></a>链接视图</h2><p>文件开始处是ELF头部，他给出了整个文件的组织情况</p>
+<p>如果程序头部表存在的话，他会告诉系统如何创建进程。用于生成进程的目标文件必须有程序头部表，但重定位文件不需要这个表。</p>
+<p>节区部分包含在链接视图中要使用的大部分信息：指令，数据，符号表，重定位信息。</p>
+<p>节区头部表包含描述文件节区的信息，每个节区在表中都有一个表项，会给出节区名称，节区大小等信息。用于链接的目标文件必须有节区头部表，其他目标文件则无所谓。</p>
+<h2 id="数据形式"><a href="#数据形式" class="headerlink" title="数据形式"></a>数据形式</h2><p>ELF文件格式支持8位&#x2F;32位体系结构，当然这种格式是可以扩散的，也可以支持更小的或者更大位数的处理器架构，因此，目标文件会包含一些控制数据，这部分数据表明了目标文件所使用的架构，这也使得它可以被通用的方式来识别和解释。目标文件中的其他数据采用目的处理器的格式进行编码，与在何种机器上创建没有关系。这里其实想表明的意思目标文件可以交叉编译，我们可以在x86平台生成arm平台的可执行代码。</p>
+<p>目标文件中的所有数据结构都遵从“自然”大小和对齐规则。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>长度</th>
+<th>对齐方式</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Elf32_Addr</td>
+<td>4</td>
+<td>4</td>
+<td>无符号程序地址</td>
+</tr>
+<tr>
+<td>Elf32_Half&#x2F;Elf64_Half</td>
+<td>2</td>
+<td>2</td>
+<td>无符号半整型</td>
+</tr>
+<tr>
+<td>Elf32_Off</td>
+<td>4</td>
+<td>4</td>
+<td>无符号文件偏移</td>
+</tr>
+<tr>
+<td>Elf32_Sword&#x2F;Elf64_Sword</td>
+<td>4</td>
+<td>4</td>
+<td>有符号大整型</td>
+</tr>
+<tr>
+<td>Elf32_Word&#x2F;Elf64_Word</td>
+<td>4</td>
+<td>4</td>
+<td>无符号大整型</td>
+</tr>
+<tr>
+<td>unsigned char</td>
+<td>1</td>
+<td>1</td>
+<td>无符号小整型</td>
+</tr>
+<tr>
+<td>Elf64_Addr</td>
+<td>8</td>
+<td>8</td>
+<td>无符号程序地址</td>
+</tr>
+<tr>
+<td>Elf64_Off</td>
+<td>8</td>
+<td>8</td>
+<td>无符号文件偏移</td>
+</tr>
+</tbody></table>
+<p>对于64位的基本一样，除了Elf64_Addr 和 Elf64_Off 是8位以外，还有Elf64_Half是2位，其他的皆为4位。</p>
+<h2 id="ELF-Header"><a href="#ELF-Header" class="headerlink" title="ELF Header"></a>ELF Header</h2><p>ELF Header 描述了ELF文件的概要信息，利用这个数据结构可以索引到ELF文件的全部信息，数据结构如下：</p>
+<p>该数据位于gcc编译源文件的elf文件夹里的elf.h</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> EI_NIDENT (16)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span>	e_ident[EI_NIDENT];	<span class="comment">/* Magic number and other info */</span></span><br><span class="line">  Elf32_Half	e_type;			<span class="comment">/* Object file type */</span></span><br><span class="line">  Elf32_Half	e_machine;		<span class="comment">/* Architecture */</span></span><br><span class="line">  Elf32_Word	e_version;		<span class="comment">/* Object file version */</span></span><br><span class="line">  Elf32_Addr	e_entry;		<span class="comment">/* Entry point virtual address */</span></span><br><span class="line">  Elf32_Off	e_phoff;		<span class="comment">/* Program header table file offset */</span></span><br><span class="line">  Elf32_Off	e_shoff;		<span class="comment">/* Section header table file offset */</span></span><br><span class="line">  Elf32_Word	e_flags;		<span class="comment">/* Processor-specific flags */</span></span><br><span class="line">  Elf32_Half	e_ehsize;		<span class="comment">/* ELF header size in bytes */</span></span><br><span class="line">  Elf32_Half	e_phentsize;		<span class="comment">/* Program header table entry size */</span></span><br><span class="line">  Elf32_Half	e_phnum;		<span class="comment">/* Program header table entry count */</span></span><br><span class="line">  Elf32_Half	e_shentsize;		<span class="comment">/* Section header table entry size */</span></span><br><span class="line">  Elf32_Half	e_shnum;		<span class="comment">/* Section header table entry count */</span></span><br><span class="line">  Elf32_Half	e_shstrndx;		<span class="comment">/* Section header string table index */</span></span><br><span class="line">&#125; Elf32_Ehdr;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其中每个成员都是e开头的，他们应该都是ELF的缩写。每个成员的具体说明如下。</p>
+<h3 id="e-indent"><a href="#e-indent" class="headerlink" title="e_indent"></a>e_indent</h3><p>正如之前所说，ELF提供了一个目标文件框架，以便于支持多种处理器，多种编码格式的机器。该变量给出了用于解码核解释文件中与机器无关的数据的方式。这个数组对于不同的下标的含义如下：</p>
+<table>
+<thead>
+<tr>
+<th>宏名称</th>
+<th>下标</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EI_MAG0</td>
+<td>0</td>
+<td>文件标识</td>
+</tr>
+<tr>
+<td>EI_MAG1</td>
+<td>1</td>
+<td>文件标识</td>
+</tr>
+<tr>
+<td>EI_MAG2</td>
+<td>2</td>
+<td>文件标识</td>
+</tr>
+<tr>
+<td>EI_MAG3</td>
+<td>3</td>
+<td>文件标识</td>
+</tr>
+<tr>
+<td>EI_CLASS</td>
+<td>4</td>
+<td>文件类</td>
+</tr>
+<tr>
+<td>EI_DATA</td>
+<td>5</td>
+<td>数据编码</td>
+</tr>
+<tr>
+<td>EI_VERSION</td>
+<td>6</td>
+<td>文件版本</td>
+</tr>
+<tr>
+<td>EI_PAD</td>
+<td>7</td>
+<td>补齐字节开始处</td>
+</tr>
+</tbody></table>
+<p>其中，</p>
+<p><code>e_ident[EI_MAG0]</code>到<code>e_indet[EI_MAG3]</code>,即文件的头四个字节，被称为“魔数”，标识该文件的是一个ELF目标文件。开头为什么是0x7f，对应ASCII字符里面的DEL控制符。几乎所有的可执行文件格式最开始的几个字节都是魔数。比如a.out 格式最开始两个字节为 0x01 , 0x07 ;PE&#x2F;COFF文件最开始两个字节为0x4d,0x5a,即ASCII字符MZ。</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">值</th>
+<th align="left">位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ELFMAG0</td>
+<td align="left">0x7f</td>
+<td align="left">e_ident[EI_MAG0]</td>
+</tr>
+<tr>
+<td align="left">ELFMAG1</td>
+<td align="left">‘E’</td>
+<td align="left">e_ident[EI_MAG1]</td>
+</tr>
+<tr>
+<td align="left">ELFMAG2</td>
+<td align="left">‘L’</td>
+<td align="left">e_ident[EI_MAG2]</td>
+</tr>
+<tr>
+<td align="left">ELFMAG3</td>
+<td align="left">‘F’</td>
+<td align="left">e_ident[EI_MAG3]</td>
+</tr>
+</tbody></table>
+<p><code>e_ident[EI_CLASS]</code> 为 <code>e_ident[EI_MAG3]</code>的下一个字节，标识文件的类型或容量。</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">值</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ELFCLASSNONE</td>
+<td align="left">0</td>
+<td align="left">无效类型</td>
+</tr>
+<tr>
+<td align="left">ELFCLASS32</td>
+<td align="left">1</td>
+<td align="left">32 位文件</td>
+</tr>
+<tr>
+<td align="left">ELFCLASS64</td>
+<td align="left">2</td>
+<td align="left">64 位文件</td>
+</tr>
+</tbody></table>
+<p>ELF文件的设计使得它可以在多种字节长度的机器之间移植，而不需要强制规定机器的最长字节长度和最短字节长度。<code>ELFCLASS32</code>类型支持文件大小和虚拟地址空间上限为4GB的机器；它使用上述定义中的基本类型。</p>
+<p><code>ELFCLASS64</code>类型用于64位架构。</p>
+<p><code>e_indent[EI_DATA]</code>字节给出了目标文件中的特定处理器数据的编码方式。下面是目前已定义的编码：</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">值</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ELFDATANONE</td>
+<td align="left">0</td>
+<td align="left">无效数据编码</td>
+</tr>
+<tr>
+<td align="left">ELFDATA2LSB</td>
+<td align="left">1</td>
+<td align="left">小端</td>
+</tr>
+<tr>
+<td align="left">ELFDATA2MSB</td>
+<td align="left">2</td>
+<td align="left">大端</td>
+</tr>
+</tbody></table>
+<p>其他的值被保留，在未来必要时将被赋予新的编码。</p>
+<p>文件数据编码方式表明了文件内容的解析方式。正如之前所述，<code>ELFCLASS32</code>类型文件使用了具有 1，2 和 4 字节的变量类型。对于已定义的不同的编码方式，其表示如下所示，其中字节号在左上角。</p>
+<p><code>ELFDATA2LSB</code>编码使用补码，最低有效位（Least Significant Byte）占用最低地址。</p>
+<p><code>ELFDATA2MSB</code>编码使用补码，最高有效位（Most Significant Byte）占用最低地址。</p>
+<p><code>e_ident[EI_DATA]</code> 给出了 ELF 头的版本号。目前这个值必须是<code>EV_CURRENT</code>，即之前已经给出的<code>e_version</code>。</p>
+<p><code>e_ident[EI_PAD]</code> 给出了 <code>e_ident</code> 中未使用字节的开始地址。这些字节被保留并置为 0；处理目标文件的程序应该忽略它们。如果之后这些字节被使用，EI_PAD 的值就会改变。</p>
+<h3 id="e-type"><a href="#e-type" class="headerlink" title="e_type"></a>e_type</h3><p><code>e_type</code>标识目标文件类型。</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">值</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ET_NONE</td>
+<td align="left">0</td>
+<td align="left">无文件类型</td>
+</tr>
+<tr>
+<td align="left">ET_REL</td>
+<td align="left">1</td>
+<td align="left">可重定位文件</td>
+</tr>
+<tr>
+<td align="left">ET_EXEC</td>
+<td align="left">2</td>
+<td align="left">可执行文件</td>
+</tr>
+<tr>
+<td align="left">ET_DYN</td>
+<td align="left">3</td>
+<td align="left">共享目标文件</td>
+</tr>
+<tr>
+<td align="left">ET_CORE</td>
+<td align="left">4</td>
+<td align="left">核心转储文件</td>
+</tr>
+<tr>
+<td align="left">ET_LOPROC</td>
+<td align="left">0xff00</td>
+<td align="left">处理器指定下限</td>
+</tr>
+<tr>
+<td align="left">ET_HIPROC</td>
+<td align="left">0xffff</td>
+<td align="left">处理器指定上限</td>
+</tr>
+</tbody></table>
+<p>虽然核心转储文件的内容没有被详细说明，但 <code>ET_CORE</code> 还是被保留用于标志此类文件。从 <code>ET_LOPROC</code> 到 <code>ET_HIPROC</code> (包括边界) 被保留用于处理器指定的场景。其它值在未来必要时可被赋予新的目标文件类型。</p>
+<h3 id="e-machine"><a href="#e-machine" class="headerlink" title="e_machine"></a>e_machine</h3><p>这一项指定了当前文件可以运行的机器架构。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>值</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EM_NONE</td>
+<td>0</td>
+<td>无机器类型</td>
+</tr>
+<tr>
+<td>EM_M32</td>
+<td>1</td>
+<td>AT&amp;T WE 32100</td>
+</tr>
+<tr>
+<td>EM_SPARC</td>
+<td>2</td>
+<td>SPARC</td>
+</tr>
+<tr>
+<td>EM_386</td>
+<td>3</td>
+<td>Intel 80386</td>
+</tr>
+<tr>
+<td>EM_68K</td>
+<td>4</td>
+<td>motorola 68000</td>
+</tr>
+<tr>
+<td>EM_88K</td>
+<td>5</td>
+<td>motorola 88000</td>
+</tr>
+<tr>
+<td>EM_860</td>
+<td>6</td>
+<td>Intel 80860</td>
+</tr>
+<tr>
+<td>EM_MIPS</td>
+<td>7</td>
+<td>MIPS RS3000</td>
+</tr>
+</tbody></table>
+<p>其中EM应该是ELF machine的简写。</p>
+<p>其他值被在未来必要时用于新的机器。此外，特定处理器的ELF名称使用机器名称来区分，一般标志会有个前缀<code>EF_</code>（ELF Flag）。例如在<code>EM_XYZ</code>机器上名叫<code>WIDGET</code>的标志将被称为<code>EF_XYZ_WIDGET</code>。</p>
+<h3 id="e-version"><a href="#e-version" class="headerlink" title="e_version"></a>e_version</h3><p>标识目标文件的版本。</p>
+<p>标识目标文件的版本。</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">值</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">EV_NONE</td>
+<td align="left">0</td>
+<td align="left">无效版本</td>
+</tr>
+<tr>
+<td align="left">EV_CURRENT</td>
+<td align="left">1</td>
+<td align="left">当前版本</td>
+</tr>
+</tbody></table>
+<p>1 表示初始文件格式；未来扩展新的版本的时候 (extensions) 将使用更大的数字。虽然在上面值<code>EV_CURRENT</code>为 1，但是为了反映当前版本号，它可能会改变，<strong>比如 ELF 到现在也就是 1.2 版本。</strong></p>
+<h3 id="e-entry"><a href="#e-entry" class="headerlink" title="e_entry"></a>e_entry</h3><p>这一项为系统转交控制权给ELF中相应代码的虚拟地址。如果没有相关的入口项，则这一项为0,。</p>
+<h3 id="e-phoff"><a href="#e-phoff" class="headerlink" title="e_phoff"></a>e_phoff</h3><p>这一项给出<strong>程序头部表</strong>在文件中的<strong>字节偏移</strong>。如果文件没有程序头部表，则为0。</p>
+<h3 id="e-shoff"><a href="#e-shoff" class="headerlink" title="e_shoff"></a>e_shoff</h3><p>这一项给出<strong>节头表（也叫段表）</strong>在文件中的<strong>字节偏移</strong>。如果文件没有节头表，则为0。</p>
+<h3 id="e-flags"><a href="#e-flags" class="headerlink" title="e_flags"></a>e_flags</h3><p>这一项给出文件中与特定处理器相关的标志，这些标志命名格式为<code>EF_machine_flag</code></p>
+<h3 id="e-ehsize"><a href="#e-ehsize" class="headerlink" title="e_ehsize"></a>e_ehsize</h3><p>这一项给出ELF文件头部的字节长度。</p>
+<h3 id="e-phentsize"><a href="#e-phentsize" class="headerlink" title="e_phentsize"></a>e_phentsize</h3><p>这一项给出<strong>程序头部表</strong>中的每个表项的字节长度。每个表项的大小相同。</p>
+<h3 id="e-phnum"><a href="#e-phnum" class="headerlink" title="e_phnum"></a>e_phnum</h3><p>这一项给出<strong>程序头部表</strong>的项数。因此，<code>e_phnum</code>与<code>e_phentsize</code>的乘积即为程序头部表的字节长度。如果文件中没有程序头部表，则该项值为0。</p>
+<h3 id="e-shentsize"><a href="#e-shentsize" class="headerlink" title="e_shentsize"></a>e_shentsize</h3><p>这一项给出<strong>节头</strong>的字节长度。一个节头是节头表中的一项；节头表中所有项占据的空间大小相同。</p>
+<h3 id="e-shnum"><a href="#e-shnum" class="headerlink" title="e_shnum"></a>e_shnum</h3><p>这一项给出<strong>节头表</strong>中的项数。因此， <code>e_shnum</code> 与 <code>e_shentsize</code> 的乘积即为节头表的字节长度。如果文件中没有节头表，则该项值为 0。</p>
+<h3 id="e-shstrndx"><a href="#e-shstrndx" class="headerlink" title="e_shstrndx"></a>e_shstrndx</h3><p>这一项给出节头表中与节名字符串表相关的表项的索引值。如果文件中没有节名字符串表，则该项值为<code>SHN_UNDEF</code>。</p>
+<p>e_shstrndx是”**Section header string table index **”的缩写。我们知道 <strong>段表字符串</strong>本身也是ELF文件中的一个普通的段，知道他的名字往往叫做 “.shstrtab”。那么这个”e_shstrndx”就表示”.shstrtab”在段表中的下标，即 <strong>段表字符串表</strong>在段表中的下标。我们可以得出结论，只有分析ELF文件头，就可以得到段表和段表字符串表的位置，从而解析整个文件。</p>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><p>这里给出一个elf文件头的案例来分析一波</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">7F 45 4C 46   01 01 01 00    00 00 00 00   00 00 00 00</span><br><span class="line">02 00 03 00   01 00 00 00    00 91 04 08   34 00 00 00</span><br><span class="line">98 38 00 00   00 00 00 00    34 00 20 00   0C 00 28 00</span><br><span class="line">1F 00 1E 00   06 00 00 00    34 00 00 00   34 80 04 08</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>7F 45 4C 46表示这是ELF文件</li>
+<li>01 01 01 00  00 00 00 00   00 00 00 00表示这是32位文件，编码为小端序，文件版本为1</li>
+<li>02 00 表示这为可执行文件</li>
+<li>03 00 表示这是x86架构的文件</li>
+<li>01 00 00 00 目标文件版本为1</li>
+<li>00 91 04 08 程序的入口为0x8409100</li>
+<li>34 00 00 00 程序头部表在偏移为0x34的位置</li>
+<li>98 38 00 00 节头表在偏移为0x3898处</li>
+<li>00 00 00 00 特定处理器标志位0</li>
+<li>34 00 ELF文件头部的字节长度为0x34</li>
+<li>20 00  0C 00 表示为程序头部表长度为0x20，项数为0x0c</li>
+<li>28 00 1F 00 表示为节头表长度为0x28 ，项数为0x1f</li>
+<li>1E 00 节头表中与节名字符串表相关的表项的索引值为0x1E</li>
+</ul>
+<h2 id="Program-Header-Table"><a href="#Program-Header-Table" class="headerlink" title="Program Header Table"></a>Program Header Table</h2><p><strong>概述</strong></p>
+<p>program Header Table 是一个结构体数组，每一个元素的类型时<code>Elf32_Phdr </code>，描述了一个段或者其他系统在准备程序执行时所需要的信息。其中，ELF头中的<code>e_phentsize</code>和<code>e_phnum</code>指定了该数组每个元素的大小以及元素的个数。一个目标文件的段包含一个或者多个节。<strong>程序的头部只有对于可执行文件和共享目标文件有意义</strong>。</p>
+<p>可以说，Program Header Table 就是专门为ELF文件运行时中的段所准备的。</p>
+<p><code>Elf32_Phdr</code>的数据结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf32_Word	p_type;			<span class="comment">/* Segment type */</span></span><br><span class="line">  Elf32_Off	p_offset;		<span class="comment">/* Segment file offset */</span></span><br><span class="line">  Elf32_Addr	p_vaddr;		<span class="comment">/* Segment virtual address */</span></span><br><span class="line">  Elf32_Addr	p_paddr;		<span class="comment">/* Segment physical address */</span></span><br><span class="line">  Elf32_Word	p_filesz;		<span class="comment">/* Segment size in file */</span></span><br><span class="line">  Elf32_Word	p_memsz;		<span class="comment">/* Segment size in memory */</span></span><br><span class="line">  Elf32_Word	p_flags;		<span class="comment">/* Segment flags */</span></span><br><span class="line">  Elf32_Word	p_align;		<span class="comment">/* Segment alignment */</span></span><br><span class="line">&#125; Elf32_Phdr;</span><br></pre></td></tr></table></figure>
+
+<p>每个字段的说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>p_type</td>
+<td>该字段为段的类型，或者表明了该结构的相关信息。</td>
+</tr>
+<tr>
+<td>p_offset</td>
+<td>该字段给出了从文件开始到该段开头的第一个字节的偏移。</td>
+</tr>
+<tr>
+<td>p_vaddr</td>
+<td>该字段给出了该段第一个字节在内存中的虚拟地址。</td>
+</tr>
+<tr>
+<td>p_paddr</td>
+<td>该字段仅用于物理地址寻找相关的系统中，由于“System V”忽略了应用程序的物理寻找，可执行文件和共享目标文件的该项内容并未被限定。</td>
+</tr>
+<tr>
+<td>p_filesz</td>
+<td>该字段给出了文件镜像中该段的大小，可能为0。</td>
+</tr>
+<tr>
+<td>p_memsz</td>
+<td>该字段给出了内存镜像中该段的大小，可能为0。</td>
+</tr>
+<tr>
+<td>p_flags</td>
+<td>该字段给出了与段相关的标记。</td>
+</tr>
+<tr>
+<td>p_align</td>
+<td>可加载的程序的段的p_vaddr 以及p_offset 的大小必须是page的整数倍。该成员给出了段在文件以及内存中的对齐方式。如果该值为0或者1的话，表示不需要对齐。除此之外，p_align应该是2的整数指数次方，并且p_vaddr与p_offset在模p_align的意义下，应该相等。</td>
+</tr>
+</tbody></table>
+<h3 id="段类型"><a href="#段类型" class="headerlink" title="段类型"></a>段类型</h3><p>可执行文件中的段类型如下：</p>
+<table>
+<thead>
+<tr>
+<th>名字</th>
+<th>取值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PT_NULL</td>
+<td>0</td>
+<td>表明段未使用，其结构中其他成员都是未定义的。</td>
+</tr>
+<tr>
+<td>PT_LOAD</td>
+<td>1</td>
+<td>此类型段为一个可加载的段，大小由p_filesz和p_memsz描述。文件中的字节被映射到相应内存段开始处。如果p_memsz大于p_filesz，“剩余”的字节都要被置为0。p_filesz不能大于p_memsz。可加载的段在程序头部按照p_vaddr的升序排列。</td>
+</tr>
+<tr>
+<td>PT_DYNAMIC</td>
+<td>2</td>
+<td>此类型给出动态链接信息。</td>
+</tr>
+<tr>
+<td>PT_INTERP</td>
+<td>3</td>
+<td>此类型段给出了一个以NULL结尾的字符串的位置和长度，该字符串将被当作解释器调用。这种段类型仅可对可执行文件有意义（也可能出现在共享目标文件中）。此外，这种段在一个文件中最多出现一次，而且这种类型的段存在的话，它必须在所有可加载段项的前面。</td>
+</tr>
+<tr>
+<td>PT_NOTE</td>
+<td>4</td>
+<td>此类型给出附加信息的位置和大小。</td>
+</tr>
+<tr>
+<td>PT_SHLIB</td>
+<td>5</td>
+<td>该段类型被保留，不过语义未指定，而且，包含这种类型的段的程序不符合ABI标准。</td>
+</tr>
+<tr>
+<td>PT_PHDR</td>
+<td>6</td>
+<td>该段类型打的数组元素如果存在的话，则给出了程序头部表自身的大小和位置，既包括在文件中也包括在内存中的信息。此类型的段在文件中最多出现一次。<strong>此外，只有程序头部表是程序的内存映像的一部分时，它才会出现</strong>。如果此类型段存在，则必须在所有可加载段项目的前面。</td>
+</tr>
+<tr>
+<td>PL_LOPROC~PT_HIPROC</td>
+<td>0x70000000~0x7fffffff</td>
+<td>此范围的类型保留给处理器专用语义。</td>
+</tr>
+</tbody></table>
+<h3 id="基地址-Base-Address"><a href="#基地址-Base-Address" class="headerlink" title="基地址-Base Address"></a>基地址-Base Address</h3><p>程序头部的虚拟地址可能并不是程序内存镜像中的实际的虚拟地址。通常来说，可执行程序都会包含绝对地址的代码。为了使得程序可以正常执行，段必须在相应的虚拟地址处。另一方面，共享目标文件通常来说包含与地址无关的代码。这可以使得共享目标文件可以被多个进程加载，同时保持程序执行的正确性。尽管系统会为不同的进程选择不同的虚拟地址，但是它仍然保留段的相对地址，<strong>因为地址无关代码使用段之间的相对地址来进行寻址，内存中的虚拟地址之间的差必须与文件中的虚拟地址之间的差相匹配。</strong>内存中任何段的虚拟地址与文件中对应的虚拟地址之间的差值对于任何一个可执行文件或共享对象来说是一个单一常量值。这个差值就是基地址，基地址的一个用途就是在动态链接期间重新定位程序。</p>
+<p>可执行文件或者共享目标文件的基地址是在执行过程中由以下三个数值计算的</p>
+<ul>
+<li>虚拟内存加载地址</li>
+<li>最大页面大小</li>
+<li>程序可加载段的最低虚拟地址</li>
+</ul>
+<p>要计算基地址，首先要确定可加载段中p_vaddr最小的内存虚拟地址，之后把内存虚拟地址缩小为与之最近的最大页面的整数倍即是基地址。根据要加载到内存中的文件的类型，内存地址可能与p_vaddr相同也可能不同。</p>
+<h3 id="段权限-p-flags"><a href="#段权限-p-flags" class="headerlink" title="段权限-p_flags"></a>段权限-p_flags</h3><p>被系统加载到内存中的程序至少有一个可加载的段。当系统为可加载的段创建的内存镜像时，它会按照p_flags将段设置为对应的权限。可能的段权限位有</p>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Value</strong></th>
+<th><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PF_X</td>
+<td>0x1</td>
+<td>Execute</td>
+</tr>
+<tr>
+<td>PF_W</td>
+<td>0x2</td>
+<td>Write</td>
+</tr>
+<tr>
+<td>PF_R</td>
+<td>0x4</td>
+<td>Read</td>
+</tr>
+<tr>
+<td>PF_MASKPROC</td>
+<td>0xf0000000</td>
+<td>Unspecified</td>
+</tr>
+</tbody></table>
+<p>其中，所有在PF_MASKPROC中的比特位都是被保留用于与处理器相关的语义信息。</p>
+<p>如果一个权限位被设置为0，这种类型的段是不可访问的。实际的内存权限取决于相应的内存管理单元，不同的系统可能操作方式不一样。尽管所有的权限组合都是可以的。但系统一般会授予比请求更多的权限。在任何情况下，除非明确说明，一个段不会有写权限。下面给出了所有可能的组合</p>
+<table>
+<thead>
+<tr>
+<th><strong>Flag</strong></th>
+<th><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>none</td>
+<td>0</td>
+</tr>
+<tr>
+<td>PF_X</td>
+<td>1</td>
+</tr>
+<tr>
+<td>PF_W</td>
+<td>2</td>
+</tr>
+<tr>
+<td>PF_W+PF_X</td>
+<td>3</td>
+</tr>
+<tr>
+<td>PF_R</td>
+<td>4</td>
+</tr>
+<tr>
+<td>PF_R+PF_X</td>
+<td>5</td>
+</tr>
+<tr>
+<td>PF_X+PF_W</td>
+<td>6</td>
+</tr>
+<tr>
+<td>PF_X+PF_W+PF_R</td>
+<td>7</td>
+</tr>
+</tbody></table>
+<p>例如，一般来说，.text段一般具有读和执行权限，但不会有写权限。数据段一般具有写，读，以及执行权限。</p>
+<h3 id="段内容"><a href="#段内容" class="headerlink" title="段内容"></a>段内容</h3><p>一个段可能包括一到多个节区，但是这并不会影响到程序的加载。尽管如此，我们也必须需要各种各样的数据来使得程序可以执行以及动态链接等等。下面会给出一般情况下的段的内容。对于不同的段来说，它的节的顺序以及所包含的节的个数有所不同。此外，与处理相关的约束可能会改变对应的段的结构。</p>
+<p>如下所示，代码段只包含只读的指令以及数据。当然这个例子并没有给出所有的可能的段。数据段包含可写的数据以及指令，通常来说，包含以下内容</p>
+<table>
+<thead>
+<tr>
+<th><strong>Text Segment</strong></th>
+<th><strong>Data Segment</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.text</td>
+<td>.data</td>
+</tr>
+<tr>
+<td>.rodata</td>
+<td>.dynamic</td>
+</tr>
+<tr>
+<td>.hash</td>
+<td>.got</td>
+</tr>
+<tr>
+<td>.dynsym</td>
+<td>.bss</td>
+</tr>
+<tr>
+<td>.dynstr</td>
+<td></td>
+</tr>
+<tr>
+<td>.plt</td>
+<td></td>
+</tr>
+<tr>
+<td>.rel.got</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>程序头部的PT_DYNAMIC类型的元素指向<code>.dynamic</code>节。其中，got表和plt表包含与地址无关的代码相关信息。尽管在这里给出的例子中，plt节出现在代码段，但是对于不同的处理器来说，可能会有所变动。</p>
+<p>.bss节的类型为SHT_NOBITS，这表明它在ELF文件中不占用空间，但是它却占用可执行文件的内存镜像的空间。通常情况下，没有被初始化的数据在段的尾部，因此，<code>p_memsz</code>才会比<code>p_filesz</code>大。</p>
+<p>注意：</p>
+<ul>
+<li>不同的段可能会有所重合，即不同的段包含相同的节。</li>
+</ul>
+<h2 id="Section-Header-Table"><a href="#Section-Header-Table" class="headerlink" title="Section Header Table"></a>Section Header Table</h2><p>其实这个数据结构是在ELF文件的尾部。</p>
+<p>该结构用于定位ELF文件中的每个节区的具体位置。</p>
+<p>首先，ELF头中的<code>e_shoff</code>项给出了从文件开头到节头表位置的字节偏移。<code>e_shnum</code>告诉了我们节头表包含的项数；<code>e_shentsize</code>给出了每一项的字节大小。</p>
+<p>其次，节头表是一个数组，每个数组的元素的类型时<code>ELF32_Shdr</code>,每一个元素都描述了一个节区的概要内容。</p>
+<h3 id="ELF32-Shdr"><a href="#ELF32-Shdr" class="headerlink" title="ELF32_Shdr"></a>ELF32_Shdr</h3><p>每个节区头部可以用下面的数据结构进行描述：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf32_Word	sh_name;		<span class="comment">/* Section name (string tbl index) */</span></span><br><span class="line">  Elf32_Word	sh_type;		<span class="comment">/* Section type */</span></span><br><span class="line">  Elf32_Word	sh_flags;		<span class="comment">/* Section flags */</span></span><br><span class="line">  Elf32_Addr	sh_addr;		<span class="comment">/* Section virtual addr at execution */</span></span><br><span class="line">  Elf32_Off	sh_offset;		<span class="comment">/* Section file offset */</span></span><br><span class="line">  Elf32_Word	sh_size;		<span class="comment">/* Section size in bytes */</span></span><br><span class="line">  Elf32_Word	sh_link;		<span class="comment">/* Link to another section */</span></span><br><span class="line">  Elf32_Word	sh_info;		<span class="comment">/* Additional section information */</span></span><br><span class="line">  Elf32_Word	sh_addralign;		<span class="comment">/* Section alignment */</span></span><br><span class="line">  Elf32_Word	sh_entsize;		<span class="comment">/* Entry size if section holds table */</span></span><br><span class="line">&#125; Elf32_Shdr;</span><br></pre></td></tr></table></figure>
+
+<p>每个字段的含义如下</p>
+<table>
+<thead>
+<tr>
+<th>成员</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sh_name</td>
+<td>节名称，是节区头字符串表节区的索引，因此该字段实际是一个数字。在字符串表中的具体内容是以NULL结尾的字符串。段名是个字符串，它位于一个叫做“.shstrtab”的字符串表。sh_name是段名字符串在”.shstrtab”中的偏移。</td>
+</tr>
+<tr>
+<td>sh_type</td>
+<td>根据节的内容和语义进行分类，具体的类型下面会介绍。</td>
+</tr>
+<tr>
+<td>sh_flags</td>
+<td>每一比特代表不同的标志，描述节是否可写，可执行，需要分配内存等属性。</td>
+</tr>
+<tr>
+<td>sh_addr</td>
+<td>如果节区将出现在进程的内存映像中，此成员给出节区的第一个字节应该在进程镜像中的位置。否则，此字段为0。</td>
+</tr>
+<tr>
+<td>sh_offset</td>
+<td>给出节区的第一个字节与文件开始处之间的偏移。SHT_NOBITS类型的节区不占用文件的空间，因此其sh_offset成员给出的是概念性的偏移。</td>
+</tr>
+<tr>
+<td>sh_size</td>
+<td>此成员给出节区的字节大小。除非节区的类型时SHT_NOBITS，否则该节占用文件中的sh_size字节。类型为SHT_NOBITS的节区长度可能非零，不过却不占用文件中的空间。</td>
+</tr>
+<tr>
+<td>sh_link</td>
+<td>此成员给出节区头部表索引链接，其具体的解释依赖于节区类型。</td>
+</tr>
+<tr>
+<td>sh_info</td>
+<td>此成员给出附加信息，其解释依赖于节区类型。</td>
+</tr>
+<tr>
+<td>sh_addralign</td>
+<td>某些节区的地址需要对齐。例如，如果一个节区有一个doubleword类型的变量，那么系统必须保证整个节区按双字对齐。也就是说sh_addr % sh_addralign &#x3D; 0。目前它仅允许为0，以及2的正整数幂数。0和1表示没有对齐约束。</td>
+</tr>
+<tr>
+<td>sh_entsize</td>
+<td>某些节区中存在具有固定大小的表项的表，如符号表。对于这类节区，该成员给出每个表项的字节大小。如果为0，则表示该段不包含固定大小的项。</td>
+</tr>
+</tbody></table>
+<p>正如之前所说，索引为零（SHN_UNDEF）的节区头也存在，此索引标记的是未定义的节区引用。这一项的信息如下</p>
+<table>
+<thead>
+<tr>
+<th align="left">字段名称</th>
+<th align="left">取值</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">sh_name</td>
+<td align="left">0</td>
+<td align="left">无名称</td>
+</tr>
+<tr>
+<td align="left">sh_type</td>
+<td align="left">SHT_NULL</td>
+<td align="left">限制</td>
+</tr>
+<tr>
+<td align="left">sh_flags</td>
+<td align="left">0</td>
+<td align="left">无标志</td>
+</tr>
+<tr>
+<td align="left">sh_addr</td>
+<td align="left">0</td>
+<td align="left">无地址</td>
+</tr>
+<tr>
+<td align="left">sh_offset</td>
+<td align="left">0</td>
+<td align="left">无文件偏移</td>
+</tr>
+<tr>
+<td align="left">sh_size</td>
+<td align="left">0</td>
+<td align="left">无大小</td>
+</tr>
+<tr>
+<td align="left">sh_link</td>
+<td align="left">SHN_UNDEF</td>
+<td align="left">无链接信息</td>
+</tr>
+<tr>
+<td align="left">sh_info</td>
+<td align="left">0</td>
+<td align="left">无辅助信息</td>
+</tr>
+<tr>
+<td align="left">sh_addralign</td>
+<td align="left">0</td>
+<td align="left">无对齐要求</td>
+</tr>
+<tr>
+<td align="left">sh_entsize</td>
+<td align="left">0</td>
+<td align="left">无表项</td>
+</tr>
+</tbody></table>
+<h3 id="特殊下标"><a href="#特殊下标" class="headerlink" title="特殊下标"></a>特殊下标</h3><p>节头表中比较特殊的几个下标如下：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SHN_UNDEF</td>
+<td>0</td>
+<td>标志未定义的，丢失的，不相关的或者其他没有意义的节引用。例如，与节号SHN_UNDEF 相关的“定义”的符号就是一个未定义符号。</td>
+</tr>
+<tr>
+<td>SHN_LORESERVE</td>
+<td>0xff00</td>
+<td>保留索引值范围的下界。</td>
+</tr>
+<tr>
+<td>SHN_LOPROC</td>
+<td>0xff00</td>
+<td>处理器相关的下界。</td>
+</tr>
+<tr>
+<td>SHN_HIPROC</td>
+<td>0xff1f</td>
+<td>处理器相关的上界。</td>
+</tr>
+<tr>
+<td>SHN_ABS</td>
+<td>0xfff1</td>
+<td>相关引用的绝对值。例如与节号SHN_ABS相关的符号拥有绝对值，他们不受重定位的影响。</td>
+</tr>
+<tr>
+<td>SHN_COMMON</td>
+<td>0xfff2</td>
+<td>这一节区相定义的符号是通用符号，例如FORTRAN COMMON，C语言中未分配的外部变量。</td>
+</tr>
+<tr>
+<td>SHN_HIRESERVE</td>
+<td>0xffff</td>
+<td>保留索引值范围的上界。</td>
+</tr>
+</tbody></table>
+<p><strong>系统保留在SHN_LORESERVE 到SHN_HIRSERVE之间（包含边界）的索引值，这些值不在节头表中引用。也就是说，节头表不包含保留索引项。没特别理解。</strong></p>
+<h3 id="sh-type"><a href="#sh-type" class="headerlink" title="sh_type"></a>sh_type</h3><p>段的名字只是在链接和编译过程中有意义，但它不能真正地表示段的类型。我们也可以将一个数据段命名为”.text”，对于编译器和链接器来说，主要决定段的属性的是段的类型和段的标志位。</p>
+<p>段类型目前有下列可选范围，其中 SHT 是 <strong>Section Header Table</strong> 的简写。</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">取值</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">SHT_NULL</td>
+<td align="left">0</td>
+<td align="left">该类型节区是非活动的，这种类型的节头中的其它成员取值无意义。</td>
+</tr>
+<tr>
+<td align="left">SHT_PROGBITS</td>
+<td align="left">1</td>
+<td align="left">该类型节区包含程序定义的信息，它的格式和含义都由程序来决定。程序段，代码段，数据段都是这种类型</td>
+</tr>
+<tr>
+<td align="left">SHT_SYMTAB</td>
+<td align="left">2</td>
+<td align="left">该类型节区包含一个符号表（<strong>SYMbol TABle</strong>）。目前目标文件对每种类型的节区都只 能包含一个，不过这个限制将来可能发生变化。 一般，SHT_SYMTAB 节区提供用于链接编辑（指 ld 而言） 的符号，尽管也可用来实现动态链接。</td>
+</tr>
+<tr>
+<td align="left">SHT_STRTAB</td>
+<td align="left">3</td>
+<td align="left">该类型节区包含字符串表（ <strong>STRing TABle</strong> ）。</td>
+</tr>
+<tr>
+<td align="left">SHT_RELA</td>
+<td align="left">4</td>
+<td align="left">重定位表。该类型节区包含显式指定位数的重定位项（ <strong>RELocation entry with Addends</strong> ），例如，32 位目标文件中的 Elf32_Rela 类型。此外，目标文件可能拥有多个重定位节区。</td>
+</tr>
+<tr>
+<td align="left">SHT_HASH</td>
+<td align="left">5</td>
+<td align="left">该类型节区包含符号哈希表（ <strong>HASH table</strong> ）。</td>
+</tr>
+<tr>
+<td align="left">SHT_DYNAMIC</td>
+<td align="left">6</td>
+<td align="left">该类型节区包含动态链接的信息（ <strong>DYNAMIC linking</strong> ）。</td>
+</tr>
+<tr>
+<td align="left">SHT_NOTE</td>
+<td align="left">7</td>
+<td align="left">该类型节区包含以某种方式标记文件的信息（<strong>NOTE</strong>）。</td>
+</tr>
+<tr>
+<td align="left">SHT_NOBITS</td>
+<td align="left">8</td>
+<td align="left">该类型节区不占用文件的空间，其它方面和 SHT_PROGBITS 相似。尽管该类型节区不包含任何字节，其对应的节头成员 sh_offset 中还是会包含概念性的文件偏移。表示该段在文件中没内容，比如.bss段。</td>
+</tr>
+<tr>
+<td align="left">SHT_REL</td>
+<td align="left">9</td>
+<td align="left">重定位信息。该类型节区包含重定位表项（<strong>RELocation entry without Addends</strong>），不过并没有指定位数。例如，32 位目标文件中的 Elf32_rel 类型。目标文件中可以拥有多个重定位节区。</td>
+</tr>
+<tr>
+<td align="left">SHT_SHLIB</td>
+<td align="left">10</td>
+<td align="left">该类型此节区被保留，不过其语义尚未被定义。</td>
+</tr>
+<tr>
+<td align="left">SHT_DYNSYM</td>
+<td align="left">11</td>
+<td align="left">动态链接的符号表。作为一个完整的符号表，它可能包含很多对动态链接而言不必 要的符号。因此，目标文件也可以包含一个 SHT_DYNSYM 节区，其中保存动态链接符号的一个最小集合，以节省空间。</td>
+</tr>
+<tr>
+<td align="left">SHT_LOPROC</td>
+<td align="left">0X70000000</td>
+<td align="left">此值指定保留给处理器专用语义的下界（ <strong>LOw PROCessor-specific semantics</strong> ）。</td>
+</tr>
+<tr>
+<td align="left">SHT_HIPROC</td>
+<td align="left">OX7FFFFFFF</td>
+<td align="left">此值指定保留给处理器专用语义的上界（ <strong>HIgh PROCessor-specific semantics</strong> ）。</td>
+</tr>
+<tr>
+<td align="left">SHT_LOUSER</td>
+<td align="left">0X80000000</td>
+<td align="left">此值指定保留给应用程序的索引下界。</td>
+</tr>
+<tr>
+<td align="left">SHT_HIUSER</td>
+<td align="left">0X8FFFFFFF</td>
+<td align="left">此值指定保留给应用程序的索引上界。</td>
+</tr>
+</tbody></table>
+<h3 id="sh-flags"><a href="#sh-flags" class="headerlink" title="sh_flags"></a>sh_flags</h3><p>节头中<code>sh_flags</code>字段的每个比特位都可以给出其相应的标志信息，其定义了对应节区的内容是否可以被修改，被执行等信息。如果一个标志位被设置，则该位取值为1，未定义的位都为0。目前已定义值如下，其他值保留。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SHF_WRITE</td>
+<td>0X1</td>
+<td>这种节包含了进程运行过程中可以被写的数据</td>
+</tr>
+<tr>
+<td>SHF_ALLOC</td>
+<td>0X2</td>
+<td>表示该段在进程中需要分配空间。这种节在进程运行时占用内存。对于不占用目标文件的内存镜像空间的某些控制节，该属性处于关闭状态（off），一般代码段和数据段还有bss段都包含这个标志位。</td>
+</tr>
+<tr>
+<td>SHF_EXECINSTR</td>
+<td>0X4</td>
+<td>这种节包含可执行的机器指令（EXECutable INSTRuction），一般指代码段。</td>
+</tr>
+<tr>
+<td>SHF_MASKPROC</td>
+<td>0XF0000000</td>
+<td>所有掩码中的比特位用于特定处理器语义</td>
+</tr>
+</tbody></table>
+<h3 id="sh-link-sh-info"><a href="#sh-link-sh-info" class="headerlink" title="sh_link &amp; sh_info"></a>sh_link &amp; sh_info</h3><p>如果段的类型是与链接相关的（不论是动态链接或是静态链接），比如重定位表，符号表等，那么sh_link和sh_info这两个成员所包含的意义如下：</p>
+<table>
+<thead>
+<tr>
+<th>sh_type</th>
+<th>sh_link</th>
+<th>sh_info</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SHT_DYNAMIC</td>
+<td>该段所使用的字符串表在段表中的下标</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SHT_HASH</td>
+<td>该段所使用的符号表在段表中的下标</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SHT_REL&#x2F;SHT_RELA</td>
+<td>该段所使用的相应符号表在段表中的下标</td>
+<td>重定位应用到的节的节头索引</td>
+</tr>
+<tr>
+<td>SHT_SYMTAB&#x2F;SHT_DYNSYM</td>
+<td>操作系统特定信息，Linux中的ELF文件中该项指向符号表所对应的字符串节区在Section Header Table中的偏移</td>
+<td>操作系统特定信息</td>
+</tr>
+<tr>
+<td>other</td>
+<td>SHN_UNDEF</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<h3 id="重定位表"><a href="#重定位表" class="headerlink" title="重定位表"></a>重定位表</h3><p>在段表类型里面有一个类型为 <strong>SHT_REL</strong>，在文件中有一个叫做.rel.text的段，其类型就是 <strong>SHT_REL</strong>。也就是说他是一个重定位表。正如我们开始所说的，链接器在处理目标文件时，需要对目标文件中某些部位进行重定位，即代码段和数据段中那些绝对地址的引用的位置。这些重定位的信息都记录在ELF文件的重定位表里面，对于每个需要重定位的代码段或数据段，都会有一个相应的重定位表。比如.rel.text就是针对”.text”段的重定位表，因为”.text”段中至少有一个绝对地址的引用，那就是对”printf“函数的调用。</p>
+<p>一个重定位表同时也是ELF中的一个段，那么这个段的类型（sh_type）就是”SHT_REL”类型的，它的“sh_link”表示符号表的下标，它的“sh_info”表示它作用与哪个段。比如”.rel.text“作用于”.text“段。</p>
+<h3 id="实践-1"><a href="#实践-1" class="headerlink" title="实践"></a>实践</h3><p>这里给出elf的段表来实践分析一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1B 00 00 00  01 00 00 00   02 00 00 00  B4 81 04 08</span><br><span class="line">B4 01 00 00  13 00 00 00   00 00 00 00  00 00 00 00</span><br><span class="line">01 00 00 00  00 00 00 00   23 00 00 00  07 00 00 00</span><br><span class="line">02 00 00 00  C8 81 04 08   C8 01 00 00  24 00 00 00</span><br><span class="line">00 00 00 00  00 00 00 00   04 00 00 00  00 00 00 00</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>1B 00 00 00 表示段的节名称（在节头区字符串表节区的索引），节区字符串表就在段表前面不远处。</li>
+<li>01 00 00 00 该类型节区包含程序定义的信息，它的格式核含义都由程序来决定。</li>
+<li>02 00 00 00 这种节在进程运行时占用内存。对于不占用目标文件的内存镜像空间的某些控制节，该属性处于关闭</li>
+<li>B4 81 04 08 节区第一个字节应该在进程镜像中的位置为0x080481b4</li>
+<li>B4 01 00 00 节区的第一个字节与文件开始处的偏移为0x1b4</li>
+<li>13 00 00 00 节区的字节大小为0x13</li>
+<li>00 00 00 00  00 00 00 00 节头区头部表索引链接和附加信息为0</li>
+<li>01 00 00 00  00 00 00 00 节区对齐没有约束。</li>
+</ul>
+<h2 id="Sections"><a href="#Sections" class="headerlink" title="Sections"></a>Sections</h2><p>节区包含了目标文件中除了ELF头部，程序头部表，节区头部表的所有信息。节区满足以下条件</p>
+<ul>
+<li>每个节区都有对应的节头来描述它。但是反过来，节区头不一定会对应着一个节区，因为节区可能为0。</li>
+<li>每个节区在目标文件中是连续的，但是大小可能为0。</li>
+<li>任意两个节区不能重叠，即一个字节不能同时存在于两个节区中。</li>
+<li>目标文件中可能会有闲置空间，各种头和节不一定会覆盖到目标文件中的所有字节，这是因为文件对齐的原因，<strong>闲置区域的内容未指定，但在文件中是0x00</strong>。</li>
+</ul>
+<p>许多在ELF文件中的节都是预定义的，它们包含程序和控制信息。这些节被操作系统使用，但是对于不同的操作系统，同一节区可能会有不同的类型以及属性。</p>
+<p>可执行文件是由链接器将一些单独的目标文件以及库文件链接起来而得到的。其中，链接器会解析引用（不同文件中的子例程的引用以及数据的引用，调整对象文件中的绝对引用）并且重定位指令。加载与链接过程需要目标文件中的信息，并且会将处理后的信息存储在一些特定的节区中，比如 <code>.dynamic</code>。</p>
+<p>每一种操作系统都会支持一组链接模型，但这些模型都大致可以分为两种</p>
+<ul>
+<li>静态链接     静态链接的文件中使用的库文件或者第三方库都被静态绑定了，其引用已经被解析了。</li>
+<li>动态链接      动态链接的文件中所使用的库文件或者第三方库只是单纯地被链接到可执行文件中。当可执行文件被执行时使用到相应函数时，相应的函数地址才会被解析。</li>
+</ul>
+<p>有一些特殊的节可以支持调试，比如说 .debug 以及.line 节；支持程序控制的节有.bss，.data，.data1, .rodata， .rodata1。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.comment</td>
+<td>SHT_PROGBITS</td>
+<td></td>
+<td>包含版本控制信息。</td>
+</tr>
+<tr>
+<td>.debug</td>
+<td>SHT_PROGBITS</td>
+<td></td>
+<td>此节区包含用于符号调试的信息。</td>
+</tr>
+<tr>
+<td>.dynamic</td>
+<td>SHT_DYNAMIC</td>
+<td>SHF_ALLOC SHF_WRITE</td>
+<td>此节区包含动态链接信息。SHF_WRITE 位设置与否是否被设置取决于具体的处理器。</td>
+</tr>
+<tr>
+<td>.dynstr</td>
+<td>SHT_STRTAB</td>
+<td>SHF_ALLOC</td>
+<td>此节区包含用于动态链接的字符串，大多数 情况下这些字符串代表了与符号表项相关的名称。</td>
+</tr>
+<tr>
+<td>.dynsym</td>
+<td>SHT_DYNSYM</td>
+<td>SHF_ALLOC</td>
+<td>此节区包含动态链接符号表。</td>
+</tr>
+<tr>
+<td>.got</td>
+<td>SHT_PROGBITS</td>
+<td></td>
+<td>此节区包含全局偏移表。</td>
+</tr>
+<tr>
+<td>.line</td>
+<td>SHT_PROGBITS</td>
+<td></td>
+<td>此节区包含符号调试的行号信息，描述了源程序与机器指令之间的对应关系，其内容是未定义的。</td>
+</tr>
+<tr>
+<td>.plt</td>
+<td>SHT_PROGBITS</td>
+<td></td>
+<td>此节区包含过程链接表（procedure linkage table）。</td>
+</tr>
+<tr>
+<td>.relname</td>
+<td>SHT_REL</td>
+<td></td>
+<td>这些节区中包含重定位信息。如果文件中包含可加载的段，段中有重定位内容，节区的属性将包含 SHF_ALLOC 位，否则该位置 0。传统上 name 根据重定位所适用的节区给定。例如 .text 节区的重定位节区名字将是：.rel.text 或者 .rela.text。</td>
+</tr>
+<tr>
+<td>.relaname</td>
+<td>SHT_RELA</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>.shstrtab</td>
+<td>SHT_STRTAB</td>
+<td></td>
+<td>此节区包含节区名称。</td>
+</tr>
+</tbody></table>
+<p>注意：</p>
+<ul>
+<li>以”.”开头的节区名称是系统保留的，当然应用程序也可以使用这些节区。但是为了避免与系统节区冲突，应用程序应该尽量使用没有前缀”.”的节区名称。</li>
+<li>目标文件格式允许有不在上述列表中的节区，可以包含多个名字相同的节区。</li>
+<li>保留给处理器体系结构的节区名称一般命名规则为： 处理器体系结构名称简写+节区名称。其中，处理器名称应该与e_machine中使用的名称相同。例如.FOO.pset 节区是FOO体系结构中的psect 节区。</li>
+</ul>
+<h2 id="Code-Section"><a href="#Code-Section" class="headerlink" title="Code Section"></a>Code Section</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>在动态链接器创建了进程镜像，并且执行了重定位后，每一个共享目标文件都有机会去执行一些初始化的代码。所有的共享目标文件会在可执行文件获得权限之前进行初始化。</p>
+<p>在调用目标文件A的初始化代码之前，会首先调用所有A依赖的共享目标文件的初始化代码。比如说，如果目标文件A依赖于另一个目标文件B，那么B就会在A的依赖列表中，这会被记录在动态结构的DT_NEEDED中。循环依赖的初始化是未被定义的。</p>
+<p>目标文件的初始化通过递归每一个被依赖项的表项来完成。只有当一个目标文件依赖的所有目标文件都处理完自己的依赖后，这个目标文件才会执行初始化代码。</p>
+<p>类似的，共享目标文件也会有结束的函数，这些函数在进程完成自己的终止序列时通过atexit机制来执行。动态链接器调用终止函数的顺序恰好与上面的顺序相反。动态链接器将会确保它只会执行初始化或者终止函数最多一次。</p>
+<p>共享目标文件通过动态结构中的DT_INIT和DT_FINI来指定它们的初始化以及结束函数。在一般情况下，这些函数在.init 节与 .fini节中。</p>
+<p>注意：</p>
+<blockquote>
+<p>尽管atexit终止处理函数通常来说会被执行，但它并不会保证在程序消亡时被执行。更特殊的是，如果程序调用了_exit 函数或者进程由于接收到了一个信号后消亡了，那么它将不会执行对应的函数。</p>
+</blockquote>
+<p>动态链接器并不负责调用可执行文件的.init节或者利用atexit注册可执行文件的.fini节。由用户通过atexit 机制指定的终止函数必须在所有共享目标文件的结束函数前执行。</p>
+<h3 id="init-init-array"><a href="#init-init-array" class="headerlink" title=".init &amp; .init_array"></a>.init &amp; .init_array</h3><p>此节区包含可执行指令，是进程初始化代码的一部分。程序开始执行时，系统会在开始调用主程序入口（通常指C语言的main函数）前执行这些代码。</p>
+<h3 id="text"><a href="#text" class="headerlink" title=".text"></a>.text</h3><p>此节区包含程序的可执行指令。</p>
+<h3 id="fini-fini-array"><a href="#fini-fini-array" class="headerlink" title=".fini &amp; .fini_array"></a>.fini &amp; .fini_array</h3><p>此节区包含可执行的指令，是进程终止代码的一部分。程序正常退出时，系统将执行这里的代码。</p>
+<h2 id="Data-Related-Sections"><a href="#Data-Related-Sections" class="headerlink" title="Data Related Sections"></a>Data Related Sections</h2><h3 id="BSS-Section"><a href="#BSS-Section" class="headerlink" title=".BSS Section"></a>.BSS Section</h3><p>未初始化的全局变量对应的节。此节区不占用ELF文件空间，但占用程序的内存映像中的空间。当程序开始执行时，系统将把这些数据初始化为0。bss其实是block started by symbol 的简写。</p>
+<h3 id="data-Section"><a href="#data-Section" class="headerlink" title=".data Section"></a>.data Section</h3><p>这些节区包含初始化了的数据，会在程序的内存映像中出现。</p>
+<h3 id="rodata-Section"><a href="#rodata-Section" class="headerlink" title=".rodata Section"></a>.rodata Section</h3><p>这些节区包含只读数据，这些数据通常参与进程映像的不可写段。</p>
+<h2 id="String-Sections"><a href="#String-Sections" class="headerlink" title="String Sections"></a>String Sections</h2><p>ELF文件中用到了很多字符串，比如段名，变量名等。因为字符串的长度往往是不定的，所以用固定的结构来表示它比较困难。一种很常见的做法是把字符串表集中起来存放到一个表，然后使用字符串在表中的偏移来引用字符串。</p>
+<p>通过这种方法，在ELF文件中引用字符串只需要给出一个数字下标即可，不用考虑字符串长度的问题。一般字符串表在ELF文件中也以段的形式保存，常见的段名为”.strtab”或”.shstrtab”。这两个字符串表分别为 <strong>字符串表（string Table）</strong>和 <strong>段表字符串表（section Header String Table）</strong>。顾名思义，<strong>字符串表</strong>用来保存普通的字符串，比如符号的名字；<strong>段表字符串表</strong>用来保存段表中用到的字符串，最常见的就是段名（sh_name)。</p>
+<p>可以看出</p>
+<ul>
+<li>字符串表索引可以引用节区中任意字节。</li>
+<li>字符串可以出现多次</li>
+<li>可以存在对子字符串的引用</li>
+<li>字符串表中也可以存在未引用的字符串。</li>
+</ul>
+<p>.strtab信息在进行 strip后就会消失。而且strip后.symtab和.rel和.group段也会被除去。</p>
+<h2 id="Symbol-Table"><a href="#Symbol-Table" class="headerlink" title="Symbol Table"></a>Symbol Table</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>每个目标文件都会有一个符号表，熟悉编译原理的就会知道，在编译程序时，必须有相应的结构来管理程序中的符号以便于对函数和变量进行重定位。</p>
+<p>此外，链接过程的本质就是要把多个不同的目标文件之间相互“粘”在一起。或者说像玩具积木一样，可以拼装形成一个整体。为了使不同目标文件之间能够相互粘连，这些目标文件之间必须有固定的规则才行，就像积木模块必须有凹凸部分才能够拼合。在链接中，目标文件之间相互拼合实际上是目标文件之间对地址的引用，即对函数和变量的地址的引用。</p>
+<p>每个函数和变量都有自己独特的名字，才能避免链接过程中不同变量和函数之间的混淆。在链接中，我们将函数和变量统称为 <strong>符号（Symbol）</strong>，函数名或者变量名就是 <strong>符号名（Symbol Name）</strong>。</p>
+<p>在程序编译成可执行文件后，这个文件中会有一个表专门来保存函数名，变量名，段名和代码或者数据的对应关系，这个表就是符号表。符号表在链接时起着按符号寻址的作用，但在运行的时候就没有什么作用了，因此这个表即使去掉之后，也并不会影响程序的运行。但是如果是动态链接的函数，比如用到了libc的printf函数，那么这个printf符号如果去掉了，在运行的时候就没法找到这函数了，所以这个符号就不能在去符号表的时候被去掉。</p>
+<p>所以ELF文件里有两张符号表，一张叫符号表（.symtab），另一张叫动态符号表(.dynsym)。当去符号的时候，只用去掉符号表，而保留动态符号表</p>
+<h3 id="Elf32-Sym"><a href="#Elf32-Sym" class="headerlink" title="Elf32_Sym"></a>Elf32_Sym</h3><p>ELF文件中的符号表往往是文件中的一个段，段名一般叫做”.symtab”。符号表的结构简单，它是一个Elf32_Sym（32位ELF文件）的数组，每个Elf32_Sym结构对应一个符号。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf32_Word	st_name;		<span class="comment">/* Symbol name (string tbl index) */</span></span><br><span class="line">  Elf32_Addr	st_value;		<span class="comment">/* Symbol value */</span></span><br><span class="line">  Elf32_Word	st_size;		<span class="comment">/* Symbol size */</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span>	st_info;		<span class="comment">/* Symbol type and binding */</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span>	st_other;		<span class="comment">/* Symbol visibility */</span></span><br><span class="line">  Elf32_Section	st_shndx;		<span class="comment">/* Section index */</span></span><br><span class="line">&#125; Elf32_Sym;</span><br></pre></td></tr></table></figure>
+
+<p>每个字段的含义如下</p>
+<table>
+<thead>
+<tr>
+<th align="left">字段</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">st_name</td>
+<td align="left">符号在字符串表中对应的索引。如果该值非 0，则它表示了给出符号名的字符串表索引，否则符号表项没有名称。 注：外部 C 符号在 C 语言和目标文件的符号表中具有相同的名称。</td>
+</tr>
+<tr>
+<td align="left">st_value</td>
+<td align="left">给出与符号相关联的数值，具体取值依赖于上下文，可能是一个正常的数值、一个地址等等。不同的符号，它所对应的值含义不同。</td>
+</tr>
+<tr>
+<td align="left">st_size</td>
+<td align="left">给出对应符号所占用的大小。如果符号没有大小或者大小未知，则此成员为 0。对于包含数据的符号，这个值是该数据类型的大小。</td>
+</tr>
+<tr>
+<td align="left">st_info</td>
+<td align="left">给出符号的类型和绑定属性。之后会给出若干取值和含义的绑定关系。</td>
+</tr>
+<tr>
+<td align="left">st_other</td>
+<td align="left">目前为 0，其含义没有被定义。</td>
+</tr>
+<tr>
+<td align="left">st_shndx</td>
+<td align="left">如果符号定义在该文件中，那么该成员为符号所在节在节区头部表中的下标；如果符号不在本目标文件中，或者对于某些特殊的符号，该成员具有一些特殊含义。</td>
+</tr>
+</tbody></table>
+<p>其中，符号表中下标 0 存储了符号表的一个元素，同时这个元素也相对比较特殊，作为所有未定义符号的索引。</p>
+<h3 id="st-info"><a href="#st-info" class="headerlink" title="st_info"></a>st_info</h3><p>st_info 中包含符号类型和绑定信息，这里给出了控制它的值的方式具体信息如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ELF32_ST_TYPE(i)    ((i)&amp;0xf)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ELF32_ST_INFO(b, t) (((b)&lt;&lt;4) + ((t)&amp;0xf))</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看出st_info的低四位表示符号类型，具体定义如下</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>取值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>STT_NOTYPE</td>
+<td>0</td>
+<td>符号的类型没有定义</td>
+</tr>
+<tr>
+<td>STT_OBJECT</td>
+<td>1</td>
+<td>该符号是个数据对象，比如变量，数组等</td>
+</tr>
+<tr>
+<td>STT_FUNC</td>
+<td>2</td>
+<td>该符号是个函数或其他可执行代码</td>
+</tr>
+<tr>
+<td>STT_SECTION</td>
+<td>3</td>
+<td>该符号是一个段，这种符号必须是STB_LOCAL的</td>
+</tr>
+<tr>
+<td>STT_FILE</td>
+<td>4</td>
+<td>该符号表示文件名，一般都是该目标文件所对应的源文件名，它一定是STB_LOCAL类型的，并且他的st_shndx一定是SHN_ABS</td>
+</tr>
+<tr>
+<td>STT_LOPROC ~ STT_HIPROC</td>
+<td>13~15</td>
+<td>保留用于特定处理器</td>
+</tr>
+</tbody></table>
+<p>共享目标文件中的函数符号比较特殊，当另一个目标文件从共享目标文件中引用一个函数时，链接器自动为被引用符号创建过程链接表项，共享目标中除了<code>STT_FUNC</code>，其他符号将不会通过过程链接表自动被引用。</p>
+<p>根据<code>#define ELF32_ST_BIND(val)   (((unsigned char) (val)) &gt;&gt; 4)</code>可以看出st_info的高四位表示符号绑定的信息。而这部分信息确定了符号的链接可见性及其行为，具体定义如下</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>取值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>STB_LOCAL</td>
+<td>0</td>
+<td>局部符号，对目标文件的外部不可见。相同名称的局部符号可以存在于多个文件中，互不影响。</td>
+</tr>
+<tr>
+<td>STB_GLOBAL</td>
+<td>1</td>
+<td>全局符号，外部可见，对所有将被组合在一起的目标文件都是可见的。一个文件中对某个全局符号的定义将满足另一个文件对相同全局符号的未定义引用。我们称初始化非零的全局符号为强符号，只能定义一次。</td>
+</tr>
+<tr>
+<td>STB_WEAK</td>
+<td>2</td>
+<td>弱符号与全局符号类似，不过它们的定义优先级比较低。</td>
+</tr>
+<tr>
+<td>STB_LOPROC~STB_HIPROC</td>
+<td>3~15</td>
+<td>这个范围的取值是保留给处理器专用语义的。</td>
+</tr>
+</tbody></table>
+<p>此外，全局符号与弱符号的主要区别如下：</p>
+<ul>
+<li>当链接器在链接多个可重定位目标文件时，不允许定义多个相同名字的 <code>STB_GLOBAL</code> 符号。另一方面，如果存在一个已定义全局符号，则同名的弱符号的存在不会引起错误。链接器会优先选择全局定义，忽略弱符号定义。类似的，如果一个公共符号存在 (<code>st_shndx</code>域为<code>SHN_COMMON</code>的符号)，则同名的弱符号的存在不会引起错误。链接器会选择公共定义，忽略弱符号定义。</li>
+</ul>
+<h3 id="st-shndx"><a href="#st-shndx" class="headerlink" title="st_shndx"></a>st_shndx</h3><p>符号所在段，如果符号定义在本目标文件中，那么这个成员表示符号所在段在段表中的下标；但是如果符号不是定义在本目标文件中的，或者对于有些特殊符号，st_shndx 的值有些特殊，具体定义如下</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>取值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SHN_ABS</td>
+<td>0xfff1</td>
+<td>表示该符号的取值具有绝对性，不会因为重定位而发生变化，比如表示文件名的符号就属于这种类型。</td>
+</tr>
+<tr>
+<td>SHN_COMMON</td>
+<td>0xfff2</td>
+<td>符号标记了一个尚未分配的公共块。符号的取值给出了对齐约束，与节区的sh_addralign成员类似。就是说，链接编辑器将在地址位于st_value的倍数处为符号分配空间。符号的大小给出了所需要的字节数。</td>
+</tr>
+<tr>
+<td>SHN_UNDEF</td>
+<td>0</td>
+<td>此索引表示符号没有定义。这个符号表示该符号在本目标文件被引用到，但是定义在其他目标文件中。当链接编辑器将此目标文件与其他定义了该符号的目标文件进行组合时，此文件中对该符号的引用将被链接到实际定义的位置。</td>
+</tr>
+</tbody></table>
+<h3 id="st-value"><a href="#st-value" class="headerlink" title="st_value"></a>st_value</h3><p>符号值，我们前面介绍过，每个符号都有一个相应的值，如果这个符号是一个函数或者变量的定义，那么符号的值就是这个函数或变量的地址，更准确地讲应该按下面几种情况区别对待。</p>
+<ul>
+<li>在可重定位文件中，st_value保存了节区索引WieSHN_COMMON的符号的对齐约束，比如global_uninit_var。</li>
+<li>在可重定位文件中，st_value保存了已定义符号的节区偏移。也就是说st_value保留了st_shndx所标识的节区的头部到符号位置的偏移。</li>
+<li>在可执行和共享目标文件中，st_value包含了一个虚地址。为了使得这些文件的符号对动态链接更有用，节区偏移（针对文件的解释）给出了与节区号无关的虚拟地址（针对内存的解释）</li>
+</ul>
+<h3 id="如何定位"><a href="#如何定位" class="headerlink" title="如何定位"></a>如何定位</h3><p>那么对于一个符号来说如何定位其对应字符串的地址呢？具体步骤如下</p>
+<ol>
+<li>根据 Section Header Table 中符号节头中的 <code>sh_link</code> 获取该符号节中对应符号字符串节在 <code>Section Header Table</code> 中的下标。进而我们就可以获取对应符号节的地址。</li>
+<li>根据该符号的定义中的 st_name 获取该符号的偏移，即在对应符号节中的偏移。</li>
+<li>根据上述两者就可以定位一个符号对应的字符串的地址了。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/10/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">http://example.com/2024/07/10/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/10/%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%BD%AF%E7%A1%AC%E4%BB%B6%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84_2/" title="第一章：计算机的软硬件基本结构_2"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">第一章：计算机的软硬件基本结构_2</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/10/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" title="系统调用"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">系统调用</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">369</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">ELF文件格式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%E8%A7%86%E5%9B%BE"><span class="toc-number">1.1.</span> <span class="toc-text">链接视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BD%A2%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">数据形式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ELF-Header"><span class="toc-number">1.3.</span> <span class="toc-text">ELF Header</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#e-indent"><span class="toc-number">1.3.1.</span> <span class="toc-text">e_indent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-type"><span class="toc-number">1.3.2.</span> <span class="toc-text">e_type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-machine"><span class="toc-number">1.3.3.</span> <span class="toc-text">e_machine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-version"><span class="toc-number">1.3.4.</span> <span class="toc-text">e_version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-entry"><span class="toc-number">1.3.5.</span> <span class="toc-text">e_entry</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-phoff"><span class="toc-number">1.3.6.</span> <span class="toc-text">e_phoff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-shoff"><span class="toc-number">1.3.7.</span> <span class="toc-text">e_shoff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-flags"><span class="toc-number">1.3.8.</span> <span class="toc-text">e_flags</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-ehsize"><span class="toc-number">1.3.9.</span> <span class="toc-text">e_ehsize</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-phentsize"><span class="toc-number">1.3.10.</span> <span class="toc-text">e_phentsize</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-phnum"><span class="toc-number">1.3.11.</span> <span class="toc-text">e_phnum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-shentsize"><span class="toc-number">1.3.12.</span> <span class="toc-text">e_shentsize</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-shnum"><span class="toc-number">1.3.13.</span> <span class="toc-text">e_shnum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-shstrndx"><span class="toc-number">1.3.14.</span> <span class="toc-text">e_shstrndx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.3.15.</span> <span class="toc-text">实践</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Program-Header-Table"><span class="toc-number">1.4.</span> <span class="toc-text">Program Header Table</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">段类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E5%9C%B0%E5%9D%80-Base-Address"><span class="toc-number">1.4.2.</span> <span class="toc-text">基地址-Base Address</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E6%9D%83%E9%99%90-p-flags"><span class="toc-number">1.4.3.</span> <span class="toc-text">段权限-p_flags</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E5%86%85%E5%AE%B9"><span class="toc-number">1.4.4.</span> <span class="toc-text">段内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Section-Header-Table"><span class="toc-number">1.5.</span> <span class="toc-text">Section Header Table</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ELF32-Shdr"><span class="toc-number">1.5.1.</span> <span class="toc-text">ELF32_Shdr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E4%B8%8B%E6%A0%87"><span class="toc-number">1.5.2.</span> <span class="toc-text">特殊下标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sh-type"><span class="toc-number">1.5.3.</span> <span class="toc-text">sh_type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sh-flags"><span class="toc-number">1.5.4.</span> <span class="toc-text">sh_flags</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sh-link-sh-info"><span class="toc-number">1.5.5.</span> <span class="toc-text">sh_link &amp; sh_info</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8"><span class="toc-number">1.5.6.</span> <span class="toc-text">重定位表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5-1"><span class="toc-number">1.5.7.</span> <span class="toc-text">实践</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sections"><span class="toc-number">1.6.</span> <span class="toc-text">Sections</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-Section"><span class="toc-number">1.7.</span> <span class="toc-text">Code Section</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.7.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#init-init-array"><span class="toc-number">1.7.2.</span> <span class="toc-text">.init &amp; .init_array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#text"><span class="toc-number">1.7.3.</span> <span class="toc-text">.text</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fini-fini-array"><span class="toc-number">1.7.4.</span> <span class="toc-text">.fini &amp; .fini_array</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-Related-Sections"><span class="toc-number">1.8.</span> <span class="toc-text">Data Related Sections</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BSS-Section"><span class="toc-number">1.8.1.</span> <span class="toc-text">.BSS Section</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data-Section"><span class="toc-number">1.8.2.</span> <span class="toc-text">.data Section</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rodata-Section"><span class="toc-number">1.8.3.</span> <span class="toc-text">.rodata Section</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-Sections"><span class="toc-number">1.9.</span> <span class="toc-text">String Sections</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Symbol-Table"><span class="toc-number">1.10.</span> <span class="toc-text">Symbol Table</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0-1"><span class="toc-number">1.10.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Elf32-Sym"><span class="toc-number">1.10.2.</span> <span class="toc-text">Elf32_Sym</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#st-info"><span class="toc-number">1.10.3.</span> <span class="toc-text">st_info</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#st-shndx"><span class="toc-number">1.10.4.</span> <span class="toc-text">st_shndx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#st-value"><span class="toc-number">1.10.5.</span> <span class="toc-text">st_value</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.10.6.</span> <span class="toc-text">如何定位</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%EF%BC%8C%E8%BF%9B%E7%A8%8B%EF%BC%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" title="线程，进程，协程的区别"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="线程，进程，协程的区别"/></a><div class="content"><a class="title" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%EF%BC%8C%E8%BF%9B%E7%A8%8B%EF%BC%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" title="线程，进程，协程的区别">线程，进程，协程的区别</a><time datetime="2024-07-10T04:04:54.315Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E8%BF%9B%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" title="进程间的通信"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="进程间的通信"/></a><div class="content"><a class="title" href="/2024/07/10/%E8%BF%9B%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/" title="进程间的通信">进程间的通信</a><time datetime="2024-07-10T04:04:54.315Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/linux%E7%AE%A1%E9%81%93/" title="linux管道"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux管道"/></a><div class="content"><a class="title" href="/2024/07/10/linux%E7%AE%A1%E9%81%93/" title="linux管道">linux管道</a><time datetime="2024-07-10T04:04:54.314Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/" title="线程间的通信方式"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="线程间的通信方式"/></a><div class="content"><a class="title" href="/2024/07/10/%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/" title="线程间的通信方式">线程间的通信方式</a><time datetime="2024-07-10T04:04:54.314Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E9%9B%B6%E4%BF%A1%E4%BB%BB%E7%BD%91%E5%85%B3/" title="零信任网关"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="零信任网关"/></a><div class="content"><a class="title" href="/2024/07/10/%E9%9B%B6%E4%BF%A1%E4%BB%BB%E7%BD%91%E5%85%B3/" title="零信任网关">零信任网关</a><time datetime="2024-07-10T04:04:54.312Z" title="发表于 2024-07-10 12:04:54">2024-07-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
