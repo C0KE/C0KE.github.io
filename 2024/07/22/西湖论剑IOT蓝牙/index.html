@@ -1,0 +1,425 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>西湖论剑IOT蓝牙 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="西湖论剑IOT蓝牙前言转载文章，记录学习 来源 https:&#x2F;&#x2F;xuanxuanblingbling.github.io&#x2F;wireless&#x2F;ble&#x2F;2021&#x2F;06&#x2F;26&#x2F;ble&#x2F; 蓝牙协议协议简介新老并存是蓝牙协议栈复杂的主要原因，协议分层如图： [](https:&#x2F;&#x2F;xuanxuanblingbling.github.io&#x2F;assets&#x2F;pic&#x2F;bluetooth&#x2F;protocal.png) 想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西湖论剑IOT蓝牙">
+<meta property="og:url" content="http://example.com/2024/07/22/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="西湖论剑IOT蓝牙前言转载文章，记录学习 来源 https:&#x2F;&#x2F;xuanxuanblingbling.github.io&#x2F;wireless&#x2F;ble&#x2F;2021&#x2F;06&#x2F;26&#x2F;ble&#x2F; 蓝牙协议协议简介新老并存是蓝牙协议栈复杂的主要原因，协议分层如图： [](https:&#x2F;&#x2F;xuanxuanblingbling.github.io&#x2F;assets&#x2F;pic&#x2F;bluetooth&#x2F;protocal.png) 想">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png">
+<meta property="article:published_time" content="2024-07-22T01:35:17.493Z">
+<meta property="article:modified_time" content="2024-07-22T01:35:17.493Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://example.com/2024/07/22/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '西湖论剑IOT蓝牙',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-22 09:35:17'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">379</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">西湖论剑IOT蓝牙</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-22T01:35:17.493Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-22T01:35:17.493Z" title="更新于 2024-07-22 09:35:17">2024-07-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%93%9D%E7%89%99/">蓝牙</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="西湖论剑IOT蓝牙"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="西湖论剑IOT蓝牙"><a href="#西湖论剑IOT蓝牙" class="headerlink" title="西湖论剑IOT蓝牙"></a>西湖论剑IOT蓝牙</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>转载文章，记录学习</p>
+<p>来源</p>
+<p><a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/wireless/ble/2021/06/26/ble/">https://xuanxuanblingbling.github.io/wireless/ble/2021/06/26/ble/</a></p>
+<h2 id="蓝牙协议"><a href="#蓝牙协议" class="headerlink" title="蓝牙协议"></a>蓝牙协议</h2><h3 id="协议简介"><a href="#协议简介" class="headerlink" title="协议简介"></a>协议简介</h3><p>新老并存是蓝牙协议栈复杂的主要原因，协议分层如图：</p>
+<p>[<a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/protocal.png" alt="image"></a>](<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/assets/pic/bluetooth/protocal.png">https://xuanxuanblingbling.github.io/assets/pic/bluetooth/protocal.png</a>)</p>
+<p>想了解最全面的蓝牙协议栈设计，可以去 <a target="_blank" rel="noopener" href="https://www.bluetooth.com/">蓝牙官网</a> 找，目前最新的白皮书是：<a target="_blank" rel="noopener" href="https://www.bluetooth.org/DocMan/handlers/DownloadDoc.ashx?doc_id=521059">Bluetooth Core Specification v5.3</a>。</p>
+<h3 id="协议实现"><a href="#协议实现" class="headerlink" title="协议实现"></a>协议实现</h3><p>谈协议分层总是很简单，因为上面这种图片随处可见，但其本质的内容是一个抽象的设计方案，而不是具体的实现方案（软件代码，硬件电路）。对于黑客来说，我们不仅仅关注抽象的协议设计上有没有问题，更关注的是协议的实现，因为设计一般都是经过世界上顶尖的大脑们反复推敲出来的，而实现可能就是某个开发者半夜一边吃外卖一边写出来的。协议设计的问题可能在白皮书中隐约看到，但实现的漏洞你是不可能从白皮书中看出来的，比如：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/rir2GzVBXwh9rWsRFMOzKQ">Bleeding Tooth：Linux蓝牙驱动远程代码执行分析与利用</a></li>
+<li><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9205">bluetooth_stack开源蓝牙协议栈源码分析与漏洞挖掘</a></li>
+<li><a target="_blank" rel="noopener" href="http://drops.xmd5.com/static/drops/tips-10109.html">物联网安全拔“牙”实战——低功耗蓝牙（BLE）初探</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/3ou_nHTIp9jSQBTcICd-fA">记一次智能印章设备的漏洞挖掘</a></li>
+</ul>
+<p>这些漏洞他们的本体在：</p>
+<ul>
+<li>linux内核：<a target="_blank" rel="noopener" href="https://elixir.bootlin.com/linux/v5.4/source/net/bluetooth/a2mp.c">linux-5.4&#x2F;net&#x2F;bluetooth&#x2F;a2mp.c</a></li>
+<li>STM32应用代码：<a target="_blank" rel="noopener" href="https://github.com/sj15712795029/bluetooth_stack/commit/d0858698286168c7dc485e8dd123f8228cee0e88">Bluetooth stack: Fix three stack overflow in att messages</a></li>
+<li>github上暴露的签名算法：<a target="_blank" rel="noopener" href="https://github.com/pangliang/miband-sdk-android/blob/cdb9bd038644ae3fb218a309bd20bf6520a8d035/miband-sdk/src/main/java/com/zhaoxiaodan/miband/model/UserInfo.java">miband&#x2F;model&#x2F;UserInfo.java</a></li>
+<li>android APP上不安全的秘钥使用：<a target="_blank" rel="noopener" href="https://mmbiz.qpic.cn/mmbiz_png/wjKxvrT3NmQF38oPdw1ejTGwFQK8uDuQX3pFOBkdnSJ2mG5aibkANOMeSpGly6eqKb1r15UwzeVzMDJ7M81Z4Zg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">displayGattServices</a></li>
+</ul>
+<p>所以我们要了解的是，整个蓝牙的通信过程中，其数据处理的每一个过程究竟在哪？换种说法就是：每层的协议到底是软件实现还是硬件实现？如果是软件实现，那是什么层次的软件（应用代码、内核代码、还是芯片固件等等）？也就是具体协议的落地层次，可以参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bluetooth_stack">wiki: Bluetooth_stack</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/iini/p/8834970.html">三种蓝牙架构实现方案（蓝牙协议栈方案）</a></li>
+<li><a target="_blank" rel="noopener" href="https://evilpan.com/2021/07/10/bluetooth-sec/">蓝牙安全与攻击案例分析</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.synopsys.com/zh-cn/china/resources/dwtb/dwtb-cn-advantage-bluetooth-low-energy-2016q4.html">将低功耗蓝牙IP整合进SOC中的好处</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35787822">蓝牙芯片都有哪些厂商？一文解答</a></li>
+</ul>
+<p>主要就是三种架构方案，后两者的最大区别是：蓝牙app的业务代码与蓝牙协议栈是否运行在同一个处理器上。当然这也就会造成两者蓝牙模组&#x2F;SoC的开发厂商提供的SDK的本质不同，单芯片的SDK主要完成编译烧录运行，而双芯片主要完成通信过程。</p>
+<p>[<a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/realization.png" alt="image"></a>](<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/assets/pic/bluetooth/realization.png">https://xuanxuanblingbling.github.io/assets/pic/bluetooth/realization.png</a>)</p>
+<p>PC和手机一般用蓝牙的都是host+controller双芯片标准架构，其通信的HCI协议也是蓝牙官方规定好的。通过分析linux的蓝牙驱动，以及相关芯片的datasheet，都能看出来这些芯片不参与任何上层协议的实现工作：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/torvalds/linux/tree/master/drivers/bluetooth">linux&#x2F;drivers&#x2F;bluetooth</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.poilabs.com/en/which-mobile-device-has-which-bluetooth-chip/">Which mobile device has which bluetooth chip?</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/26809719">手机中的蓝牙模块一般是用什么芯片？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cypress.com/file/298676/download">BCM4330</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.qualcomm.com/media/documents/files/csr1010-data-sheet.pdf">csr1010-data-sheet</a></li>
+<li><a target="_blank" rel="noopener" href="https://pdf1.alldatasheet.com/datasheet-pdf/view/828921/CYPRESS/BCM4354.html">BCM4354 Datasheet</a></li>
+</ul>
+<p>而嵌入式设备上的使用的蓝牙，可能会采用单芯片整体方案或者自定义双芯片架构，也就是那些蓝牙模组&#x2F;SoC。模组，模块，SoC其实这些概念用起来比较混淆：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/33112744">蓝牙模块都有哪些?</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/42272735">一文看懂BLE蓝牙模组应用开发，快速入门指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zephyrproject.org/building-a-qualified-ble-controller-with-zephyr-os-1-9/">Building a qualified BLE Controller with Zephyr OS 1.9++</a></li>
+</ul>
+<p>可见网上卖的大部分模组，模块，使用起来都应该属于<strong>自定义双芯片架构</strong>，因为你看上面的开发，配置一下串口然后就能直接使用GATT协议进行工作了，可见模组中已经实现了比较完整的蓝牙协议栈了。<strong>单芯片整体方案</strong>最常见的例子就是<a target="_blank" rel="noopener" href="https://www.espressif.com/zh-hans/products/socs/esp32">ESP32</a>，我们的业务代码和蓝牙协议栈代码都运行在一个处理器上：</p>
+<blockquote>
+<p>从 <a target="_blank" rel="noopener" href="http://www.allchiphome.com/circuit/esp32_teardown">ESP32拆解图</a> 可见：ESP32中就封装了一个ESP的SoC和flash</p>
+</blockquote>
+<p>[<a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/esp32.png" alt="image"></a>](<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/assets/pic/bluetooth/esp32.png">https://xuanxuanblingbling.github.io/assets/pic/bluetooth/esp32.png</a>)</p>
+<p>其蓝牙协议栈的实现在：<a target="_blank" rel="noopener" href="https://github.com/espressif/esp-idf/tree/master/components/bt%EF%BC%8C%E5%8D%B3%E6%88%91%E4%BB%AC%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%9A%E5%8A%A1%E4%BB%A3%E7%A0%81%E6%9C%80%E7%BB%88%E4%BC%9A%E5%92%8C%E8%BF%99%E4%B8%AA%E8%93%9D%E7%89%99%E5%8D%8F%E8%AE%AE%E6%A0%88%E4%B8%80%E8%B5%B7%E7%BC%96%E8%AF%91%EF%BC%8C%E6%89%93%E5%8C%85%EF%BC%8C%E7%84%B6%E5%90%8E%E7%83%A7%E5%BD%95%E8%BF%9Besp32%E7%9A%84flash%E4%B8%AD%EF%BC%8C%E7%94%B1esp32%E7%9A%84xtensa%E5%A4%84%E7%90%86%E5%99%A8%E6%9D%A5%E6%89%A7%E8%A1%8C%E3%80%82">https://github.com/espressif/esp-idf/tree/master/components/bt，即我们开发的业务代码最终会和这个蓝牙协议栈一起编译，打包，然后烧录进esp32的flash中，由esp32的xtensa处理器来执行。</a></p>
+<h2 id="攻击技能"><a href="#攻击技能" class="headerlink" title="攻击技能"></a>攻击技能</h2><blockquote>
+<p>这里只讨论从空口对另一台蓝牙设备的攻击，不讨论本地对自身的蓝牙驱动或者蓝牙芯片的攻击。</p>
+</blockquote>
+<p>对于协议的抽象设计和实现方法有了清晰的认知之后，<strong>就是什么东西实现在哪？怎么实现的？</strong> 我们从开发者的视角切换成攻击者。我们不仅会对漏洞的发现，原理更加明晰，而且还能更清楚的知道，我们如何发动一次攻击：<strong>即在什么协议层次？怎么发送攻击流量？怎么完成这个层次的流量抓取？</strong> 此时我们需要回答一个问题：</p>
+<ul>
+<li>问：基本所有的手机或电脑本身都是支持蓝牙的，那为什么还要其他的外置硬件才能进行某些场景下的安全研究呢？</li>
+<li>答：研究一个通信的过程，黑客主要有五个动作：收、发、抓、断、改。本机的硬件可能不支持某些动作，比如发畸形链路层报文：[CC2541 SweynTooth BLE漏洞实测](<a target="_blank" rel="noopener" href="http://iotbzw.com/2020/05/17/CC2541">http://iotbzw.com/2020/05/17/CC2541</a> SweynTooth BLE漏洞实测&#x2F;)、抓空中其他设备的通信报文等等。</li>
+</ul>
+<p>对于空中信号，完成基于中间人的断、改，一般通过拉长双方距离，然后采用中继设备来实现中间人，比如<a target="_blank" rel="noopener" href="https://github.com/nfcgate">NFCGate</a>。不过除了在通信的物理链路上做手脚，还可以在通信过程的软件实现处完成中间人，就像可以使用frida来hook掉android侧的app进而完成对蓝牙数据的修改一样，只要在关注的目标层次之前，篡改其未来要处理的数据即可。对于蓝牙的中间人我还没有调研过，这里还是主要说，收、发、抓这三个动作。</p>
+<h3 id="层次抓包"><a href="#层次抓包" class="headerlink" title="层次抓包"></a>层次抓包</h3><blockquote>
+<p>其实在通信过程的任何阶段，都可以想办法捕获通信内容，所说的常规方法只不过因为是现成的方案。</p>
+</blockquote>
+<p>蓝牙抓包一般来说有如下几种办法：</p>
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">抓包位置</th>
+<th align="left">所需硬件</th>
+<th align="left">特点</th>
+<th align="left">方法说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Ubertooth</td>
+<td align="left">空口</td>
+<td align="left">Ubertooth</td>
+<td align="left">BLE&#x2F;BR, open source</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.freebuf.com/column/208073.html">使用Ubertooth监听蓝牙通信</a></td>
+</tr>
+<tr>
+<td align="left">nRF52832</td>
+<td align="left">空口</td>
+<td align="left">nRF52832</td>
+<td align="left">only BLE</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.szrfstar.com/news/Wireshark_nRF52832_sniffer_VS_Packet_sniffer_CC2540_Dongle_on_BLE_Sniffer-cn.html">nRF52832 Sniffer 抓包使用体验</a></td>
+</tr>
+<tr>
+<td align="left">cc2540</td>
+<td align="left">空口</td>
+<td align="left">cc2540</td>
+<td align="left">only BLE</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/83758668">CC2540 USB Dongle 蓝牙抓包分析仪使用教程</a></td>
+</tr>
+<tr>
+<td align="left">hollong</td>
+<td align="left">空口</td>
+<td align="left">hollong</td>
+<td align="left">only BLE</td>
+<td align="left"><a target="_blank" rel="noopener" href="http://www.viewtool.com/index.php/23-2016-07-29-02-12-01/206-hollong-4-0-4-1-4-2-ble">Hollong 蓝牙4.0&#x2F;4.1&#x2F;4.2 BLE协议监控分析仪 文档</a></td>
+</tr>
+<tr>
+<td align="left">HCI接口</td>
+<td align="left">本机</td>
+<td align="left">本机蓝牙</td>
+<td align="left">only local</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://blog.csdn.net/hansel/article/details/114211184">使用Ubuntu虚拟机抓Bluetooth报文</a></td>
+</tr>
+<tr>
+<td align="left">HCIlog</td>
+<td align="left">本机</td>
+<td align="left">本机蓝牙</td>
+<td align="left">only local</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/73f7366161d1">Android Bluetooth HCI log 详解</a></td>
+</tr>
+</tbody></table>
+<p>抓包位置不同，捕获的数据包层次就不同，看起来的样子也不同，主要是两种，空口和HCI：</p>
+<ul>
+<li>使用ubertooth抓取的空口报文：<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/wireless/ble/2020/12/09/hitctfmisc/">HITCTF 2020 蓝牙原始数据解析</a></li>
+<li>使用HCIlog在Android上抓取的蓝牙报文：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8994a2117166">android下的蓝牙HCI日志抓取方法</a></li>
+</ul>
+<p>但是以上两个都不够直观，我们使用接下来的例题自己抓两个包：</p>
+<ul>
+<li>HCI 报文（wireshark抓取主机HCI接口）：<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/assets/attachment/bluetooth/adv_hci.pcapng">adv_hci.pcapng</a></li>
+<li>空口报文（hollong抓取的空中信号）：<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/assets/attachment/bluetooth/adv_hollong.pcapng">adv_hollong.pcapng</a></li>
+</ul>
+<p>可以清楚的对比两种报文的差异了，其实大差不差：</p>
+<p>[<a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="https://xuanxuanblingbling.github.io/assets/pic/bluetooth/snifer_hci.png" alt="image"></a>](<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/assets/pic/bluetooth/snifer_hci.png">https://xuanxuanblingbling.github.io/assets/pic/bluetooth/snifer_hci.png</a>)</p>
+<p>HCI和空口是蓝牙协议栈的不同层次，协议对两个层次的数据组织并不是简单的封装。这个差异最开始很让我困惑，因为我们太熟悉以太网的报文了，以至于理所应当的认为：数据在通信的每一个层次的流动就是简单做一些数据的包裹，即添加或删除一些头之类的操作。但其实数据在他的整个生命周期的过程，除了基本的包裹操作，还可以有非常多的变换，比如加密解密，编码解码等。这里的本质原因是：每个层次所考虑的问题不仅仅是对下层负责，可能还要在本层完成一些事情。</p>
+<h3 id="高级收发"><a href="#高级收发" class="headerlink" title="高级收发"></a>高级收发</h3><blockquote>
+<p>攻击行为本质就是恶意数据的收发，任何包含发送数据的攻击都必然要有攻击的信道。</p>
+</blockquote>
+<p>如果只是BLE应用层(ATT流量)的简单读写交互的话，<a target="_blank" rel="noopener" href="https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp&hl=zh&gl=US">nRF connect</a> 这个手机软件就足够了，但当我们需要：</p>
+<ul>
+<li>攻击经典蓝牙</li>
+<li>在ATT层有复杂的交互</li>
+<li>攻击其他非ATT的底层协议</li>
+</ul>
+<p>这时 <a target="_blank" rel="noopener" href="https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp&hl=zh&gl=US">nRF connect</a> 就有些力不从心了，于是我们需要更高级的收发包方法，让我们能构造更丰富的恶意报文，所以我们需要尽量彻底的控制蓝牙设备，让其为我们工作。刚才我们说过，目前的手机以及PC都采用的是host+controller双芯片标准架构，所以由于硬件的限制，一般来说，我们只能构造链路层以上的报文。对于链路层和物理层的攻击，则需要更加可控的蓝牙设备，比如ESP32，[Nordic52840](<a target="_blank" rel="noopener" href="http://iotbzw.com/2020/05/17/CC2541">http://iotbzw.com/2020/05/17/CC2541</a> SweynTooth BLE漏洞实测&#x2F;)，甚至是自己构建的SDR。这里我们只关注PC和手机平台作为攻击机：</p>
+<table>
+<thead>
+<tr>
+<th align="left">攻击机</th>
+<th align="left">蓝牙设备</th>
+<th align="left">协议栈</th>
+<th align="left">原生API</th>
+<th align="left">顶层工具</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">linux PC</td>
+<td align="left">PC蓝牙controller</td>
+<td align="left"><a target="_blank" rel="noopener" href="http://www.bluez.org/">bluez</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/doc">D-Bus API</a>、<a target="_blank" rel="noopener" href="https://github.com/torvalds/linux/blob/master/net/bluetooth/hci_core.c">C socket API</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://github.com/bluez/bluez/tree/master/tools">bluez tools</a>、<a target="_blank" rel="noopener" href="https://scapy.readthedocs.io/en/latest/layers/bluetooth.html">Scapy</a>、<a target="_blank" rel="noopener" href="https://github.com/pybluez/pybluez">pybluez</a>、<a target="_blank" rel="noopener" href="https://github.com/IanHarvey/bluepy">bluepy</a>、<a target="_blank" rel="noopener" href="https://github.com/peplin/pygatt">pygatt</a>、<a target="_blank" rel="noopener" href="https://github.com/fO-000/bluescan">bluescan</a></td>
+</tr>
+<tr>
+<td align="left">android</td>
+<td align="left">手机蓝牙controller</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/system/bt/">Fluoride</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/bluetooth/package-summary">java API</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp&hl=zh&gl=US">nRF connect</a></td>
+</tr>
+<tr>
+<td align="left">iPhone</td>
+<td align="left">手机蓝牙controller</td>
+<td align="left">私有</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/corebluetooth">Objective-C API</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://apps.apple.com/us/app/nrf-connect-for-mobile/id1054362403">nRF connect</a></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>bluez API 说明：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/50538888/linux-bluetooth-api-function-locations">Linux Bluetooth API Function Locations</a></p>
+</blockquote>
+<p>在以上原生API的帮助下，我们在空口收发包的最低层次能到L2CAP。<strong>值得注意的是，HCI层协议是主机和控制器的交互界面，其自身的生命周期只存在于二者交互的过程中，而不存在于纯空口过程中。所以对于从空口上完成的HCI层攻击，还是发送其他层协议的报文，从而触发对端的HCI过程，进而发生攻击。</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://insinuator.net/2020/04/cve-2020-0022-an-android-8-0-9-0-bluetooth-zero-click-rce-bluefrag/">CVE-2020-0022 an Android 8.0-9.0 Bluetooth Zero-Click RCE – BlueFrag</a></li>
+<li><a target="_blank" rel="noopener" href="https://paper.seebug.org/1121/">Android 蓝牙子系统 “BlueFrag” 漏洞分析（CVE-2020-0022）</a></li>
+<li><a target="_blank" rel="noopener" href="https://evilpan.com/2021/07/10/bluetooth-sec/#bluefrag">蓝牙安全与攻击案例分析: bluefrag</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bbef95989b4a">CVE-2020-0022漏洞分析</a></li>
+</ul>
+<p>不过原生API的使用不够便捷与轻量，而linux的蓝牙攻击工具是生态最成熟的，基本都是python的库，只有bluez自带的用户态二进制工具除外。所以linux的PC是我们理想的攻击平台，但由于我们大都是使用linux虚拟机，其使用蓝牙设备的方式是和宿主机共享，在这种情况下可能会出现各种各样的问题，所以一般建议linux虚拟机独占一个蓝牙外设。比如我媳妇的惠普windows本中的linux虚拟机就可以使用共享本机的蓝牙设备正常攻击，而我的 MacBook Pro 上，虽然可以使用hciconfig看到蓝牙设备，但之后无法正常进行攻击，这里使用<a target="_blank" rel="noopener" href="https://github.com/IanHarvey/bluepy">bluepy</a>中的blescan进行测试。</p>
+<p>所以当你尝试共享蓝牙设备给linux虚拟机不好使的情况下，才可能需要单独购买一个蓝牙USB外设。<a target="_blank" rel="noopener" href="https://github.com/fO-000/bluescan/blob/master/README-cn.md">bluescan的官方文档</a>中建议<a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=a230r.1.14.14.21b6705fm5gjj3&id=38948169460&ns=1&abbucket=6#detail">Ostran 奥视通 USB 蓝牙适配器 OST-105 CSR 8150 v4.0</a>或者<a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=a230r.1.14.16.19bcf4b2koxeWN&id=561488544550&ns=1&abbucket=19#detail">UD100 G03</a>，我之前一直很奇怪为啥非得这俩蓝牙外设，他们多啥？这玩意淘宝一搜不一大堆么？后来仔细看看才发现，原来网上卖的蓝牙USB外设大部分没有linux的驱动，都是windows独占。另外这些蓝牙USB外设的信号也没有手机或者PC上自带的蓝牙芯片稳定，经常需要插拔，重新连接到虚拟机等重置操作。外设配置好后，就可以关注怎么控制外设收发包了，即linux上的蓝牙顶层工具，这些工具是各有特色：</p>
+<table>
+<thead>
+<tr>
+<th align="left">工具</th>
+<th align="left">形态</th>
+<th align="left">底层</th>
+<th align="left">接口最低控制层次</th>
+<th align="left">特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://github.com/bluez/bluez/tree/master/tools">bluez tools</a></td>
+<td align="left">命令行</td>
+<td align="left">bluez</td>
+<td align="left">HCI（BR&#x2F;BLE）</td>
+<td align="left">基础：主要用于配置检查，能完成一些基本的正常业务数据包</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://scapy.readthedocs.io/en/latest/layers/bluetooth.html">Scapy</a></td>
+<td align="left">python</td>
+<td align="left">bluez</td>
+<td align="left">HCI（BR&#x2F;BLE）</td>
+<td align="left">收发：使用复杂，可在python层面直接控制HCI，组织数据包灵活</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://github.com/pybluez/pybluez">pybluez</a></td>
+<td align="left">python</td>
+<td align="left">bluez</td>
+<td align="left">L2CAP（BR&#x2F;BLE）</td>
+<td align="left">收发：成熟的python蓝牙库，对L2CAP、RFCOMM层的接口友好</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://github.com/IanHarvey/bluepy">bluepy</a></td>
+<td align="left">python</td>
+<td align="left">bluez</td>
+<td align="left">GATT (BLE)</td>
+<td align="left">收发：GATT相关处理较多，扫描脚本blescan命令行直接可用</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://github.com/peplin/pygatt">pygatt</a></td>
+<td align="left">python</td>
+<td align="left">gatttool</td>
+<td align="left">GATT (BLE)</td>
+<td align="left">收发：将gatttool(bluez tools)封装成python接口</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://github.com/fO-000/bluescan">bluescan</a></td>
+<td align="left">python</td>
+<td align="left">bluepy , pybluez</td>
+<td align="left">HCI（BR&#x2F;BLE）</td>
+<td align="left">扫描：安恒海特实验室 Sourcell Xu 开发，安全向，主要用于扫描，Python 3.9以上适配</td>
+</tr>
+</tbody></table>
+<p>工具使用示例文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/fO-000/bluescan/blob/master/README-cn.md">bluescan：一个强大的蓝牙扫描器</a></li>
+<li><a target="_blank" rel="noopener" href="https://delikely.github.io/2018/12/27/%E4%BD%8E%E5%8A%9F%E8%80%97%E8%93%9D%E7%89%99%E6%94%BB%E5%87%BB%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97/">低功耗蓝牙攻击实用指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://draapho.github.io/2016/11/15/1616-python-ble/">使用python实现BLE通讯</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lu_embedded/article/details/112307393">使用 pygatt 读取 Thunderboard 温度数值并控制 LED</a></li>
+</ul>
+<p>有了这些工具，学会了怎么使用这些工具配置，发包，扫描，就可以完成下面的题目了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/22/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/">http://example.com/2024/07/22/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/22/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/" title="固件提取"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">固件提取</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/22/%E8%93%9D%E7%89%99%EF%BC%9AATT%E5%92%8CGATT/" title="蓝牙：ATT和GATT"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">蓝牙：ATT和GATT</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">379</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99"><span class="toc-number">1.</span> <span class="toc-text">西湖论剑IOT蓝牙</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%93%9D%E7%89%99%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.2.</span> <span class="toc-text">蓝牙协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E7%AE%80%E4%BB%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">协议简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.2.</span> <span class="toc-text">协议实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E6%8A%80%E8%83%BD"><span class="toc-number">1.3.</span> <span class="toc-text">攻击技能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%82%E6%AC%A1%E6%8A%93%E5%8C%85"><span class="toc-number">1.3.1.</span> <span class="toc-text">层次抓包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E6%94%B6%E5%8F%91"><span class="toc-number">1.3.2.</span> <span class="toc-text">高级收发</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/" title="固件提取"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="固件提取"/></a><div class="content"><a class="title" href="/2024/07/22/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/" title="固件提取">固件提取</a><time datetime="2024-07-22T01:35:17.504Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/" title="西湖论剑IOT蓝牙"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="西湖论剑IOT蓝牙"/></a><div class="content"><a class="title" href="/2024/07/22/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/" title="西湖论剑IOT蓝牙">西湖论剑IOT蓝牙</a><time datetime="2024-07-22T01:35:17.493Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/%E8%93%9D%E7%89%99%EF%BC%9AATT%E5%92%8CGATT/" title="蓝牙：ATT和GATT"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝牙：ATT和GATT"/></a><div class="content"><a class="title" href="/2024/07/22/%E8%93%9D%E7%89%99%EF%BC%9AATT%E5%92%8CGATT/" title="蓝牙：ATT和GATT">蓝牙：ATT和GATT</a><time datetime="2024-07-22T01:35:17.492Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/%E5%B0%8F%E7%B1%B3%E6%89%8B%E7%8E%AF%E6%B5%8B%E8%AF%95/" title="小米手环测试"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="小米手环测试"/></a><div class="content"><a class="title" href="/2024/07/22/%E5%B0%8F%E7%B1%B3%E6%89%8B%E7%8E%AF%E6%B5%8B%E8%AF%95/" title="小米手环测试">小米手环测试</a><time datetime="2024-07-22T01:35:17.484Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/BLECTF%E4%BD%8E%E5%8A%9F%E8%80%97%E8%93%9D%E7%89%99CTF%20change/" title="BLECTF低功耗蓝牙CTF change"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BLECTF低功耗蓝牙CTF change"/></a><div class="content"><a class="title" href="/2024/07/22/BLECTF%E4%BD%8E%E5%8A%9F%E8%80%97%E8%93%9D%E7%89%99CTF%20change/" title="BLECTF低功耗蓝牙CTF change">BLECTF低功耗蓝牙CTF change</a><time datetime="2024-07-22T01:35:17.483Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

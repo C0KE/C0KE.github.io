@@ -1,0 +1,318 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>固件提取 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="固件提取前言为了学习路由器漏洞挖掘，了解了如何提取固件，下面是各种提取固件的方法，有的方法我尝试过了，有的设备太贵了只是记录。 前置知识FLASH的分类 NOR Flash  像访问SDRAM一样，按照数据&#x2F;地址总线直接访问, 可写的次数较少，速度也慢，由于其读时序类似于SRAM，读地址是线性结构，多用于程序代码的存储。NOR一般是8个针脚，现在常见的路由器大多是这种。   NAND F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="固件提取">
+<meta property="og:url" content="http://example.com/2024/07/22/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="固件提取前言为了学习路由器漏洞挖掘，了解了如何提取固件，下面是各种提取固件的方法，有的方法我尝试过了，有的设备太贵了只是记录。 前置知识FLASH的分类 NOR Flash  像访问SDRAM一样，按照数据&#x2F;地址总线直接访问, 可写的次数较少，速度也慢，由于其读时序类似于SRAM，读地址是线性结构，多用于程序代码的存储。NOR一般是8个针脚，现在常见的路由器大多是这种。   NAND F">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png">
+<meta property="article:published_time" content="2024-07-22T01:35:17.504Z">
+<meta property="article:modified_time" content="2024-07-22T01:35:17.504Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://example.com/2024/07/22/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '固件提取',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-22 09:35:17'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">379</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">固件提取</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-22T01:35:17.504Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-22T01:35:17.504Z" title="更新于 2024-07-22 09:35:17">2024-07-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/">路由器</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="固件提取"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="固件提取"><a href="#固件提取" class="headerlink" title="固件提取"></a>固件提取</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>为了学习路由器漏洞挖掘，了解了如何提取固件，下面是各种提取固件的方法，有的方法我尝试过了，有的设备太贵了只是记录。</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="FLASH的分类"><a href="#FLASH的分类" class="headerlink" title="FLASH的分类"></a>FLASH的分类</h3><ul>
+<li><p>NOR Flash</p>
+<blockquote>
+<p>像访问SDRAM一样，按照数据&#x2F;地址总线直接访问, 可写的次数较少，速度也慢，由于其读时序类似于SRAM，读地址是线性结构，多用于程序代码的存储。NOR一般是8个针脚，现在常见的路由器大多是这种。</p>
+</blockquote>
+</li>
+<li><p>NAND Flash</p>
+<blockquote>
+<p>只有8位&#x2F;16位&#x2F;32位甚至更多位宽的总线，每次访问，都要将长地址分为几部分，一点点的分布传入才能访问nand flash</p>
+<p>相比其余的几种flash优势在于可擦写次数多，擦写速度快，但是在使用以及使用过程中会出现坏块因此需要做特殊处理才可以使用</p>
+<p>一般是大型设备或者高端路由器会使用的。</p>
+</blockquote>
+</li>
+<li><p>eMMC Flash</p>
+<blockquote>
+<p>全称为embeded MultiMedia Card，是一种嵌入式非易失性存储器系统，由Nand flash和Nand flash控制器组成，以BGA方式封装在一款chip上。</p>
+<p>一般用于更加精细的设备，例如手机什么的。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="串口介绍"><a href="#串口介绍" class="headerlink" title="串口介绍"></a>串口介绍</h3><p>串口是一个泛称，UART、COM、TTL、RS232、RS485都遵循类似的通信时序协议，因此都被通称为串口。<br>而在嵌入式开发中所听到的串口一般指的是<code>UART</code>。<code>UART</code>使用的是异步串行通信，以字符为传输单位，一位一位的顺序输送；通信中两个字符间的时间间隔是不固定的 ，然而同一个字符内两个相邻位之间的时间间隔是固定的。数据的传送速率用波特率来表示，即每秒钟传送的二进制位数。一般选波特率都会有9600,19200,115200等，最常用的是115200。<br><code>UART</code>有四个<code>pin</code>，分别是<code>VCC,GND,RX,TX</code>，用的是<code>TTL</code>电平，低电平为<code>0V</code>，高电平为<code>3.3V-5V</code>。</p>
+<h4 id="UART-引脚介绍"><a href="#UART-引脚介绍" class="headerlink" title="UART 引脚介绍"></a>UART 引脚介绍</h4><ul>
+<li>VCC：供电pin，一般是3.3v，在我们的板子上没有过电保护，这个pin一般不接更安全(在路由器通电的时候可以不连VCC)。</li>
+<li>GND：接地pin，有的时候RX接受数据有问题，就要接上这个pin，一般也可不接。</li>
+<li>RX：接收数据pin。</li>
+<li>TX：发送数据pin。</li>
+</ul>
+<h3 id="UART-通信"><a href="#UART-通信" class="headerlink" title="UART 通信"></a>UART 通信</h3><p><code>UART</code>最好的一点是它只使用两根线就可以在设备之间传输数据。在<code>UART</code>通信中，两个<code>UART</code>直接相互通信。发送<code>UART</code>将来自<code>CPU</code>等控制设备的并行数据转换为串行形式，并将其串行发送到接收<code>UART</code>，接收<code>UART</code>然后将串行数据转换回接收设备的并行数据。在两个<code>UART</code>之间传输数据只需要两根线。数据从发送<code>UART</code>的<code>TX</code>引脚流向接收<code>UART</code>的<code>RX</code>引脚，也就是接受和发送数据的<code>UART</code>的<code>RX和TX</code>要反过来连接。</p>
+<p>[<a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/20225191725474914.png" alt="uart串口通信接口"></a>](<a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png">https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png</a>)</p>
+<h2 id="获取方法"><a href="#获取方法" class="headerlink" title="获取方法"></a>获取方法</h2><p>下面列举了几个提取固件的方法</p>
+<h3 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h3><p>我们可以去各个路由器的官方那边下载固件，例如D-link的：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://tsd.dlink.com.tw/downloads2008list.asp?t=1&OS=GPL&SourceType=download&pagetype=S">https://tsd.dlink.com.tw/downloads2008list.asp?t=1&amp;OS=GPL&amp;SourceType=download&amp;pagetype=S</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://support.dlink.com.au/Download/download.aspx?product=DSL-2750B&type=Firmware">https://support.dlink.com.au/Download/download.aspx?product=DSL-2750B&amp;type=Firmware</a></p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240712141905959.png" alt="image-20240712141905959"></a></p>
+<p>但是这种网站有很大的弊端就是很多固件都是没有的，而且有的固件的地方特供的，所以这种方法有时候很难获取到想要的固件</p>
+<p>类似的其他的也可以在官网的技术支持找到，大家可以去找找</p>
+<h3 id="第三方网站"><a href="#第三方网站" class="headerlink" title="第三方网站"></a>第三方网站</h3><p>或者可以去一些第三方的网站找到对应的一些固件</p>
+<p><a target="_blank" rel="noopener" href="https://iui.su/1789/">https://iui.su/1789/</a></p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240712142623477.png" alt="image-20240712142623477"></a></p>
+<p>这些固件会比官网上的资源更多，但是同时也会有很多参差不齐，有的网站还需要收费才能下载，所以大家自行斟酌就行</p>
+<h3 id="抓取升级包和获取升级接口"><a href="#抓取升级包和获取升级接口" class="headerlink" title="抓取升级包和获取升级接口"></a>抓取升级包和获取升级接口</h3><p>大概方法就是逆向上位机获取下载固件链接，或者抓取升级包来获取固件信息，但是我们可能不一定都是获取最新的固件，所以这个方法局限性比较高，这里就不实际操作一遍了，主要就是wireshark工具的使用</p>
+<h3 id="使用编程器RT809F"><a href="#使用编程器RT809F" class="headerlink" title="使用编程器RT809F"></a>使用编程器RT809F</h3><p>这个是用的比较广的一种提取方法</p>
+<p>需要使用到的工具</p>
+<ul>
+<li>RT809F</li>
+<li>soic8夹子</li>
+<li>测试路由器</li>
+<li>SecureCRT</li>
+<li>杜邦线</li>
+</ul>
+<p>买了很久的设备终于到了，现在就立马复现一下这个提取固件的方法</p>
+<p>首先就是需要去下载RT809F的对应软件就行</p>
+<p><a target="_blank" rel="noopener" href="http://doc.ifix.net.cn/@rt809/CHN.html">http://doc.ifix.net.cn/@rt809/CHN.html</a></p>
+<p>直接下载最新版即可，这里我们注意到还有个RT809H的设备，这个设备是比RT809F更高级的设备，但是需要700多，而我们现在用的这个设备300左右，用的不多的直接上RT809F就行</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716111006697.png" alt="image-20240716111006697"></a></p>
+<p>然后下载对应的一些工具，说是给电视刷固件的工具，想着可能有用就都下载了</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716111159408.png" alt="image-20240716111159408"></a></p>
+<h4 id="连接设备"><a href="#连接设备" class="headerlink" title="连接设备"></a>连接设备</h4><p>设备的连接方法有三种，一种是用soic8的夹子连接芯片，一种是用芯片连接钩子去勾那个针脚，最后就是直接把芯片拆下来固定到芯片座上，</p>
+<ul>
+<li>soic8夹子连接</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716111615643.png" alt="image-20240716111615643"></a></p>
+<p>这种方式比较方便，优点是不会破坏路由器，但是缺点容易接触不良，得多夹几次</p>
+<ul>
+<li><p>芯片座</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716111809175.png" alt="image-20240716111809175"></a></p>
+</li>
+</ul>
+<p>这个优点就是能看到芯片，就不太容易接触不良了，但是缺点就是会破坏路由器，而且对焊板子能力要求高（我的芯片就拆坏掉了，还好只是测试的板子）</p>
+<p>由于芯片钩子还蛮贵的，就不在这里演示了</p>
+<h4 id="提取固件"><a href="#提取固件" class="headerlink" title="提取固件"></a>提取固件</h4><p>成功连接后，再将一个转USB设备的线接上RT809F，大概就是这样</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716112342630.png" alt="image-20240716112342630"></a></p>
+<p>然后连接好后，打开编程器软件，直接智能识别就行，如果遇到报错，根据情况调整即可，然后能识别到对应芯片的信息，我们再结合芯片上的标志，可以识别出对应的型号，下图就是我的设备的芯片</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716112754404.png" alt="image-20240716112754404"></a></p>
+<p>可以看出来是CFeon的设备，是CH128A-104Hip</p>
+<p>搜索CFeon，发现是昂科的设备</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716112710668.png" alt="image-20240716112710668"></a></p>
+<p>搜索设备号</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716112946660.png" alt="image-20240716112946660"></a></p>
+<p>跳转到QH128A-104Hip了</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716113011441.png" alt="image-20240716113011441"></a></p>
+<p>还真有这个设备，然后我们知道版本号应该是EN25QH128A-104Hip</p>
+<p>发现没有104Hip,就随便选一个提取就行，试了几个提取的数据都一样的</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716112152636.png" alt="image-20240716112152636"></a></p>
+<p>读取保存即可获得固件了</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240716112300141.png" alt="image-20240716112300141"></a></p>
+<h3 id="通过UART串行调试接口U-Bot"><a href="#通过UART串行调试接口U-Bot" class="headerlink" title="通过UART串行调试接口U-Bot"></a>通过UART串行调试接口U-Bot</h3><p>需要使用到的工具</p>
+<ul>
+<li>FT232</li>
+<li>测试路由器</li>
+<li>SecureCRT</li>
+<li>杜邦线</li>
+<li>排针</li>
+<li>万用表或者JTAGulator</li>
+</ul>
+<p>先拆解一个路由器，然后首先找到对应的UART接口，焊接上排针，可以看到也有对应提示这是UART接口</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240712165627810.png" alt="image-20240712165627810"></a></p>
+<p>没有写出对应的引脚，这里我们可以通过两种方法</p>
+<h4 id="万用表去定位每一个引脚。"><a href="#万用表去定位每一个引脚。" class="headerlink" title="万用表去定位每一个引脚。"></a>万用表去定位每一个引脚。</h4><p>1、定位 <code>GND</code></p>
+<p>将万用表调到蜂鸣档，然后将黑表笔接到背面电源焊锡点，红表笔分别触碰<code>UART</code>四个引脚的焊接点。发出声响的就是<code>GND</code>引脚。</p>
+<p>2、定位 <code>VCC</code></p>
+<p>将万用表调到直流<code>20V</code>，然后将黑表笔放到刚刚判断的<code>GND</code>引脚上，再用红表笔触碰其他三个焊接点进行测试。电压稳定在<code>3.3V或5V</code>左右的那个引脚即为<code>VCC</code>引脚。</p>
+<p>3、定位 <code>TXD</code></p>
+<p>开机会出现数据传输，如果该引脚出现了电压变化，则该引脚是<code>TXD</code>。黑表笔放到刚刚判断的<code>GND</code>引脚上，重启路由器，用红表笔触碰其他两个引脚，电压发生变化的即为<code>TDX</code>。</p>
+<p>4、定位 <code>RXD</code></p>
+<p>确定了其他三个引脚之后，剩下的一个即为<code>RDX</code>。</p>
+<h4 id="JTAGulator"><a href="#JTAGulator" class="headerlink" title="JTAGulator"></a>JTAGulator</h4><p>可以使用JTAGulator去定位每一个引脚，还能知道对应的波特率，就是设备有点贵，心有余而力不足</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240712170120243.png" alt="image-20240712170120243"></a></p>
+<p>大概长这样，大概500左右</p>
+<p>这是JTAGulator的教程</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv13047230/">https://www.bilibili.com/read/cv13047230/</a></p>
+<p>感兴趣的话，可以参照这个去搞</p>
+<p>然后在知道波特率和对应的针脚后，使用FT232去对应连接，GND接GND,然后RXD接TXD，TXD接RXD,也就是前面说的UART的接法。</p>
+<p>注意：在板子通电后最好不要将两者的<code>VCC</code>相连，否则可能损坏设备。</p>
+<p>设备大概长这样：</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240712170600174.png" alt="image-20240712170600174"></a></p>
+<p>最后直接使用<strong>SecureCRT</strong>连接上shell即可。</p>
+<p>我这台机器的话就是115200的波特率，然后就成功进入了U-BOOT</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240712173417707.png" alt="image-20240712173417707"></a></p>
+<p>或者使用minicom工具</p>
+<p>配置号minicom后直接连接即可，配置方法如下</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wonux/p/5897127.html">https://www.cnblogs.com/wonux/p/5897127.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/image-20240715141919215.png" alt="image-20240715141919215"></a></p>
+<p>但是由于我在启动系统的时候后面全是乱码了，后续提取就不在这里讲诉了，但是大概方法就是通过工具传递出来，使用mem和flash命令与内存交互提取数据</p>
+<h3 id="通过逻辑分析仪器saleae或者HydraBus"><a href="#通过逻辑分析仪器saleae或者HydraBus" class="headerlink" title="通过逻辑分析仪器saleae或者HydraBus"></a>通过逻辑分析仪器saleae或者HydraBus</h3><p>需要用到的工具</p>
+<ul>
+<li>路由器</li>
+<li>saleae或者HydraBus</li>
+<li>soic8夹子</li>
+<li>芯片钩子</li>
+</ul>
+<p>具体操作参考这个，因为设备实在是太贵了，saleae要上千块，HydraBus最便宜也要400多块（物联网真的好花钱）</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hP411H7gy/?spm_id_from=333.788&vd_source=b9c5bfe87527051f73cd5ccc7880600e">https://www.bilibili.com/video/BV1hP411H7gy/?spm_id_from=333.788&amp;vd_source=b9c5bfe87527051f73cd5ccc7880600e</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/22/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/">http://example.com/2024/07/22/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/07/22/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/" title="西湖论剑IOT蓝牙"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">西湖论剑IOT蓝牙</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">379</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96"><span class="toc-number">1.</span> <span class="toc-text">固件提取</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">1.2.</span> <span class="toc-text">前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FLASH%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.2.1.</span> <span class="toc-text">FLASH的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.2.</span> <span class="toc-text">串口介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UART-%E5%BC%95%E8%84%9A%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">UART 引脚介绍</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UART-%E9%80%9A%E4%BF%A1"><span class="toc-number">1.2.3.</span> <span class="toc-text">UART 通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">获取方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E7%BD%91"><span class="toc-number">1.3.1.</span> <span class="toc-text">官网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E7%BD%91%E7%AB%99"><span class="toc-number">1.3.2.</span> <span class="toc-text">第三方网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%93%E5%8F%96%E5%8D%87%E7%BA%A7%E5%8C%85%E5%92%8C%E8%8E%B7%E5%8F%96%E5%8D%87%E7%BA%A7%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.3.3.</span> <span class="toc-text">抓取升级包和获取升级接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BC%96%E7%A8%8B%E5%99%A8RT809F"><span class="toc-number">1.3.4.</span> <span class="toc-text">使用编程器RT809F</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E8%AE%BE%E5%A4%87"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">连接设备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E5%8F%96%E5%9B%BA%E4%BB%B6"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">提取固件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87UART%E4%B8%B2%E8%A1%8C%E8%B0%83%E8%AF%95%E6%8E%A5%E5%8F%A3U-Bot"><span class="toc-number">1.3.5.</span> <span class="toc-text">通过UART串行调试接口U-Bot</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%87%E7%94%A8%E8%A1%A8%E5%8E%BB%E5%AE%9A%E4%BD%8D%E6%AF%8F%E4%B8%80%E4%B8%AA%E5%BC%95%E8%84%9A%E3%80%82"><span class="toc-number">1.3.5.1.</span> <span class="toc-text">万用表去定位每一个引脚。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JTAGulator"><span class="toc-number">1.3.5.2.</span> <span class="toc-text">JTAGulator</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E9%80%BB%E8%BE%91%E5%88%86%E6%9E%90%E4%BB%AA%E5%99%A8saleae%E6%88%96%E8%80%85HydraBus"><span class="toc-number">1.3.6.</span> <span class="toc-text">通过逻辑分析仪器saleae或者HydraBus</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/" title="固件提取"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="固件提取"/></a><div class="content"><a class="title" href="/2024/07/22/%E5%9B%BA%E4%BB%B6%E6%8F%90%E5%8F%96/" title="固件提取">固件提取</a><time datetime="2024-07-22T01:35:17.504Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/" title="西湖论剑IOT蓝牙"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="西湖论剑IOT蓝牙"/></a><div class="content"><a class="title" href="/2024/07/22/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91IOT%E8%93%9D%E7%89%99/" title="西湖论剑IOT蓝牙">西湖论剑IOT蓝牙</a><time datetime="2024-07-22T01:35:17.493Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/%E8%93%9D%E7%89%99%EF%BC%9AATT%E5%92%8CGATT/" title="蓝牙：ATT和GATT"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝牙：ATT和GATT"/></a><div class="content"><a class="title" href="/2024/07/22/%E8%93%9D%E7%89%99%EF%BC%9AATT%E5%92%8CGATT/" title="蓝牙：ATT和GATT">蓝牙：ATT和GATT</a><time datetime="2024-07-22T01:35:17.492Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/%E5%B0%8F%E7%B1%B3%E6%89%8B%E7%8E%AF%E6%B5%8B%E8%AF%95/" title="小米手环测试"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="小米手环测试"/></a><div class="content"><a class="title" href="/2024/07/22/%E5%B0%8F%E7%B1%B3%E6%89%8B%E7%8E%AF%E6%B5%8B%E8%AF%95/" title="小米手环测试">小米手环测试</a><time datetime="2024-07-22T01:35:17.484Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/22/BLECTF%E4%BD%8E%E5%8A%9F%E8%80%97%E8%93%9D%E7%89%99CTF%20change/" title="BLECTF低功耗蓝牙CTF change"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BLECTF低功耗蓝牙CTF change"/></a><div class="content"><a class="title" href="/2024/07/22/BLECTF%E4%BD%8E%E5%8A%9F%E8%80%97%E8%93%9D%E7%89%99CTF%20change/" title="BLECTF低功耗蓝牙CTF change">BLECTF低功耗蓝牙CTF change</a><time datetime="2024-07-22T01:35:17.483Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
