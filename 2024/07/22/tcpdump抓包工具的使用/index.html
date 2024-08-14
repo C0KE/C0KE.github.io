@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>tcpdump抓包工具的使用 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="tcpdump抓包工具的使用一，前言tcpdump是一个用于截取网络分组，并输出分组内容的工具。tcpdump凭借强大的功能和灵活的截取策略，使其成为类UNIX系统下用于网络分析和问题排查的首选工具。 另外，tcpdump提供了源代码，公开了接口，因此具备很强的可扩展性。tcpdump存在于基本的Linux系统 中，由于它需要将网络界面设置为混杂模式，普通用户不能正常执行，但具备root权限的用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tcpdump抓包工具的使用">
+<meta property="og:url" content="http://example.com/2024/07/22/tcpdump%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="tcpdump抓包工具的使用一，前言tcpdump是一个用于截取网络分组，并输出分组内容的工具。tcpdump凭借强大的功能和灵活的截取策略，使其成为类UNIX系统下用于网络分析和问题排查的首选工具。 另外，tcpdump提供了源代码，公开了接口，因此具备很强的可扩展性。tcpdump存在于基本的Linux系统 中，由于它需要将网络界面设置为混杂模式，普通用户不能正常执行，但具备root权限的用户">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png">
+<meta property="article:published_time" content="2024-07-22T01:35:16.916Z">
+<meta property="article:modified_time" content="2024-08-14T07:28:50.740Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://example.com/2024/07/22/tcpdump%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'tcpdump抓包工具的使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-14 15:28:50'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">388</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">57</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">tcpdump抓包工具的使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-22T01:35:16.916Z" title="发表于 2024-07-22 09:35:16">2024-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-14T07:28:50.740Z" title="更新于 2024-08-14 15:28:50">2024-08-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/MISC%E7%AC%94%E8%AE%B0/">MISC笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="tcpdump抓包工具的使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="tcpdump抓包工具的使用"><a href="#tcpdump抓包工具的使用" class="headerlink" title="tcpdump抓包工具的使用"></a>tcpdump抓包工具的使用</h1><h2 id="一，前言"><a href="#一，前言" class="headerlink" title="一，前言"></a>一，前言</h2><p>tcpdump是一个用于截取网络分组，并输出分组内容的工具。tcpdump凭借强大的功能和灵活的截取策略，使其成为类UNIX系统下用于网络分析和问题排查的首选工具。</p>
+<p>另外，tcpdump提供了源代码，公开了接口，因此具备很强的可扩展性。tcpdump存在于基本的Linux系统 中，由于它需要将网络界面设置为混杂模式，普通用户不能正常执行，但具备root权限的用户可以直接执行它来获取网络上的信息。因此系统中存在网络分析工具主要不是对本机安全的威胁，而是对网络上的其他计算机的安全存在威胁。tcpdump可以将网络中传送的数据包的“头”完全截获下来提供分析。它支持针对网络层、协议、主机、网络或端口的过滤，并提供and、or、not等逻辑语句来帮助你去掉无用的信息。</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="C:\Users\Lenovo\Desktop\学习日志\笔记\CTF笔记\MISC笔记\picutre\image-20231205101454097.png" alt="image-20231205101454097"></a></p>
+<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><h3 id="1、介质下载："><a href="#1、介质下载：" class="headerlink" title="1、介质下载："></a>1、介质下载：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">http://www.tcpdump.org/release/tcpdump-4.9.3.tar.gz  //依赖libpcap 1.9.1，tcpdump的运行需要pcap的支持，所以最好先行安装pcap软件包</span><br><span class="line">http://www.tcpdump.org/release/libpcap-1.9.1.tar.gz</span><br><span class="line">//或直接：githut上克隆最新版</span><br><span class="line">git clone https://github.com/the-tcpdump-group/tcpdump.git</span><br><span class="line">git clone https://github.com/the-tcpdump-group/libpcap.git</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、安装前准备"><a href="#2、安装前准备" class="headerlink" title="2、安装前准备"></a>2、安装前准备</h3><p>1&gt;ubuntu:<br>安装c编译所需包：<code>apt-get install build-essential</code><br>安装 libpcap的前置：<code>apt-get install flex,apt-get install bison</code></p>
+<p>2&gt;centos</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install flex</span><br><span class="line">yum -y install bison</span><br><span class="line">yum -y install gcc</span><br></pre></td></tr></table></figure>
+
+<p>3&gt;安装</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf libpcap-1.9.1.tar.gz </span><br><span class="line"> cd libpcap-1.9.1</span><br><span class="line"> ./configure   ##  //生成makefile文件</span><br><span class="line"> make </span><br><span class="line"> make install  ##库文件默认安装在目录  /usr/lib,头文件默认安装在  /usr/include</span><br><span class="line"><span class="meta prompt_"> #</span><span class="language-bash"><span class="comment">#</span></span></span><br><span class="line">tar -zxvf tcpdump-4.3.0.tar.gz </span><br><span class="line">cd tcpdump-4.3.0</span><br><span class="line"> ./configure</span><br><span class="line"> make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>附录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install wireshark（核心，可以用命令tshark）</span><br><span class="line">yum install wireshark-gnome（界面，可以用命令wireshark）</span><br></pre></td></tr></table></figure>
+
+<p>如果运行tshark报：wireshark: symbol lookup error: wireshark: undefined symbol: gtk_combo_box_text_new_with_entry</p>
+<p>请更新安装：<code>yum update gtk2</code></p>
+<p>其中，tshark是WireShark的命令行工具，可以通过命令提取自己想要的数据，可以重定向到文件，也可以结合上层语言来调用命令行，实现对数据的处理。</p>
+<h3 id="3、验证"><a href="#3、验证" class="headerlink" title="3、验证"></a>3、验证</h3><p>#<code>tcpdump -vv</code> &#x2F;&#x2F;输出网络信息</p>
+<h3 id="4、命令使用"><a href="#4、命令使用" class="headerlink" title="4、命令使用"></a>4、命令使用</h3><p>tcpdump的命令格式如下：</p>
+<p>tcpdump [ -adeflnNOpqRStuvxX ] [ -c 数量 ] [ -C 文档尺寸 ] [ -F 文档名 ] [ -i 网络接口 ] [ -m 文档名 ] [ -r 文档名 ] [ -s 长度 ] [ -T 类型 ] [ -w 文档名 ] [ -E algo:secret ] [ 表达式 ]</p>
+<p>tcpdump [-i 网卡] -nnAX ‘表达式’</p>
+<p>【参数说明】：</p>
+<p>-a ：将网络地址和广播地址转变成容易识别的名字。<br>-A：以ascii的方式显示数据包，抓取web数据时很有用。<br>-c： 指定要抓取的包数量，在捕获指定个数的数据包后退出。<br>-d ：将已截获的数据包的代码以人容易理解的格式输出。<br>-dd ：将已截获的数据包的代码以C程式的格式输出。<br>-ddd ：将已截获的数据包的代码以十进制格式输出。<br>-e： 输出数据链路层的头部信息。<br>-f ：将internet地址以数字形式输出。<br>-F ：从指定的文档中读取过滤规则，忽略命令行中指定的其他过滤规则。<br>-G <seconds> :按时间分包<br>-l： 将标准输出变为行缓冲方式。<br>-n：不将网络地址转换成易识别的主机名，对地址以数字方式显式，否则显式为主机名，也就是说-n选项不做主机名解析，避免DNS查询。<br>-nn：除了-n的作用外，还把端口显示为数值，否则显示端口服务名。常用，总的是实现以ip和port的方式显示来源主机和目的主机，而不是用主机名和服务。<br>-s: &lt;数据包大小&gt; 设置每个数据包的大小，0表示全部数据。<br>-t ：不输出时间戳；<br>-N：不打印出host的域名部分。<br>-P：指定要抓取的包是流入还是流出的包。可以给定的值为”in”、“out”和”inout”，<br>默认为”inout”。<br>-r <file>： 从指定的文档中读取数据包(该文档一般通过-w选项产生pcap文件)；<br>-s len：设置tcpdump的数据包抓取长度为len，如果不设置默认将会是65535字节。<br>对于要抓取的数据包较大时，长度设置不够可能会产生包截断。<br>-T： 将截获的数据包直接解释为指定类型的报文，现在支持的类型有cnfp、rpc、rtp、snmp、vat和wb。<br>-i：interface：指定tcpdump需要监听的接口。<br>-e：输出的每行中都将包括数据链路层头部信息，例如源MAC和目标MAC。<br>-q：快速打印输出。即打印很少的协议相关信息，从而输出行都比较简短。<br>-X：输出包的头部数据，会以16进制和ASCII两种方式同时输出。<br>-XX：输出包的头部数据，会以16进制和ASCII两种方式同时输出，更详细。<br>-Z <user> :在写文件之前，转换用户<br>-v：当分析和打印的时候，产生详细的输出。<br>-vv：产生比-v更详细的输出。<br>-vvv：产生比-vv更详细的输出。<br>-w ：将截获的数据包直接写入指定的文档中，不对其进行分析和输出；。<br>-w &lt;数据包文件&gt; ：把数据包数据写入指定的文件。按时间分包时，可使用strftime的格式命名，例如 %Y_%m_%d_%H_%M_%S.pcap<br>-W <cnt> :写满cnt个文件后就不再写入</p>
+<p>常用关键字说明：</p>
+<p>host(缺省类型): 指明一台主机<br>net: 指明一个网络地址，net 100.0.0.0指明100.0.0.0是一个网络地址<br>port: 指明端口号<br>src: 指定网络源地址<br>dst: 指定目标网络地址，src，dst，dst or src，dst and src， 这些关键字指明了传输的方向<br>协议类： 主要包括fddi，ip，arp，rarp，tcp，udp等类型。Fddi指明是在FDDI (分布式光纤数据接口网络)上的特定的网络协议，实际上它是”ether”的别名，fddi和ether 具有类似的源地址和目的地址，所以可以将fddi协议包当作ether的包进行处理和分析。 其他的几个关键字就是指明了监听的包的协议内容。如果没有指定任何协议，则tcpdump 将会 监听所有协议的信息包。</p>
+<p>其他重要的关键字如下：gateway， broadcast，less， greater， 还有三种逻辑运算，取非运算是 ‘not ’ ‘! ‘， 与运算是’and’，’&amp;&amp;’;或运算是’or’ ，’||’； 更多man 7 pcap-filter查看。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/22/tcpdump%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">http://example.com/2024/07/22/tcpdump%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/22/%E5%B7%A5%E5%85%B7%E8%B5%84%E6%96%99/" title="工具资料"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">工具资料</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/22/NEPCTF2022-misc/" title="NEPCTF2022-misc"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">NEPCTF2022-misc</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">388</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">57</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpdump%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">tcpdump抓包工具的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%EF%BC%8C%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">一，前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.</span> <span class="toc-text">二、安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E4%BB%8B%E8%B4%A8%E4%B8%8B%E8%BD%BD%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">1、介质下载：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85%E5%89%8D%E5%87%86%E5%A4%87"><span class="toc-number">1.2.2.</span> <span class="toc-text">2、安装前准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E9%AA%8C%E8%AF%81"><span class="toc-number">1.2.3.</span> <span class="toc-text">3、验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.4.</span> <span class="toc-text">4、命令使用</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/" title="车辆数字钥匙常见攻击和防御方法介绍"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="车辆数字钥匙常见攻击和防御方法介绍"/></a><div class="content"><a class="title" href="/2024/08/14/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/" title="车辆数字钥匙常见攻击和防御方法介绍">车辆数字钥匙常见攻击和防御方法介绍</a><time datetime="2024-08-14T07:28:51.319Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/TP-link%20Smart%20Home%20Router%20%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="TP-link Smart Home Router 命令注入漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TP-link Smart Home Router 命令注入漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/TP-link%20Smart%20Home%20Router%20%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="TP-link Smart Home Router 命令注入漏洞">TP-link Smart Home Router 命令注入漏洞</a><time datetime="2024-08-14T07:28:51.312Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/Sapido%20RB-1732%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="Sapido RB-1732 远程命令执行漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sapido RB-1732 远程命令执行漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/Sapido%20RB-1732%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="Sapido RB-1732 远程命令执行漏洞">Sapido RB-1732 远程命令执行漏洞</a><time datetime="2024-08-14T07:28:51.309Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/D-Link%20DIR-815%20%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E/" title="D-Link DIR-815 后门漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="D-Link DIR-815 后门漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/D-Link%20DIR-815%20%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E/" title="D-Link DIR-815 后门漏洞">D-Link DIR-815 后门漏洞</a><time datetime="2024-08-14T07:28:51.297Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="路由器漏洞挖掘工具总结"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="路由器漏洞挖掘工具总结"/></a><div class="content"><a class="title" href="/2024/07/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="路由器漏洞挖掘工具总结">路由器漏洞挖掘工具总结</a><time datetime="2024-07-26T13:55:22.326Z" title="发表于 2024-07-26 21:55:22">2024-07-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

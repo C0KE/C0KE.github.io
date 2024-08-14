@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Linux proc目录 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Linux &#x2F;proc目录1. 什么是proc目录proc目录是linux系统下一个很重要的目录。它跟&#x2F;etc、&#x2F;home等这些系统目录不同，它不是一个真正的文件系统，而是一个虚拟的文件系统 它不存在于磁盘，而是存在于系统内存中。所以当你使用ls -al &#x2F;proc这条命令来查看proc目录时。会看到其下面的所有文件的大小都为0字节。 proc以文件系统的方式为访问系统内核的操">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux proc目录">
+<meta property="og:url" content="http://example.com/2024/07/22/Linux%20proc%E7%9B%AE%E5%BD%95/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="Linux &#x2F;proc目录1. 什么是proc目录proc目录是linux系统下一个很重要的目录。它跟&#x2F;etc、&#x2F;home等这些系统目录不同，它不是一个真正的文件系统，而是一个虚拟的文件系统 它不存在于磁盘，而是存在于系统内存中。所以当你使用ls -al &#x2F;proc这条命令来查看proc目录时。会看到其下面的所有文件的大小都为0字节。 proc以文件系统的方式为访问系统内核的操">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png">
+<meta property="article:published_time" content="2024-07-22T01:35:17.235Z">
+<meta property="article:modified_time" content="2024-08-14T07:28:50.938Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://example.com/2024/07/22/Linux%20proc%E7%9B%AE%E5%BD%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux proc目录',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-14 15:28:50'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">388</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">57</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Linux proc目录</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-22T01:35:17.235Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-14T07:28:50.938Z" title="更新于 2024-08-14 15:28:50">2024-08-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Linux proc目录"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Linux-proc目录"><a href="#Linux-proc目录" class="headerlink" title="Linux &#x2F;proc目录"></a>Linux &#x2F;proc目录</h1><h2 id="1-什么是proc目录"><a href="#1-什么是proc目录" class="headerlink" title="1. 什么是proc目录"></a>1. 什么是proc目录</h2><p><code>proc目录是linux系统下一个很重要的目录。它跟/etc、/home等这些系统目录不同，它不是一个真正的文件系统，而是一个虚拟的文件系统</code></p>
+<p>它不存在于磁盘，而是存在于系统内存中。所以当你使用ls -al &#x2F;proc这条命令来查看proc目录时。会看到其下面的所有文件的大小都为0字节。</p>
+<p>proc以文件系统的方式为访问系统内核的操作提供接口。很多系统的信息，如内存的使用情况，cpu的使用情况，进程信息等等这些信息，都可以通过查看&#x2F;proc的对应文件来获得。</p>
+<p>proc文件系统是动态从系统内核读出所需信息的。</p>
+<h2 id="2-初识proc目录"><a href="#2-初识proc目录" class="headerlink" title="2. 初识proc目录"></a>2. 初识proc目录</h2><p>proc目录下具体有哪些文件呢？<br>&#x2F;proc 目录下的文件<br>&#x2F;proc&#x2F;cpuinifo CPU的信息（型号、家族、缓存大小等）<br>&#x2F;proc&#x2F;meminfo物理内存、交换空间<br>&#x2F;proc&#x2F;mounts 已加载的文件系统的列表<br>&#x2F;proc&#x2F;devices 可用设备的列表<br>&#x2F;proc&#x2F;filesystems 被支持的文件系统<br>&#x2F;proc&#x2F;modules 已加载的模块<br>&#x2F;proc&#x2F;virsion 内核版本<br>&#x2F;proc&#x2F;cmdline 系统启动时输入的内核命令行参数<br>&#x2F;proc&#x2F;XXX XXX是指以进程PID（数字编号）命名的目录，每一个目录表示一个进程（即线程组）。<br>&#x2F;proc&#x2F;swaps 要获知swap空间的使用情况<br>&#x2F;proc&#x2F;uptime 获取系统的正常运行时间<br>&#x2F;proc&#x2F;fs&#x2F;nfsd&#x2F;exports 列出由NFS共享的文件系统<br>&#x2F;proc&#x2F;kmsg 该文件被作为内核日志信息源，它可以被作为一个系统信息调用的接口使用<br>&#x2F;proc&#x2F;self – 到当前进程&#x2F;proc目录的符号链接，通过这个目录可以获取当前运行进程的信息。<br>&#x2F;proc&#x2F;pci – 挂接在PCI总线上的设备<br>&#x2F;proc&#x2F;tty&#x2F;driver&#x2F;serial –串口配置、统计信息<br>&#x2F;proc&#x2F;version – 系统版本信息<br>&#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;ostype<br>&#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;osrelease<br>&#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;version<br>&#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;hostname – 主机名<br>&#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;domainname – 域名<br>&#x2F;proc&#x2F;partitions – 硬盘设备分区信息<br>&#x2F;proc&#x2F;sys&#x2F;dev&#x2F;cdrom&#x2F;info – CDROM信息<br>&#x2F;proc&#x2F;locks – 当前系统中所有的文件锁<br>&#x2F;proc&#x2F;loadavg – 系统负荷信息<br>&#x2F;proc&#x2F;uptime – 系统启动后的运行时间</p>
+<h2 id="3-从proc窥看系统详情"><a href="#3-从proc窥看系统详情" class="headerlink" title="3.  从proc窥看系统详情"></a>3.  从proc窥看系统详情</h2><p>很多系统命令在读取系统信息的时候，其实是从proc目录下读取对应的文件来获得的。 所以如果我们不使用这些命令， 直接到proc目录下去查看对应文件，也是可以获得对应的信息的。<br>下面举几个例子：<br>操作 系统命令 proc对应目录<br>获取系统版本信息 uname -a 或者 lsb_release &#x2F;proc&#x2F;version或者&#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;hostname[,domainname, osrelease, ostype,version]<br>获取系统负载信息 top 或者 w 或者 uptime &#x2F;proc&#x2F;loadavg<br>获取内存使用情况 free &#x2F;proc&#x2F;meminfo<br>获取CPU使用情况 top &#x2F;proc&#x2F;cpuinfo<br>获取进程运行情况 ps aux 或者 top &#x2F;proc&#x2F;N[N为对应的PID号]<br>对于查看进程信息一栏，做下补充：<br>&#x2F;proc&#x2F;N pid为N的进程信息<br>&#x2F;proc&#x2F;N&#x2F;cmdline 进程启动命令<br>&#x2F;proc&#x2F;N&#x2F;cwd 链接到进程当前工作目录<br>&#x2F;proc&#x2F;N&#x2F;environ 进程环境变量列表<br>&#x2F;proc&#x2F;N&#x2F;exe 链接到进程的执行命令文件<br>&#x2F;proc&#x2F;N&#x2F;fd 包含进程相关的所有的文件描述符<br>&#x2F;proc&#x2F;N&#x2F;maps 与进程相关的内存映射信息<br>&#x2F;proc&#x2F;N&#x2F;mem 指代进程持有的内存，不可读<br>&#x2F;proc&#x2F;N&#x2F;root 链接到进程的根目录<br>&#x2F;proc&#x2F;N&#x2F;stat 进程的状态<br>&#x2F;proc&#x2F;N&#x2F;statm 进程使用的内存的状态<br>&#x2F;proc&#x2F;N&#x2F;status 进程状态信息，比stat&#x2F;statm更具可读性<br>&#x2F;proc&#x2F;self 链接到当前正在运行的进程</p>
+<h2 id="4-文件内容"><a href="#4-文件内容" class="headerlink" title="4.文件内容"></a>4.文件内容</h2><table>
+<thead>
+<tr>
+<th>inux文件类型</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文件名</td>
+<td>文件内容</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;cmdline</td>
+<td>加载 kernel 时所下达的相关指令与参数!查阅此文件,可了解指令是如何启动的!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;cpuinfo</td>
+<td>本机的 CPU 的相关信息,包含频率、类型与运算功能等</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;devices</td>
+<td>这个文件记录了系统各个主要装置的主要装置代号,与 mknod 有关呢!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;filesystems</td>
+<td>目前系统已经加载的文件系统啰!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;interrupts</td>
+<td>目前系统上面的 IRQ 分配状态。</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;ioports</td>
+<td>目前系统上面各个装置所配置的 I&#x2F;O 地址。</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;kcore</td>
+<td>这个就是内存的大小啦!好大对吧!但是不要读他啦!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;loadavg</td>
+<td>还记得 top 以及 uptime 吧?没错!上头的三个平均数值就是记录在此!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;meminfo</td>
+<td>使用 free 列出的内存信息,嘿嘿!在这里也能够查阅到!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;modules</td>
+<td>目前我们的 Linux 已经加载的模块列表,也可以想成是驱动程序啦!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;mounts</td>
+<td>系统已经挂载的数据,就是用 mount 这个指令呼叫出来的数据啦!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;swaps</td>
+<td>到底系统挂加载的内存在哪里?呵呵!使用掉的 partition 就记录在此啦!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;partitions</td>
+<td>使用 fdisk -l 会出现目前所有的 partition 吧?在这个文件当中也有纪录喔!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;uptime</td>
+<td>就是用 uptime 的时候,会出现的信息啦!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;version</td>
+<td>核心的版本,就是用 uname -a 显示的内容啦!</td>
+</tr>
+<tr>
+<td>&#x2F;proc&#x2F;bus&#x2F;*</td>
+<td>一些总线的装置,还有 USB 的装置也记录在此喔!</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/22/Linux%20proc%E7%9B%AE%E5%BD%95/">http://example.com/2024/07/22/Linux%20proc%E7%9B%AE%E5%BD%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/22/Linux%20usr%E7%9B%AE%E5%BD%95/" title="Linux usr目录"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Linux usr目录</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/22/Linux%20dev%E7%9B%AE%E5%BD%95/" title="Linux dev目录"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Linux dev目录</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">388</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">57</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux-proc%E7%9B%AE%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">Linux &#x2F;proc目录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFproc%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text">1. 什么是proc目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9D%E8%AF%86proc%E7%9B%AE%E5%BD%95"><span class="toc-number">1.2.</span> <span class="toc-text">2. 初识proc目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BB%8Eproc%E7%AA%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E8%AF%A6%E6%83%85"><span class="toc-number">1.3.</span> <span class="toc-text">3.  从proc窥看系统详情</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-number">1.4.</span> <span class="toc-text">4.文件内容</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/" title="车辆数字钥匙常见攻击和防御方法介绍"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="车辆数字钥匙常见攻击和防御方法介绍"/></a><div class="content"><a class="title" href="/2024/08/14/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/" title="车辆数字钥匙常见攻击和防御方法介绍">车辆数字钥匙常见攻击和防御方法介绍</a><time datetime="2024-08-14T07:28:51.319Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/TP-link%20Smart%20Home%20Router%20%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="TP-link Smart Home Router 命令注入漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TP-link Smart Home Router 命令注入漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/TP-link%20Smart%20Home%20Router%20%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="TP-link Smart Home Router 命令注入漏洞">TP-link Smart Home Router 命令注入漏洞</a><time datetime="2024-08-14T07:28:51.312Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/Sapido%20RB-1732%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="Sapido RB-1732 远程命令执行漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sapido RB-1732 远程命令执行漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/Sapido%20RB-1732%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="Sapido RB-1732 远程命令执行漏洞">Sapido RB-1732 远程命令执行漏洞</a><time datetime="2024-08-14T07:28:51.309Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/D-Link%20DIR-815%20%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E/" title="D-Link DIR-815 后门漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="D-Link DIR-815 后门漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/D-Link%20DIR-815%20%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E/" title="D-Link DIR-815 后门漏洞">D-Link DIR-815 后门漏洞</a><time datetime="2024-08-14T07:28:51.297Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="路由器漏洞挖掘工具总结"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="路由器漏洞挖掘工具总结"/></a><div class="content"><a class="title" href="/2024/07/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="路由器漏洞挖掘工具总结">路由器漏洞挖掘工具总结</a><time datetime="2024-07-26T13:55:22.326Z" title="发表于 2024-07-26 21:55:22">2024-07-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

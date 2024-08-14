@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>WIN32编程 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="WIN32编程APIENTRY WinMain 和WINAPI WinMain的区别在 Windows 编程中，WinMain 是 Windows 图形用户界面（GUI）应用程序的入口点（Entry Point）。在不同的编译器和工具集中，函数的声明可能略有不同，但通常有两种常见的声明方式：  int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WIN32编程">
+<meta property="og:url" content="http://example.com/2024/07/22/WIN32%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="WIN32编程APIENTRY WinMain 和WINAPI WinMain的区别在 Windows 编程中，WinMain 是 Windows 图形用户界面（GUI）应用程序的入口点（Entry Point）。在不同的编译器和工具集中，函数的声明可能略有不同，但通常有两种常见的声明方式：  int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png">
+<meta property="article:published_time" content="2024-07-22T01:35:17.298Z">
+<meta property="article:modified_time" content="2024-08-14T07:28:51.004Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://example.com/2024/07/22/WIN32%E7%BC%96%E7%A8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'WIN32编程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-14 15:28:51'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">388</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">57</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">WIN32编程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-22T01:35:17.298Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-14T07:28:51.004Z" title="更新于 2024-08-14 15:28:51">2024-08-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/RE%E7%AC%94%E8%AE%B0/">RE笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="WIN32编程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="WIN32编程"><a href="#WIN32编程" class="headerlink" title="WIN32编程"></a>WIN32编程</h1><h2 id="APIENTRY-WinMain-和WINAPI-WinMain的区别"><a href="#APIENTRY-WinMain-和WINAPI-WinMain的区别" class="headerlink" title="APIENTRY WinMain 和WINAPI WinMain的区别"></a>APIENTRY WinMain 和WINAPI WinMain的区别</h2><p>在 Windows 编程中，<code>WinMain</code> 是 Windows 图形用户界面（GUI）应用程序的入口点（Entry Point）。在不同的编译器和工具集中，函数的声明可能略有不同，但通常有两种常见的声明方式：</p>
+<ol>
+<li><code>int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine, int nCmdShow)</code></li>
+<li><code>int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)</code></li>
+</ol>
+<p>这两者之间的主要区别在于调用约定（Calling Convention）：</p>
+<ul>
+<li><code>APIENTRY</code> 是一个宏，它会根据编译器和目标平台选择正确的调用约定。在 Windows 上，它通常被定义为 <code>__stdcall</code>。<code>__stdcall</code> 是一种标准的调用约定，它规定了参数的传递方式和堆栈的清理方式。</li>
+<li><code>WINAPI</code> 是另一个宏，它也通常被定义为 <code>__stdcall</code>。在实际使用中，<code>APIENTRY</code> 和 <code>WINAPI</code> 可以互换使用，它们都表示使用标准的 <code>__stdcall</code> 调用约定。</li>
+</ul>
+<p>所以，这两个函数声明在实际使用中基本上是等效的，你可以根据个人或项目的偏好选择其中一个使用。通常来说，<code>WINAPI</code> 是更常见的使用方式。</p>
+<h2 id="win32编程为什么叫win32"><a href="#win32编程为什么叫win32" class="headerlink" title="win32编程为什么叫win32"></a>win32编程为什么叫win32</h2><p>“Win32” 是指 Windows 32-bit 的编程模型。它起源于早期的 Windows 操作系统版本，当时 Windows 主要运行在 32 位的处理器架构上。”Win32” 编程通常涉及使用 Windows API（应用程序编程接口）来创建图形用户界面（GUI）应用程序。</p>
+<p>Windows API 提供了一组函数和数据结构，允许开发者创建和管理窗口、处理用户输入、绘制图形等。在 32 位架构中，这些 API 被称为 “Win32 API”，而对应的编程模型就被称为 “Win32 编程”。</p>
+<p>随着时间的推移，Windows 操作系统逐渐演变，引入了新的架构和功能，包括 64 位架构、UWP（Universal Windows Platform）等。因此，”Win32” 编程的术语在某种程度上成为一个历史遗留的称呼，用来指代传统的 32 位 Windows 编程模型。但即便在现代 Windows 开发中，”Win32” 仍然被广泛使用，尤其是在传统的桌面应用程序开发中。</p>
+<h2 id="CreateWindowEx和CreateWindow的区别是什么"><a href="#CreateWindowEx和CreateWindow的区别是什么" class="headerlink" title="CreateWindowEx和CreateWindow的区别是什么"></a>CreateWindowEx和CreateWindow的区别是什么</h2><p><code>CreateWindowEx</code> 和 <code>CreateWindow</code> 是 Windows API 中用于创建窗口的两个函数，它们之间的主要区别在于 <code>CreateWindowEx</code> 允许你指定扩展的窗口样式，而 <code>CreateWindow</code> 则仅支持基本的窗口样式。</p>
+<h3 id="CreateWindowEx"><a href="#CreateWindowEx" class="headerlink" title="CreateWindowEx:"></a>CreateWindowEx:</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">cCopy codeHWND CreateWindowEx(</span><br><span class="line">  DWORD     dwExStyle,</span><br><span class="line">  LPCWSTR   lpClassName,</span><br><span class="line">  LPCWSTR   lpWindowName,</span><br><span class="line">  DWORD     dwStyle,</span><br><span class="line">  int       x,</span><br><span class="line">  int       y,</span><br><span class="line">  int       nWidth,</span><br><span class="line">  int       nHeight,</span><br><span class="line">  HWND      hWndParent,</span><br><span class="line">  HMENU     hMenu,</span><br><span class="line">  HINSTANCE hInstance,</span><br><span class="line">  LPVOID    lpParam</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>dwExStyle</code> 允许你指定扩展样式，如 WS_EX_TOPMOST、WS_EX_TOOLWINDOW 等。</li>
+<li>支持更多的窗口样式和扩展功能。</li>
+</ul>
+<h3 id="CreateWindow"><a href="#CreateWindow" class="headerlink" title="CreateWindow:"></a>CreateWindow:</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cCopy codeHWND CreateWindow(</span><br><span class="line">  LPCWSTR   lpClassName,</span><br><span class="line">  LPCWSTR   lpWindowName,</span><br><span class="line">  DWORD     dwStyle,</span><br><span class="line">  int       x,</span><br><span class="line">  int       y,</span><br><span class="line">  int       nWidth,</span><br><span class="line">  int       nHeight,</span><br><span class="line">  HWND      hWndParent,</span><br><span class="line">  HMENU     hMenu,</span><br><span class="line">  HINSTANCE hInstance,</span><br><span class="line">  LPVOID    lpParam</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不支持扩展样式（没有 <code>dwExStyle</code> 参数）。</li>
+<li>用于创建基本的窗口。</li>
+</ul>
+<p>通常情况下，如果你的窗口需要使用一些扩展样式，例如创建工具栏窗口、置顶窗口等，你会选择使用 <code>CreateWindowEx</code>。如果你的窗口只需要基本的窗口样式，那么使用 <code>CreateWindow</code> 即可。</p>
+<p>在实际使用中，两者的选择取决于你的窗口的需求和设计。</p>
+<p>也就是说EX代表的是扩展的意思，具有更多功能相对于本身的函数来说。</p>
+<h2 id="MessageBox为什么前面有两个冒号"><a href="#MessageBox为什么前面有两个冒号" class="headerlink" title="::MessageBox为什么前面有两个冒号"></a>::MessageBox为什么前面有两个冒号</h2><p>在 C++ 中，<code>::</code> 是作用域解析运算符（Scope Resolution Operator）。它用于指明使用全局命名空间中的符号，或者指定某个命名空间的成员。</p>
+<p><code>::MessageBox</code> 中的 <code>::</code> 表示调用全局命名空间中的 <code>MessageBox</code> 函数。在 Windows 编程中，<code>MessageBox</code> 函数用于显示消息框。通过使用作用域解析运算符，你可以确保调用的是全局命名空间中的函数，而不是某个局部命名空间中可能存在的同名函数。</p>
+<p>举个例子，如果你在某个命名空间中定义了自己的 <code>MessageBox</code> 函数，那么在调用时如果使用 <code>::MessageBox</code>，就能够确保调用的是全局命名空间中的 <code>MessageBox</code>，而不会产生命名冲突。</p>
+<h2 id="int-APIENTRY-WinMain-HINSTANCE-hInstance-HINSTANCE-hPreInstance-LPSTR-lpCmdLine-int-nCmdShow-参数说明解释一下"><a href="#int-APIENTRY-WinMain-HINSTANCE-hInstance-HINSTANCE-hPreInstance-LPSTR-lpCmdLine-int-nCmdShow-参数说明解释一下" class="headerlink" title="int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine, int nCmdShow) 参数说明解释一下"></a>int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine, int nCmdShow) 参数说明解释一下</h2><p><code>WinMain</code> 是 Windows GUI 应用程序的入口点，它接收并处理应用程序的启动参数，初始化应用程序的主窗口，然后进入消息循环以响应用户输入。下面是对 <code>WinMain</code> 函数参数的简要解释：</p>
+<ol>
+<li><p><strong>hInstance (HINSTANCE):</strong></p>
+<ul>
+<li>描述：应用程序实例的句柄。</li>
+<li>解释：<code>hInstance</code> 是当前应用程序实例的标识符，它在应用程序启动时由操作系统传递。这个句柄用于标识应用程序的内存空间和其他资源。</li>
+</ul>
+</li>
+<li><p><strong>hPrevInstance (HINSTANCE):</strong></p>
+<ul>
+<li>描述：先前实例的句柄。</li>
+<li>解释：在现代 Windows 中，这个参数通常被忽略，因为多数 Windows 程序都是单实例的。这个参数的存在是为了兼容旧的 16 位 Windows 应用程序。</li>
+</ul>
+</li>
+<li><p><strong>lpCmdLine (LPSTR):</strong></p>
+<ul>
+<li>描述：命令行参数。</li>
+<li>解释：<code>lpCmdLine</code> 包含了启动应用程序时传递的命令行参数。这是一个以空格分隔的字符串，可以包含应用程序需要的任何信息。需要注意，这是一个以空格为分隔符的单个字符串，而不是一个字符串数组。</li>
+</ul>
+</li>
+<li><p><strong>nCmdShow (int):</strong></p>
+<ul>
+<li><p>描述：窗口显示状态。</p>
+</li>
+<li><p>解释：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nCmdShow</span><br></pre></td></tr></table></figure>
+
+<p> 用于指定应用程序窗口的初始显示状态。它可以是以下常量之一：</p>
+<ul>
+<li><code>SW_HIDE</code>: 隐藏窗口。</li>
+<li><code>SW_SHOWNORMAL</code>: 显示窗口，并将其激活。</li>
+<li><code>SW_SHOWMINIMIZED</code>: 显示为最小化窗口。</li>
+<li><code>SW_SHOWMAXIMIZED</code>: 显示为最大化窗口。</li>
+<li><code>SW_SHOWNOACTIVATE</code>: 显示窗口，但不将其激活。</li>
+<li><code>SW_RESTORE</code>: 激活并显示窗口。如果窗口最小化或最大化，将恢复其原始大小和位置。</li>
+<li><code>SW_SHOWDEFAULT</code>: 使用操作系统默认显示状态。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><code>WinMain</code> 的返回值通常是程序的退出代码。在 Windows 中，一般约定返回 0 表示程序正常退出。</p>
+<h2 id="HWND-hWnd-FindWindow-nullptr-TEXT-“无标题-记事本”-解释一下这段代码并且列举出FindWindow函数的参数"><a href="#HWND-hWnd-FindWindow-nullptr-TEXT-“无标题-记事本”-解释一下这段代码并且列举出FindWindow函数的参数" class="headerlink" title="HWND hWnd &#x3D; ::FindWindow(nullptr, TEXT(“无标题 - 记事本”)); 解释一下这段代码并且列举出FindWindow函数的参数"></a>HWND hWnd &#x3D; ::FindWindow(nullptr, TEXT(“无标题 - 记事本”)); 解释一下这段代码并且列举出FindWindow函数的参数</h2><p>这段代码使用了 Windows API 中的 <code>FindWindow</code> 函数来查找指定类名和窗口标题的顶层窗口，并将找到的窗口句柄存储在 <code>hWnd</code> 变量中。以下是对代码和 <code>FindWindow</code> 函数参数的解释：</p>
+<h3 id="代码解释："><a href="#代码解释：" class="headerlink" title="代码解释："></a>代码解释：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cppCopy code</span><br><span class="line">HWND hWnd = ::FindWindow(nullptr, TEXT(&quot;无标题 - 记事本&quot;));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong><code>HWND hWnd</code>：</strong></p>
+<ul>
+<li>描述：窗口句柄。</li>
+<li>解释：<code>hWnd</code> 是一个句柄变量，用于存储找到的窗口的句柄。<code>HWND</code> 是 Windows 中表示窗口句柄的数据类型。</li>
+</ul>
+</li>
+<li><p><strong><code>::FindWindow(nullptr, TEXT(&quot;无标题 - 记事本&quot;))</code>：</strong></p>
+<ul>
+<li><p>描述：调用 <code>FindWindow</code> 函数来查找指定窗口。</p>
+</li>
+<li><p>解释：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FindWindow</span><br></pre></td></tr></table></figure>
+
+<p> 函数用于在桌面窗口中查找符合指定类名和窗口标题的顶层窗口。在这里：</p>
+<ul>
+<li>第一个参数 <code>nullptr</code> 表示没有指定窗口类名，即不限制窗口的类。</li>
+<li>第二个参数是窗口标题，这里是 “无标题 - 记事本”。通过这两个参数，<code>FindWindow</code> 将尝试找到符合条件的顶层窗口。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="FindWindow-函数的参数："><a href="#FindWindow-函数的参数：" class="headerlink" title="FindWindow 函数的参数："></a>FindWindow 函数的参数：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cppCopy codeHWND FindWindow(</span><br><span class="line">  LPCWSTR lpClassName,</span><br><span class="line">  LPCWSTR lpWindowName</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong><code>lpClassName</code>：</strong><ul>
+<li>描述：窗口类名。</li>
+<li>解释：如果不关心类名，可以将其设为 <code>nullptr</code>。否则，可以指定要查找的窗口类名。</li>
+</ul>
+</li>
+<li><strong><code>lpWindowName</code>：</strong><ul>
+<li>描述：窗口标题。</li>
+<li>解释：指定要查找的窗口的标题。可以使用部分标题文本来匹配窗口。</li>
+</ul>
+</li>
+</ul>
+<p><strong>总体思路：</strong> 通过 <code>FindWindow</code> 函数，在桌面上查找指定类名（或不限制类名）和指定标题的顶层窗口，如果找到，则返回该窗口的句柄给 <code>hWnd</code> 变量。如果没有找到匹配的窗口，<code>hWnd</code> 将被设为 <code>nullptr</code>。</p>
+<h2 id="注册窗口类"><a href="#注册窗口类" class="headerlink" title="注册窗口类"></a>注册窗口类</h2><p>注册窗口类使用函数RegisterClassEx，一个窗口类定义了窗口的一些主要属性，如图标、光标、背景色和负责处理消息的窗口函数等。这些属性定义在WNDCLASSEX结构中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">WNDCLASSEX</span>&#123;</span></span><br><span class="line">	UINT        cbSize;				<span class="comment">// WNDCLASSEX结构的大小</span></span><br><span class="line">    UINT        style;				<span class="comment">// 从窗口派生的窗口具有的风格</span></span><br><span class="line">    WNDPROC     lpfnWndProc;		<span class="comment">// 消息处理函数指针</span></span><br><span class="line">    <span class="type">int</span>         cbClsExtra;			<span class="comment">// 指定紧跟在窗口类结构后的附加字节数</span></span><br><span class="line">    <span class="type">int</span>         cbWndExtra;			<span class="comment">// 指定紧跟在窗口示例后的附加字节数</span></span><br><span class="line">    HINSTANCE   hInstance;			<span class="comment">// 本模块的实例句柄</span></span><br><span class="line">    HICON       hIcon;				<span class="comment">// 窗口左上角图标的句柄</span></span><br><span class="line">    HCURSOR     hCursor;			<span class="comment">// 光标的句柄</span></span><br><span class="line">    HBRUSH      hbrBackground;		<span class="comment">// 背景画刷的句柄</span></span><br><span class="line">    LPCSTR      lpszMenuName;		<span class="comment">// 菜单名</span></span><br><span class="line">    LPCSTR      lpszClassName;		<span class="comment">// 该窗口类的名称</span></span><br><span class="line">    HICON       hIconSm;			<span class="comment">// 小图标句柄</span></span><br><span class="line">&#125;WNDCLASSEX;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>（1） 指定窗口类的风格</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wndClass.style = CS_HREDRAW | CS_VREDRAW;	<span class="comment">// 指定如果大小改变就重画</span></span><br></pre></td></tr></table></figure>
+
+<p>前缀CS_意为class style,在WINUSER.H中定义了全部可选样式。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CS_VREDRAW          0x0001</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CS_HREDRAW          0x0002</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CS_DBLCLKS          0x0008</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CS_OWNDC            0x0020</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CS_CLASSDC          0x0040</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CS_PARENTDC         0x0080</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CS_NOCLOSE          0x0200</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CS_SAVEBITS         0x0800</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CS_BYTEALIGNCLIENT  0x1000</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CS_BYTEALIGNWINDOW  0x2000</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CS_GLOBALCLASS      0x4000</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）指定窗口处理函数地址</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wndClass.lpfnWndProc = MainWindProc;</span><br></pre></td></tr></table></figure>
+
+<p>WNDCLASSEX 结构成员lpfnWndProc 指定了基于此类窗口的窗口函数。当窗口收到消息时Windows即自动调用这个函数通知应用程序。</p>
+<p><strong>（3） 本程序的实例句柄传给hInstance成员</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wndClass.hInstance = hInstance;</span><br></pre></td></tr></table></figure>
+
+<p><strong>（4） 设置图标和光标</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wndClass.hIcon = ::LoadIcon(nullptr, IDI_APPLICATION);</span><br><span class="line">wndClass.hCursor = ::LoadCursor(nullptr, IDC_ARROW);</span><br></pre></td></tr></table></figure>
+
+<p>LoadIcon 函数装载了一个预定义图标，命名为 <strong>IDI_APPLICATION</strong><br>LoadCursor 函数装载了一个预定义的光标，命名为 <strong>IDC_ARROW</strong></p>
+<p><strong>（5）指定窗口重画客户区画刷</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wndClass.hbrBackground = (HBRUSH)::GetStockObject(WHITE_BRUSH);	<span class="comment">// 使用白色画刷</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>（6）指定窗口类名称</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wndClass.lpszClassName = TEXT(<span class="string">&quot;MainWClass&quot;</span>);  <span class="comment">// 窗口类名称</span></span><br></pre></td></tr></table></figure>
+
+<p>填充完WNDCLASSEX 结构，就可以进行注册了。RegisterClassEx 函数调用失败将返回0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">::RegisterClassEx(&amp;wndClass);</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建窗口"><a href="#创建窗口" class="headerlink" title="创建窗口"></a>创建窗口</h2><p>要创建窗口，使用函数 CreateWindowEx 。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HWND hwnd = ::CreateWindowEx(\					</span><br><span class="line">			<span class="number">0</span>, \							<span class="comment">// dwExStyle， 扩展样式</span></span><br><span class="line">			TEXT(<span class="string">&quot;MainWClass&quot;</span>), \				<span class="comment">// 类名</span></span><br><span class="line">			TEXT(<span class="string">&quot;My First Window&quot;</span>), \			<span class="comment">// 标题</span></span><br><span class="line">			WS_OVERLAPPEDWINDOW, \				<span class="comment">// 窗口风格</span></span><br><span class="line">			CW_USEDEFAULT, \					<span class="comment">// X, 初始X坐标</span></span><br><span class="line">			CW_USEDEFAULT, \					<span class="comment">// Y, 初始Y坐标</span></span><br><span class="line">			CW_USEDEFAULT, \					<span class="comment">// nWidth, 宽度</span></span><br><span class="line">			CW_USEDEFAULT, \					<span class="comment">// nHeight, 高度</span></span><br><span class="line">			nullptr, \						<span class="comment">// hWndParent, 父窗口句柄</span></span><br><span class="line">			nullptr, \							<span class="comment">// hMenu，菜单句柄</span></span><br><span class="line">			hInstance, \					<span class="comment">// hInstance, 程序实例句柄</span></span><br><span class="line">			nullptr);							<span class="comment">// lpParam, 用户数据</span></span><br></pre></td></tr></table></figure>
+
+<p>函数调用成功将返回窗口句柄，失败返回nullptr。<br>第四个参数dwStyle的值是 WS_OVERLAPPEDWINDOW，即重叠窗口。由他指定的窗口有标题栏、系统菜单、可以改变大小的边框，以及最大化、最小化和关闭按钮。这是一个标准的窗口样式。下面是一些常见风格定于：</p>
+<ul>
+<li>WS_BORDER 创建一个单边框窗口</li>
+<li>WS_CAPTION 创建一个有标题框的窗口</li>
+<li>WS_CHID 创建一个子窗口。这个风格不能与WS_POPVP合用</li>
+<li>WS_DISABLED 创建一个初始状态为禁止的子窗口。</li>
+<li>WS_DLGFRAME 创建一个带对话框边框风格的窗口，这种风格的窗口不能带标题条</li>
+<li>WS_HSCROLL 创建一个有水平滚动条的窗口</li>
+<li>WS_VSCROLL 创建一个有垂直滚动条的窗口</li>
+<li>WS_ICONIC 创建一个初始状态为最小化状态的窗口，与WS_MINIMIZE风格相同</li>
+<li>WS_MAXIMIZE 创建一个具有最大化按钮的窗口。</li>
+<li>WS_OVERLAPPED 产生一个层叠的窗口。</li>
+<li>WS_OVERLAPPEDWINDOW 创建一个具有WS_OVERLAPPED、WS_CAPTION、</li>
+<li>WS_SYSMENU、WS_THICKFRAME、WS_MINIMZEBOX、WS_MAXMIZEBOX 风格的层叠窗口。</li>
+<li>WS_POPUP 创建一个弹出式窗口</li>
+<li>WS_SIZEBOX 创建一个可调边框的窗口。</li>
+<li>WS_SYSMENU 创建一个在标题条上带有窗口菜单的窗口。</li>
+<li>WS_THICKFRAME 创建一个具有可调边框的窗口</li>
+<li>WS_VISIBLE 创建一个初始状态为可见的窗口</li>
+</ul>
+<h2 id="进入无限的消息循环"><a href="#进入无限的消息循环" class="headerlink" title="进入无限的消息循环"></a>进入无限的消息循环</h2><p>Windows为每一个线程维护一个消息队列，每当有一个输入发生，Windows就把用户输入翻译成消息放在消息队列中。GetMessage 函数可以从消息队列中取一个消息填充MSG结构。<br>如果消息队列中没有消息，这个函数会一直等下去，直到有消息进入消息队列为止。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagMSG</span> &#123;</span></span><br><span class="line">    HWND        hwnd;		<span class="comment">// 消息要发向的窗口句柄</span></span><br><span class="line">    UINT        message;	<span class="comment">// 消息标识符，以WM_开头的预定义值(Windows Message)</span></span><br><span class="line">    WPARAM      wParam;		<span class="comment">// 消息的参数之一</span></span><br><span class="line">    LPARAM      lParam;		<span class="comment">// 消息的参数之二</span></span><br><span class="line">    DWORD       time;		<span class="comment">// 消息放入消息队列的时间</span></span><br><span class="line">    POINT       pt;			<span class="comment">// 这是一个POINT数据结构，表示消息放入消息队列时鼠标的位置</span></span><br><span class="line">&#125; MSG,</span><br></pre></td></tr></table></figure>
+
+
+<p>GetMessage 函数从消息队列中取得的消息如果不是WM_QUIT ，则返回非零值。一个WM_QUIT 消息会使GetMessage 函数返回0，从而消息循环结束。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">::TranslateMessage(&amp;msg);</span><br></pre></td></tr></table></figure>
+
+<p>此调用把键盘输入翻译成可调用的消息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">::DispatchMessage(&amp;msg);</span><br></pre></td></tr></table></figure>
+
+<p>DispatchMessage 函数分发一个消息到对应窗口的窗口函数。MainWndProc 处理消息后把控制权交给Windows,此时DispatchMessage 函数仍然继续工作，当他返回时，消息队列从调用GetMessage 函数开始进入下一轮。</p>
+<h2 id="处理消息代码"><a href="#处理消息代码" class="headerlink" title="处理消息代码"></a>处理消息代码</h2><p>所有消息不做处理的消息都必须返回一个名为DefWindowProc的函数让Windows做默认处理，从DefWindowProc 函数返回的值也必须从消息处理函数返回。</p>
+<p>每当客户区变为无效，消息处理函数就会收到一个新的WM_PAINT 消息。<br>WM_DESTORY 是窗口必须处理的一个消息，当用户关闭窗口时，消息处理函数就会收到一 个 WM_DESTORY消息。当接收到这个消息的时候，说明窗口正在销毁。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">::PostQuitMessage(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>PostQuitMessage函数会会向消息队列中插入一个 WM_QUIT 消息。GetMessage 函数如果从消息队列中获得到消息时 WM_QUIT ,它将返回0。从而退出消息循环。如果不使用函数 PostQuitMessage 发送WM_QUIT 消息，则界面虽然被销毁了，但是消息循环还在继续，程序还没有结束。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/22/WIN32%E7%BC%96%E7%A8%8B/">http://example.com/2024/07/22/WIN32%E7%BC%96%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/22/windows%E6%B3%A8%E5%86%8C%E8%A1%A8/" title="windows注册表"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">windows注册表</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/22/VEH%20syscall%20%E5%85%8D%E6%9D%80%E5%88%86%E6%9E%90/" title="VEH syscall 免杀分析"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">VEH syscall 免杀分析</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">388</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">57</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#WIN32%E7%BC%96%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">WIN32编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#APIENTRY-WinMain-%E5%92%8CWINAPI-WinMain%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.</span> <span class="toc-text">APIENTRY WinMain 和WINAPI WinMain的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#win32%E7%BC%96%E7%A8%8B%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%ABwin32"><span class="toc-number">1.2.</span> <span class="toc-text">win32编程为什么叫win32</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CreateWindowEx%E5%92%8CCreateWindow%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.3.</span> <span class="toc-text">CreateWindowEx和CreateWindow的区别是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CreateWindowEx"><span class="toc-number">1.3.1.</span> <span class="toc-text">CreateWindowEx:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CreateWindow"><span class="toc-number">1.3.2.</span> <span class="toc-text">CreateWindow:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MessageBox%E4%B8%BA%E4%BB%80%E4%B9%88%E5%89%8D%E9%9D%A2%E6%9C%89%E4%B8%A4%E4%B8%AA%E5%86%92%E5%8F%B7"><span class="toc-number">1.4.</span> <span class="toc-text">::MessageBox为什么前面有两个冒号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#int-APIENTRY-WinMain-HINSTANCE-hInstance-HINSTANCE-hPreInstance-LPSTR-lpCmdLine-int-nCmdShow-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B"><span class="toc-number">1.5.</span> <span class="toc-text">int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine, int nCmdShow) 参数说明解释一下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HWND-hWnd-FindWindow-nullptr-TEXT-%E2%80%9C%E6%97%A0%E6%A0%87%E9%A2%98-%E8%AE%B0%E4%BA%8B%E6%9C%AC%E2%80%9D-%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E5%B9%B6%E4%B8%94%E5%88%97%E4%B8%BE%E5%87%BAFindWindow%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">1.6.</span> <span class="toc-text">HWND hWnd &#x3D; ::FindWindow(nullptr, TEXT(“无标题 - 记事本”)); 解释一下这段代码并且列举出FindWindow函数的参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A%EF%BC%9A"><span class="toc-number">1.6.1.</span> <span class="toc-text">代码解释：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindWindow-%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="toc-number">1.6.2.</span> <span class="toc-text">FindWindow 函数的参数：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E7%AA%97%E5%8F%A3%E7%B1%BB"><span class="toc-number">1.7.</span> <span class="toc-text">注册窗口类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%AA%97%E5%8F%A3"><span class="toc-number">1.8.</span> <span class="toc-text">创建窗口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E6%97%A0%E9%99%90%E7%9A%84%E6%B6%88%E6%81%AF%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.9.</span> <span class="toc-text">进入无限的消息循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%B6%88%E6%81%AF%E4%BB%A3%E7%A0%81"><span class="toc-number">1.10.</span> <span class="toc-text">处理消息代码</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/" title="车辆数字钥匙常见攻击和防御方法介绍"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="车辆数字钥匙常见攻击和防御方法介绍"/></a><div class="content"><a class="title" href="/2024/08/14/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/" title="车辆数字钥匙常见攻击和防御方法介绍">车辆数字钥匙常见攻击和防御方法介绍</a><time datetime="2024-08-14T07:28:51.319Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/TP-link%20Smart%20Home%20Router%20%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="TP-link Smart Home Router 命令注入漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TP-link Smart Home Router 命令注入漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/TP-link%20Smart%20Home%20Router%20%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="TP-link Smart Home Router 命令注入漏洞">TP-link Smart Home Router 命令注入漏洞</a><time datetime="2024-08-14T07:28:51.312Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/Sapido%20RB-1732%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="Sapido RB-1732 远程命令执行漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sapido RB-1732 远程命令执行漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/Sapido%20RB-1732%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="Sapido RB-1732 远程命令执行漏洞">Sapido RB-1732 远程命令执行漏洞</a><time datetime="2024-08-14T07:28:51.309Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/D-Link%20DIR-815%20%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E/" title="D-Link DIR-815 后门漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="D-Link DIR-815 后门漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/D-Link%20DIR-815%20%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E/" title="D-Link DIR-815 后门漏洞">D-Link DIR-815 后门漏洞</a><time datetime="2024-08-14T07:28:51.297Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="路由器漏洞挖掘工具总结"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="路由器漏洞挖掘工具总结"/></a><div class="content"><a class="title" href="/2024/07/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="路由器漏洞挖掘工具总结">路由器漏洞挖掘工具总结</a><time datetime="2024-07-26T13:55:22.326Z" title="发表于 2024-07-26 21:55:22">2024-07-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

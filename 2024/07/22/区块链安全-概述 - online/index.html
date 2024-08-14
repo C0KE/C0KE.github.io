@@ -1,0 +1,838 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>区块链安全-概述 - online | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="区块链安全-概述前言该文章是为了学习区块链安全做的简单笔记，因为在一次关于威胁的分析中，需要了解区块链的相关知识，于是这里简单学习一下。 “区块链”⼀词起源于中本聪发明的⼀种点对点电子货币系统中[1]，这电⼦货币系统称为⽐特币。作为比 特币的底 层技术，本质上是⼀个去中心化的数据库。是指通过去中心化和去信任的方式集体维护⼀个可 靠数据库的技术⽅ 案。 从科技层面来看，区块链是⼀门涉及数学、密码学、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="区块链安全-概述 - online">
+<meta property="og:url" content="http://example.com/2024/07/22/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8-%E6%A6%82%E8%BF%B0%20-%20online/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="区块链安全-概述前言该文章是为了学习区块链安全做的简单笔记，因为在一次关于威胁的分析中，需要了解区块链的相关知识，于是这里简单学习一下。 “区块链”⼀词起源于中本聪发明的⼀种点对点电子货币系统中[1]，这电⼦货币系统称为⽐特币。作为比 特币的底 层技术，本质上是⼀个去中心化的数据库。是指通过去中心化和去信任的方式集体维护⼀个可 靠数据库的技术⽅ 案。 从科技层面来看，区块链是⼀门涉及数学、密码学、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png">
+<meta property="article:published_time" content="2024-07-22T01:35:17.404Z">
+<meta property="article:modified_time" content="2024-08-14T07:28:51.142Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://example.com/2024/07/22/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8-%E6%A6%82%E8%BF%B0%20-%20online/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '区块链安全-概述 - online',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-14 15:28:51'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">388</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">57</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">区块链安全-概述 - online</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-22T01:35:17.404Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-14T07:28:51.142Z" title="更新于 2024-08-14 15:28:51">2024-08-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Blockchain%E7%AC%94%E8%AE%B0/">Blockchain笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="区块链安全-概述 - online"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="区块链安全-概述"><a href="#区块链安全-概述" class="headerlink" title="区块链安全-概述"></a>区块链安全-概述</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>该文章是为了学习区块链安全做的简单笔记，因为在一次关于威胁的分析中，需要了解区块链的相关知识，于是这里简单学习一下。</p>
+<p>“区块链”⼀词起源于中本聪发明的⼀种点对点电子货币系统中[1]，这电⼦货币系统称为⽐特币。作为比 特币的底 层技术，本质上是⼀个去中心化的数据库。是指通过去中心化和去信任的方式集体维护⼀个可 靠数据库的技术⽅ 案。 从科技层面来看，区块链是⼀门涉及数学、密码学、互联网和计算机编程等很多 科学技术综合交叉学问。 从应用视角来看，区块链是⼀种新兴技术，它是⼀个分布式的共享账本和数据 库；这门技术从特点上分析，具有去 中心化、不可篡改、全程留痕、可以追溯、集体维护、公开透明等 特点。 从计算机技术应用模式的视⻆来看，它具备分布式数据存储、点对点传输、共识机制、加密算法 等技术模式。 中国信通院在2018年发布的区块链安全白皮书的序言，可以看出区块链安全在逐渐变得重 要。 </p>
+<p>同时区块链已经上升为国家战略，未来在这⼀块的资源也会相应倾斜。 想要⼊坑区块链安全的话，是需 要⼀些密码学基础，掌握了解诸多知识概念，Solidity编程语⾔。</p>
+<h2 id="Ethereum-安全"><a href="#Ethereum-安全" class="headerlink" title="Ethereum 安全"></a>Ethereum 安全</h2><p>CTF 中关于区块链安全的内容，目前为止，涉及到最多的便是 Ethereum 安全。</p>
+<p>Ethereum 是区块链 2.0 的代表产物，因其底层使用区块链技术，所以继承区块链的各种特性，其中有一项便是 <strong>代码一旦上链，便难以篡改或更改</strong>，所以我们需要额外关注它的安全。</p>
+<p>智能合约 (Smart Contract) 是 Ethereum 中最为重要的一个概念，允许在没有第三方的情况下进行可信交易，这些交易可追踪且不可逆转。</p>
+<h3 id="CTF-中的区块链"><a href="#CTF-中的区块链" class="headerlink" title="CTF 中的区块链"></a>CTF 中的区块链</h3><p>CTF 中有关于 Ethereum Security 还是比较简单的，主要涉及到的是 Solidity Security， 下面介绍一下需要具备的基本能力。</p>
+<h3 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h3><ul>
+<li>对区块链基本知识以及交易本质有所了解</li>
+<li>熟悉并掌握 Solidity 编程语言及以太坊虚拟机 EVM 运行机制</li>
+<li>熟悉各种测试链，包括私链</li>
+<li>熟悉 Remix、MetaMask、web3.js、web3.py 等工具或库的使用</li>
+<li>了解并掌握以太坊智能合约各种漏洞及其攻击原理</li>
+<li>对底层 opcodes 理解透彻</li>
+<li>较强的程序理解和逆向分析能力</li>
+</ul>
+<h3 id="Solidity"><a href="#Solidity" class="headerlink" title="Solidity"></a>Solidity</h3><p>Solidity 是一种用于编写智能合约的高级语言，语法类似于 JavaScript。在以太坊平台上，Solidity 编写的智能合约可以被编译成字节码在以太坊虚拟机 EVM 上运行。</p>
+<p>官方网站<a target="_blank" rel="noopener" href="https://docs.soliditylang.org/en/latest/">https://docs.soliditylang.org/en/latest/</a></p>
+<h3 id="MetaMask"><a href="#MetaMask" class="headerlink" title="MetaMask"></a>MetaMask</h3><p>非常好用也是用的最多的以太坊钱包，头像是小狐狸标识，Chrome 提供了其插件，其不仅可以管理外部账户，而且可以便捷切换测试链网络，并且可以自定义 RPC 网络。</p>
+<blockquote>
+<p>一个外部账户通常由私钥文件控制，拥有私钥的用户就可以拥有对应地址的账户里的 Ether 使用权。我们通常把管理这些数字密钥的软件称为钱包，而我们所说的备份钱包其实就是备份账户的私钥文件。</p>
+</blockquote>
+<h3 id="Remix"><a href="#Remix" class="headerlink" title="Remix"></a>Remix</h3><p>基于浏览器的 Solidity 编译器和集成开发环境，提供了交互式界面，以及编译、调用测试、发布等一系列功能，使用十分方便。<a target="_blank" rel="noopener" href="http://remix.ethereum.org/#optimize=false&runs=200&evmVersion=null">http://remix.ethereum.org/</a></p>
+<h3 id="账户"><a href="#账户" class="headerlink" title="账户"></a>账户</h3><p>在以太坊中，一个重要的概念就是账户（Account）。</p>
+<p>在以太坊中存在两种类型的账户，分别是外部账户（Externally Owned Account, EOA）和合约账户。</p>
+<h4 id="外部账户"><a href="#外部账户" class="headerlink" title="外部账户"></a>外部账户</h4><p>外部账户是由人创建的，可以存储以太币，是由公钥和私钥控制的账户。每个外部账户拥有一对公私钥，这对密钥用于签署交易，它的地址由公钥决定。外部账户不能包含以太坊虚拟机（EVM）代码。</p>
+<p>一个外部账户具有以下特性</p>
+<ul>
+<li>拥有一定的 Ether</li>
+<li>可以发送交易、通过私钥控制</li>
+<li>没有相关联的代码</li>
+</ul>
+<h4 id="合约账户"><a href="#合约账户" class="headerlink" title="合约账户"></a>合约账户</h4><p>合约账户是由外部账户创建的账户，包含合约代码。合约账户的地址是由合约创建时合约创建者的地址，以及该地址发出的交易共同计算得出的。</p>
+<p>一个合约账户具有以下特性</p>
+<ul>
+<li>拥有一定的 Ether</li>
+<li>有相关联的代码，代码通过交易或者其他合约发送的调用来激活</li>
+<li>当合约被执行时，只能操作合约账户拥有的特定存储</li>
+</ul>
+<blockquote>
+<p>私钥经过一种哈希算法 (椭圆曲线算法 ECDSA-secp256k1) 计算生成公钥，计算公钥的 Keccak-256 哈希值，然后取最后 160 位二进制（通常表现为 40 位的 16 进制字符串）形成了地址。其中，公钥和地址都是可以公布的，而私钥，你只能自己悄悄的藏起来，不要丢失，因为你的账户中的资产也会跟着丢掉；不要被别人盗取，因为账户中的资产也会随着被盗取。所以，私钥的保存非常重要。</p>
+</blockquote>
+<p>以太坊中，这两种账户统称为 “状态对象”（存储状态）。其中外部账户存储以太币余额状态，而合约账户除了余额还有智能合约及其变量的状态。通过交易的执行，这些状态对象发生变化，而 Merkle 树用于索引和验证状态对象的更新。一个以太坊的账户包含 4 个部分：</p>
+<ul>
+<li>nonce: 已执行交易总数，用来标示该账户发出的交易数量。</li>
+<li>balance: 账持币数量，记录账户的以太币余额。</li>
+<li>storageRoot: 存储区的哈希值，指向智能合约账户的存储数据区。</li>
+<li>codeHash: 代码区的哈希值，指向智能合约账户存储的智能合约代码。</li>
+</ul>
+<p>两个外部账户之间的交易只是一个价值转移。但是从外部账户到合约账户的交易会激活合约账户的代码，允许它执行各种操作（例如转移 Token，写入内部存储，创建新的 Token ，执行一些计算，创建新的合约等）。</p>
+<p>与外部账户不同，合约账户不能自行发起新的交易。相反，合约帐户只能触发交易以响应其他交易（从外部拥有的帐户或其他合约帐户）。</p>
+<blockquote>
+<p>注：合约账户和外部账户最大的不同就是它还存有智能合约。</p>
+</blockquote>
+<h3 id="交易"><a href="#交易" class="headerlink" title="交易"></a>交易</h3><p>以太坊的交易主要是指一条外部账户发送到区块链上另一账户的消息的签名数据包，其主要包含发送者的签名、接收者的地址以及发送者转移给接收者的以太币数量等内容。以太坊上的每一笔交易都需要支付一定的费用，用于支付交易执行所需要的计算开销。计算开销的费用并不是以太币直接计算的，而是引入 Gas 作为执行开销的基本单位，通过 GasPrice 与以太币进行换算的。</p>
+<p>GasPrice 根据市场波动调整，避免以太币价值受市场价格的影响。交易是以太坊整体结构中的重要部分，它将以太坊的账户连接起来，起到价值的传递作用。</p>
+<h4 id="交易费用"><a href="#交易费用" class="headerlink" title="交易费用"></a>交易费用</h4><ul>
+<li>Gas: 衡量一笔交易所消耗的计算资源的基本单位</li>
+</ul>
+<ul>
+<li>Gas Price: 一单位 Gas 所需的手续费（Ether）</li>
+<li>Gas Limit: 交易发送者愿意为这笔交易执行所支付的最大 Gas 数量</li>
+</ul>
+<blockquote>
+<p>注：如果交易实际消耗的 Gas (Gas Used) 小于 Gas Limit, 那么执行的矿工只会收取实际计算开销（Gas Used）对应的交易手续费（Gas Used * Gas Price）；而如果 Gas Used 大于 Gas Limit，那么矿工执行过程中会发现 Gas 已被耗尽而交易没有执行完成，此时矿工会回滚到程序执行前到状态，而且收取 Gas Limit 所对应的手续费（GasPrice * Gas Limit）。换句话说，<strong>GasPrice * Gas Limit</strong> 表示用户愿意为一笔交易支付的最高金额。</p>
+</blockquote>
+<h4 id="交易内容"><a href="#交易内容" class="headerlink" title="交易内容"></a>交易内容</h4><p>以太坊中的交易（Transaction）是指存储一条从外部账户发送到区块链上另一个账户的消息的签名数据包，它既可以是简单的转账，也可以是包含智能合约代码的消息。一条交易包含以下内容：</p>
+<ul>
+<li>from: 交易发送者的地址，必填；</li>
+<li>to: 交易接收者的地址，如果为空则意味这是一个创建智能合约的交易；</li>
+<li>value: 发送者要转移给接收者的以太币数量</li>
+<li>data: 存在的数据字段，如果存在，则表明该交易是一个创建或者调用智能合约的交易；</li>
+<li>Gas Limit: 表示交易允许消耗的最大 Gas 数量；</li>
+<li>GasPrice: 发送者愿意支付给矿工的 Gas 单价；</li>
+<li>nonce: 用来区别同一账户发出的不同交易的标记；</li>
+<li>hash: 由以上信息生成的散列值（哈希值）；</li>
+<li>r、s、v: 交易签名的三个部分，由发送者的私钥对交易 hash 进行签名生成。</li>
+</ul>
+<p>以上是以太坊中交易可能包含的内容，在不同场景下，交易有三种类型。</p>
+<ul>
+<li>转帐交易</li>
+</ul>
+<p>转账是最简单的一种交易，从一个账户向另一个账户发送 Ether，发送转账交易时只需要指定交易的发送者、接收者、转移的 Ether 数量即可（在客户端发送交易时，Gas Limit、Gas Price、nonce、hash、签名可以按照默认方式生成），如下所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">web3.eth.sendTransaction(&#123;</span><br><span class="line">    from: &quot;0x88D3052D12527F1FbE3a6E1444EA72c4DdB396c2&quot;,</span><br><span class="line">    to: &quot;0x75e65F3C1BB334ab927168Bd49F5C44fbB4D480f&quot;,</span><br><span class="line">    value: 1000</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建合约的交易</li>
+</ul>
+<p>创建合约是指将合约部署到区块链上，这也是通过交易来完成的。创建合约时，to 字段是一个空字符串，data 字段是合约编译后的二进制代码，在之后合约被调用时，该代码的执行结果将作为合约代码，如下所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">web3.eth.sendTransaction(&#123;</span><br><span class="line">    from: &quot;0x88D3052D12527F1FbE3a6E1444EA72c4DdB396c2&quot;,</span><br><span class="line">    data: &quot;contract binary code&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行合约的交易</li>
+</ul>
+<p>该交易中，to 字段是要调用的智能合约的地址，通过 data 字段指定要调用的方法以及向该方法传入参数，如下所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">web3.eth.sendTransaction(&#123;</span><br><span class="line">    from: &quot;0x88D3052D12527F1FbE3a6E1444EA72c4DdB396c2&quot;,</span><br><span class="line">    to: &quot;0x75e65F3C1BB334ab927168Bd49F5C44fbB4D480f&quot;,</span><br><span class="line">    data: &quot;hash of the invoked method signature and encoded parameters&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="与合约交互"><a href="#与合约交互" class="headerlink" title="与合约交互"></a>与合约交互</h3><ul>
+<li>直接通过 Remix 交互</li>
+<li>Remix 不能够做到自动化，所以便有开发人员做了一些工作<ul>
+<li>Python 的 web3.py 库</li>
+<li>Nodejs 的 web3.js 库</li>
+<li><a target="_blank" rel="noopener" href="https://infura.io/">Infura</a> 提供了 RPC API 供开发者调用，现支持 Ethereum、Eth2、Filecoin</li>
+</ul>
+</li>
+</ul>
+<p>使用 <a target="_blank" rel="noopener" href="https://infura.io/">Infura</a> 提供的 RPC API，利用 web3.py 或者 web3.js 库与其进行自动化交互</p>
+<p>Infura 现支持如下网络的访问点：</p>
+<table>
+<thead>
+<tr>
+<th align="left">网络</th>
+<th align="left">说明</th>
+<th align="left">URL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Mainnet</td>
+<td align="left">JSON-RPC over HTTPs</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://mainnet.infura.io/v3/YOUR-PROJECT-ID">https://mainnet.infura.io/v3/YOUR-PROJECT-ID</a></td>
+</tr>
+<tr>
+<td align="left">Mainnet</td>
+<td align="left">JSON-RPC over websockets</td>
+<td align="left">wss:&#x2F;&#x2F;mainnet.infura.io&#x2F;ws&#x2F;v3&#x2F;YOUR-PROJECT-ID</td>
+</tr>
+<tr>
+<td align="left">Ropsten</td>
+<td align="left">JSON-RPC over HTTPs</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://ropsten.infura.io/v3/YOUR-PROJECT-ID">https://ropsten.infura.io/v3/YOUR-PROJECT-ID</a></td>
+</tr>
+<tr>
+<td align="left">Ropsten</td>
+<td align="left">JSON-RPC over websockets</td>
+<td align="left">wss:&#x2F;&#x2F;ropsten.infura.io&#x2F;ws&#x2F;v3&#x2F;YOUR-PROJECT-ID</td>
+</tr>
+<tr>
+<td align="left">Rinkeby</td>
+<td align="left">JSON-RPC over HTTPs</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://rinkeby.infura.io/v3/YOUR-PROJECT-ID">https://rinkeby.infura.io/v3/YOUR-PROJECT-ID</a></td>
+</tr>
+<tr>
+<td align="left">Rinkeby</td>
+<td align="left">JSON-RPC over websockets</td>
+<td align="left">wss:&#x2F;&#x2F;rinkeby.infura.io&#x2F;ws&#x2F;v3&#x2F;YOUR-PROJECT-ID</td>
+</tr>
+<tr>
+<td align="left">Kovan</td>
+<td align="left">JSON-RPC over HTTPs</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://kovan.infura.io/v3/YOUR-PROJECT-ID">https://kovan.infura.io/v3/YOUR-PROJECT-ID</a></td>
+</tr>
+<tr>
+<td align="left">Kovan</td>
+<td align="left">JSON-RPC over websockets</td>
+<td align="left">wss:&#x2F;&#x2F;kovan.infura.io&#x2F;ws&#x2F;v3&#x2F;YOUR-PROJECT-ID</td>
+</tr>
+<tr>
+<td align="left">Görli</td>
+<td align="left">JSON-RPC over HTTPs</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://goerli.infura.io/v3/YOUR-PROJECT-ID">https://goerli.infura.io/v3/YOUR-PROJECT-ID</a></td>
+</tr>
+<tr>
+<td align="left">Görli</td>
+<td align="left">JSON-RPC over websockets</td>
+<td align="left">wss:&#x2F;&#x2F;goerli.infura.io&#x2F;ws&#x2F;v3&#x2F;YOUR-PROJECT-ID</td>
+</tr>
+<tr>
+<td align="left">Mainnet(eth2)</td>
+<td align="left">JSON-RPC over HTTPs</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://YOUR-PROJECT-ID:YOUR-PROJECT-SECRET@eth2-beacon-mainnet.infura.io/">https://YOUR-PROJECT-ID:YOUR-PROJECT-SECRET@eth2-beacon-mainnet.infura.io</a></td>
+</tr>
+<tr>
+<td align="left">pyrmont(eth2)</td>
+<td align="left">JSON-RPC over websockets</td>
+<td align="left">wss:&#x2F;&#x2F;YOUR-PROJECT-ID:<a href="mailto:YOUR-PROJECT-SECRET@eth2-beacon-mainnet.infura.io">YOUR-PROJECT-SECRET@eth2-beacon-mainnet.infura.io</a></td>
+</tr>
+<tr>
+<td align="left">Filecoin</td>
+<td align="left">JSON-RPC over HTTPs</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://YOUR-PROJECT-ID:YOUR-PROJECT-SECRET@filecoin.infura.io/">https://YOUR-PROJECT-ID:YOUR-PROJECT-SECRET@filecoin.infura.io</a></td>
+</tr>
+<tr>
+<td align="left">Filecoin</td>
+<td align="left">JSON-RPC over websockets</td>
+<td align="left">wss:&#x2F;&#x2F;YOUR-PROJECT-ID:<a href="mailto:YOUR-PROJECT-SECRET@filecoin.infura.io">YOUR-PROJECT-SECRET@filecoin.infura.io</a></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p> 注：使用时，请务必使用你的 Infura 仪表盘 中的项目 ID&#x2F;Project ID 或 Project Secret 来替换以上 URL 中的 YOUR-PROJECT-ID 或 YOUR-PROJECT-SECRET</p>
+</blockquote>
+<h3 id="tx-origin-vs-msg-sender"><a href="#tx-origin-vs-msg-sender" class="headerlink" title="tx.origin vs msg.sender"></a>tx.origin vs msg.sender</h3><ul>
+<li>这里区分一下 tx.origin 和 msg.sender ，msg.sender 是函数的直接调用方，在用户手动调用该函数时是发起交易的账户地址，但也可以是调用该函数的一个智能合约的地址。而 tx.origin 则必然是这个交易的原始发起方，无论中间有多少次合约内 &#x2F; 跨合约函数调用，而且一定是账户地址而不是合约地址。</li>
+<li>给定这样一个场景如：用户通过合约 A 调合约 B，此时：<ul>
+<li>对于合约 A : tx.origin 和 msg.sender 都是用户</li>
+<li>对于合约 B : tx.origin 是用户，msg.sender 是合约 A</li>
+</ul>
+</li>
+</ul>
+<h2 id="密码学基础"><a href="#密码学基础" class="headerlink" title="密码学基础"></a>密码学基础</h2><ul>
+<li><p>哈希算法 </p>
+</li>
+<li><p>ECC椭圆曲线算法</p>
+</li>
+</ul>
+<p>主要了解上述密码算法基本的原理以及在区块链中的应⽤场景。 学有余力可以尝试了解⼀些针对这些密码算法的攻击</p>
+<h2 id="Solidity-1"><a href="#Solidity-1" class="headerlink" title="Solidity"></a>Solidity</h2><p>这是一门主流的编写智能合约的编程语言 </p>
+<p>加密僵尸 – <a target="_blank" rel="noopener" href="https://cryptozombies.io/zh/">https://cryptozombies.io/zh/</a> </p>
+<p>这是⼀个学习Solidity的编程游戏，完整的学习，会让你加深对Solidity语言的了解，同时也会了解到⼀ 些代币标 准。 翻阅官方文档也是⼀种不错的学习方式</p>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><h4 id="pragma"><a href="#pragma" class="headerlink" title="pragma"></a>pragma</h4><p>所有的 Solidity 源码都必须冠以 “version pragma” — 标明 Solidity 编译器的版本. 以避免将来新的编译器可能破坏你的代码。</p>
+<p>例如: <code>pragma solidity ^0.8.24;</code> (当前 Solidity 的最新版本是 0.8.24).</p>
+<p>综上所述， 下面就是一个最基本的合约 — 每次建立一个新的项目时的第一段代码:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.8.24;</span><br><span class="line">contract HelloWorld &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="uint"><a href="#uint" class="headerlink" title="uint"></a>uint</h4><p><strong>状态变量</strong>是被永久地保存在合约中。也就是说它们被写入以太币区块链中. 想象成写入一个数据库。</p>
+<p>Solidity中， <code>uint</code> 实际上是 <code>uint256</code>代名词， 一个256位的无符号整数。你也可以定义位数少的uints — <code>uint8</code>，<code>uint16</code>， <code>uint32</code>， 等…… 但一般来讲你愿意使用简单的 <code>uint</code>， 除非在某些特殊情况下，这我们后面会讲。</p>
+<p><strong>例子:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">contract Example &#123;</span><br><span class="line">  // 这个无符号整数将会永久的被保存在区块链中</span><br><span class="line">  uint myUnsignedInteger = 100;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h4><p>有时你需要更复杂的数据类型，Solidity 提供了 <strong>结构体</strong>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct Person &#123;</span><br><span class="line">  uint age;</span><br><span class="line">  string name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结构体允许你生成一个更复杂的数据类型，它有多个属性。</p>
+<blockquote>
+<p>注：我们刚刚引进了一个新类型, <code>string</code>。 字符串用于保存任意长度的 UTF-8 编码数据。 如： <code>string greeting = &quot;Hello world!&quot;</code>。</p>
+</blockquote>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>如果你想建立一个集合，可以用 数组这样的数据类型. Solidity 支持两种数组: <strong>静态</strong> 数组和<strong>动态</strong> 数组:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 固定长度为2的静态数组:</span><br><span class="line">uint[2] fixedArray;</span><br><span class="line">// 固定长度为5的string类型的静态数组:</span><br><span class="line">string[5] stringArray;</span><br><span class="line">// 动态数组，长度不固定，可以动态添加元素:</span><br><span class="line">uint[] dynamicArray;</span><br></pre></td></tr></table></figure>
+
+<p>你也可以建立一个 ***结构体***类型的数组 例如，上一章提到的 <code>Person</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person[] people; // 这是动态数组，我们可以不断添加元素</span><br></pre></td></tr></table></figure>
+
+<p>记住：状态变量被永久保存在区块链中。所以在你的合约中创建动态数组来保存成结构的数据是非常有意义的。</p>
+<h4 id="公共数组"><a href="#公共数组" class="headerlink" title="公共数组"></a>公共数组</h4><p>你可以定义 <code>public</code> 数组, Solidity 会自动创建 <strong>getter</strong> 方法. 语法如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person[] public people;</span><br></pre></td></tr></table></figure>
+
+<p>其它的合约可以从这个数组读取数据（但不能写入数据），所以这在合约中是一个有用的保存公共数据的模式。</p>
+<h4 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h4><p>在 Solidity 中函数定义的句法如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function eatHamburgers(string _name, uint _amount) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是一个名为 <code>eatHamburgers</code> 的函数，它接受两个参数：一个 <code>string</code>类型的 和 一个 <code>uint</code>类型的。现在函数内部还是空的。</p>
+<blockquote>
+<p>注：: 习惯上函数里的变量都是以(<code>_</code>)开头 (但不是硬性规定) 以区别全局变量。我们整个教程都会沿用这个习惯。</p>
+</blockquote>
+<p>我们的函数定义如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eatHamburgers(&quot;vitalik&quot;, 100);</span><br></pre></td></tr></table></figure>
+
+<h4 id="私有-公共函数"><a href="#私有-公共函数" class="headerlink" title="私有 &#x2F; 公共函数"></a>私有 &#x2F; 公共函数</h4><p>Solidity 定义的函数的属性默认为<code>公共</code>。 这就意味着任何一方 (或其它合约) 都可以调用你合约里的函数。</p>
+<p>显然，不是什么时候都需要这样，而且这样的合约易于受到攻击。 所以将自己的函数定义为<code>私有</code>是一个好的编程习惯，只有当你需要外部世界调用它时才将它设置为<code>公共</code>。</p>
+<p>如何定义一个私有的函数呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">uint[] numbers;</span><br><span class="line">function _addToArray(uint _number) private &#123;</span><br><span class="line">  numbers.push(_number);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这意味着只有我们合约中的其它函数才能够调用这个函数，给 <code>numbers</code> 数组添加新成员。</p>
+<p>可以看到，在函数名字后面使用关键字 <code>private</code> 即可。和函数的参数类似，私有函数的名字用(<code>_</code>)起始。</p>
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>要想函数返回一个数值，按如下定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">string greeting = &quot;What&#x27;s up dog&quot;;</span><br><span class="line"></span><br><span class="line">function sayHello() public returns (string) &#123;</span><br><span class="line">  return greeting;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Solidity 里，函数的定义里可包含返回值的数据类型(如本例中 <code>string</code>)。</p>
+<h4 id="函数的修饰符"><a href="#函数的修饰符" class="headerlink" title="函数的修饰符"></a>函数的修饰符</h4><p>上面的函数实际上没有改变 Solidity 里的状态，即，它没有改变任何值或者写任何东西。</p>
+<p>这种情况下我们可以把函数定义为 *<strong>view*</strong>, 意味着它只能读取数据不能更改数据:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function sayHello() public view returns (string) &#123;</span><br></pre></td></tr></table></figure>
+
+<p>Solidity 还支持 *<strong>pure*</strong> 函数, 表明这个函数甚至都不访问应用里的数据，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function _multiply(uint a, uint b) private pure returns (uint) &#123;</span><br><span class="line">  return a * b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数甚至都不读取应用里的状态 — 它的返回值完全取决于它的输入参数，在这种情况下我们把函数定义为 <strong>pure</strong>.</p>
+<blockquote>
+<p>注：可能很难记住何时把函数标记为 pure&#x2F;view。 幸运的是， Solidity 编辑器会给出提示，提醒你使用这些修饰符。</p>
+</blockquote>
+<h4 id="keccak256"><a href="#keccak256" class="headerlink" title="keccak256"></a>keccak256</h4><p>如何让 <code>_generateRandomDna</code> 函数返回一个全(半) 随机的 <code>uint</code>?</p>
+<p>Ethereum 内部有一个散列函数<code>keccak256</code>，它用了SHA3版本。一个散列函数基本上就是把一个字符串转换为一个256位的16进制数字。字符串的一个微小变化会引起散列数据极大变化。</p>
+<p>这在 Ethereum 中有很多应用，但是现在我们只是用它造一个伪随机数。</p>
+<p>例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//6e91ec6b618bb462a4a6ee5aa2cb0e9cf30f7a052bb467b0ba58b8748c00d2e5</span><br><span class="line">keccak256(&quot;aaaab&quot;);</span><br><span class="line">//b1f078126895a1424524de5321b339ab00408010b7cf0e6ed451514981e58aa9</span><br><span class="line">keccak256(&quot;aaaac&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>显而易见，输入字符串只改变了一个字母，输出就已经天壤之别了。</p>
+<blockquote>
+<p>注: 在区块链中<strong>安全地</strong>产生一个随机数是一个很难的问题， 本例的方法不安全，但是在我们的Zombie DNA算法里不是那么重要，已经很好地满足我们的需要了。</p>
+</blockquote>
+<h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><p>有时你需要变换数据类型。例如:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">uint8 a = 5;</span><br><span class="line">uint b = 6;</span><br><span class="line">// 将会抛出错误，因为 a * b 返回 uint, 而不是 uint8:</span><br><span class="line">uint8 c = a * b;</span><br><span class="line">// 我们需要将 b 转换为 uint8:</span><br><span class="line">uint8 c = a * uint8(b);</span><br></pre></td></tr></table></figure>
+
+<p>上面, <code>a * b</code> 返回类型是 <code>uint</code>, 但是当我们尝试用 <code>uint8</code> 类型接收时, 就会造成潜在的错误。如果把它的数据类型转换为 <code>uint8</code>, 就可以了，编译器也不会出错。</p>
+<h4 id="event"><a href="#event" class="headerlink" title="event"></a>event</h4><p>我们的合约几乎就要完成了！让我们加上一个<strong>事件</strong>.</p>
+<p><strong>事件</strong> 是合约和区块链通讯的一种机制。你的前端应用“监听”某些事件，并做出反应。</p>
+<p>例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 这里建立事件</span><br><span class="line">event IntegersAdded(uint x, uint y, uint result);</span><br><span class="line"></span><br><span class="line">function add(uint _x, uint _y) public &#123;</span><br><span class="line">  uint result = _x + _y;</span><br><span class="line">  //触发事件，通知app</span><br><span class="line">  IntegersAdded(_x, _y, result);</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你的 app 前端可以监听这个事件。JavaScript 实现如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">YourContract.IntegersAdded(function(error, result) &#123;</span><br><span class="line">  // 干些事</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="中级"><a href="#中级" class="headerlink" title="中级"></a>中级</h3><h4 id="Addresses-（地址）"><a href="#Addresses-（地址）" class="headerlink" title="Addresses （地址）"></a>Addresses （地址）</h4><p>以太坊区块链由 <strong>_ account _</strong> (账户)组成，你可以把它想象成银行账户。一个帐户的余额是 <strong><em>以太</em></strong> （在以太坊区块链上使用的币种），你可以和其他帐户之间支付和接受以太币，就像你的银行帐户可以电汇资金到其他银行帐户一样。</p>
+<p>每个帐户都有一个“地址”，你可以把它想象成银行账号。这是账户唯一的标识符，它看起来长这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0x0cE446255506E92DF41614C46F1d6df9Cc969183</span><br></pre></td></tr></table></figure>
+
+<p>我们将在后面的课程中介绍地址的细节，现在你只需要了解<strong>地址属于特定用户（或智能合约）的</strong>。</p>
+<p>所以我们可以指定“地址”作为僵尸主人的 ID。当用户通过与我们的应用程序交互来创建新的僵尸时，新僵尸的所有权被设置到调用者的以太坊地址下。</p>
+<h4 id="mapping"><a href="#mapping" class="headerlink" title="mapping"></a>mapping</h4><p>在第1课中，我们看到了 <strong>_ 结构体 _</strong> 和 <strong>_ 数组 _</strong> 。 <strong><em>映射</em></strong> 是另一种在 Solidity 中存储有组织数据的方法。</p>
+<p>映射是这样定义的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//对于金融应用程序，将用户的余额保存在一个 uint类型的变量中：</span><br><span class="line">mapping (address =&gt; uint) public accountBalance;</span><br><span class="line">//或者可以用来通过userId 存储/查找的用户名</span><br><span class="line">mapping (uint =&gt; string) userIdToName;</span><br></pre></td></tr></table></figure>
+
+<p>映射本质上是存储和查找数据所用的键-值对。在第一个例子中，键是一个 <code>address</code>，值是一个 <code>uint</code>，在第二个例子中，键是一个<code>uint</code>，值是一个 <code>string</code>。</p>
+<h4 id="msg-sender"><a href="#msg-sender" class="headerlink" title="msg.sender"></a>msg.sender</h4><p>在 Solidity 中，有一些全局变量可以被所有函数调用。 其中一个就是 <code>msg.sender</code>，它指的是当前调用者（或智能合约）的 <code>address</code>。</p>
+<blockquote>
+<p>注意：在 Solidity 中，功能执行始终需要从外部调用者开始。 一个合约只会在区块链上什么也不做，除非有人调用其中的函数。所以 <code>msg.sender</code>总是存在的。</p>
+</blockquote>
+<p>以下是使用 <code>msg.sender</code> 来更新 <code>mapping</code> 的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mapping (address =&gt; uint) favoriteNumber;</span><br><span class="line"></span><br><span class="line">function setMyNumber(uint _myNumber) public &#123;</span><br><span class="line">  // 更新我们的 `favoriteNumber` 映射来将 `_myNumber`存储在 `msg.sender`名下</span><br><span class="line">  favoriteNumber[msg.sender] = _myNumber;</span><br><span class="line">  // 存储数据至映射的方法和将数据存储在数组相似</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function whatIsMyNumber() public view returns (uint) &#123;</span><br><span class="line">  // 拿到存储在调用者地址名下的值</span><br><span class="line">  // 若调用者还没调用 setMyNumber， 则值为 `0`</span><br><span class="line">  return favoriteNumber[msg.sender];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个小小的例子中，任何人都可以调用 <code>setMyNumber</code> 在我们的合约中存下一个 <code>uint</code> 并且与他们的地址相绑定。 然后，他们调用 <code>whatIsMyNumber</code> 就会返回他们存储的 <code>uint</code>。</p>
+<p>使用 <code>msg.sender</code> 很安全，因为它具有以太坊区块链的安全保障 —— 除非窃取与以太坊地址相关联的私钥，否则是没有办法修改其他人的数据的。</p>
+<h4 id="require"><a href="#require" class="headerlink" title="require"></a>require</h4><p> <code>require</code>使得函数在执行过程中，当不满足某些条件时抛出错误，并停止执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function sayHiToVitalik(string _name) public returns (string) &#123;</span><br><span class="line">  // 比较 _name 是否等于 &quot;Vitalik&quot;. 如果不成立，抛出异常并终止程序</span><br><span class="line">  // (敲黑板: Solidity 并不支持原生的字符串比较, 我们只能通过比较</span><br><span class="line">  // 两字符串的 keccak256 哈希值来进行判断)</span><br><span class="line">  require(keccak256(_name) == keccak256(&quot;Vitalik&quot;));</span><br><span class="line">  // 如果返回 true, 运行如下语句</span><br><span class="line">  return &quot;Hi!&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你这样调用函数 <code>sayHiToVitalik（“Vitalik”）</code> ,它会返回“Hi！”。而如果调用的时候使用了其他参数，它则会抛出错误并停止执行。</p>
+<p>因此，在调用一个函数之前，用 <code>require</code> 验证前置条件是非常有必要的。</p>
+<h4 id="inheritance"><a href="#inheritance" class="headerlink" title="inheritance"></a>inheritance</h4><p>我们的游戏代码越来越长。 当代码过于冗长的时候，最好将代码和逻辑分拆到多个不同的合约中，以便于管理。</p>
+<p>有个让 Solidity 的代码易于管理的功能，就是合约 <strong>inheritance</strong> (继承)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">contract Doge &#123;</span><br><span class="line">  function catchphrase() public returns (string) &#123;</span><br><span class="line">    return &quot;So Wow CryptoDoge&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract BabyDoge is Doge &#123;</span><br><span class="line">  function anotherCatchphrase() public returns (string) &#123;</span><br><span class="line">    return &quot;Such Moon BabyDoge&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于 <code>BabyDoge</code> 是从 <code>Doge</code> 那里 *<strong>inherits*</strong> （继承)过来的。 这意味着当你编译和部署了 <code>BabyDoge</code>，它将可以访问 <code>catchphrase()</code> 和 <code>anotherCatchphrase()</code>和其他我们在 <code>Doge</code> 中定义的其他公共函数。</p>
+<p>这可以用于逻辑继承（比如表达子类的时候，<code>Cat</code> 是一种 <code>Animal</code>）。 但也可以简单地将类似的逻辑组合到不同的合约中以组织代码。</p>
+<h4 id="import"><a href="#import" class="headerlink" title="import"></a>import</h4><p>在 Solidity 中，当你有多个文件并且想把一个文件导入另一个文件时，可以使用 <code>import</code> 语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import &quot;./someothercontract.sol&quot;;</span><br><span class="line"></span><br><span class="line">contract newContract is SomeOtherContract &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样当我们在合约（contract）目录下有一个名为 <code>someothercontract.sol</code> 的文件（ <code>./</code> 就是同一目录的意思），它就会被编译器导入。</p>
+<h4 id="Storage与Memory"><a href="#Storage与Memory" class="headerlink" title="Storage与Memory"></a>Storage与Memory</h4><p>在 Solidity 中，有两个地方可以存储变量 —— <code>storage</code> 或 <code>memory</code>。</p>
+<p><strong>Storage</strong> 变量是指永久存储在区块链中的变量。 <strong>Memory</strong> 变量则是临时的，当外部函数对某合约调用完成时，内存型变量即被移除。 你可以把它想象成存储在你电脑的硬盘或是RAM中数据的关系。</p>
+<p>大多数时候你都用不到这些关键字，默认情况下 Solidity 会自动处理它们。 状态变量（在函数之外声明的变量）默认为“存储”形式，并永久写入区块链；而在函数内部声明的变量是“内存”型的，它们函数调用结束后消失。</p>
+<p>然而也有一些情况下，你需要手动声明存储类型，主要用于处理函数内的 <strong>_ 结构体 _</strong> 和 <strong>_ 数组 _</strong> 时：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">contract SandwichFactory &#123;</span><br><span class="line">  struct Sandwich &#123;</span><br><span class="line">    string name;</span><br><span class="line">    string status;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Sandwich[] sandwiches;</span><br><span class="line"></span><br><span class="line">  function eatSandwich(uint _index) public &#123;</span><br><span class="line">    // Sandwich mySandwich = sandwiches[_index];</span><br><span class="line"></span><br><span class="line">    // ^ 看上去很直接，不过 Solidity 将会给出警告</span><br><span class="line">    // 告诉你应该明确在这里定义 `storage` 或者 `memory`。</span><br><span class="line"></span><br><span class="line">    // 所以你应该明确定义 `storage`:</span><br><span class="line">    Sandwich storage mySandwich = sandwiches[_index];</span><br><span class="line">    // ...这样 `mySandwich` 是指向 `sandwiches[_index]`的指针</span><br><span class="line">    // 在存储里，另外...</span><br><span class="line">    mySandwich.status = &quot;Eaten!&quot;;</span><br><span class="line">    // ...这将永久把 `sandwiches[_index]` 变为区块链上的存储</span><br><span class="line"></span><br><span class="line">    // 如果你只想要一个副本，可以使用`memory`:</span><br><span class="line">    Sandwich memory anotherSandwich = sandwiches[_index + 1];</span><br><span class="line">    // ...这样 `anotherSandwich` 就仅仅是一个内存里的副本了</span><br><span class="line">    // 另外</span><br><span class="line">    anotherSandwich.status = &quot;Eaten!&quot;;</span><br><span class="line">    // ...将仅仅修改临时变量，对 `sandwiches[_index + 1]` 没有任何影响</span><br><span class="line">    // 不过你可以这样做:</span><br><span class="line">    sandwiches[_index + 1] = anotherSandwich;</span><br><span class="line">    // ...如果你想把副本的改动保存回区块链存储</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你还没有完全理解究竟应该使用哪一个，也不用担心 —— 在本教程中，我们将告诉你何时使用 <code>storage</code> 或是 <code>memory</code>，并且当你不得不使用到这些关键字的时候，Solidity 编译器也发警示提醒你的。</p>
+<p>现在，只要知道在某些场合下也需要你显式地声明 <code>storage</code> 或 <code>memory</code>就够了！</p>
+<h4 id="internal-和-external"><a href="#internal-和-external" class="headerlink" title="internal 和 external"></a>internal 和 external</h4><p>除 <code>public</code> 和 <code>private</code> 属性之外，Solidity 还使用了另外两个描述函数可见性的修饰词：<code>internal</code>（内部） 和 <code>external</code>（外部）。</p>
+<p><code>internal</code> 和 <code>private</code> 类似，不过， 如果某个合约继承自其父合约，这个合约即可以访问父合约中定义的“内部”函数。（嘿，这听起来正是我们想要的那样！）。</p>
+<p><code>external</code> 与<code>public</code> 类似，只不过这些函数只能在合约之外调用 - 它们不能被合约内的其他函数调用。稍后我们将讨论什么时候使用 <code>external</code> 和 <code>public</code>。</p>
+<p>声明函数 <code>internal</code> 或 <code>external</code> 类型的语法，与声明 <code>private</code> 和 <code>public</code>类 型相同：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">contract Sandwich &#123;</span><br><span class="line">  uint private sandwichesEaten = 0;</span><br><span class="line"></span><br><span class="line">  function eat() internal &#123;</span><br><span class="line">    sandwichesEaten++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract BLT is Sandwich &#123;</span><br><span class="line">  uint private baconSandwichesEaten = 0;</span><br><span class="line"></span><br><span class="line">  function eatWithBacon() public returns (string) &#123;</span><br><span class="line">    baconSandwichesEaten++;</span><br><span class="line">    // 因为eat() 是internal 的，所以我们能在这里调用</span><br><span class="line">    eat();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="与其他合约的交互"><a href="#与其他合约的交互" class="headerlink" title="与其他合约的交互"></a>与其他合约的交互</h4><p>如果我们的合约需要和区块链上的其他的合约会话，则需先定义一个 *<strong>interface*</strong> (接口)。</p>
+<p>先举一个简单的栗子。 假设在区块链上有这么一个合约：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">contract LuckyNumber &#123;</span><br><span class="line">  mapping(address =&gt; uint) numbers;</span><br><span class="line"></span><br><span class="line">  function setNum(uint _num) public &#123;</span><br><span class="line">    numbers[msg.sender] = _num;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function getNum(address _myAddress) public view returns (uint) &#123;</span><br><span class="line">    return numbers[_myAddress];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是个很简单的合约，您可以用它存储自己的幸运号码，并将其与您的以太坊地址关联。 这样其他人就可以通过您的地址查找您的幸运号码了。</p>
+<p>现在假设我们有一个外部合约，使用 <code>getNum</code> 函数可读取其中的数据。</p>
+<p>首先，我们定义 <code>LuckyNumber</code> 合约的 <strong>interface</strong> ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">contract NumberInterface &#123;</span><br><span class="line">  function getNum(address _myAddress) public view returns (uint);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请注意，这个过程虽然看起来像在定义一个合约，但其实内里不同：</p>
+<p>首先，我们只声明了要与之交互的函数 —— 在本例中为 <code>getNum</code> —— 在其中我们没有使用到任何其他的函数或状态变量。</p>
+<p>其次，我们并没有使用大括号（<code>&#123;</code> 和 <code>&#125;</code>）定义函数体，我们单单用分号（<code>;</code>）结束了函数声明。这使它看起来像一个合约框架。</p>
+<p>编译器就是靠这些特征认出它是一个接口的。</p>
+<p>在我们的 app 代码中使用这个接口，合约就知道其他合约的函数是怎样的，应该如何调用，以及可期待什么类型的返回值。</p>
+<h4 id="使用接口"><a href="#使用接口" class="headerlink" title="使用接口"></a>使用接口</h4><p>继续前面 <code>NumberInterface</code> 的例子，我们既然将接口定义为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">contract NumberInterface &#123;</span><br><span class="line">  function getNum(address _myAddress) public view returns (uint);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以在合约中这样使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">contract MyContract &#123;</span><br><span class="line">  address NumberInterfaceAddress = 0xab38...;</span><br><span class="line">  // ^ 这是FavoriteNumber合约在以太坊上的地址</span><br><span class="line">  NumberInterface numberContract = NumberInterface(NumberInterfaceAddress);</span><br><span class="line">  // 现在变量 `numberContract` 指向另一个合约对象</span><br><span class="line"></span><br><span class="line">  function someFunction() public &#123;</span><br><span class="line">    // 现在我们可以调用在那个合约中声明的 `getNum`函数:</span><br><span class="line">    uint num = numberContract.getNum(msg.sender);</span><br><span class="line">    // ...在这儿使用 `num`变量做些什么</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过这种方式，只要将您合约的可见性设置为<code>public</code>(公共)或<code>external</code>(外部)，它们就可以与以太坊区块链上的任何其他合约进行交互。</p>
+<h4 id="处理多返回值"><a href="#处理多返回值" class="headerlink" title="处理多返回值"></a>处理多返回值</h4><p><code>getKitty</code> 是我们所看到的第一个返回多个值的函数。我们来看看是如何处理的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function multipleReturns() internal returns(uint a, uint b, uint c) &#123;</span><br><span class="line">  return (1, 2, 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function processMultipleReturns() external &#123;</span><br><span class="line">  uint a;</span><br><span class="line">  uint b;</span><br><span class="line">  uint c;</span><br><span class="line">  // 这样来做批量赋值:</span><br><span class="line">  (a, b, c) = multipleReturns();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 或者如果我们只想返回其中一个变量:</span><br><span class="line">function getLastReturnValue() external &#123;</span><br><span class="line">  uint c;</span><br><span class="line">  // 可以对其他字段留空:</span><br><span class="line">  (,,c) = multipleReturns();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="高级"><a href="#高级" class="headerlink" title="高级"></a>高级</h3><h4 id="智能协议的永固性"><a href="#智能协议的永固性" class="headerlink" title="智能协议的永固性"></a>智能协议的永固性</h4><p>到现在为止，我们讲的 Solidity 和其他语言没有质的区别，它长得也很像 JavaScript。</p>
+<p>但是，在有几点以太坊上的 DApp 跟普通的应用程序有着天壤之别。</p>
+<p>第一个例子，在你把智能协议传上以太坊之后，它就变得<strong>不可更改</strong>, 这种永固性意味着你的代码永远不能被调整或更新。</p>
+<p>你编译的程序会一直，永久的，不可更改的，存在以太坊上。这就是 Solidity 代码的安全性如此重要的一个原因。如果你的智能协议有任何漏洞，即使你发现了也无法补救。你只能让你的用户们放弃这个智能协议，然后转移到一个新的修复后的合约上。</p>
+<p>但这恰好也是智能合约的一大优势。代码说明一切。如果你去读智能合约的代码，并验证它，你会发现，一旦函数被定义下来，每一次的运行，程序都会严格遵照函数中原有的代码逻辑一丝不苟地执行，完全不用担心函数被人篡改而得到意外的结果。</p>
+<h4 id="OpenZeppelin库的Ownable-合约"><a href="#OpenZeppelin库的Ownable-合约" class="headerlink" title="OpenZeppelin库的Ownable 合约"></a>OpenZeppelin库的<code>Ownable</code> 合约</h4><p>下面是一个 <code>Ownable</code> 合约的例子： 来自 <strong>_ OpenZeppelin _</strong> Solidity 库的 <code>Ownable</code> 合约。 OpenZeppelin 是主打安保和社区审查的智能合约库，您可以在自己的 DApps中引用。等把这一课学完，您不要催我们发布下一课，最好利用这个时间把 OpenZeppelin 的网站看看，保管您会学到很多东西！</p>
+<p>把楼下这个合约读读通，是不是还有些没见过代码？别担心，我们随后会解释。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @title Ownable</span><br><span class="line"> * @dev The Ownable contract has an owner address, and provides basic authorization control</span><br><span class="line"> * functions, this simplifies the implementation of &quot;user permissions&quot;.</span><br><span class="line"> */</span><br><span class="line">contract Ownable &#123;</span><br><span class="line">  address public owner;</span><br><span class="line">  event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * @dev The Ownable constructor sets the original `owner` of the contract to the sender</span><br><span class="line">   * account.</span><br><span class="line">   */</span><br><span class="line">  function Ownable() public &#123;</span><br><span class="line">    owner = msg.sender;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * @dev Throws if called by any account other than the owner.</span><br><span class="line">   */</span><br><span class="line">  modifier onlyOwner() &#123;</span><br><span class="line">    require(msg.sender == owner);</span><br><span class="line">    _;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * @dev Allows the current owner to transfer control of the contract to a newOwner.</span><br><span class="line">   * @param newOwner The address to transfer ownership to.</span><br><span class="line">   */</span><br><span class="line">  function transferOwnership(address newOwner) public onlyOwner &#123;</span><br><span class="line">    require(newOwner != address(0));</span><br><span class="line">    OwnershipTransferred(owner, newOwner);</span><br><span class="line">    owner = newOwner;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面有没有您没学过的东东？</p>
+<ul>
+<li>构造函数：<code>function Ownable()</code>是一个 <strong>_ constructor_</strong> (构造函数)，构造函数不是必须的，它与合约同名，构造函数一生中唯一的一次执行，就是在合约最初被创建的时候。</li>
+<li>函数修饰符：<code>modifier onlyOwner()</code>。 修饰符跟函数很类似，不过是用来修饰其他已有函数用的， 在其他语句执行前，为它检查下先验条件。 在这个例子中，我们就可以写个修饰符 <code>onlyOwner</code> 检查下调用者，确保只有合约的主人才能运行本函数。我们下一章中会详细讲述修饰符，以及那个奇怪的<code>_;</code>。</li>
+<li><code>indexed</code> 关键字：别担心，我们还用不到它。</li>
+</ul>
+<p>所以<code>Ownable</code> 合约基本都会这么干：</p>
+<ol>
+<li>合约创建，构造函数先行，将其 <code>owner</code> 设置为<code>msg.sender</code>（其部署者）</li>
+<li>为它加上一个修饰符 <code>onlyOwner</code>，它会限制陌生人的访问，将访问某些函数的权限锁定在 <code>owner</code> 上。</li>
+<li>允许将合约所有权转让给他人。</li>
+</ol>
+<p><code>onlyOwner</code> 简直人见人爱，大多数人开发自己的 Solidity DApps，都是从复制&#x2F;粘贴 <code>Ownable</code> 开始的，从它再继承出的子类，并在之上进行功能开发。</p>
+<p>既然我们想把 <code>setKittyContractAddress</code> 限制为 <code>onlyOwner</code> ，我们也要做同样的事情。</p>
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>现在我们有了个基本版的合约 <code>ZombieFactory</code> 了，它继承自 <code>Ownable</code> 接口，我们也可以给 <code>ZombieFeeding</code> 加上 <code>onlyOwner</code> 函数修饰符。</p>
+<p>这就是合约继承的工作原理。记得：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ZombieFeeding 是个 ZombieFactory</span><br><span class="line">ZombieFactory 是个 Ownable</span><br></pre></td></tr></table></figure>
+
+<p>因此 <code>ZombieFeeding</code> 也是个 <code>Ownable</code>, 并可以通过 <code>Ownable</code> 接口访问父类中的函数&#x2F;事件&#x2F;修饰符。往后，<code>ZombieFeeding</code> 的继承者合约们同样也可以这么延续下去。</p>
+<h4 id="函数修饰符"><a href="#函数修饰符" class="headerlink" title="函数修饰符"></a>函数修饰符</h4><p>函数修饰符看起来跟函数没什么不同，不过关键字<code>modifier</code> 告诉编译器，这是个<code>modifier(修饰符)</code>，而不是个<code>function(函数)</code>。它不能像函数那样被直接调用，只能被添加到函数定义的末尾，用以改变函数的行为。</p>
+<p>咱们仔细读读 <code>onlyOwner</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @dev 调用者不是‘主人’，就会抛出异常</span><br><span class="line"> */</span><br><span class="line">modifier onlyOwner() &#123;</span><br><span class="line">  require(msg.sender == owner);</span><br><span class="line">  _;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>onlyOwner</code> 函数修饰符是这么用的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">contract MyContract is Ownable &#123;</span><br><span class="line">  event LaughManiacally(string laughter);</span><br><span class="line"></span><br><span class="line">  //注意！ `onlyOwner`上场 :</span><br><span class="line">  function likeABoss() external onlyOwner &#123;</span><br><span class="line">    LaughManiacally(&quot;Muahahahaha&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意 <code>likeABoss</code> 函数上的 <code>onlyOwner</code> 修饰符。 当你调用 <code>likeABoss</code> 时，<strong>首先执行</strong> <code>onlyOwner</code> 中的代码， 执行到 <code>onlyOwner</code> 中的 <code>_;</code> 语句时，程序再返回并执行 <code>likeABoss</code> 中的代码。</p>
+<p>可见，尽管函数修饰符也可以应用到各种场合，但最常见的还是放在函数执行之前添加快速的 <code>require</code>检查。</p>
+<p>因为给函数添加了修饰符 <code>onlyOwner</code>，使得<strong>唯有合约的主人</strong>（也就是部署者）才能调用它。</p>
+<blockquote>
+<p>注意：主人对合约享有的特权当然是正当的，不过也可能被恶意使用。比如，万一，主人添加了个后门，允许他偷走别人的僵尸呢？</p>
+</blockquote>
+<blockquote>
+<p>所以非常重要的是，部署在以太坊上的 DApp，并不能保证它真正做到去中心，你需要阅读并理解它的源代码，才能防止其中没有被部署者恶意植入后门；作为开发人员，如何做到既要给自己留下修复 bug 的余地，又要尽量地放权给使用者，以便让他们放心你，从而愿意把数据放在你的 DApp 中，这确实需要个微妙的平衡。</p>
+</blockquote>
+<p>厉害！现在我们懂了如何在禁止第三方修改我们的合约的同时，留个后门给咱们自己去修改。</p>
+<h4 id="Gas-驱动以太坊DApps的能源"><a href="#Gas-驱动以太坊DApps的能源" class="headerlink" title="Gas - 驱动以太坊DApps的能源"></a>Gas - 驱动以太坊DApps的能源</h4><p>在 Solidity 中，你的用户想要每次执行你的 DApp 都需要支付一定的 <strong>gas</strong>，gas 可以用以太币购买，因此，用户每次跑 DApp 都得花费以太币。</p>
+<p>一个 DApp 收取多少 gas 取决于功能逻辑的复杂程度。每个操作背后，都在计算完成这个操作所需要的计算资源，（比如，存储数据就比做个加法运算贵得多）， 一次操作所需要花费的 <strong>gas</strong> 等于这个操作背后的所有运算花销的总和。</p>
+<p>由于运行你的程序需要花费用户的真金白银，在以太坊中代码的编程语言，比其他任何编程语言都更强调优化。同样的功能，使用笨拙的代码开发的程序，比起经过精巧优化的代码来，运行花费更高，这显然会给成千上万的用户带来大量不必要的开销。</p>
+<p><strong>为什么要用 gas 来驱动？</strong></p>
+<p>以太坊就像一个巨大、缓慢、但非常安全的电脑。当你运行一个程序的时候，网络上的每一个节点都在进行相同的运算，以验证它的输出 —— 这就是所谓的“去中心化” 由于数以千计的节点同时在验证着每个功能的运行，这可以确保它的数据不会被被监控，或者被刻意修改。</p>
+<p>可能会有用户用无限循环堵塞网络，抑或用密集运算来占用大量的网络资源，为了防止这种事情的发生，以太坊的创建者为以太坊上的资源制定了价格，想要在以太坊上运算或者存储，你需要先付费。</p>
+<blockquote>
+<p>注意：如果你使用侧链，倒是不一定需要付费，比如咱们在 Loom Network 上构建的 CryptoZombies 就免费。你不会想要在以太坊主网上玩儿“魔兽世界”吧？ - 所需要的 gas 可能会买到你破产。但是你可以找个算法理念不同的侧链来玩它。我们将在以后的课程中咱们会讨论到，什么样的 DApp 应该部署在太坊主链上，什么又最好放在侧链。</p>
+</blockquote>
+<p><strong>省 gas 的招数：结构封装 （Struct packing）</strong></p>
+<p>在第1课中，我们提到除了基本版的 <code>uint</code> 外，还有其他变种 <code>uint</code>：<code>uint8</code>，<code>uint16</code>，<code>uint32</code>等。</p>
+<p>通常情况下我们不会考虑使用 <code>uint</code> 变种，因为无论如何定义 <code>uint</code>的大小，Solidity 为它保留256位的存储空间。例如，使用 <code>uint8</code> 而不是<code>uint</code>（<code>uint256</code>）不会为你节省任何 gas。</p>
+<p>除非，把 <code>uint</code> 绑定到 <code>struct</code> 里面。</p>
+<p>如果一个 <code>struct</code> 中有多个 <code>uint</code>，则尽可能使用较小的 <code>uint</code>, Solidity 会将这些 <code>uint</code> 打包在一起，从而占用较少的存储空间。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">struct NormalStruct &#123;</span><br><span class="line">  uint a;</span><br><span class="line">  uint b;</span><br><span class="line">  uint c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struct MiniMe &#123;</span><br><span class="line">  uint32 a;</span><br><span class="line">  uint32 b;</span><br><span class="line">  uint c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 因为使用了结构打包，`mini` 比 `normal` 占用的空间更少</span><br><span class="line">NormalStruct normal = NormalStruct(10, 20, 30);</span><br><span class="line">MiniMe mini = MiniMe(10, 20, 30); </span><br></pre></td></tr></table></figure>
+
+<p>所以，当 <code>uint</code> 定义在一个 <code>struct</code> 中的时候，尽量使用最小的整数子类型以节约空间。 并且把同样类型的变量放一起（即在 struct 中将把变量按照类型依次放置），这样 Solidity 可以将存储空间最小化。例如，有两个 <code>struct</code>：</p>
+<p><code>uint c; uint32 a; uint32 b;</code> 和 <code>uint32 a; uint c; uint32 b;</code></p>
+<p>前者比后者需要的gas更少，因为前者把<code>uint32</code>放一起了。</p>
+<h4 id="时间单位"><a href="#时间单位" class="headerlink" title="时间单位"></a>时间单位</h4><p>Solidity 使用自己的本地时间单位。</p>
+<p>变量 <code>now</code> 将返回当前的unix时间戳（自1970年1月1日以来经过的秒数）。我写这句话时 unix 时间是 <code>1515527488</code>。</p>
+<blockquote>
+<p>注意：Unix时间传统用一个32位的整数进行存储。这会导致“2038年”问题，当这个32位的unix时间戳不够用，产生溢出，使用这个时间的遗留系统就麻烦了。所以，如果我们想让我们的 DApp 跑够20年，我们可以使用64位整数表示时间，但为此我们的用户又得支付更多的 gas。真是个两难的设计啊！</p>
+</blockquote>
+<p>Solidity 还包含<code>秒(seconds)</code>，<code>分钟(minutes)</code>，<code>小时(hours)</code>，<code>天(days)</code>，<code>周(weeks)</code> 和 <code>年(years)</code> 等时间单位。它们都会转换成对应的秒数放入 <code>uint</code> 中。所以 <code>1分钟</code> 就是 <code>60</code>，<code>1小时</code>是 <code>3600</code>（60秒×60分钟），<code>1天</code>是<code>86400</code>（24小时×60分钟×60秒），以此类推。</p>
+<p>下面是一些使用时间单位的实用案例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">uint lastUpdated;</span><br><span class="line"></span><br><span class="line">// 将‘上次更新时间’ 设置为 ‘现在’</span><br><span class="line">function updateTimestamp() public &#123;</span><br><span class="line">  lastUpdated = now;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 如果到上次`updateTimestamp` 超过5分钟，返回 &#x27;true&#x27;</span><br><span class="line">// 不到5分钟返回 &#x27;false&#x27;</span><br><span class="line">function fiveMinutesHavePassed() public view returns (bool) &#123;</span><br><span class="line">  return (now &gt;= (lastUpdated + 5 minutes));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="将结构体作为参数传入"><a href="#将结构体作为参数传入" class="headerlink" title="将结构体作为参数传入"></a>将结构体作为参数传入</h4><p>由于结构体的存储指针可以以参数的方式传递给一个 <code>private</code> 或 <code>internal</code> 的函数，因此结构体可以在多个函数之间相互传递。</p>
+<p>遵循这样的语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function _doStuff(Zombie storage _zombie) internal &#123;</span><br><span class="line">  // do stuff with _zombie</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样我们可以将某僵尸的引用直接传递给一个函数，而不用是通过参数传入僵尸ID后，函数再依据ID去查找。</p>
+<h4 id="公有函数和安全性"><a href="#公有函数和安全性" class="headerlink" title="公有函数和安全性"></a>公有函数和安全性</h4><p>现在来修改 <code>feedAndMultiply</code> ，实现冷却周期。</p>
+<p>回顾一下这个函数，前一课上我们将其可见性设置为<code>public</code>。你必须仔细地检查所有声明为 <code>public</code> 和 <code>external</code>的函数，一个个排除用户滥用它们的可能，谨防安全漏洞。请记住，如果这些函数没有类似 <code>onlyOwner</code> 这样的函数修饰符，用户能利用各种可能的参数去调用它们。</p>
+<p>检查完这个函数，用户就可以直接调用这个它，并传入他们所希望的 <code>_targetDna</code> 或 <code>species</code> 。打个游戏还得遵循这么多的规则，还能不能愉快地玩耍啊！</p>
+<p>仔细观察，这个函数只需被 <code>feedOnKitty()</code> 调用，因此，想要防止漏洞，最简单的方法就是设其可见性为 <code>internal</code>。</p>
+<h4 id="带参数的函数修饰符"><a href="#带参数的函数修饰符" class="headerlink" title="带参数的函数修饰符"></a>带参数的函数修饰符</h4><p>之前我们已经读过一个简单的函数修饰符了：<code>onlyOwner</code>。函数修饰符也可以带参数。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 存储用户年龄的映射</span><br><span class="line">mapping (uint =&gt; uint) public age;</span><br><span class="line"></span><br><span class="line">// 限定用户年龄的修饰符</span><br><span class="line">modifier olderThan(uint _age, uint _userId) &#123;</span><br><span class="line">  require(age[_userId] &gt;= _age);</span><br><span class="line">  _;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 必须年满16周岁才允许开车 (至少在美国是这样的).</span><br><span class="line">// 我们可以用如下参数调用`olderThan` 修饰符:</span><br><span class="line">function driveCar(uint _userId) public olderThan(16, _userId) &#123;</span><br><span class="line">  // 其余的程序逻辑</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到了吧， <code>olderThan</code> 修饰符可以像函数一样接收参数，是“宿主”函数 <code>driveCar</code> 把参数传递给它的修饰符的。</p>
+<p>来，我们自己生产一个修饰符，通过传入的<code>level</code>参数来限制僵尸使用某些特殊功能。</p>
+<h4 id="利用-‘View’-函数节省-Gas"><a href="#利用-‘View’-函数节省-Gas" class="headerlink" title="利用 ‘View’ 函数节省 Gas"></a>利用 ‘View’ 函数节省 Gas</h4><p>酷炫！现在高级别僵尸可以拥有特殊技能了，这一定会鼓动我们的玩家去打怪升级的。你喜欢的话，回头我们还能添加更多的特殊技能。</p>
+<p>现在需要添加的一个功能是：我们的 DApp 需要一个方法来查看某玩家的整个僵尸军团 - 我们称之为 <code>getZombiesByOwner</code>。</p>
+<p>实现这个功能只需从区块链中读取数据，所以它可以是一个 <code>view</code> 函数。这让我们不得不回顾一下“gas优化”这个重要话题。</p>
+<p><strong>“view” 函数不花 “gas”</strong></p>
+<p>当玩家从外部调用一个<code>view</code>函数，是不需要支付一分 gas 的。</p>
+<p>这是因为 <code>view</code> 函数不会真正改变区块链上的任何数据 - 它们只是读取。因此用 <code>view</code> 标记一个函数，意味着告诉 <code>web3.js</code>，运行这个函数只需要查询你的本地以太坊节点，而不需要在区块链上创建一个事务（事务需要运行在每个节点上，因此花费 gas）。</p>
+<p>稍后我们将介绍如何在自己的节点上设置 web3.js。但现在，你关键是要记住，在所能只读的函数上标记上表示“只读”的“<code>external view</code> 声明，就能为你的玩家减少在 DApp 中 gas 用量。</p>
+<blockquote>
+<p>注意：如果一个 <code>view</code> 函数在另一个函数的内部被调用，而调用函数与 <code>view</code> 函数的不属于同一个合约，也会产生调用成本。这是因为如果主调函数在以太坊创建了一个事务，它仍然需要逐个节点去验证。所以标记为 <code>view</code> 的函数只有在外部调用时才是免费的。</p>
+</blockquote>
+<h4 id="存储非常昂贵"><a href="#存储非常昂贵" class="headerlink" title="存储非常昂贵"></a>存储非常昂贵</h4><p>Solidity 使用<code>storage</code>(存储)是相当昂贵的，”写入“操作尤其贵。</p>
+<p>这是因为，无论是写入还是更改一段数据， 这都将永久性地写入区块链。”永久性“啊！需要在全球数千个节点的硬盘上存入这些数据，随着区块链的增长，拷贝份数更多，存储量也就越大。这是需要成本的！</p>
+<p>为了降低成本，不到万不得已，避免将数据写入存储。这也会导致效率低下的编程逻辑 - 比如每次调用一个函数，都需要在 <code>memory</code>(内存) 中重建一个数组，而不是简单地将上次计算的数组给存储下来以便快速查找。</p>
+<p>在大多数编程语言中，遍历大数据集合都是昂贵的。但是在 Solidity 中，使用一个标记了<code>external view</code>的函数，遍历比 <code>storage</code> 要便宜太多，因为 <code>view</code> 函数不会产生任何花销。 （gas可是真金白银啊！）。</p>
+<p>我们将在下一章讨论<code>for</code>循环，现在我们来看一下看如何如何在内存中声明数组。</p>
+<h4 id="在内存中声明数组"><a href="#在内存中声明数组" class="headerlink" title="在内存中声明数组"></a>在内存中声明数组</h4><p>在数组后面加上 <code>memory</code>关键字， 表明这个数组是仅仅在内存中创建，不需要写入外部存储，并且在函数调用结束时它就解散了。与在程序结束时把数据保存进 <code>storage</code> 的做法相比，内存运算可以大大节省gas开销 – 把这数组放在<code>view</code>里用，完全不用花钱。</p>
+<p>以下是申明一个内存数组的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function getArray() external pure returns(uint[]) &#123;</span><br><span class="line">  // 初始化一个长度为3的内存数组</span><br><span class="line">  uint[] memory values = new uint[](3);</span><br><span class="line">  // 赋值</span><br><span class="line">  values.push(1);</span><br><span class="line">  values.push(2);</span><br><span class="line">  values.push(3);</span><br><span class="line">  // 返回数组</span><br><span class="line">  return values;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个小例子展示了一些语法规则，下一章中，我们将通过一个实际用例，展示它和 <code>for</code> 循环结合的做法。</p>
+<blockquote>
+<p>注意：内存数组 <strong>必须</strong> 用长度参数（在本例中为<code>3</code>）创建。目前不支持 <code>array.push()</code>之类的方法调整数组大小，在未来的版本可能会支持长度修改。</p>
+</blockquote>
+<h4 id="使用-for-循环"><a href="#使用-for-循环" class="headerlink" title="使用 for 循环"></a>使用 <code>for</code> 循环</h4><p><code>for</code>循环的语法在 Solidity 和 JavaScript 中类似。</p>
+<p>来看一个创建偶数数组的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function getEvens() pure external returns(uint[]) &#123;</span><br><span class="line">  uint[] memory evens = new uint[](5);</span><br><span class="line">  // 在新数组中记录序列号</span><br><span class="line">  uint counter = 0;</span><br><span class="line">  // 在循环从1迭代到10：</span><br><span class="line">  for (uint i = 1; i &lt;= 10; i++) &#123;</span><br><span class="line">    // 如果 `i` 是偶数...</span><br><span class="line">    if (i % 2 == 0) &#123;</span><br><span class="line">      // 把它加入偶数数组</span><br><span class="line">      evens[counter] = i;</span><br><span class="line">      //索引加一， 指向下一个空的‘even’</span><br><span class="line">      counter++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return evens;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数将返回一个形为 <code>[2,4,6,8,10]</code> 的数组。</p>
+<h3 id="区块链系统"><a href="#区块链系统" class="headerlink" title="区块链系统"></a>区块链系统</h3><h4 id="payable-修饰符"><a href="#payable-修饰符" class="headerlink" title="payable 修饰符"></a><code>payable</code> 修饰符</h4><p><code>payable</code> 方法是让 Solidity 和以太坊变得如此酷的一部分 —— 它们是一种可以接收以太的特殊函数。</p>
+<p>先放一下。当你在调用一个普通网站服务器上的API函数的时候，你无法用你的函数传送美元——你也不能传送比特币。</p>
+<p>但是在以太坊中， 因为钱 (<em>以太</em>), 数据 (<em>事务负载</em>)， 以及合约代码本身都存在于以太坊。你可以在同时调用函数 <strong>并</strong>付钱给另外一个合约。</p>
+<p>这就允许出现很多有趣的逻辑， 比如向一个合约要求支付一定的钱来运行一个函数。</p>
+<p><strong>来看个例子</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">contract OnlineStore &#123;</span><br><span class="line">  function buySomething() external payable &#123;</span><br><span class="line">    // 检查以确定0.001以太发送出去来运行函数:</span><br><span class="line">    require(msg.value == 0.001 ether);</span><br><span class="line">    // 如果为真，一些用来向函数调用者发送数字内容的逻辑</span><br><span class="line">    transferThing(msg.sender);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，<code>msg.value</code> 是一种可以查看向合约发送了多少以太的方法，另外 <code>ether</code> 是一个內建单元。</p>
+<p>这里发生的事是，一些人会从 web3.js 调用这个函数 (从DApp的前端)， 像这样 :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 假设 `OnlineStore` 在以太坊上指向你的合约:</span><br><span class="line">OnlineStore.buySomething().send(from: web3.eth.defaultAccount, value: web3.utils.toWei(0.001))</span><br></pre></td></tr></table></figure>
+
+<p>注意这个 <code>value</code> 字段， JavaScript 调用来指定发送多少(0.001)<code>以太</code>。如果把事务想象成一个信封，你发送到函数的参数就是信的内容。 添加一个 <code>value</code> 很像在信封里面放钱 —— 信件内容和钱同时发送给了接收者。</p>
+<blockquote>
+<p>注意： 如果一个函数没标记为<code>payable</code>， 而你尝试利用上面的方法发送以太，函数将拒绝你的事务。</p>
+</blockquote>
+<h4 id="提现"><a href="#提现" class="headerlink" title="提现"></a>提现</h4><p>我们学习了如何向合约发送以太，那么在发送之后会发生什么呢？</p>
+<p>在你发送以太之后，它将被存储进以合约的以太坊账户中， 并冻结在哪里 —— 除非你添加一个函数来从合约中把以太提现。</p>
+<p>你可以写一个函数来从合约中提现以太，类似这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">contract GetPaid is Ownable &#123;</span><br><span class="line">  function withdraw() external onlyOwner &#123;</span><br><span class="line">    owner.transfer(this.balance);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意我们使用 <code>Ownable</code> 合约中的 <code>owner</code> 和 <code>onlyOwner</code>，假定它已经被引入了。</p>
+<p>你可以通过 <code>transfer</code> 函数向一个地址发送以太， 然后 <code>this.balance</code> 将返回当前合约存储了多少以太。 所以如果100个用户每人向我们支付1以太， <code>this.balance</code> 将是100以太。</p>
+<p>你可以通过 <code>transfer</code> 向任何以太坊地址付钱。 比如，你可以有一个函数在 <code>msg.sender</code> 超额付款的时候给他们退钱：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uint itemFee = 0.001 ether;</span><br><span class="line">msg.sender.transfer(msg.value - itemFee);</span><br></pre></td></tr></table></figure>
+
+<p>或者在一个有卖家和卖家的合约中， 你可以把卖家的地址存储起来， 当有人买了它的东西的时候，把买家支付的钱发送给它 <code>seller.transfer(msg.value)</code>。</p>
+<p>有很多例子来展示什么让以太坊编程如此之酷 —— 你可以拥有一个不被任何人控制的去中心化市场。</p>
+<h4 id="用-keccak256-来制造随机数。"><a href="#用-keccak256-来制造随机数。" class="headerlink" title="用 keccak256 来制造随机数。"></a>用 <code>keccak256</code> 来制造随机数。</h4><p>Solidity 中最好的随机数生成器是 <code>keccak256</code> 哈希函数.</p>
+<p>我们可以这样来生成一些随机数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 生成一个0到100的随机数:</span><br><span class="line">uint randNonce = 0;</span><br><span class="line">uint random = uint(keccak256(now, msg.sender, randNonce)) % 100;</span><br><span class="line">randNonce++;</span><br><span class="line">uint random2 = uint(keccak256(now, msg.sender, randNonce)) % 100;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法首先拿到 <code>now</code> 的时间戳、 <code>msg.sender</code>、 以及一个自增数 <code>nonce</code> （一个仅会被使用一次的数，这样我们就不会对相同的输入值调用一次以上哈希函数了）。</p>
+<p>然后利用 <code>keccak</code> 把输入的值转变为一个哈希值, 再将哈希值转换为 <code>uint</code>, 然后利用 <code>% 100</code> 来取最后两位, 就生成了一个0到100之间随机数了。</p>
+<p><strong>这个方法很容易被不诚实的节点攻击</strong></p>
+<p>在以太坊上, 当你在和一个合约上调用函数的时候, 你会把它广播给一个节点或者在网络上的 *<strong>transaction*</strong> 节点们。 网络上的节点将收集很多事务, 试着成为第一个解决计算密集型数学问题的人，作为“工作证明”，然后将“工作证明”(Proof of Work, PoW)和事务一起作为一个 *<strong>block*</strong> 发布在网络上。</p>
+<p>一旦一个节点解决了一个PoW, 其他节点就会停止尝试解决这个 PoW, 并验证其他节点的事务列表是有效的，然后接受这个节点转而尝试解决下一个节点。</p>
+<p><strong>这就让我们的随机数函数变得可利用了</strong></p>
+<p>我们假设我们有一个硬币翻转合约——正面你赢双倍钱，反面你输掉所有的钱。假如它使用上面的方法来决定是正面还是反面 (<code>random &gt;= 50</code> 算正面, <code>random &lt; 50</code> 算反面)。</p>
+<p>如果我正运行一个节点，我可以 <strong>只对我自己的节点</strong> 发布一个事务，且不分享它。 我可以运行硬币翻转方法来偷窥我的输赢 — 如果我输了，我就不把这个事务包含进我要解决的下一个区块中去。我可以一直运行这个方法，直到我赢得了硬币翻转并解决了下一个区块，然后获利。</p>
+<p><strong>所以我们该如何在以太坊上安全地生成随机数呢</strong></p>
+<p>因为区块链的全部内容对所有参与者来说是透明的， 这就让这个问题变得很难，它的解决方法不在本课程讨论范围，你可以阅读 <a target="_blank" rel="noopener" href="https://ethereum.stackexchange.com/questions/191/how-can-i-securely-generate-a-random-number-in-my-smart-contract">这个 StackOverflow 上的讨论</a> 来获得一些主意。 一个方法是利用 *<strong>oracle*</strong> 来访问以太坊区块链之外的随机数函数。</p>
+<p>当然， 因为网络上成千上万的以太坊节点都在竞争解决下一个区块，我能成功解决下一个区块的几率非常之低。 这将花费我们巨大的计算资源来开发这个获利方法 — 但是如果奖励异常地高(比如我可以在硬币翻转函数中赢得 1个亿)， 那就很值得去攻击了。</p>
+<p>所以尽管这个方法在以太坊上不安全，在实际中，除非我们的随机函数有一大笔钱在上面，你游戏的用户一般是没有足够的资源去攻击的。</p>
+<h3 id="ERC721-标准和加密收藏品"><a href="#ERC721-标准和加密收藏品" class="headerlink" title="ERC721 标准和加密收藏品"></a>ERC721 标准和加密收藏品</h3><h2 id="区块链安全名词解释（历史）"><a href="#区块链安全名词解释（历史）" class="headerlink" title="区块链安全名词解释（历史）"></a>区块链安全名词解释（历史）</h2><h3 id="钱包-Wallet"><a href="#钱包-Wallet" class="headerlink" title="钱包 Wallet"></a>钱包 Wallet</h3><p>钱包(Wallet)是一个管理私钥的工具，数字货币钱包形式多样，但它通常包含一个软件客户端，允许使用者通过钱包检查、存储、交易其持有的数字货币。它是进入区块链世界的基础设施和重要入口。</p>
+<p>据 SlowMist Hacked 统计，仅 2018 年因“钓鱼”、“第三方劫持”等原因所造成的钱包被黑损失总金额就达 69,160,985 美元，深究根本，除了部分钱包本身对攻击防御的不全面之外，最主要的是钱包持有者们的安全防范意识不强。</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/image-20240226205543445.png" alt="image-20240226205543445"></a></p>
+<h3 id="冷钱包-Cold-Wallet"><a href="#冷钱包-Cold-Wallet" class="headerlink" title="冷钱包 Cold Wallet"></a>冷钱包 Cold Wallet</h3><p>冷钱包(Cold Wallet)是一种脱离网络连接的离线钱包，将数字货币进行离线储存的钱包。使用者在一台离线的钱包上面生成数字货币地址和私钥，再将其保存起来。冷钱包是在不需要任何网络的情况下进行数字货币的储存，因此黑客是很难进入钱包获得私钥的，但它也不是绝对安全的，随机数不安全也会导致这个冷钱包不安全，此外硬件损坏、丢失也有可能造成数字货币的损失，因此需要做好密钥的备份。</p>
+<h3 id="热钱包-Hot-Wallet"><a href="#热钱包-Hot-Wallet" class="headerlink" title="热钱包 Hot Wallet"></a>热钱包 Hot Wallet</h3><p>热钱包(Hot Wallet)是一种需要网络连接的在线钱包，在使用上更加方便。但由于热钱包一般需要在线使用，个人的电子设备有可能因误点钓鱼网站被黑客盗取钱包文件、捕获钱包密码或是破解加密私钥，而部分中心化管理钱包也并非绝对安全。因此在使用中心化交易所或钱包时，最好在不同平台设置不同密码，且开启二次认证，以确保自己的资产安全。</p>
+<h3 id="公钥-Public-Key"><a href="#公钥-Public-Key" class="headerlink" title="公钥 Public Key"></a>公钥 Public Key</h3><p>公钥(Public Key)是和私钥成对出现的，和私钥一起组成一个密钥对，保存在钱包中。公钥由私钥生成，但是无法通过公钥倒推得到私钥。公钥能够通过一系列算法运算得到钱包的地址，因此可以作为拥有这个钱包地址的凭证。</p>
+<h3 id="私钥-Private-Key"><a href="#私钥-Private-Key" class="headerlink" title="私钥 Private Key"></a>私钥 Private Key</h3><p>私钥(Private Key)是一串由随机算法生成的数据，它可以通过非对称加密算法算出公钥，公钥可以再算出币的地址。私钥是非常重要的，作为密码，除了地址的所有者之外，都被隐藏。区块链资产实际在区块链上，所有者实际只拥有私钥，并通过私钥对区块链的资产拥有绝对控制权，因此，区块链资产安全的核心问题在于私钥的存储，拥有者需做好安全保管。</p>
+<p>和传统的用户名、密码形式相比，使用公钥和私钥交易最大的优点在于提高了数据传递的安全性和完整性，因为两者——对应的关系，用户基本不用担心数据在传递过程中被黑客中途截取或修改的可能性。同时，也因为私钥加密必须由它生成的公钥解密，发送者也不用担心数据被他人伪造。</p>
+<h3 id="助记词-Mnemonic"><a href="#助记词-Mnemonic" class="headerlink" title="助记词 Mnemonic"></a>助记词 Mnemonic</h3><p>由于私钥是一长串毫无意义的字符，比较难以记忆，因此出现了助记词(Mnemonic)。助记词是利用固定算法，将私钥转换成十多个常见的英文单词。助记词和私钥是互通的，可以相互转换，它只是作为区块链数字钱包私钥的友好格式。所以在此强调：助记词即私钥！由于它的明文性，不建议它以电子方式保存，而是抄写在物理介质上保管好，它和 Keystore 作为双重备份互为补充。</p>
+<h3 id="Keystore"><a href="#Keystore" class="headerlink" title="Keystore"></a>Keystore</h3><p>Keystore 主要在以太坊钱包 App 中比较常见(比特币类似以太坊 Keystore 机制的是：BIP38)，是把私钥通过钱包密码再加密得来的，与助记词不同，一般可保存为文本或 JSON 格式存储。换句话说，Keystore 需要用钱包密码解密后才等同于私钥。因此，Keystore 需要配合钱包密码来使用，才能导入钱包。当黑客盗取 Keystore 后，在没有密码情况下, 有可能通过暴力破解 Keystore 密码解开 Keystore，所以建议使用者在设置密码时稍微复杂些，比如带上特殊字符，至少 8 位以上，并安全存储。</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/image-20240226210303087.png" alt="image-20240226210303087"></a></p>
+<p>由于区块链技术的加持使得区块链数字钱包安全系数高于其他的数字钱包，其中最为关键的就是两点：防盗和防丢。相比于盗币事件原因的多样化，造成丢币事件发生的原因主要有五个类型：没有备份、备份遗失、忘记密码、备份错误以及设备丢失或损坏。因此，我们在备份一个区块链数字钱包的时候，对私钥、助记词、Keystore 一定要进行多重、多次备份，把丢币的风险扼杀在摇篮之中。最后为大家提供一份来自 imToken 总结的<strong>钱包安全“十不原则”</strong>：</p>
+<ol>
+<li>不使用未备份的钱包</li>
+<li>不使用邮件传输或存储私钥</li>
+<li>不使用微信收藏或云备份存储私钥</li>
+<li>不要截屏或拍照保存私钥</li>
+<li>不使用微信、QQ 传输私钥</li>
+<li>不要将私钥告诉身边的人</li>
+<li>不要将私钥发送到群里</li>
+<li>不使用第三方提供的未知来源钱包应用</li>
+<li>不使用他人提供的 Apple ID</li>
+<li>不要将私钥导入未知的第三方网站</li>
+</ol>
+<h3 id="公链-Public-Blockchain"><a href="#公链-Public-Blockchain" class="headerlink" title="公链 Public Blockchain"></a>公链 Public Blockchain</h3><p>公有链(Public Blockchain)简称公链，是指全世界任何人都可随时进入读取、任何人都能发送交易且能获得有效确认的共识区块链。公链通常被认为是完全去中心化的，链上数据都是公开透明的，不可更改，任何人都可以通过交易或挖矿读取和写入数据。一般会通过代币机制(Token)来鼓励参与者竞争记账，来确保数据的安全性。</p>
+<p>由于要检测所有的公链的工作量非常大，只靠一家公司不可能监测整个区块链生态安全问题，这就导致了黑客极有可能在众多公链之中找寻到漏洞进行攻击。2017 年 4 月 1 日，Stellar 出现通胀漏洞，一名攻击者利用此漏洞制造了 22.5 亿的 Stellar 加密货币 XLM，当时价值约 1000 万美元。</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/image-20240226210617021.png" alt="image-20240226210617021"></a></p>
+<h3 id="交易所-Exchange"><a href="#交易所-Exchange" class="headerlink" title="交易所 Exchange"></a>交易所 Exchange</h3><p>与买卖股票的证券交易所类似，区块链交易所即数字货币买卖交易的平台。数字货币交易所又分为中心化交易所和去中心化交易所。</p>
+<p><strong>去中心化交易所：</strong>交易行为直接发生在区块链上，数字货币会直接发回使用者的钱包，或是保存在区块链上的智能合约。这样直接在链上交易的好处在于交易所不会持有用户大量的数字货币，所有的数字货币会储存在用户的钱包或平台的智能合约上。去中心化交易通过技术手段在信任层面去中心化，也可以说是无需信任，每笔交易都通过区块链进行公开透明，不负责保管用户的资产和私钥等信息，用户资金的所有权完全在自己手上，具有非常好的个人数据安全和隐私性。目前市面上的去中心化交易所有 WhaleEx、Bancor、dYdX 等</p>
+<p><strong>中心化交易所：</strong>目前热门的交易所大多都是采用中心化技术的交易所，使用者通常是到平台上注册，并经过一连串的身份认证程序(KYC)后，就可以开始在上面交易数字货币。用户在使用中心化交易所时，其货币交换不见得会发生在区块链上，取而代之的可能仅是修改交易所数据库内的资产数字，用户看到的只是账面上数字的变化，交易所只要在用户提款时准备充足的数字货币可供汇出即可。当前的主流交易大部分是在中心化交易所内完成的，目前市面上的中心化交易所有币安，火币，OKEx 等。</p>
+<p>由于交易所作为连接区块链世界和现实世界的枢纽，储存了大量数字货币，它非常容易成为黑客们觊觎的目标，截止目前全球数字货币交易所因安全问题而遭受损失金额已超过 29 亿美元(数据来源 SlowMist Hacked)。</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8-%E6%A6%82%E8%BF%B0/image-20240226210910657.png" alt="image-20240226210910657"></a></p>
+<p>数字货币领域，攻击者的屠戮步伐从未停止。激烈的攻防对抗之下，防守方处于绝对的弱势，其攻击手法多种多样，我们会在之后的文章中为大家进行介绍。职业黑客往往会针对数字货币交易所开启定向打击，因此慢雾安全团队建议各方交易所加强安全建设，做好风控和内控安全，做到：“早发现，早预警，早止损。”</p>
+<h3 id="节点-Node"><a href="#节点-Node" class="headerlink" title="节点 Node"></a>节点 Node</h3><p>在传统互联网领域，企业所有的数据运行都集中在一个中心化的服务器中，那么这个服务器就是一个节点。由于区块链是去中心化的分布式数据库，是由千千万万个“小服务器”组成。区块链网络中的每一个节点，就相当于存储所有区块数据的每一台电脑或者服务器。所有新区块的生产，以及交易的验证与记帐，并将其广播给全网同步，都由节点来完成。节点分为“全节点”和“轻节点”，全节点就是拥有全网所有的交易数据的节点，那么轻节点就是只拥有和自己相关的交易数据节点。由于每一个全节点都保留着全网数据，这意味着，其中一个节点出现问题，整个区块链网络世界也依旧能够安全运行，这也是去中心化的魅力所在。</p>
+<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><p>远程过程调用(Remote Procedure Call，缩写为 RPC)是一个计算机通信协议。以太坊 RPC 接口是以太坊节点与其他系统交互的窗口，以太坊提供了各种 RPC 调用：HTTP、IPC、WebSocket 等等。在以太坊源码中，server.go 是核心逻辑，负责 API 服务的注入，以及请求处理、返回。http.go 实现 HTTP 的调用，websocket.go 实现 WebSocket 的调用，ipc.go 实现 IPC 的调用。以太坊节点默认在 8545 端口提供了 JSON RPC 接口，数据传输采用 JSON 格式，可以执行 Web3 库的各种命令，可以向前端（例如 imToken、Mist 等钱包客户端）提供区块链上的信息。</p>
+<h3 id="以太坊黑色情人节漏洞-ETH-Black-Valentine’s-Day"><a href="#以太坊黑色情人节漏洞-ETH-Black-Valentine’s-Day" class="headerlink" title="以太坊黑色情人节漏洞 ETH Black Valentine’s Day"></a>以太坊黑色情人节漏洞 ETH Black Valentine’s Day</h3><p>2018 年 3 月 20 日，慢雾安全团队观测到一起自动化盗币的攻击行为，攻击者利用以太坊节点 Geth&#x2F;Parity RPC API 鉴权缺陷，恶意调用 eth_sendTransaction 盗取代币，持续时间长达两年，单被盗的且还未转出的以太币价值就高达现价 2 千万美金(以当时 ETH 市值计算)，还有代币种类 164 种，总价值难以估计（很多代币还未上交易所正式发行）。</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73b261cb-bd00-40b3-9e29-7c6a4449e9dc.png" alt=" "></a></p>
+<p>通过慢雾安全团队独有的墨子（MOOZ）系统对全球约 42 亿 IPv4 空间进行扫描探测，发现暴露在公网且开启 RPC API 的以太坊节点有 1 万多个。这些节点都存在被直接盗币攻击的高风险。这起利用以太坊 RPC 鉴权缺陷实施的自动化盗币攻击，已经在全球范围内对使用者造成了非常严重的经济损失。</p>
+<h3 id="共识-Consensus"><a href="#共识-Consensus" class="headerlink" title="共识 Consensus"></a>共识 Consensus</h3><p>共识算法主要是解决分布式系统中，多个节点之间对某个状态达成一致性结果的问题。分布式系统由多个服务节点共同完成对事务的处理，分布式系统中多个副本对外呈现的数据状态需要保持一致性。由于节点的不可靠性和节点间通讯的不稳定性，甚至节点作恶，伪造信息，使得节点之间出现数据状态不一致性的问题。通过共识算法，可以将多个不可靠的单独节点组建成一个可靠的分布式系统，实现数据状态的一致性，提高系统的可靠性。</p>
+<p>区块链系统本身作为一个超大规模的分布式系统，但又与传统的分布式系统存在明显区别。由于它不依赖于任何一个中央权威，系统建立在去中心化的点对点网络基础之上，因此分散的节点需要就交易的有效与否达成一致，这就是共识算法发挥作用的地方，即确保所有节点都遵守协议规则并保证所有交易都以可靠的方式进行。由共识算法实现在分散的节点间对交易的处理顺序达成一致，这是共识算法在区块链系统中起到的最主要作用。</p>
+<p>区块链系统中的共识算法还承担着区块链系统中激励模型和治理模型中的部分功能，为了解决在对等网络中(P2P),相互独立的节点如何达成一项决议问题的过程。简而言之，共识算法是在解决分布式系统中如何保持一致性的问题。</p>
+<h3 id="工作量证明-PoW-Proof-of-Work"><a href="#工作量证明-PoW-Proof-of-Work" class="headerlink" title="工作量证明 PoW(Proof of Work)"></a>工作量证明 PoW(Proof of Work)</h3><p>PoW(Proof of Work)是历史上第一个成功的去中心化区块链共识算法。工作量证明是大多数人所熟悉的，被比特币、以太坊，莱特币等主流公链广泛使用。</p>
+<p>工作量证明要求节点参与者执行计算密集型的任务，但是对于其他网络参与者来说易于验证。在比特币的例子中，矿工竞相向由整个网络维护的区块链账本中添加所收集到的交易，即区块。为了做到这一点，矿工必须第一个准确计算出“nonce”，这是一个添加在字符串末尾的数字，用来创建一个满足开头特定个数为零的哈希值。不过存在采矿的大量电力消耗和低交易吞吐量等缺点。</p>
+<h3 id="权益证明-PoS-Proof-of-Stake"><a href="#权益证明-PoS-Proof-of-Stake" class="headerlink" title="权益证明 PoS(Proof of Stake)"></a>权益证明 PoS(Proof of Stake)</h3><p>PoS(Proof of Stake)——权益证明机制，一种主流的区块链共识算法，目的是为了让区块链里的分布式节点达成共识，它往往和工作量证明机制(Proof of Work)一起出现，两种都被认为是区块链共识算法里面的主流算法之一。作为一种算法，它通过持币人的同意来达成共识，目的是确定出新区块，这过程相对于 PoW，不需要硬件和电力，且效率更高。</p>
+<p>PoS 共识中引入了 Stake 的概念，持币人将代币进行 Staking，要求所有的参与者抵押一部分他们所拥有的 Token 来验证交易，然后获得出块的机会，PoS 共识中会通过选举算法，按照持币量比例以及 Token 抵押时长，或者是一些其他的方式，选出打包区块的矿工。矿工在指定高度完成打包交易，生成新区块，并广播区块，广播的区块经过 PoS 共识中另外一道”门槛”，验证人验证交易，通过验证后，区块得到确认。这样一轮 PoS 的共识过程就进行完成了。权益证明通过长期绑定验证者的利益和整个网络的利益来阻止不良行为。锁定代币后，如果验证者存在欺诈性交易，那么他们所抵押的 Token 也会被削减。</p>
+<p>PoS 的研究脚步还在不断前进，安全、性能和去中心化一直都是 PoS 所追求的方向，未来也将有更多 PoS 的项目落地。为了更好的观测公链运行状态，即时监测安全异常，慢雾在 EOS、BOSCORE、FIBOS、YOYOW、IoTeX、COSMOS 上都部署了 Safe Staking，落地扎根安全领域，关注节点的稳定与安全。</p>
+<h3 id="委托权益证明-DPoS-Delegate-Proof-of-Stake"><a href="#委托权益证明-DPoS-Delegate-Proof-of-Stake" class="headerlink" title="委托权益证明 DPoS(Delegate Proof of Stake)"></a>委托权益证明 DPoS(Delegate Proof of Stake)</h3><p>委托权益证明，其雏形诞生在 2013 年 12 月 8 日，Daniel Larimer 在 bitsharetalk 首次谈及用投票选择出块人的方式，代替 PoS 中可能出现的选举随机数被操纵的问题。在 DPoS 中，让每一个持币者都可以进行投票，由此产生一定数量的代表 ,或者理解为一定数量的节点或矿池，他们彼此之间的权利是完全相等的。持币者可以随时通过投票更换这些代表，以维系链上系统的“长久纯洁性”。在某种程度上，这很像是国家治理里面的代议制，或者说是人大代表制度。这种制度最大的好处就是解决了验证人过多导致的效率低下问题，当然，这种制度也有很明显的缺点，由于 “代表”制度，导致其一直饱受中心化诟病。</p>
+<h3 id="恶意挖矿攻击-Cryptojacking-Attack"><a href="#恶意挖矿攻击-Cryptojacking-Attack" class="headerlink" title="恶意挖矿攻击 Cryptojacking Attack"></a>恶意挖矿攻击 Cryptojacking Attack</h3><p>恶意挖矿攻击(Cryptojacking)是一种恶意行为，指未经授权的情况下劫持用户设备挖掘加密货币。通常，攻击者会劫持受害者设备(个人 PC 或服务器)的处理能力和带宽，由于加密货币挖掘需要大量算力，攻击者会尝试同时感染多个设备，这样他们能够收集到足够的算力来执行这种低风险和低成本的挖矿活动。</p>
+<p>一般恶意挖矿软件会诱导用户在计算机上加载挖矿代码，或通过使用类似网络钓鱼的方法，如恶意链接、电子邮件或是在网站里植入挖矿脚本等方式，使系统无意中被隐藏的加密挖矿程序感染进而完成攻击行为。近年来，随着加密货币价格的上涨，更加复杂的恶意软件被开发出来，使恶意挖矿攻击事件层出不穷。</p>
+<p>在此我们为大家提供几条建议防范恶意挖矿攻击：</p>
+<ul>
+<li>注意设备性能和 CPU 利用率</li>
+<li>在 Web 浏览器上安装挖矿脚本隔离插件，例如 MinerBlock，NoCoin 和 Adblocker</li>
+<li>小心电子邮件附件和链接</li>
+<li>安装一个值得信赖的杀毒软件，让软件应用程序和操作系统保持最新状态</li>
+</ul>
+<h3 id="无利益攻击-Nothing-at-Stake-Attack"><a href="#无利益攻击-Nothing-at-Stake-Attack" class="headerlink" title="无利益攻击 Nothing at Stake Attack"></a>无利益攻击 Nothing at Stake Attack</h3><p>无利益攻击(Nothing at Stake Attack)，是在 PoS 共识机制下一个有待解决的问题，其问题的本质可以简单概括为“作恶无成本，好处无限多”。</p>
+<p>当 PoS 共识系统出现分叉(Fork)时，出块节点可以在“不受任何损失”的前提下，同时在两个分叉上出块；无论哪一个分叉后面被公认为主链，该节点都可以获得“所有收益”且不会有任何成本损失。这就很容易给某些节点一种动力去产生新的分叉，支持或发起不合法交易，其他逐利的出块节点会同时在多条链(窗口)上排队出块支持新的分叉。随着时间的推移，分叉越来越多，非法交易，作恶猖狂。区块链将不再是唯一链，所有出块节点没有办法达成共识。</p>
+<p>为了预防这样的情况发生，许多类 PoS 共识机制对此的解决方法是引入惩罚机制，对作恶的节点进行经济惩罚(Slashing)，以建立更加稳定的网络。DPoS 实际上也是无利益攻击的解决方案之一，由上文我们可知 DPoS 这个机制由持币人选出出块节点来运营网络，出块节点会将一部分奖励分给投票者。</p>
+<h3 id="多签-Multi-sig"><a href="#多签-Multi-sig" class="headerlink" title="多签 Multi-sig"></a>多签 Multi-sig</h3><p>多签(Multi-sig)指的是需要多个签名才能执行的操作(这些签名是不同私钥生成的)。这可用于提供更高的安全性，即使丢失单个私钥的话也不会让攻击者取得帐户的权限，多个值得信赖的各方必须同时批准更新，否则无效。</p>
+<p>我们都知道，一般来说一个比特币地址对应一个私钥，动用这个地址中的资金需要私钥的持有者发起签名才行。而多重签名技术，简单来说，就是动用一笔资金时需要多个私钥签名才有效。多签的一个优势就是可以多方对一笔付款一起达成共识，才能支付成功。</p>
+<h3 id="双花攻击-Double-Spend-Attack"><a href="#双花攻击-Double-Spend-Attack" class="headerlink" title="双花攻击 Double Spend Attack"></a>双花攻击 Double Spend Attack</h3><p>双花攻击(Double Spend Attack)即一笔钱花了两次，双重支付，利用货币的数字特性两次或多次使用“同一笔钱”完成支付。双花不会产生新的 Token，但能把自己花出去的钱重新拿回来。简单说就是，攻击者将一笔 Token 转到另外一个地址，通常是转到交易所进行套现，然后再利用一些攻击手法对转账交易进行回滚。目前有常见的几种手法能够引发双花攻击：</p>
+<h4 id="1-Race-Attack"><a href="#1-Race-Attack" class="headerlink" title="1. Race Attack"></a>1. Race Attack</h4><p>这种攻击主要通过控制矿工费来实现双花。攻击者同时向网络中发送两笔交易，一笔交易发给自己(为了提高攻击成功的概率，他给这笔交易增加了足够的矿工费)，一笔交易发给商家。由于发送给自己的交易中含有较高的手续费，会被矿工优先打包进区块的概率比较高。这时候这笔交易就会先于发给商家的那笔交易，那么发给商家的交易就会被回滚。对于攻击者来说，通过控制矿工费，就实现了同一笔 Token 的“双花”。</p>
+<h4 id="2-Finney-Attack"><a href="#2-Finney-Attack" class="headerlink" title="2. Finney Attack"></a>2. Finney Attack</h4><p>攻击者主要通过控制区块的广播时间来实现双花，攻击对象针对的是接受 0 确认的商家。假设攻击者挖到区块，该区块中包含着一个交易，即 A 向 B 转了一定数量的 Token，其中 A 和 B 都是攻击者的地址。但是攻击者并不广播这个区块，而是立即找到一个愿意接受 0 确认交易的商家向他购买一个物品，向商家发一笔交易，用 A 向商家的地址 C 支付，发给商家的交易广播出去后，攻击者再把自己之前挖到的区块广播出去，由于发给自己的交易先于发给商家的交易，对于攻击者来说，通过控制区块的广播时间，就实现了同一笔 Token 的“双花”。</p>
+<h4 id="3-Vector76-attack"><a href="#3-Vector76-attack" class="headerlink" title="3. Vector76 attack"></a>3. Vector76 attack</h4><p>Vector76 Attack 又称“一次确认攻击”，也就是交易确认一次后仍然可以回滚，是 Finney Attack 和 Race Attack 的组合。</p>
+<p>攻击者创建两个节点，节点 A 连接到商家节点，节点 B 连接到区块链网络中的其他节点。接着，攻击者用同一笔 Token 发起两笔交易，一笔交易发送给商家地址，我们称为交易 1；一笔交易发送给自己的钱包地址，我们称为交易 2。与上面说的 Race Attack 一样，攻击者对交易 2 添加了较高的矿工费从而提高了矿工的打包概率，此时，攻击者并没有把这两笔交易广播到网络中去。</p>
+<p>接着，攻击者开始在交易 1 所在的分支上进行挖矿，这条分支我们命名为分支 1。攻击者挖到区块后，并没有广播出去，而是同时做了两件事：在节点 A 上发送交易 1，在节点 B 上发送交易 2。</p>
+<p>由于节点 A 只连接了商家节点，所以当商家节点想把交易 1 传给其它对等节点时，连接了更多节点的节点 B，已经把交易 2 广播给了网络中的大部分节点。于是，从概率上来讲，交易 2 就更有可能被网络认定为是有效的，交易 1 被认定为无效。</p>
+<p>交易 2 被认为有效后，攻击者立即把自己之前在分支 1 上挖到的区块，广播到网络中。这时候，这个接受一次确认就支付的商家，会确认交易成功，然后攻击者就可以立即变现并转移资产。</p>
+<p>同时，由于分支 2 连接的更多节点，所以矿工在这个分支上挖出了另一个区块，也就是分支 2 的链长大于分支 1 的链长。于是，分支 1 上的交易就会回滚，商家之前支付给攻击者的交易信息就会被清除，但是攻击者早已经取款，实现了双花。</p>
+<h4 id="4-51-attack"><a href="#4-51-attack" class="headerlink" title="4. 51% attack"></a>4. 51% attack</h4><p>攻击者占有超过全网 50% 的算力，在攻击者控制算力的这段时间，他可以创造一条高度大于原来链的新链。那么旧链中的交易会被回滚，攻击者可以使用同一笔 Token 发送一笔新的交易到新链上。</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/1f26cbd5-db82-4ea4-a16b-cc4e447171da.jpeg" alt="img"></a></p>
+<p>目前已知公链安全事件的攻击手法多为 51% 攻击，截止发稿日由于攻击者掌握大量算力发起 51% 攻击所造成的损失共 19,820,000 美金。2019 年 1 月 6 日，慢雾区预警了 ETC 网络的 51% 算力攻击的可能性，据 Coinbase 博客报道该攻击者总共发起了 15 次攻击，其中 12 次包含双花，共计被盗 219,500 ETC(按当时市价约为 110 万美元)，攻击者经过精心准备，通过租借大量算力向 ETC 发动了 51% 攻击，累计收益超 10 倍，Gate.io、Yobit、Bitrue 等交易所均受到影响。所幸在整个 ETC 生态社区的努力下，一周后攻击者归还了攻击所得收益，幸而没有造成进一步的损失。</p>
+<h3 id="软分叉-Soft-fork"><a href="#软分叉-Soft-fork" class="headerlink" title="软分叉 Soft-fork"></a>软分叉 Soft-fork</h3><p>软分叉(Soft-fork)更多情况下是一种协议升级，当新共识规则发布后，没有升级的旧节点并不会意识到代码已经发生改变，而继续生产不合法的区块，就会产生临时性分叉，但新节点可以兼容旧节点，即新旧节点始终在同一条链上工作。</p>
+<h3 id="硬分叉-Hard-fork"><a href="#硬分叉-Hard-fork" class="headerlink" title="硬分叉 Hard-fork"></a>硬分叉 Hard-fork</h3><p>硬分叉(Hard-fork)是区块链发生永久性分歧，在新共识规则发布后，已经升级的节点无法验证未升级节点产生的区块，未升级节点也无法验证已经升级的节点产生的区块，即新旧节点互不兼容，通常硬分叉就会发生，原有正常的一条链被分成了两条链（已升级的一条链和未升级的一条链，且这两条链互不兼容）。</p>
+<p>历史上比较著名的硬分叉事件是 The DAO 事件，作为以太坊上的一个著名项目，由于智能合约的漏洞造成资金被黑客转移，黑客盗取了当时价值约 6000 万美元的 ETH，让这个项目蒙受了巨大的损失。为了弥补这个损失，2016 年 7 月，以太坊团队修改了以太坊合约代码实行硬分叉，在第 1920000 个区块强行把 The DAO 及其子 DAO 的所有资金全部转到一个特定的退款合约地址，进而“夺回”了黑客所控制 DAO 合约上的币。但这个修改被一部分矿工所拒绝，因而形成了两条链，一条为原链(以太坊经典，ETC)，一条为新的分叉链(ETH)，他们各自代表了不同社区的共识和价值观。</p>
+<h3 id="异形攻击-Alien-Attack"><a href="#异形攻击-Alien-Attack" class="headerlink" title="异形攻击 Alien Attack"></a>异形攻击 Alien Attack</h3><p>异形攻击(Alien Attack)实际上是一个所有公链都可能面临的问题，又称地址池污染，是指诱使同类链的节点互相侵入和污染的一种攻击手法，漏洞的主要原因是同类链系统在通信协议上没有对不同链的节点做识别。</p>
+<p>这种攻击在一些参考以太坊通信协议实现的公链上得到了复现：以太坊同类链，由于使用了兼容的握手协议，无法区分节点是否属于同个链，利用这一点，攻击者先对以太坊节点地址进行收集并进行恶意握手操作，通过跟节点握手达成污染地址池的目的，使得不同链的节点互相握手并把各自地址池里已知的节点推送给了对方，导致更多的节点互相污染，最终扩散致整个网络。遭受异形攻击的节点通常会通信性能下降，最终造成节点阻塞、主网异常等现象。相关公链需要注意持续保持主网健康状态监测，以免出现影响主网稳定的攻击事件出现。</p>
+<h3 id="钓鱼攻击-Phishing"><a href="#钓鱼攻击-Phishing" class="headerlink" title="钓鱼攻击 Phishing"></a>钓鱼攻击 Phishing</h3><p>所谓“钓鱼攻击(Phishing)”，指的是攻击者伪装成可以信任的人或机构，通过电子邮件、通讯软件、社交媒体等方式，以获取收件人的用户名、密码、私钥等私密信息。随着技术的发展，网络钓鱼攻击不仅可以托管各种恶意软件和勒索软件攻击，而且更糟糕的是这些攻击正在呈现不断上升的趋势。</p>
+<p>2018 年 2 月 19 日，乌克兰的一个黑客组织，通过购买谷歌搜索引擎中与加密货币相关的关键词广告，伪装成合法网站的恶意网站链接，从知名加密货币钱包 Blockchain.info 中窃取了价值超过 5000 万美元的数字加密货币。而除了上述这种域名钓鱼攻击(即使用与官网相似的网址)外，其他类型的钓鱼攻击包括邮件钓鱼攻击、Twitter 1 for 10（支付 0.5-10ETH 返利 5-100ETH）、假 App 和假工作人员等。2019 年 6 月份，就有攻击者向多家交易所发送敲诈勒索信息，通过邮件钓鱼攻击获取了超 40 万美元的收益。</p>
+<p>慢雾安全团队建议用户保持警惕，通过即时通讯 App、短信或电子邮件获取到的每条信息都需要谨慎对待，不要在通过点击链接到达的网站上输入凭据或私钥，在交易时尽可能的使用硬件钱包和双因素认证(2FA)，生态中的项目方在攻击者没有确切告知漏洞细节之前，不要给攻击者转账，若项目方无法准确判断和独自处理，可以联系安全公司协助处理。</p>
+<h3 id="木马攻击-Trojan-Horse-Attack"><a href="#木马攻击-Trojan-Horse-Attack" class="headerlink" title="木马攻击 Trojan Horse Attack"></a>木马攻击 Trojan Horse Attack</h3><p>木马攻击(Trojan Horse Attack)是指攻击者通过隐藏在正常程序中的一段具有特殊功能的恶意代码，如具备破坏和删除文件、发送密码、记录键盘和 DDoS 攻击等特殊功能的后门程序，将控制程序寄生于被控制的计算机系统中，里应外合，对被感染木马病毒的计算机实施操作。可用来窃取用户个人信息，甚至是远程控制对方的计算机而加壳制作，然后通过各种手段传播或者骗取目标用户执行该程序，以达到盗取密码等各种数据资料等目的。</p>
+<p>在区块链领域，诸如勒索木马、恶意挖矿木马一直是行业内令人头疼的安全顽疾，据币世界报道，随着比特币的飙升，推动整个数字加密货币价格回升，与币市密切相关的挖矿木马开始新一轮活跃，仅 2019 年上半年挖矿木马日均新增 6 万个样本，通过分析发现某些新的挖矿木马家族出现了快速、持续更新版本的现象，其功能设计越来越复杂，在隐藏手法、攻击手法方面不断创新，与杀软厂商的技术对抗正在不断增强。</p>
+<h3 id="供应链攻击-Supply-Chain-Attack"><a href="#供应链攻击-Supply-Chain-Attack" class="headerlink" title="供应链攻击 Supply Chain Attack"></a>供应链攻击 Supply Chain Attack</h3><p>供应链攻击(Supply Chain Attack)是一种非常可怕的攻击方式，防御上很难做到完美规避，由于现在的软件工程，各种包&#x2F;模块的依赖十分频繁、常见，而开发者们很难做到一一检查，默认都过于信任市面上流通的包管理器，这就导致了供应链攻击几乎已经成为必选攻击之一。把这种攻击称成为供应链攻击，是为了形象说明这种攻击是一种依赖关系，一个链条，任意环节被感染都会导致链条之后的所有环节出问题。</p>
+<p>供应链攻击形式多样，它可能出现在任何环节。2018 年 11 月，Bitpay 旗下 Copay 遭遇供应链攻击事件，攻击者的攻击行为隐匿了两个月之久。攻击者通过污染 EvenStream(NPM 包)并在后门中留下针对 Copay 的相关变量数值，对 Copay 发起定向攻击从而窃取用户的私钥信息。而就在2019 年 6 月 4 日，NPM Inc 安全团队刚与 Komodo 联手成功挫败了一起典型的供应链攻击，保护了超过 1300 万美元的数字加密货币资产，攻击者将恶意程序包放入 Agama 的构建链中，通过这种手段来窃取钱包应用程序中使用的钱包私钥和其他登录密码。</p>
+<p>供应链攻击防不胜防且不计代价，慢雾安全团队建议所有数字加密货币相关项目(如交易所、钱包、DApp 等)都应该强制至少一名核心技术完整审查一遍所有第三方模块，看看是否存在可疑代码，也可以通过抓包查看是否存在可疑请求。</p>
+<h3 id="智能合约-Smart-Contract"><a href="#智能合约-Smart-Contract" class="headerlink" title="智能合约 Smart Contract"></a>智能合约 Smart Contract</h3><p>智能合约(Smart Contract)并不是一个新的概念，早在 1995 年就由跨领域法律学者 Nick Szabo 提出：智能合约是一套以数字形式定义的承诺(Promises)，包括合约参与方可以在上面执行这些承诺的协议。在区块链领域中，智能合约本质可以说是一段运行在区块链网络中的代码，它以计算机指令的方式实现了传统合约的自动化处理，完成用户所赋予的业务逻辑。</p>
+<p>随着区块链智能合约数量的与日俱增，随之暴露出来的安全问题也越来越多，攻击者常能利用漏洞入侵系统对智能合约用户造成巨大损失，据 SlowMist Hacked 统计，截止目前仅 ETH、EOS、TRON 三条链上因智能合约被攻击而导致的损失就高达 ＄126,883,725.92，具有相同攻击特征的手法更是呈现出多次得手且跨公链的趋势，接下来我们将为大家介绍近年来一些常见的智能合约攻击手法。</p>
+<h3 id="交易回滚攻击-Roll-Back-Attack"><a href="#交易回滚攻击-Roll-Back-Attack" class="headerlink" title="交易回滚攻击 Roll Back Attack"></a>交易回滚攻击 Roll Back Attack</h3><p>交易回滚攻击(Roll Back Attack)，故名思义，指的是能对交易的状态进行回滚。回滚具体是什么意思呢？回滚具体指的是将已经发生的状态恢复成它未发生时候的样子。那么，交易回滚的意思就是将已经发生的交易变成未发生的状态。即攻击者本来已经发生了支付动作，但是通过某些手段，让转账流程发生错误，从而回滚整个交易流程，达到交易回滚的目的，这种攻击手法多发于区块链上的的智能合约游戏当中，当用户的下注动作和合约的开奖动作在一个交易内的时候，即内联交易。攻击者就可以通过交易发生时检测智能合约的某些状态，获知开奖信息，根据开奖信息选择是否对下注交易进行回滚。</p>
+<p>该攻击手法早期常用于 EOS DApp 上，后逐步向波场等其他公链蔓延，截止目前，已有 12 个 DApp 遭遇攻击，慢雾安全团队建议开发者们不要将用户的下注与开奖放在同一个交易内，防止攻击者通过检测智能合约中的开奖状态实现交易回滚攻击。</p>
+<h3 id="交易排挤攻击-Transaction-Congestion-Attack"><a href="#交易排挤攻击-Transaction-Congestion-Attack" class="headerlink" title="交易排挤攻击 Transaction Congestion Attack"></a>交易排挤攻击 Transaction Congestion Attack</h3><p>交易排挤攻击(Transaction Congestion Attack)是针对 EOS 上的使用 defer 进行开奖的游戏合约的一种攻击手法，攻击者可以通过某些手段，在游戏合约的 defer 开奖交易前发送大量的 defer 交易，恶意侵占区块内的 CPU 资源，使得智能合约内本应在指定区块内执行的 defer 开奖交易因资源不足无法执行，只能去到下一个区块才执行。由于很多 EOS 上的游戏智能合约使用区块信息作为智能合约本身的随机数，同一个 defer 开奖交易在不同区块内的执行结果是不一样的。通过这样的方式，攻击者在获知无法中奖的时候，就通过发送大量的 defer 交易，强行让智能合约重新开奖，从而达到攻击目的。</p>
+<p>该攻击手法最早在黑客 loveforlover 向 EOS.WIN 发起攻击时被发现，随后相同的攻击手法多次得手，据 SlowMist Hacked 统计仅 2019 年就有 22 个竞猜类 DApp 因此损失了大量资金，慢雾安全团队建议智能合约开发者对在不同区块内执行结果不同的关键的操作不要采用 defer 交易的方式，降低合约被攻击的风险。</p>
+<h3 id="随机数攻击-Random-Number-Attack"><a href="#随机数攻击-Random-Number-Attack" class="headerlink" title="随机数攻击 Random Number Attack"></a>随机数攻击 Random Number Attack</h3><p>随机数攻击(Random Number Attack)，就是针对智能合约的随机数生成算法进行攻击，预测智能合约的随机数。目前区块链上很多游戏都是采用的链上信息（如区块时间，未来区块哈希等）作为游戏合约的随机数源，也称随机数种子。使用这种随机数种子生成的随机数被称为伪随机数。伪随机数不是真的随机数，存在被预测的可能。当使用可被预测的随机数种子生成随机数的时候，一旦随机数生成的算法被攻击者猜测到或通过逆向等其他方式拿到，攻击者就可以根据随机数的生成算法预测游戏即将出现的随机数，实现随机数预测，达到攻击目的。2018 年 11 月 11 日，攻击者向 EOS.WIN 发起连续随机数攻击，共获利 20,000 枚 EOS，在此慢雾安全团队建议智能合约开发者不要使用不安全的随机数种子生成随机数，降低合约被攻击的风险。</p>
+<h3 id="hard-fail-状态攻击-hard-fail-Attack"><a href="#hard-fail-状态攻击-hard-fail-Attack" class="headerlink" title="hard_fail 状态攻击 hard_fail Attack"></a>hard_fail 状态攻击 hard_fail Attack</h3><p>hard_fail 是什么呢？简单来说就是出现错误但是没有使用错误处理器(error handler)处理错误，比方说使用 onerror 捕获处理，如果说没有 onerror 捕获，就会 hard_fail。EOS 上的交易状态记录分为 executed, soft_fail, hard_fail, delayed 和 expired 这 5 种状态，通常在链上大部分人观察到的交易，都是 executed 的，或者 delayed 的，而没有失败的交易，这就导致大部分开发者误以为 EOS 链上没有失败的交易记录，从而忽略了对交易状态的检查。攻击者利用这个细节，针对链上游戏或交易所进行攻击，构造执行状态为 hard_fail 的交易，欺骗链上游戏或交易所进行假充值攻击，从而获利。</p>
+<p>该攻击手法最早由慢雾安全团队于 2019 年 3 月 10 日一款 EOS DApp 上捕获，帐号名为 fortherest12 的攻击者通过 hard_fail 状态攻击手法攻击了 EOS 游戏 Vegas town。随后，相同攻击手法频频发生，慢雾安全团队在此提醒交易所和 EOS DApp 游戏开发者在处理转账交易的时候需要严格校验交易状态，确保交易执行状态为 executed。</p>
+<h3 id="重放攻击-Replay-Attack"><a href="#重放攻击-Replay-Attack" class="headerlink" title="重放攻击 Replay Attack"></a>重放攻击 Replay Attack</h3><p>重放攻击(Replay Attack)，是针对区块链上的交易信息进行重放，一般来说，区块链为了保证不可篡改和防止双花攻击的发生，会对交易进行各种验证，包括交易的时间戳，nonce，交易 id 等，但是随着各种去中心化交易所的兴起，在智能合约中验证用户交易的场景越来越多。这种场景一般是需要用户对某一条消息进行签名后上传给智能合约，然后在合约内部进行验签。但由于用户的签名信息是会上链的，也就是说每个人都能拿到用户的签名信息，当在合约中校验用户签名的时候，如果被签名的消息不存在随着交易次数变化的变量，如时间戳，nonce 等，攻击者就可以拿着用户的签名，伪造用户发起交易，从而获利。</p>
+<p>这是一种最早出现于 DApp 生态初期的攻击形态，由于开发者设计的开奖随机算法存在严重缺陷，使得攻击者可利用合约漏洞重复开奖，属于开发者较为容易忽略的错误。因此，开发者们在链上进行验签操作的时候，需要对被签名消息加上各种可变因子，防止攻击者对链上签名进行重放，造成资产损失。</p>
+<h3 id="重入攻击-Reentrancy-Attack"><a href="#重入攻击-Reentrancy-Attack" class="headerlink" title="重入攻击 Reentrancy Attack"></a>重入攻击 Reentrancy Attack</h3><p>重入攻击(Reentrancy Attack)首次出现于以太坊，对应的真实攻击为 The DAO 攻击，此次攻击还导致了原来的以太坊分叉成以太经典(ETC)和现在的以太坊(ETH)。由于项目方采用的转账模型为先给用户发送转账然后才对用户的余额状态进行修改，导致恶意用户可以构造恶意合约，在接受转账的同时再次调用项目方的转账函数。利用这样的方法，导致用户的余额状态一直没有被改变，却能一直提取项目方资金，最终导致项目方资金被耗光。</p>
+<p>慢雾安全团队在此提醒智能合约开发者在进行智能合约开发时，在处理转账等关键操作的时候，如果智能合约中存储了用户的资金状态，要先对资金状态进行修改，然后再进行实际的资金转账，避免重入攻击。</p>
+<h3 id="假充值攻击-False-Top-up"><a href="#假充值攻击-False-Top-up" class="headerlink" title="假充值攻击 False Top-up"></a>假充值攻击 False Top-up</h3><p>假充值攻击(False Top-up)，分为针对智能合约的假充值攻击和对交易所的假充值攻击。在假充值攻击中，无论是智能合约还是交易所本身，都没有收到真实的 Token，但是用户又确实得到了真实的充值记录，在这种情况下，用户就可以在没有真正充值的情况下从智能合约或交易所中用假资产或不存在的资产窃取真实资产。</p>
+<ol>
+<li><p>智能合约假充值攻击</p>
+<p>针对智能合约的假充值主要是假币的假充值，这种攻击手法多发于 EOS 和波场上，由于 EOS 上代币都是采用合约的方式进行发行的，EOS 链的系统代币同样也是使用这种方式发行，同时，任何人也可以发行名为 EOS 的代币。只是发行的合约帐号不一样，系统代币的发行合约为 “eosio.token”，而其他人发行的代币来源于其他合约帐号。当合约内没有校验 EOS 代币的来源合约的时候，攻击者就能通过充值攻击者自己发布的 EOS 代币，对合约进行假充值攻击。而波场上的假充值攻击主要是 TRC10 代币的假充值攻击，由于每一个 TRC10 都有一个特定的 tokenid 进行识别，当合约内没有对 tokenid 进行校验的时候，任何人都可以以 1024 个 TRX 发行一个 TRC10 代币对合约进行假充值。</p>
+</li>
+<li><p>交易所假充值攻击</p>
+<p>针对交易所的假充值攻击分为假币攻击和交易状态失败的假充值攻击。以 EOS 和以太坊为例。针对 EOS 可以使用名为 EOS 的假币的方式对交易所进行假充值攻击，如果交易所没有严格校验 EOS 的来源合约为 “eosio.token”，攻击就会发生。同时，区别于 EOS，由于以太坊上会保留交易失败的记录，针对 ERC20 Token，如果交易所没有校验交易的状态，就能通过失败的交易对交易所进行 ERC20 假充值。除此之外，hard_fail 状态攻击也是属于假充值攻击的一种。</p>
+<p>慢雾安全团队在此建议交易所和智能合约开发者在处理转账的时候要充分校验交易的状态，如果是 EOS 或波场上的交易，在处理充值时还要同时校验来源合约是否是 “eosio.token” 或 tokenid 是否为指定的 tokenid。</p>
+</li>
+</ol>
+<h3 id="短地址攻击-Short-Address-Attack"><a href="#短地址攻击-Short-Address-Attack" class="headerlink" title="短地址攻击 Short Address Attack"></a>短地址攻击 Short Address Attack</h3><p>短地址攻击(Short Address Attack)是针对以太坊上 ERC20 智能合约的一种攻击形式，利用的是 EVM 中的对于输入字节码的自动补全机制进行攻击。</p>
+<p>一般而言，针对 ERC20 合约中的 transfer 函数的调用，输入的字节码位数都是 136 字节的。当调用 ERC20 中的 transfer 函数进行 ERC20 Token 转账时，如果攻击者提供的地址后有一个或多个 0，那么攻击者就可以把地址后的零省去，提供一个缺位的地址。当对这个地址转账的时候，比方说转账 100 的 A Token，然后输入的地址是攻击者提供的缺位地址，这时候，经过编码输入的数据是 134 字节，比正常的数据少了 2 字节，在这种情况下，EVM 就会对缺失的字节位在编码数据的末尾进行补 0 凑成 136 字节，这样本来地址段缺失的 0 被数据段的 0 补齐了，而由于给地址段补 0，数据段会少 0，而数据段缺失的 0 由 EVM 自动补齐，这就像数据段向地址段移动补齐地址段缺失字节位，然后数据段缺失的字节位由 EVM 用 0 补齐。这种情况下，转账金额就会由 100 变成 100 * 16 的 n 次方，n 是地址缺失的 0 的个数。通过这种方式，攻击者就能对交易所或钱包进行攻击，盗窃交易所和钱包的资产。</p>
+<p>慢雾安全团队建议交易所和钱包在处理转账的时候，要对转账地址进行严格的校验，防止短地址攻击的发生。</p>
+<h3 id="假币攻击-Fake-Token-Attack"><a href="#假币攻击-Fake-Token-Attack" class="headerlink" title="假币攻击 Fake Token Attack"></a>假币攻击 Fake Token Attack</h3><p>假币攻击(Fake Token Attack)，是针对那些在创建官方 Token 时采用通用创建模版创建出来的代币，每个 Token 的识别仅根据特定的标记进行识别，如 EOS 官方 Token 的识别标记是 “eosio.token”合约，波场的 TRC10 的识别标记是 tokenid，以太坊的 ERC20 是用合约地址作为识别标记。那么这样就会出现一个问题，如果收款方在对这些 Token 进行收款的时候没有严格校验这些 Token 特有的标记，攻击就会发生，以 EOS 为例子，由于 EOS 官方 Token 采用的是合约来发行一个名为 EOS 的 Token，标记 EOS 本身的标识是 “eosio.token” 这个发行帐号，如果在接受转账的时候没有校验这个标识，攻击者就能用其他的帐号同样发行一个名为 EOS 的 Token，对交易所或钱包进行假币充值，换取真的代币。</p>
+<p>2019 年 4 月 11 日，波场 Dapp TronBank 1 小时内被盗走约 1.7 亿枚 BTT（价值约 85 万元）。监测显示，黑客创建了名为 BTTx 的假币向合约发起“ invest ”函数，而合约并没有判定发送者的代币 id 是否与 BTT 真币的 id 1002000 一致。因此黑客拿到真币 BTT 的投资回报和推荐奖励，以此方式迅速掏空资金池。对此，交易所和钱包在处理转账的时候，切记要严格检验各种代币各种标识，防止假币攻击。</p>
+<h3 id="整型溢出攻击-Integer-Overflow-Attack"><a href="#整型溢出攻击-Integer-Overflow-Attack" class="headerlink" title="整型溢出攻击 Integer Overflow Attack"></a>整型溢出攻击 Integer Overflow Attack</h3><p>数据的存储是区块链上重要的一环。但是每个数据类型本身是存在边界的，例如以太坊中 uint8 类型的变量就只能存储 0～255 大小的数据，超过了就存不下了。那么如果要放一个超过数据类型大小的数字会怎样呢？例如把 256 存进 uint8 的数据类型中，数据显示出来会变成 1，而不是其他数值，也不会报错，因为 uint8 本身能存一个 8 位二进制数字，最大值为 11111111，如果这个时候加 1，这个二进制数就变成了 100000001，而因为数据边界的关系，只能拿到后 8 位，也就是 00000001，那么数字的大小就变成 1 了，这种情况我们称为上溢。有上就有下，下溢的意思就是一个值为 0 的 uint8 数据，如果这个时候对它进行减 1 操作，结果会变成该数据类型所能存储的最大值加 1 减去被减数，在这个例子中是 255，也就是该数据类型所能存储的最大值。那么如果上述两种情况发生在智能合约当中的话，恶意用户通过下溢的操作，操纵自己的帐号向其他帐号发送超过自己余额数量的代币，如果合约内没有对余额进行检查，恶意用户的余额就会下溢出变成一个超大的值，这个时候攻击者如果大量抛售这些代币，就能瞬间破坏整个代币的价值系统。</p>
+<p>慢雾安全团队建议所有的智能合约开发者在智能合约中对数据进行操作的时候，要严格校验数据边界，防止整形溢出攻击的发生。</p>
+<h3 id="条件竞争攻击-Race-Condition"><a href="#条件竞争攻击-Race-Condition" class="headerlink" title="条件竞争攻击 Race Condition"></a>条件竞争攻击 Race Condition</h3><p>条件竞争(Race Condition)攻击的方式很多样，但是核心的本质无非是对某个条件的状态修改的竞争，如上期介绍的重入漏洞，也是条件竞争的一种，针对的是用户余额这个条件进行竞争，只要用户的余额没有归零，用户就能一直提走智能合约的钱。这次介绍的条件竞争的例子是最近发生的著名的 Edgeware 锁仓合约的拒绝服务漏洞，详情可参考：<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU4ODQ3NTM2OA==&mid=2247484631&idx=2&sn=42b1cc849ed6a25d35bb24ed669af642&chksm=fddd7a50caaaf346422e923e1709ff1bf051073ba86f51b4338d6526f8da3f693330a03461b5&scene=21#wechat_redirect">关于 Edgeware 锁仓合约的拒绝服务漏洞</a>。这个漏洞问题的本质在于对新建的锁仓合约的余额的这个条件进行竞争。攻击者可以监控所有链上的锁仓请求，提前计算出锁仓合约的地址，然后向合约地址转账，造成锁仓失败。在官方没有修复之前，要防止这种攻击，只能使用比攻击者更高的手续费让自己的锁仓交易先行打包，从而与攻击者形成竞争避免攻击。最后，官方修复方案为不对锁仓合约的余额进行强制性的相等检查，而是采用大于等于的形式，避免了攻击的发生。</p>
+<p>慢雾安全团队建议智能合约的开发者在智能合约中对某些状态进行修改的时候，要根据实际情况充分考虑条件竞争的风险，防止遭受条件竞争攻击。</p>
+<h4 id="越权访问攻击-Exceed-Authority-Access-Attack"><a href="#越权访问攻击-Exceed-Authority-Access-Attack" class="headerlink" title="越权访问攻击 Exceed Authority Access Attack"></a>越权访问攻击 Exceed Authority Access Attack</h4><p>和传统安全的定义一样，越权指的是访问或执行超出当前账户权限的操作，如本来有些操作只能是合约管理员执行的，但是由于限制做得不严谨，导致关键操作也能被合约管理员以外的人执行，导致不可预测的风险，这种攻击在以太坊和 EOS 上都曾出现过多次。</p>
+<p>以 EOS 上著名的 BetDice 游戏为例，由于在游戏合约内的路由(EOS 内可自定义的事件转发器)中没有对来源账号进行严格的校验，导致普通用户能通过 push action 的方式访问到合约中的关键操作 transfer 函数，直接绕过转账流程进行下注，从而发生了越权攻击，事后虽然 BetDice 官方紧急修复了代码，并严格限制了来源账号，但这个漏洞已经让攻击者几乎无成本薅走 BetDice 奖池内将近 5 万 EOS。又如在以太坊使用 solidity 版本为 0.4.x 进行合约开发的时候，很多合约开发者在对关键函数编写的时候不仅没有加上权限校验，也没有指定函数可见性，在这种情况下，函数的默认可见性为 public，恶意用户可以通过这些没有进行限制的关键函数对合约进行攻击。</p>
+<p>慢雾安全团队建议智能合约开发者们在进行合约开发的时候要注意对关键函数进行权限校验，防止关键函数被非法调用造成合约被攻击。</p>
+<h3 id="交易顺序依赖攻击-Transaction-Ordering-Attack"><a href="#交易顺序依赖攻击-Transaction-Ordering-Attack" class="headerlink" title="交易顺序依赖攻击 Transaction-Ordering Attack"></a>交易顺序依赖攻击 Transaction-Ordering Attack</h3><p>在区块链的世界当中，一笔交易内可能含有多个不同的交易，而这些交易执行的顺序会影响最终的交易的执行结果，由于在挖矿机制的区块链中，交易未被打包前都处于一种待打包的 pending 状态，如果能事先知道交易里面执行了哪些其他交易，恶意用户就能通过增加矿工费的形式，发起一笔交易，让交易中的其中一笔交易先行打包，扰乱交易顺序，造成非预期内的执行结果，达成攻击。以以太坊为例，假如存在一个 Token 交易平台，这个平台上的手续费是通过调控合约中的参数实现的，假如某天平台项目方通过一笔交易请求调高交易手续费用，这笔交易被打包后的所有买卖 Token 的交易手续费都要提升，正确的逻辑应该是从这笔交易开始往后所有的 Token 买卖交易的手续费都要提升，但是由于交易从发出到被打包存在一定的延时，请求修改交易手续费的交易不是立即生效的，那么这时恶意用户就可以以更高的手续费让自己的交易先行打包，避免支付更高的手续费。</p>
+<p>慢雾安全团队建议智能合约开发者在进行合约开发的时候要注意交易顺序对交易结果产生的影响，避免合约因交易顺序的不同遭受攻击。</p>
+<h3 id="女巫攻击-Sybil-Attack"><a href="#女巫攻击-Sybil-Attack" class="headerlink" title="女巫攻击 Sybil Attack"></a>女巫攻击 Sybil Attack</h3><p>传闻中女巫是一个会魔法的人，一个人可以幻化出多个自己，令受害人以为有多人，但其实只有一个人。在区块链世界中，女巫攻击(Sybil Attack)是针对服务器节点的攻击。攻击发生时候，通过某种方式，某个恶意节点可以伪装成多个节点，对被攻击节点发出链接请求，达到节点的最大链接请求，导致节点没办法接受其他节点的请求，造成节点拒绝服务攻击。以 EOS 为例，慢雾安全团队曾披露过的 EOS P2P 节点拒绝服务攻击实际上就是女巫攻击的一种，攻击者可以非常小的攻击成本来达到瘫痪主节点的目的。</p>
+<p>慢雾安全团队建议在搭建全节点的情况下，服务器需要在系统层面上对网络连接情况进行监控，一旦发现某个IP连接异常就调用脚本配置 iptables 规则屏蔽异常的 IP，同时链开发者在进行公链开发时应该在 P2P 模块中对单 IP 节点连接数量添加控制。</p>
+<h3 id="假错误通知攻击-Fake-Onerror-Notification-Attack"><a href="#假错误通知攻击-Fake-Onerror-Notification-Attack" class="headerlink" title="假错误通知攻击 Fake Onerror Notification Attack"></a>假错误通知攻击 Fake Onerror Notification Attack</h3><p>EOS 上存在各种各样的通知，只要在 action 中添加 require_recipient 命令，就能对指定的帐号通知该 action，在 EOS 上某些智能合约中，为了用户体验或其他原因，一般会对 onerror 通知进行某些处理。如果这个时候没有对 onerror 通知的来源合约是否是 eosio 进行检验的话，就能使用和假转账通知同样的手法对合约进行攻击，触发合约中对 onerror 的处理，从而导致被攻击合约资产遭受损失。</p>
+<p>慢雾安全团队建议智能合约开发者在进行智能合约开发的时候需要对 onerror 的来源合约进行校验，确保合约帐号为 eosio 帐号，防止假错误通知攻击。</p>
+<h3 id="粉尘攻击-Dusting-Attack"><a href="#粉尘攻击-Dusting-Attack" class="headerlink" title="粉尘攻击 Dusting Attack"></a>粉尘攻击 Dusting Attack</h3><p>粉尘攻击(Dusting Attack)最早发生于比特币网络当中，所谓粉尘，指的是交易中的交易金额相对于正常交易而言十分地小，可以视作微不足道的粉尘。通常这些粉尘在余额中不会被注意到，许多持币者也很容易忽略这些余额。但是由于比特币或基于比特币模型的区块链系统的账本模型是采用 UTXO 模型作为账户资金系统，即用户的每一笔交易金额，都是通过消费之前未消费的资金来产生新的资金。别有用意的用户，就能通过这种机制，给大量的账户发送这些粉尘金额，令交易粉尘化，然后再通过追踪这些粉尘交易，关联出该地址的其他关联地址，通过对这些关联地址进行行为分析，就可以分析一个地址背后的公司或个人，破坏比特币本身的匿名性。除此之外，由于比特币网络区块容量大小的限制，大量的粉尘交易会造成区块的拥堵，从而使得交易手续费提升，进而产生大量待打包交易，降低系统本身的运行效率。</p>
+<p>对于如何避免粉尘攻击，可以在构造交易的过程中，根据交易的类型，计算出交易的最低金额，同时对每个输出进行判断，如果低于该金额，则不能继续构造该笔交易。特别的，如果这个输出刚好发生在找零上，且金额对于你来说不太大，则可以通过舍弃该部分的粉尘输出，以充作交易手续费来避免构造出粉尘交易。其次，为了保护隐私性，慢雾安全团队建议可以在构造交易时把那些金额极小的 UTXO 舍弃掉，使用大额的 UTXO 组成交易。</p>
+<h3 id="C2-攻击-C2-Attack"><a href="#C2-攻击-C2-Attack" class="headerlink" title="C2 攻击 C2 Attack"></a>C2 攻击 C2 Attack</h3><p>C2 全称 Command and Control，翻译过来就是命令执行与控制，在传统的网络攻击中，在通过各种漏洞进入到目标服务器后，受限于空间，通常通过网络拉取二段 exploit 进行驻留，实现后渗透流程。所以，C2 架构也就可以理解为，恶意软件通过什么样的方式获取资源和命令，以及通过什么样的方式将数据回传给攻击者。在传统的攻击手法中，攻击者一般通过远程服务器拉取命令到本地执行，但是这种方式也有很明显的缺点，就是一旦远程服务器被发现，后续渗透活动就无法正常进行。但是区块链网络提供了一个天然且不可篡改的大型数据库，攻击者通过把攻击荷载(payload)写进交易中，并通过发送交易把该命令永久的刻在区块链数据库中。通过这种方法，即使攻击命令被发现，也无法篡改链上数据，无需担心服务器被发现然后下线的风险。</p>
+<p>新技术不断发展，旧有的攻击手法也在随着新技术的变换而不断迭代更新。在区块链的世界中只有在各方面都做好防范，才能避免来自各方面的安全攻击。</p>
+<h3 id="洗币-Money-Laundering"><a href="#洗币-Money-Laundering" class="headerlink" title="洗币 Money Laundering"></a>洗币 Money Laundering</h3><p>洗币和洗钱是一样的，只是对象不同，洗钱指的是将一笔非法得到的金钱通过某些操作后变成正当、合法的收入。而洗币也是一样，指的是将非法获取的代币，如通过黑客攻击、携带用户资产跑路或通过诈骗等手段获取的代币，通过某些手段，将其来源变成正当、合法的来源。如通过交易所进行洗币、智能合约中洗币或通过某些搅拌器进行中转、通过匿名币种如门罗币，Zcash 等，令非法所得的资金无法被追踪，最后成功逃过监管达到洗币的目的，然后通过把代币转换成法币离场，完成洗币的流程。</p>
+<p>慢雾安全团队建议各交易所应加强 KYC 策略，增强风控等级，及时监控交易所大资金进出，防范恶意用户通过交易所进行洗币，除此之外，可以通过与第三方安全机构进行合作，及时拦截非法资产，阻断洗钱的可能。</p>
+<h3 id="勒索-Ransom"><a href="#勒索-Ransom" class="headerlink" title="勒索 Ransom"></a>勒索 Ransom</h3><p>勒索是传统行业中常见的攻击行为，攻击者通过向受害者主机发送勒索病毒对主机文件进行加密来向受害者进行资金勒索。随着区块链技术的发展，近年来，勒索开始呈现新的方式，如使用比特币作为勒索的资金支付手段或使用匿名性更高的门罗币作为资金支付手段。如著名的 GandCrab 病毒就是比特币勒索病毒，受害者需要向攻击者支付一定量的比特币换取解密私钥。通过这种勒索手段，GandCrab 勒索病毒一年就勒索了超过 20 亿美金。值得一提的是，就算向攻击者发送比特币，也不一定能换取解密私钥，造成“人财两空”的局面。除此之外，慢雾安全团队还捕获到某些攻击者通过发送勒索邮件，谎称检测到交易所的漏洞，需要支付一定金额的比特币才能提供解决方案。这种勒索方式也是区块链行业近来越来越流行的勒索手段。</p>
+<p>慢雾安全团队在此建议，当资产已经因勒索病毒而造成损失时，不要慌张，更不要向攻击者支付比特币或其他加密货币，可以尝试登陆 <a target="_blank" rel="noopener" href="https://www.nomoreransom.org/zht_Hant/index.html">https://www.nomoreransom.org/zht_Hant/index.html</a> 这个网站寻找解决方案。同时，交易所在收到这些邮件时需额外警惕，千万不能向攻击者支付比特币或其他加密货币，必要时可寻求第三方安全公司的协助。</p>
+<h2 id="引用文章"><a href="#引用文章" class="headerlink" title="引用文章"></a>引用文章</h2><p><a target="_blank" rel="noopener" href="https://paper.seebug.org/973/">https://paper.seebug.org/973/</a></p>
+<p><a target="_blank" rel="noopener" href="https://ctf-wiki.org/blockchain/introduction/">https://ctf-wiki.org/blockchain/introduction/</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/22/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8-%E6%A6%82%E8%BF%B0%20-%20online/">http://example.com/2024/07/22/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8-%E6%A6%82%E8%BF%B0%20-%20online/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/22/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8-%E6%A6%82%E8%BF%B0/" title="区块链安全-概述"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">区块链安全-概述</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/22/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0-Remix%20IDE%E5%AE%89%E8%A3%85/" title="区块链学习-Remix IDE安装"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">区块链学习-Remix IDE安装</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">388</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">57</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">区块链安全-概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ethereum-%E5%AE%89%E5%85%A8"><span class="toc-number">1.2.</span> <span class="toc-text">Ethereum 安全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CTF-%E4%B8%AD%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE"><span class="toc-number">1.2.1.</span> <span class="toc-text">CTF 中的区块链</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">1.2.2.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solidity"><span class="toc-number">1.2.3.</span> <span class="toc-text">Solidity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MetaMask"><span class="toc-number">1.2.4.</span> <span class="toc-text">MetaMask</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Remix"><span class="toc-number">1.2.5.</span> <span class="toc-text">Remix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A6%E6%88%B7"><span class="toc-number">1.2.6.</span> <span class="toc-text">账户</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E8%B4%A6%E6%88%B7"><span class="toc-number">1.2.6.1.</span> <span class="toc-text">外部账户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%88%E7%BA%A6%E8%B4%A6%E6%88%B7"><span class="toc-number">1.2.6.2.</span> <span class="toc-text">合约账户</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%98%93"><span class="toc-number">1.2.7.</span> <span class="toc-text">交易</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E8%B4%B9%E7%94%A8"><span class="toc-number">1.2.7.1.</span> <span class="toc-text">交易费用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.7.2.</span> <span class="toc-text">交易内容</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E5%90%88%E7%BA%A6%E4%BA%A4%E4%BA%92"><span class="toc-number">1.2.8.</span> <span class="toc-text">与合约交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tx-origin-vs-msg-sender"><span class="toc-number">1.2.9.</span> <span class="toc-text">tx.origin vs msg.sender</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">1.3.</span> <span class="toc-text">密码学基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solidity-1"><span class="toc-number">1.4.</span> <span class="toc-text">Solidity</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-number">1.4.1.</span> <span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pragma"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">pragma</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#uint"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">uint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#struct"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">struct</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">1.4.1.4.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AC%E5%85%B1%E6%95%B0%E7%BB%84"><span class="toc-number">1.4.1.5.</span> <span class="toc-text">公共数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.1.6.</span> <span class="toc-text">定义函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%81%E6%9C%89-%E5%85%AC%E5%85%B1%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.1.7.</span> <span class="toc-text">私有 &#x2F; 公共函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">1.4.1.8.</span> <span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">1.4.1.9.</span> <span class="toc-text">函数的修饰符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#keccak256"><span class="toc-number">1.4.1.10.</span> <span class="toc-text">keccak256</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.4.1.11.</span> <span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#event"><span class="toc-number">1.4.1.12.</span> <span class="toc-text">event</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E7%BA%A7"><span class="toc-number">1.4.2.</span> <span class="toc-text">中级</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Addresses-%EF%BC%88%E5%9C%B0%E5%9D%80%EF%BC%89"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">Addresses （地址）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mapping"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">mapping</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#msg-sender"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">msg.sender</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#require"><span class="toc-number">1.4.2.4.</span> <span class="toc-text">require</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#inheritance"><span class="toc-number">1.4.2.5.</span> <span class="toc-text">inheritance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#import"><span class="toc-number">1.4.2.6.</span> <span class="toc-text">import</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Storage%E4%B8%8EMemory"><span class="toc-number">1.4.2.7.</span> <span class="toc-text">Storage与Memory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#internal-%E5%92%8C-external"><span class="toc-number">1.4.2.8.</span> <span class="toc-text">internal 和 external</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E5%90%88%E7%BA%A6%E7%9A%84%E4%BA%A4%E4%BA%92"><span class="toc-number">1.4.2.9.</span> <span class="toc-text">与其他合约的交互</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.4.2.10.</span> <span class="toc-text">使用接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%A4%9A%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">1.4.2.11.</span> <span class="toc-text">处理多返回值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7"><span class="toc-number">1.4.3.</span> <span class="toc-text">高级</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%B0%B8%E5%9B%BA%E6%80%A7"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">智能协议的永固性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OpenZeppelin%E5%BA%93%E7%9A%84Ownable-%E5%90%88%E7%BA%A6"><span class="toc-number">1.4.3.2.</span> <span class="toc-text">OpenZeppelin库的Ownable 合约</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">1.4.3.3.</span> <span class="toc-text">继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">1.4.3.4.</span> <span class="toc-text">函数修饰符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gas-%E9%A9%B1%E5%8A%A8%E4%BB%A5%E5%A4%AA%E5%9D%8ADApps%E7%9A%84%E8%83%BD%E6%BA%90"><span class="toc-number">1.4.3.5.</span> <span class="toc-text">Gas - 驱动以太坊DApps的能源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%8D%95%E4%BD%8D"><span class="toc-number">1.4.3.6.</span> <span class="toc-text">时间单位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E7%BB%93%E6%9E%84%E4%BD%93%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0%E4%BC%A0%E5%85%A5"><span class="toc-number">1.4.3.7.</span> <span class="toc-text">将结构体作为参数传入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AC%E6%9C%89%E5%87%BD%E6%95%B0%E5%92%8C%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-number">1.4.3.8.</span> <span class="toc-text">公有函数和安全性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%87%BD%E6%95%B0%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">1.4.3.9.</span> <span class="toc-text">带参数的函数修饰符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8-%E2%80%98View%E2%80%99-%E5%87%BD%E6%95%B0%E8%8A%82%E7%9C%81-Gas"><span class="toc-number">1.4.3.10.</span> <span class="toc-text">利用 ‘View’ 函数节省 Gas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E9%9D%9E%E5%B8%B8%E6%98%82%E8%B4%B5"><span class="toc-number">1.4.3.11.</span> <span class="toc-text">存储非常昂贵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E5%A3%B0%E6%98%8E%E6%95%B0%E7%BB%84"><span class="toc-number">1.4.3.12.</span> <span class="toc-text">在内存中声明数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-for-%E5%BE%AA%E7%8E%AF"><span class="toc-number">1.4.3.13.</span> <span class="toc-text">使用 for 循环</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.4.4.</span> <span class="toc-text">区块链系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#payable-%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">payable 修饰符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E7%8E%B0"><span class="toc-number">1.4.4.2.</span> <span class="toc-text">提现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8-keccak256-%E6%9D%A5%E5%88%B6%E9%80%A0%E9%9A%8F%E6%9C%BA%E6%95%B0%E3%80%82"><span class="toc-number">1.4.4.3.</span> <span class="toc-text">用 keccak256 来制造随机数。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ERC721-%E6%A0%87%E5%87%86%E5%92%8C%E5%8A%A0%E5%AF%86%E6%94%B6%E8%97%8F%E5%93%81"><span class="toc-number">1.4.5.</span> <span class="toc-text">ERC721 标准和加密收藏品</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A%EF%BC%88%E5%8E%86%E5%8F%B2%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">区块链安全名词解释（历史）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%92%B1%E5%8C%85-Wallet"><span class="toc-number">1.5.1.</span> <span class="toc-text">钱包 Wallet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%B7%E9%92%B1%E5%8C%85-Cold-Wallet"><span class="toc-number">1.5.2.</span> <span class="toc-text">冷钱包 Cold Wallet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%83%AD%E9%92%B1%E5%8C%85-Hot-Wallet"><span class="toc-number">1.5.3.</span> <span class="toc-text">热钱包 Hot Wallet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E9%92%A5-Public-Key"><span class="toc-number">1.5.4.</span> <span class="toc-text">公钥 Public Key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%81%E9%92%A5-Private-Key"><span class="toc-number">1.5.5.</span> <span class="toc-text">私钥 Private Key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A9%E8%AE%B0%E8%AF%8D-Mnemonic"><span class="toc-number">1.5.6.</span> <span class="toc-text">助记词 Mnemonic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Keystore"><span class="toc-number">1.5.7.</span> <span class="toc-text">Keystore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E9%93%BE-Public-Blockchain"><span class="toc-number">1.5.8.</span> <span class="toc-text">公链 Public Blockchain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E6%89%80-Exchange"><span class="toc-number">1.5.9.</span> <span class="toc-text">交易所 Exchange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9-Node"><span class="toc-number">1.5.10.</span> <span class="toc-text">节点 Node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RPC"><span class="toc-number">1.5.11.</span> <span class="toc-text">RPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%BB%91%E8%89%B2%E6%83%85%E4%BA%BA%E8%8A%82%E6%BC%8F%E6%B4%9E-ETH-Black-Valentine%E2%80%99s-Day"><span class="toc-number">1.5.12.</span> <span class="toc-text">以太坊黑色情人节漏洞 ETH Black Valentine’s Day</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E8%AF%86-Consensus"><span class="toc-number">1.5.13.</span> <span class="toc-text">共识 Consensus</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AF%81%E6%98%8E-PoW-Proof-of-Work"><span class="toc-number">1.5.14.</span> <span class="toc-text">工作量证明 PoW(Proof of Work)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%83%E7%9B%8A%E8%AF%81%E6%98%8E-PoS-Proof-of-Stake"><span class="toc-number">1.5.15.</span> <span class="toc-text">权益证明 PoS(Proof of Stake)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A7%94%E6%89%98%E6%9D%83%E7%9B%8A%E8%AF%81%E6%98%8E-DPoS-Delegate-Proof-of-Stake"><span class="toc-number">1.5.16.</span> <span class="toc-text">委托权益证明 DPoS(Delegate Proof of Stake)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%B6%E6%84%8F%E6%8C%96%E7%9F%BF%E6%94%BB%E5%87%BB-Cryptojacking-Attack"><span class="toc-number">1.5.17.</span> <span class="toc-text">恶意挖矿攻击 Cryptojacking Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E5%88%A9%E7%9B%8A%E6%94%BB%E5%87%BB-Nothing-at-Stake-Attack"><span class="toc-number">1.5.18.</span> <span class="toc-text">无利益攻击 Nothing at Stake Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%AD%BE-Multi-sig"><span class="toc-number">1.5.19.</span> <span class="toc-text">多签 Multi-sig</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E8%8A%B1%E6%94%BB%E5%87%BB-Double-Spend-Attack"><span class="toc-number">1.5.20.</span> <span class="toc-text">双花攻击 Double Spend Attack</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Race-Attack"><span class="toc-number">1.5.20.1.</span> <span class="toc-text">1. Race Attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Finney-Attack"><span class="toc-number">1.5.20.2.</span> <span class="toc-text">2. Finney Attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Vector76-attack"><span class="toc-number">1.5.20.3.</span> <span class="toc-text">3. Vector76 attack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-51-attack"><span class="toc-number">1.5.20.4.</span> <span class="toc-text">4. 51% attack</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E5%88%86%E5%8F%89-Soft-fork"><span class="toc-number">1.5.21.</span> <span class="toc-text">软分叉 Soft-fork</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E5%88%86%E5%8F%89-Hard-fork"><span class="toc-number">1.5.22.</span> <span class="toc-text">硬分叉 Hard-fork</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%BD%A2%E6%94%BB%E5%87%BB-Alien-Attack"><span class="toc-number">1.5.23.</span> <span class="toc-text">异形攻击 Alien Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%92%93%E9%B1%BC%E6%94%BB%E5%87%BB-Phishing"><span class="toc-number">1.5.24.</span> <span class="toc-text">钓鱼攻击 Phishing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%A8%E9%A9%AC%E6%94%BB%E5%87%BB-Trojan-Horse-Attack"><span class="toc-number">1.5.25.</span> <span class="toc-text">木马攻击 Trojan Horse Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9B%E5%BA%94%E9%93%BE%E6%94%BB%E5%87%BB-Supply-Chain-Attack"><span class="toc-number">1.5.26.</span> <span class="toc-text">供应链攻击 Supply Chain Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-Smart-Contract"><span class="toc-number">1.5.27.</span> <span class="toc-text">智能合约 Smart Contract</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E5%9B%9E%E6%BB%9A%E6%94%BB%E5%87%BB-Roll-Back-Attack"><span class="toc-number">1.5.28.</span> <span class="toc-text">交易回滚攻击 Roll Back Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E6%8E%92%E6%8C%A4%E6%94%BB%E5%87%BB-Transaction-Congestion-Attack"><span class="toc-number">1.5.29.</span> <span class="toc-text">交易排挤攻击 Transaction Congestion Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%94%BB%E5%87%BB-Random-Number-Attack"><span class="toc-number">1.5.30.</span> <span class="toc-text">随机数攻击 Random Number Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hard-fail-%E7%8A%B6%E6%80%81%E6%94%BB%E5%87%BB-hard-fail-Attack"><span class="toc-number">1.5.31.</span> <span class="toc-text">hard_fail 状态攻击 hard_fail Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB-Replay-Attack"><span class="toc-number">1.5.32.</span> <span class="toc-text">重放攻击 Replay Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%85%A5%E6%94%BB%E5%87%BB-Reentrancy-Attack"><span class="toc-number">1.5.33.</span> <span class="toc-text">重入攻击 Reentrancy Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%87%E5%85%85%E5%80%BC%E6%94%BB%E5%87%BB-False-Top-up"><span class="toc-number">1.5.34.</span> <span class="toc-text">假充值攻击 False Top-up</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%AD%E5%9C%B0%E5%9D%80%E6%94%BB%E5%87%BB-Short-Address-Attack"><span class="toc-number">1.5.35.</span> <span class="toc-text">短地址攻击 Short Address Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%87%E5%B8%81%E6%94%BB%E5%87%BB-Fake-Token-Attack"><span class="toc-number">1.5.36.</span> <span class="toc-text">假币攻击 Fake Token Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%9E%8B%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB-Integer-Overflow-Attack"><span class="toc-number">1.5.37.</span> <span class="toc-text">整型溢出攻击 Integer Overflow Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%94%BB%E5%87%BB-Race-Condition"><span class="toc-number">1.5.38.</span> <span class="toc-text">条件竞争攻击 Race Condition</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B6%8A%E6%9D%83%E8%AE%BF%E9%97%AE%E6%94%BB%E5%87%BB-Exceed-Authority-Access-Attack"><span class="toc-number">1.5.38.1.</span> <span class="toc-text">越权访问攻击 Exceed Authority Access Attack</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E9%A1%BA%E5%BA%8F%E4%BE%9D%E8%B5%96%E6%94%BB%E5%87%BB-Transaction-Ordering-Attack"><span class="toc-number">1.5.39.</span> <span class="toc-text">交易顺序依赖攻击 Transaction-Ordering Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%B3%E5%B7%AB%E6%94%BB%E5%87%BB-Sybil-Attack"><span class="toc-number">1.5.40.</span> <span class="toc-text">女巫攻击 Sybil Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%87%E9%94%99%E8%AF%AF%E9%80%9A%E7%9F%A5%E6%94%BB%E5%87%BB-Fake-Onerror-Notification-Attack"><span class="toc-number">1.5.41.</span> <span class="toc-text">假错误通知攻击 Fake Onerror Notification Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B2%89%E5%B0%98%E6%94%BB%E5%87%BB-Dusting-Attack"><span class="toc-number">1.5.42.</span> <span class="toc-text">粉尘攻击 Dusting Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C2-%E6%94%BB%E5%87%BB-C2-Attack"><span class="toc-number">1.5.43.</span> <span class="toc-text">C2 攻击 C2 Attack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B4%97%E5%B8%81-Money-Laundering"><span class="toc-number">1.5.44.</span> <span class="toc-text">洗币 Money Laundering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8B%92%E7%B4%A2-Ransom"><span class="toc-number">1.5.45.</span> <span class="toc-text">勒索 Ransom</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E6%96%87%E7%AB%A0"><span class="toc-number">1.6.</span> <span class="toc-text">引用文章</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/" title="车辆数字钥匙常见攻击和防御方法介绍"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="车辆数字钥匙常见攻击和防御方法介绍"/></a><div class="content"><a class="title" href="/2024/08/14/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/" title="车辆数字钥匙常见攻击和防御方法介绍">车辆数字钥匙常见攻击和防御方法介绍</a><time datetime="2024-08-14T07:28:51.319Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/TP-link%20Smart%20Home%20Router%20%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="TP-link Smart Home Router 命令注入漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TP-link Smart Home Router 命令注入漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/TP-link%20Smart%20Home%20Router%20%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="TP-link Smart Home Router 命令注入漏洞">TP-link Smart Home Router 命令注入漏洞</a><time datetime="2024-08-14T07:28:51.312Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/Sapido%20RB-1732%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="Sapido RB-1732 远程命令执行漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sapido RB-1732 远程命令执行漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/Sapido%20RB-1732%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="Sapido RB-1732 远程命令执行漏洞">Sapido RB-1732 远程命令执行漏洞</a><time datetime="2024-08-14T07:28:51.309Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/D-Link%20DIR-815%20%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E/" title="D-Link DIR-815 后门漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="D-Link DIR-815 后门漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/D-Link%20DIR-815%20%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E/" title="D-Link DIR-815 后门漏洞">D-Link DIR-815 后门漏洞</a><time datetime="2024-08-14T07:28:51.297Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="路由器漏洞挖掘工具总结"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="路由器漏洞挖掘工具总结"/></a><div class="content"><a class="title" href="/2024/07/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="路由器漏洞挖掘工具总结">路由器漏洞挖掘工具总结</a><time datetime="2024-07-26T13:55:22.326Z" title="发表于 2024-07-26 21:55:22">2024-07-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

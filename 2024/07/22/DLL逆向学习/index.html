@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>DLL逆向学习 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="DLL逆向学习前言为了分析一个DLL注入的病毒(TinyTurla-NG)，学习的关于DLL的逆向，只是资料总结，参考链接都会贴在最后面。 svchost.exe 进程　　网上有很多关于svchost.exe是什么进程，svchost.exe是什么病毒，svchost.exe占用cpu100%或占用大量内存，svchost.exe有十几个，svchost.exe偷偷连网很象木马的问题，本文提供关于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DLL逆向学习">
+<meta property="og:url" content="http://example.com/2024/07/22/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="DLL逆向学习前言为了分析一个DLL注入的病毒(TinyTurla-NG)，学习的关于DLL的逆向，只是资料总结，参考链接都会贴在最后面。 svchost.exe 进程　　网上有很多关于svchost.exe是什么进程，svchost.exe是什么病毒，svchost.exe占用cpu100%或占用大量内存，svchost.exe有十几个，svchost.exe偷偷连网很象木马的问题，本文提供关于">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png">
+<meta property="article:published_time" content="2024-07-22T01:35:17.289Z">
+<meta property="article:modified_time" content="2024-08-14T07:28:50.996Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://example.com/2024/07/22/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'DLL逆向学习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-14 15:28:50'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">388</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">57</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">DLL逆向学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-22T01:35:17.289Z" title="发表于 2024-07-22 09:35:17">2024-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-14T07:28:50.996Z" title="更新于 2024-08-14 15:28:50">2024-08-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/RE%E7%AC%94%E8%AE%B0/">RE笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="DLL逆向学习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="DLL逆向学习"><a href="#DLL逆向学习" class="headerlink" title="DLL逆向学习"></a>DLL逆向学习</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>为了分析一个DLL注入的病毒(TinyTurla-NG)，学习的关于DLL的逆向，只是资料总结，参考链接都会贴在最后面。</p>
+<h2 id="svchost-exe-进程"><a href="#svchost-exe-进程" class="headerlink" title="svchost.exe 进程"></a>svchost.exe 进程</h2><p>　　网上有很多关于svchost.exe是什么进程，svchost.exe是什么病毒，svchost.exe占用cpu100%或占用大量内存，svchost.exe有十几个，svchost.exe偷偷连网很象木马的问题，本文提供关于svchost.exe进程的所有信息和用各种专业软件进行查杀的方法。</p>
+<h3 id="0x01-svchost-exe是什么进程"><a href="#0x01-svchost-exe是什么进程" class="headerlink" title="0x01 svchost.exe是什么进程"></a>0x01 svchost.exe是什么进程</h3><p>　　Svchost.exe是微软视窗操作系统里的一个系统进程，管理通过Dll文件启动服务的其它进程，一些病毒木马伪装成系统dll文件通过Svchost调用它，试图隐藏自己。每个svchost可以同时调用多个dll文件，启动多个服务。</p>
+<h3 id="0x02-svchost-exe文件的位置"><a href="#0x02-svchost-exe文件的位置" class="headerlink" title="0x02 svchost.exe文件的位置"></a>0x02 svchost.exe文件的位置</h3><p>　　svchost.exe位于C:\WINDOWS\system32文件夹下面（假如你的系统安装在C:\WINDOWS目录），同时在C:\WINDOWS\system32\dllcache下面有一个备份。</p>
+<h3 id="0x03-svchost-exe进程应该有几个"><a href="#0x03-svchost-exe进程应该有几个" class="headerlink" title="0x03 svchost.exe进程应该有几个"></a>0x03 svchost.exe进程应该有几个</h3><p>　　Windows 2000有2个以上svchost进程，Windows XP有4个以上，Windows Vista系统svchost进程有12个以上。因此在任务管理器里看到多个svchost.exe并不代表他们就是病毒。</p>
+<h3 id="0x04-什么样的svchost-exe是病毒"><a href="#0x04-什么样的svchost-exe是病毒" class="headerlink" title="0x04 什么样的svchost.exe是病毒"></a>0x04 什么样的svchost.exe是病毒</h3><p>　　C:\WINDOWS\system32文件夹下面的svchost.exe文件，病毒一般是无法替换的，除了这个目录和C:\WINDOWS\system32\dllcache目录，其它目录下面都不应该存在svchost.exe文件，如果有不是病毒就是木马，可放心删除。如果无法删除，请用unlocker等软件强行删除。</p>
+<p>​	此外由于svchost.exe中间的o容易被0（零）冒充，所以有不少蠕虫，病毒冒充，它们的名字有：svch0st.exe、schvost.exe、scvhost.exe，要注意仔细辨别，防止漏网之鱼。</p>
+<h3 id="0x05-查看通过svchost-exe启动的病毒"><a href="#0x05-查看通过svchost-exe启动的病毒" class="headerlink" title="0x05 查看通过svchost.exe启动的病毒"></a>0x05 查看通过svchost.exe启动的病毒</h3><p>查看通过svchost.exe启动的服务有多种方法，在Windows 2000中，可以运行cmd，然后输入tlist -s命令来查看，在Windows XP和Vista中，可以通过tasklist &#x2F;svc命令查阅。</p>
+<p>我们还可以通过<code>Process Explorer</code>软件来侦察服务，启动Process Explorer后，主窗口会列出所有运行的进程，鼠标移动上去会显示进程对应的文件的完整路径，和它启动的服务（如果有的话）</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/image-20240301151001736.png" alt="image-20240301151001736"></a></p>
+<p>　　我们选中服务最多的那个svchost.exe进程，右键菜单查看属性（Properties），单击Services（服务）标签，、</p>
+<p><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/image-20240301151036707.png" alt="image-20240301151036707"></a></p>
+<p>大部分服务的dll文件都位于c:\windows\system32目录，如果在什么C:\Program Files甚至是D盘E盘的，就要小心了，十有八九是个木马！如果我们怀疑一个dll不正常，可以通过Google或者百度搜索。</p>
+<h3 id="0x06-强行关闭svchost进程"><a href="#0x06-强行关闭svchost进程" class="headerlink" title="0x06  强行关闭svchost进程"></a>0x06  强行关闭svchost进程</h3><p>如果你怀疑某个svchost进程是冒充的病毒，或者占用了90%以上CPU，可以强制杀死它。</p>
+<p>运行CMD后在dos窗口输入<code>ntsd -c q -p 800</code>即可杀掉Svchost进程（假设svchost.exe进程的PID是800）。</p>
+<p>（要查看PID，在windows任务管理器里单击菜单【查看】-&gt;【选择列】，勾选PID (进程标识符)确定即可)</p>
+<p>ntsd命令可以杀掉任何一个<code>System/SMSS.EXE/CSRSS.EXE</code>以外的进程，即使你用任务管理器杀不死。</p>
+<h2 id="DLL注入"><a href="#DLL注入" class="headerlink" title="DLL注入"></a>DLL注入</h2><h3 id="什么是DLL注入？"><a href="#什么是DLL注入？" class="headerlink" title="什么是DLL注入？"></a>什么是DLL注入？</h3><p>dll注入是一种将Windows动态链接库注入到目标进程中的技术，具体的说，就是将dll文件加载到一个进程的虚拟地址空间中。对某个进程进行dll注入，也就意味着dll模块与该进程共用一个进程空间，则这个dll文件就有了操纵这个进程空间的能力，以达到执行dll模块中的代码修改进程数据的能力。dll注入技术在逆向工程，病毒，外挂，调试等技术领域都有广泛的应用，它也是Windows API hook技术的基础。</p>
+<h3 id="改善功能与修复Bug改善功能与修复Bug"><a href="#改善功能与修复Bug改善功能与修复Bug" class="headerlink" title="改善功能与修复Bug改善功能与修复Bug"></a>改善功能与修复Bug改善功能与修复Bug</h3><p>DLL注入技术可用于改善功能与修复Bug。没有程序对应的源码，或直接修改程序比较困难 时，就可以使用DLL注入技术为程序添加新功能（类似于插件），或者修改有问题的代码、数据。</p>
+<h3 id="消息钩取"><a href="#消息钩取" class="headerlink" title="消息钩取"></a>消息钩取</h3><p>Windows OS默认提供的消息钩取功能应用的就是一种DLL注入技术。与常规的DLL注入唯 一的区别是，OS会直接将已注册的钩取DLL注入目标进程。</p>
+<h3 id="API-钩取"><a href="#API-钩取" class="headerlink" title="API 钩取"></a>API 钩取</h3><p>API钩取广泛应用于实际的项目开发，而进行API钩取时经常使用DLL注入技术。先创建好 DLL形态的钩取函数，再将其轻松注入要钩取的目标进程，这样就完成了API钩取。这灵活运用 了 “被注入的DLL拥有目标进程内存访问权限”这一特性。 </p>
+<h3 id="其他应用程序"><a href="#其他应用程序" class="headerlink" title="其他应用程序"></a>其他应用程序</h3><p> DLL注入技术也应用于监视、管理PC用户的应用程序。比如，用来阻止特定程序(像游戏、 股票交易等)运行、禁止访问有害网站，以及监视PC的使用等。管理员(或者父母)主要安装 这类拦截&#x2F;阻断应用程序来管理&#x2F;监视。受管理&#x2F;监视的一方当然千方百计地想关闭这些监视程序， 但由于这些监视程序采用DLL注入技术，它们可以隐藏在正常进程中运行，所以管理员一般不用 担心被发现或被终止(若用户强制终止Windows系统进程，也会一并关闭系统，最后也算达成了 拦截&#x2F;阻断这一目标)。</p>
+<h3 id="恶意代码"><a href="#恶意代码" class="headerlink" title="恶意代码"></a>恶意代码</h3><p>恶意代码制作者们是不会置这么好的技术于不顾的，他们积极地把DLL注入技术运用到自己 制作的恶意代码中。这些人把自己编写的恶意代码隐藏到正常进程(winlogon.exe、services.exe、 svchost.exe, explorer.exe等)，打开后门端口 ( Backdoor port),尝试从外部连接，或通过键盘偷 录(Keylogging )功能将用户的个人信息盗走。只有了解恶意代码制作者们使用的手法，才能拿 出相应对策。</p>
+<h3 id="DLL注入的实现方法"><a href="#DLL注入的实现方法" class="headerlink" title="DLL注入的实现方法"></a>DLL注入的实现方法</h3><p>向某个进程注入DLL时主要使用以下三种方法：</p>
+<ul>
+<li>创建远程线程(CreateRemoteThread。API)</li>
+<li>使用注册表(AppInit DLLs值)</li>
+<li>消息钩取(SetWindowsHookEx。API)</li>
+</ul>
+<h2 id="ServiceMain函数"><a href="#ServiceMain函数" class="headerlink" title="ServiceMain函数"></a>ServiceMain函数</h2><p>调试dll中的导出函数ServiceMain</p>
+<ul>
+<li><p>ServiceMain一般是被服务进程调用执行的，创建服务，启动起来之后，被执行，可以按调试服务的方式调试</p>
+</li>
+<li><p>直接rundll32.exe  C:\1.dll   ServiceMain</p>
+</li>
+</ul>
+<p>该方法适用于调试任何dll的任何函数。</p>
+<p>ServiceMain是Svchost程序的默认启动函数，于是我们需要通过Svchost去启动，也就是修改注册表达到启动的目的</p>
+<h2 id="用svchost启动DLL"><a href="#用svchost启动DLL" class="headerlink" title="用svchost启动DLL"></a>用svchost启动DLL</h2><ul>
+<li><strong>svchost.exe</strong> 是从动态链接库(DLL)中运行的服务的通用主机进程名称，<strong>本身只是作为服务宿主，并不实现任何服务功能，提供条件让其他服务在这里被启动，需要svchost.exe启动的服务以动态链接库形式实现，在安装这些服务时，把服务的可执行程序指向svchost.exe，启动这些服务时由svchost.exe调用相应服务的动态链接库来启动服务。</strong></li>
+</ul>
+<ul>
+<li><p><strong>svchost.exe</strong>文件定位在系统的%systemroot%\system32文件夹下 **%systemroot%**是系统的环境变量 指的是系统的根目录</p>
+</li>
+<li><p>系统的大部分服务是运行 动态链接库（dll）形式实现的。如果需要使用Svchost来启动某个DLL形式实现的服务，该DLL的载体Loader指向Svchost，在启动服务的时候由Svchost调用该服务的DLL来实现启动的目的。使用Svchost启动某个服务的DLL文件是由注册表中的参数来决定的，在需要启动服务的注册表项下都有一个“Parameters”子项，其中的“ServiceDll”键值表明该服务由哪个DLL文件负责，并且这个DLL文件必须导出一个ServiceMain（）函数，为处理服务任务提供支持</p>
+</li>
+</ul>
+<h3 id="首先我们来手动在注册表注册一个服务"><a href="#首先我们来手动在注册表注册一个服务" class="headerlink" title="首先我们来手动在注册表注册一个服务"></a>首先我们来手动在注册表注册一个服务</h3><p>开始-&gt;运行 输入regedit 找到如下子键<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services</code></p>
+<ol>
+<li>在Services子键下新建一个子键TestSvchost。</li>
+<li>在子键TestSvchost新建所需子键项,子键项说明如下：<br>(1) <code>Description</code> 服务描述<br>(2) <code>DisplayName</code> 服务显示名<br>(3)<code> ErrorControl</code> 当该启动服务失败时产生错误的严重程度以及采取的保护措施 这里我们填 1 表示服务启动程序将把该错误记录到事件日志中并返回继续执行<br>(4) <code>ImagePath</code> 程序的路径 我们要启动的是svchost.exe所以填入<br><code>%systemRoot%\system32\svchost.exe -k netsvcs</code>  -k netsvcs表示这个服务是属于netsvcs服务组<br>(5) <code>ObjectName</code> 指定服务帐号 LocalSystem表示本地登录<br>(6)<code>Start</code> 服务启动选项<br>填入2表示系统启动时由服务控制管理器自动启动该服务程序<br>(7)<code>Type</code> 服务类型<br>填入0x10表示运行于独立进程的服务程序<br><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/image-20240305115516521.png" alt="image-20240305115516521"></a></li>
+<li>在子键TestSvchost下再建一个子键Parameters。</li>
+<li>在子键Parameters新建子键项ServiceDll<br><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/image-20240305115550877.png" alt="image-20240305115550877"></a>ServiceDll表示服务所对应dll所在的全路径</li>
+</ol>
+<h3 id="将我们在注册表写入服务加入Svchost的服务组netsvcs中"><a href="#将我们在注册表写入服务加入Svchost的服务组netsvcs中" class="headerlink" title="将我们在注册表写入服务加入Svchost的服务组netsvcs中"></a>将我们在注册表写入服务加入Svchost的服务组netsvcs中</h3><ol>
+<li>找到注册表子键<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Svchost </code>并打开子键项netsvcs。netsvcs里面的值就是svchost的服务组netsvcs所启动的所有服务<br><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/image-20240305115705511.png" alt="image-20240305115705511"></a></li>
+<li>打开netsvcs键值项 添加数值数据TestSvchost(服务名)<br><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/image-20240305115729334.png" alt="image-20240305115729334"></a></li>
+<li>将1.dll放入C:\WINDOWS\system32目录下并重启电脑。重启后，点击开始-&gt;运行 输入services.msc 可以查看到该服务处于已启动状态。<br><a target="_blank" rel="noopener" href="https://springbird3.oss-cn-chengdu.aliyuncs.com/lianxiang/20221022230518.png"><img src="/picture/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/image-20240305115853928.png" alt="image-20240305115853928"></a></li>
+</ol>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sky101010ws/article/details/17632697">https://blog.csdn.net/sky101010ws/article/details/17632697</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46601374/article/details/121097807">https://blog.csdn.net/weixin_46601374/article/details/121097807</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46953583/article/details/105841908">https://blog.csdn.net/weixin_46953583/article/details/105841908</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/huanglong8/article/details/70666987">https://blog.csdn.net/huanglong8/article/details/70666987</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/07/22/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/">http://example.com/2024/07/22/DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/22/GO%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/" title="GO语言学习入门"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">GO语言学习入门</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/22/Chisel-1.9.1%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/" title="Chisel-1.9.1逆向分析"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Chisel-1.9.1逆向分析</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">388</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">57</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DLL%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">DLL逆向学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#svchost-exe-%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">svchost.exe 进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-svchost-exe%E6%98%AF%E4%BB%80%E4%B9%88%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">0x01 svchost.exe是什么进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-svchost-exe%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.2.2.</span> <span class="toc-text">0x02 svchost.exe文件的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-svchost-exe%E8%BF%9B%E7%A8%8B%E5%BA%94%E8%AF%A5%E6%9C%89%E5%87%A0%E4%B8%AA"><span class="toc-number">1.2.3.</span> <span class="toc-text">0x03 svchost.exe进程应该有几个</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84svchost-exe%E6%98%AF%E7%97%85%E6%AF%92"><span class="toc-number">1.2.4.</span> <span class="toc-text">0x04 什么样的svchost.exe是病毒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x05-%E6%9F%A5%E7%9C%8B%E9%80%9A%E8%BF%87svchost-exe%E5%90%AF%E5%8A%A8%E7%9A%84%E7%97%85%E6%AF%92"><span class="toc-number">1.2.5.</span> <span class="toc-text">0x05 查看通过svchost.exe启动的病毒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x06-%E5%BC%BA%E8%A1%8C%E5%85%B3%E9%97%ADsvchost%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.2.6.</span> <span class="toc-text">0x06  强行关闭svchost进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DLL%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.</span> <span class="toc-text">DLL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFDLL%E6%B3%A8%E5%85%A5%EF%BC%9F"><span class="toc-number">1.3.1.</span> <span class="toc-text">什么是DLL注入？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E5%96%84%E5%8A%9F%E8%83%BD%E4%B8%8E%E4%BF%AE%E5%A4%8DBug%E6%94%B9%E5%96%84%E5%8A%9F%E8%83%BD%E4%B8%8E%E4%BF%AE%E5%A4%8DBug"><span class="toc-number">1.3.2.</span> <span class="toc-text">改善功能与修复Bug改善功能与修复Bug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%92%A9%E5%8F%96"><span class="toc-number">1.3.3.</span> <span class="toc-text">消息钩取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API-%E9%92%A9%E5%8F%96"><span class="toc-number">1.3.4.</span> <span class="toc-text">API 钩取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.5.</span> <span class="toc-text">其他应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81"><span class="toc-number">1.3.6.</span> <span class="toc-text">恶意代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DLL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.7.</span> <span class="toc-text">DLL注入的实现方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServiceMain%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.</span> <span class="toc-text">ServiceMain函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8svchost%E5%90%AF%E5%8A%A8DLL"><span class="toc-number">1.5.</span> <span class="toc-text">用svchost启动DLL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%96%E5%85%88%E6%88%91%E4%BB%AC%E6%9D%A5%E6%89%8B%E5%8A%A8%E5%9C%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%B3%A8%E5%86%8C%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.5.1.</span> <span class="toc-text">首先我们来手动在注册表注册一个服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E6%88%91%E4%BB%AC%E5%9C%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E5%86%99%E5%85%A5%E6%9C%8D%E5%8A%A1%E5%8A%A0%E5%85%A5Svchost%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%BB%84netsvcs%E4%B8%AD"><span class="toc-number">1.5.2.</span> <span class="toc-text">将我们在注册表写入服务加入Svchost的服务组netsvcs中</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-number">1.6.</span> <span class="toc-text">引用</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/" title="车辆数字钥匙常见攻击和防御方法介绍"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="车辆数字钥匙常见攻击和防御方法介绍"/></a><div class="content"><a class="title" href="/2024/08/14/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/" title="车辆数字钥匙常见攻击和防御方法介绍">车辆数字钥匙常见攻击和防御方法介绍</a><time datetime="2024-08-14T07:28:51.319Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/TP-link%20Smart%20Home%20Router%20%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="TP-link Smart Home Router 命令注入漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TP-link Smart Home Router 命令注入漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/TP-link%20Smart%20Home%20Router%20%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="TP-link Smart Home Router 命令注入漏洞">TP-link Smart Home Router 命令注入漏洞</a><time datetime="2024-08-14T07:28:51.312Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/Sapido%20RB-1732%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="Sapido RB-1732 远程命令执行漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sapido RB-1732 远程命令执行漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/Sapido%20RB-1732%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" title="Sapido RB-1732 远程命令执行漏洞">Sapido RB-1732 远程命令执行漏洞</a><time datetime="2024-08-14T07:28:51.309Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/14/D-Link%20DIR-815%20%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E/" title="D-Link DIR-815 后门漏洞"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="D-Link DIR-815 后门漏洞"/></a><div class="content"><a class="title" href="/2024/08/14/D-Link%20DIR-815%20%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E/" title="D-Link DIR-815 后门漏洞">D-Link DIR-815 后门漏洞</a><time datetime="2024-08-14T07:28:51.297Z" title="发表于 2024-08-14 15:28:51">2024-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="路由器漏洞挖掘工具总结"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="路由器漏洞挖掘工具总结"/></a><div class="content"><a class="title" href="/2024/07/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" title="路由器漏洞挖掘工具总结">路由器漏洞挖掘工具总结</a><time datetime="2024-07-26T13:55:22.326Z" title="发表于 2024-07-26 21:55:22">2024-07-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
