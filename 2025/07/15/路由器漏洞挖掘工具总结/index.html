@@ -1,0 +1,485 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>路由器漏洞挖掘工具总结 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="路由器漏洞挖掘工具总结固件的解包与封装firmware-mod-kit工具下载 基于binwalk的解打包⼯具 安装⽅法： ⾸先安装依赖 1sudo apt-get install git build-essential zlib1g-dev liblzma-dev python-magic  安装工具 12345git clone https: &#x2F; github.com&#x2F;mirror&#x2F;firmw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="路由器漏洞挖掘工具总结">
+<meta property="og:url" content="http://c0ke.top/2025/07/15/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="路由器漏洞挖掘工具总结固件的解包与封装firmware-mod-kit工具下载 基于binwalk的解打包⼯具 安装⽅法： ⾸先安装依赖 1sudo apt-get install git build-essential zlib1g-dev liblzma-dev python-magic  安装工具 12345git clone https: &#x2F; github.com&#x2F;mirror&#x2F;firmw">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png">
+<meta property="article:published_time" content="2025-07-15T08:06:26.557Z">
+<meta property="article:modified_time" content="2025-07-30T03:18:41.404Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://c0ke.top/2025/07/15/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '路由器漏洞挖掘工具总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-30 11:18:41'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">路由器漏洞挖掘工具总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-15T08:06:26.557Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-30T03:18:41.404Z" title="更新于 2025-07-30 11:18:41">2025-07-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/">路由器</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="路由器漏洞挖掘工具总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="路由器漏洞挖掘工具总结"><a href="#路由器漏洞挖掘工具总结" class="headerlink" title="路由器漏洞挖掘工具总结"></a>路由器漏洞挖掘工具总结</h1><h2 id="固件的解包与封装"><a href="#固件的解包与封装" class="headerlink" title="固件的解包与封装"></a>固件的解包与封装</h2><h3 id="firmware-mod-kit"><a href="#firmware-mod-kit" class="headerlink" title="firmware-mod-kit"></a>firmware-mod-kit</h3><p><a target="_blank" rel="noopener" href="https://github.com/rampageX/firmware-mod-kit">工具下载</a></p>
+<p>基于binwalk的解打包⼯具</p>
+<p>安装⽅法：</p>
+<p>⾸先安装依赖</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install git build-essential zlib1g-dev liblzma-dev python-magic</span><br></pre></td></tr></table></figure>
+
+<p>安装工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https: / github.com/mirror/firmware-mod-kit.git  </span><br><span class="line">  </span><br><span class="line"><span class="built_in">cd</span> firmware-mod-kit/src  </span><br><span class="line">  </span><br><span class="line">./configure &amp; make</span><br></pre></td></tr></table></figure>
+
+<p>解包固件</p>
+<p>将固件 firmware.bin 解包到 working_directory&#x2F; 下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./extract_firmware.sh firmware.bin working_directory/</span><br></pre></td></tr></table></figure>
+
+<p>重新打包固件</p>
+<p>将新⽣成的固件放到 output_directory 下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./build_firmware.sh output_directory/ working_directory/</span><br></pre></td></tr></table></figure>
+
+<h2 id="基于文件系统的信息收集"><a href="#基于文件系统的信息收集" class="headerlink" title="基于文件系统的信息收集"></a>基于文件系统的信息收集</h2><h3 id="trommel"><a href="#trommel" class="headerlink" title="trommel"></a>trommel</h3><p><a target="_blank" rel="noopener" href="https://github.com/CERTCC/trommel">工具下载</a></p>
+<p>trommel是一款使用python语言编写的开源工具，用于对固件的文件系统进行分析，筛选嵌入式设备文件，以识别潜在的脆弱指标。该工具不需要安装</p>
+<p>使用方式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 trommel.py -p 文件系统  -o 提取结果文件前缀 -d 提取结果存放目录</span><br></pre></td></tr></table></figure>
+
+<p>例如对DIR822路由器进行分析</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">iot@research:~/tools/trommel$ python3 trommel.py -p ~/Desktop/fmk/rootfs/  -o DIR -d ~/Desktop/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">__ __|  _ \   _ \   \  |  \  | ____| |     </span><br><span class="line">   |   |   | |   | |\/ | |\/ | __|   |     </span><br><span class="line">   |   __ &lt;  |   | |   | |   | |     |     </span><br><span class="line">  _|  _| \_\\___/ _|  _|_|  _|_____|_____| </span><br><span class="line">                                           </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">TROMMEL is working to sift through the directory of files.</span><br><span class="line"></span><br><span class="line">Results will be saved to <span class="string">&#x27;DIR_TROMMEL_20240722_164138&#x27;</span>.</span><br><span class="line"></span><br><span class="line">TROMMEL file hashes will be saved to <span class="string">&#x27;DIR_TROMMEL_Hash_Results_20240722_164138&#x27;</span></span><br><span class="line"></span><br><span class="line">Based on the binary <span class="string">&#x27;busybox&#x27;</span> the instruction <span class="built_in">set</span> architecture is MIPS.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>分析结果会在我们给定的文件夹下面,一些文件的hash值</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">__ __|  _ \   _ \   \  |  \  | ____| |     </span><br><span class="line">   |   |   | |   | |\/ | |\/ | __|   |     </span><br><span class="line">   |   __ &lt;  |   | |   | |   | |     |     </span><br><span class="line">  _|  _| \_\\___/ _|  _|_|  _|_____|_____| </span><br><span class="line">                                           </span><br><span class="line">There are 1801 total files within the directory.</span><br><span class="line"></span><br><span class="line">File name: /home/iot/Desktop/fmk/rootfs/usr/bin/udevinfo, Hashes: 000ff986209071ba70698eb16fee1b99, 97b63b9392e1b17cf0e4366fd0941bd6201bcbbf, 63b408face3024feac5f126706a47650ec4750662dd5922f9d097fe8deb0ef16</span><br><span class="line">File name: /home/iot/Desktop/fmk/rootfs/usr/bin/udevstart, Hashes: c127c8f3f9264700662b6444d37ebac4, e03ee6c1a8eebfb14dcc53ed8edba6cde857a834, 207b1a01e57efa28cbfa201cffc0de22fe98b670f9e0514026e2e715a57d115b</span><br><span class="line">File name: /home/iot/Desktop/fmk/rootfs/usr/sbin/fw_upgrade, Hashes: b2fa985015e16a23b6f0a25b7f3f59e7, f56a0ad8b3ad9bccef247a90249346d70be6017f, d46a4c167550dfa03457745e7736d7e3fb8f3efcde68b159a3726a4008bd5804</span><br><span class="line">File name: /home/iot/Desktop/fmk/rootfs/usr/sbin/ddnsd, Hashes: e4a64d300b2de5fffc733c0a3534ddfe, 45b9790e12fb340a5bc7da142d944bb458de2a5f, 8ad8dc77c40fc58c4ab4c83b6a627c10bcaabc70e69bfc894145c7492c3934e8</span><br><span class="line">File name: /home/iot/Desktop/fmk/rootfs/usr/sbin/arpmonitor, Hashes: 7da0790d7ebcdf779ed23957c2d45012, 19089e2c4eb1d286c8a36a0bf49e63abd187c1d9, d52c61e292040aa54f89cafbaef361b378cf514a5a2ab6966c9ea2bad554245a</span><br><span class="line">File name: /home/iot/Desktop/fmk/rootfs/usr/sbin/trigger, Hashes: e930729ca4ef73be0db6e7936f64b1fe, fd9e3d5c4191b5a571a66e142b4d74e30399e9d1, d23521a7cae34f215994b32acc69f0101b0f329bb05cabbe244f911181f950eb</span><br><span class="line">File name: /home/iot/Desktop/fmk/rootfs/usr/sbin/proxyd, Hashes: dbc87f84abb893344dc1752c1038699b, 5d1c26c9c0cc70892eb7d40f270e29d8ffddeaa6, 59f442d96c9378c151198dcab6090dd7d9867b50c3f33ef94994207fdf31e587</span><br></pre></td></tr></table></figure>
+
+<p>含有某些关键字的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">__ __|  _ \   _ \   \  |  \  | ____| |     </span><br><span class="line">   |   |   | |   | |\/ | |\/ | __|   |     </span><br><span class="line">   |   __ &lt;  |   | |   | |   | |     |     </span><br><span class="line">  _|  _| \_\\___/ _|  _|_|  _|_____|_____| </span><br><span class="line">                                           </span><br><span class="line">TROMMEL Results File Name: DIR</span><br><span class="line">Directory: /home/iot/Desktop/fmk/rootfs/</span><br><span class="line">There are 1801 total files within the directory.</span><br><span class="line"></span><br><span class="line">Results could be vulnerabilities. These results should be verified as <span class="literal">false</span> positives may exist.</span><br><span class="line"></span><br><span class="line">Non-Plain Text File, Keyword: <span class="string">&#x27;root&#x27;</span>, File: /home/iot/Desktop/fmk/rootfs/usr/bin/udevinfo, Offset(s) <span class="keyword">in</span> File: </span><br><span class="line">0xecf, 0x8b21, 0x8b57, 0x8d13, 0x919f, 0x9237, 0xb9a9, 0x173cd, 0x1763b, 0x18179, 0x1e75b</span><br><span class="line">Non-Plain Text File, Keyword: <span class="string">&#x27;passwd&#x27;</span>, File: /home/iot/Desktop/fmk/rootfs/usr/bin/udevinfo, Offset(s) <span class="keyword">in</span> File: </span><br><span class="line">0x18573, 0x185eb</span><br><span class="line">Non-Plain Text File, Keyword: <span class="string">&#x27;pwd&#x27;</span>, File: /home/iot/Desktop/fmk/rootfs/usr/bin/udevinfo, Offset(s) <span class="keyword">in</span> File: </span><br><span class="line">0x162f7</span><br></pre></td></tr></table></figure>
+
+<h3 id="Firmwalker"><a href="#Firmwalker" class="headerlink" title="Firmwalker"></a>Firmwalker</h3><p><a target="_blank" rel="noopener" href="https://github.com/craigz28/firmwalker">工具下载</a></p>
+<p>Firmwalker 是⼀个⽤于扫描固件⽂件系统的简单脚本。它搜索敏感信息，如硬编码的密</p>
+<p>码、私钥、证书等，并检查潜在的安全问题。它将在提取或安装的固件⽂件系统中搜索感兴</p>
+<p>趣的内容，例如：</p>
+<ul>
+<li><p>etc&#x2F;shadow 和 etc&#x2F;passwd</p>
+</li>
+<li><p>列出 etc&#x2F;ssl ⽬录</p>
+</li>
+<li><p>搜索 SSL 相关⽂件，例如 .pem、.crt 等。</p>
+</li>
+<li><p>搜索配置⽂件</p>
+</li>
+<li><p>寻找脚本⽂件</p>
+</li>
+<li><p>搜索其他 .bin ⽂件</p>
+</li>
+<li><p>查找关键字，例如管理员、密码、远程等。</p>
+</li>
+<li><p>搜索 IoT 设备上使⽤的常⻅ Web 服务器</p>
+</li>
+<li><p>搜索常⻅的⼆进制⽂件，例如 ssh、tftp、dropbear 等。</p>
+</li>
+<li><p>搜索 URL、电⼦邮件地址和 IP 地址</p>
+</li>
+<li><p>使⽤ Shodan CLI 调⽤ Shodan API 的实验性⽀持</p>
+</li>
+</ul>
+<p>使⽤⽅法如下，最后会⾃动⽣成⼀个 firmwalker.txt</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./firmwalker.sh 固件路径</span><br><span class="line">./firmwalker &#123;path to root file system&#125; &#123;path <span class="keyword">for</span> firmwalker.txt&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析DIR822的结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">iot@research:~/tools/firmwalker$ ./firmwalker.sh ~/Desktop/fmk/rootfs/   ./ruset.txt</span><br><span class="line">***Firmware Directory***</span><br><span class="line">/home/iot/Desktop/fmk/rootfs/</span><br><span class="line">***Search <span class="keyword">for</span> password files***</span><br><span class="line"><span class="comment">##################################### passwd</span></span><br><span class="line"><span class="comment">##################################### shadow</span></span><br><span class="line"><span class="comment">##################################### *.psk</span></span><br><span class="line">***Search <span class="keyword">for</span> Unix-MD5 hashes***</span><br><span class="line">***Search <span class="keyword">for</span> SSL related files***</span><br><span class="line"><span class="comment">##################################### *.crt</span></span><br><span class="line"><span class="comment">##################################### *.pem</span></span><br><span class="line">/etc/stunnel_cert.pem</span><br><span class="line">***Search <span class="keyword">for</span> urls***</span><br><span class="line"><span class="comment">##################################### urls</span></span><br><span class="line">http://<span class="string">&#x27; *</span></span><br><span class="line"><span class="string">http://192.168.0.1</span></span><br><span class="line"><span class="string">http://192.168.0.50</span></span><br><span class="line"><span class="string">http://ask.oray.cn</span></span><br><span class="line"><span class="string">http://checkip.dyndns.org</span></span><br><span class="line"><span class="string">http://checkip.dyndns.org &gt; </span></span><br><span class="line"><span class="string">http://DDNS:8181, if it does not setting DDNS then show http:</span></span><br><span class="line"><span class="string">http://dlinkrouter.local</span></span><br><span class="line"><span class="string">http://&lt;?echo $ipaddr;?&gt;</span></span><br><span class="line"><span class="string">http://&lt;?echo $ipaddr;?&gt;&lt;</span></span><br><span class="line"><span class="string">http://&lt;?echo $_SERVER[</span></span><br><span class="line"><span class="string">http://&lt;?echo $_SERVER[&#x27;</span>HTTP_HOST<span class="string">&#x27;];?&gt;</span></span><br><span class="line"><span class="string">http://my.domain.com:1080</span></span><br><span class="line"><span class="string">http://pajhome.org.uk</span></span><br><span class="line"><span class="string">http://point-at-infinity.org</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="动态分析固件"><a href="#动态分析固件" class="headerlink" title="动态分析固件"></a>动态分析固件</h2><h3 id="FirmAE"><a href="#FirmAE" class="headerlink" title="FirmAE"></a>FirmAE</h3><p><a target="_blank" rel="noopener" href="https://github.com/pr0v3rbs/FirmAE">工具下载</a></p>
+<p>Clone <code>FirmAE</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --recursive https://github.com/pr0v3rbs/FirmAE</span><br></pre></td></tr></table></figure>
+
+<p>运行<code>download.sh</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./download.sh</span><br></pre></td></tr></table></figure>
+
+<p>运行 <code>install.sh</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
+
+<p>firmae 的使用 首先执行初始化脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./init.sh</span><br></pre></td></tr></table></figure>
+
+<p>检查仿真条件 -c 参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./run.sh -c &lt;brand&gt; &lt;firmware&gt;</span><br></pre></td></tr></table></figure>
+
+<p>firmware 填写固件名称 brand 是开发板名称，可以随便填，不影响正常使用</p>
+<p>完成<code>run.sh -c</code>后，可debug固件，这样后面进行 debug 时，等待的时间会大大减少</p>
+<p>-a 使用分析模式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./run.sh -a &lt;brand&gt; &lt;firmware&gt;</span><br></pre></td></tr></table></figure>
+
+<p>运行模式，有利于进行网络测试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./run.sh -r &lt;brand&gt; &lt;firmware&gt;</span><br></pre></td></tr></table></figure>
+
+<p>user-mode 调试固件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./run.sh -d &lt;brand&gt; &lt;firmware&gt;</span><br></pre></td></tr></table></figure>
+
+<p>system-mode 调试固件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./run.sh -b &lt;brand&gt; &lt;firmware&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用 FirmAE 对D-Link路由器设备漏洞进行仿真</p>
+<p>第一步，首先检查仿真条件 使用 -c 参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iot@research:~/tools/FirmAE$ <span class="built_in">sudo</span> ./run.sh -c DIR822 ~/Desktop/DIR822A1_FW103WWb03.bin </span><br><span class="line">[<span class="built_in">sudo</span>] password <span class="keyword">for</span> iot: </span><br><span class="line">[*] /home/iot/Desktop/DIR822A1_FW103WWb03.bin emulation start!!!</span><br></pre></td></tr></table></figure>
+
+<p>第二步用运行模式启动 使用-r 参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">iot@research:~/tools/FirmAE$ <span class="built_in">sudo</span> ./run.sh -r DIR822 ~/Desktop/DIR822A1_FW103WWb03.bin </span><br><span class="line">[*] /home/iot/Desktop/DIR822A1_FW103WWb03.bin emulation start!!!</span><br><span class="line">[*] extract <span class="keyword">done</span>!!!</span><br><span class="line">[*] get architecture <span class="keyword">done</span>!!!</span><br><span class="line">[*] /home/iot/Desktop/DIR822A1_FW103WWb03.bin already succeed emulation!!!</span><br><span class="line"></span><br><span class="line">[IID] 3</span><br><span class="line">[MODE] run</span><br><span class="line">[+] Network reachable on 192.168.0.1!</span><br><span class="line">[+] Web service on 192.168.0.1</span><br><span class="line">Creating TAP device tap3_0...</span><br><span class="line">Set <span class="string">&#x27;tap3_0&#x27;</span> persistent and owned by uid 0</span><br><span class="line">Bringing up TAP device...</span><br><span class="line">Starting emulation of firmware... </span><br></pre></td></tr></table></figure>
+
+<h3 id="firmware-analysis-toolkit"><a href="#firmware-analysis-toolkit" class="headerlink" title="firmware-analysis-toolkit"></a>firmware-analysis-toolkit</h3><p><a target="_blank" rel="noopener" href="https://github.com/attify/firmware-analysis-toolkit">工具下载</a></p>
+<p>Firmware Analysis Toolkit（简称FAT）是一种用于分析嵌入式设备固件的开源工具套件。它旨在帮助安全研究人员和逆向工程师分析和理解嵌入式设备的固件，以发现漏洞、安全问题和潜在的攻击面。以下是Firmware Analysis Toolkit（FAT）的一些主要特点和功能：</p>
+<ol>
+<li>固件提取：FAT允许您从嵌入式设备中提取固件，无论它们是存储在闪存芯片、固态硬盘还是其他媒体上。这是进行后续分析的第一步。</li>
+<li>固件分析：FAT提供了各种分析工具，以帮助您深入研究固件的内部结构和组件。这包括文件系统解析、二进制文件分析、文件提取等。</li>
+<li>字符串提取：该工具还能够从固件中提取字符串，以帮助您识别固件中可能包含的敏感信息或有用的配置参数。</li>
+<li>固件比较：FAT允许您比较不同版本的固件，以查找更改和差异。这对于检测漏洞修复或新功能添加等方面很有用。</li>
+<li>漏洞分析：FAT包括一些用于静态和动态漏洞分析的工具，以帮助您发现潜在的安全问题。</li>
+<li>攻击面评估：该工具套件还提供了一些功能，用于评估嵌入式设备的潜在攻击面，帮助您识别可能的攻击矢量。</li>
+<li>插件系统：FAT支持插件系统，这意味着您可以编写自定义插件来扩展工具的功能，以满足特定的需求。</li>
+</ol>
+<p>首先需要安装 firmware-analysis-toolkit，安装完后目录结构如下</p>
+<h3 id="qemu"><a href="#qemu" class="headerlink" title="qemu"></a>qemu</h3><p>QEMU（Quick Emulator）是一款开源的虚拟化工具和模拟器，用于在不同架构和操作系统之间进行硬件级别的虚拟化和模拟。它具有多种用途，包括虚拟机管理、嵌入式系统开发、操作系统开发和测试等</p>
+<p>他支持多平台支持、硬件级模拟、嵌入式开发、虚拟机管理、快照和还原、高度可定制、性能优化</p>
+<p>QEMU在虚拟化和模拟领域非常有用，它是一个强大的工具，可用于多种开发、测试和虚拟化场景。它还是一个开源项目，因此可以根据需要进行自定义和扩展</p>
+<h4 id="qemu-user"><a href="#qemu-user" class="headerlink" title="qemu-user"></a>qemu-user</h4><p>QEMU-User（简称QEMU-U）是QEMU项目的一部分，它提供了一种用户态的CPU模拟，允许在一个架构上运行的二进制程序在不同架构的系统上执行。具体来说，QEMU-User允许将一个CPU架构的二进制程序在另一个CPU架构的系统上运行，而不需要完全模拟整个虚拟机。</p>
+<p>如果仅仅只有单个 elf 静态链接文件，那么可以采用局部仿真的方法进行启动 例如 arm 架构的可以直接使用如下命令，然后监听 1234 端口，等待 gdb连接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-arm -g 12345 ./elf_fie</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以开启一个 12345 端口的 server，然后可以在另一个终端中使用 gdb 的 <code>target remote</code> 命令进行连接，然后调试</p>
+<p>如果是动态链接的二进制文件，可以指定共享库的位置，可以使用qemu-user的<code>-L</code>选项指定当前目录，然后将动态库存放于当目录的 lib 子目录中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-arm -L ./ -g 12345 ./elf_fie</span><br></pre></td></tr></table></figure>
+
+<p>ARM 32位:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-arm -L /path/to/lib -g 12345 /path/to/your/arm_binary</span><br></pre></td></tr></table></figure>
+
+<p>ARM 64位 (AArch64):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-aarch64 -L /path/to/lib -g 12345 /path/to/your/aarch64_binary</span><br></pre></td></tr></table></figure>
+
+<p>MIPS 32位:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-mips -L /path/to/lib -g 12345 /path/to/your/mips_binary</span><br></pre></td></tr></table></figure>
+
+<p>MIPS 64位:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-mips64 -L /path/to/lib -g 12345 /path/to/your/mips64_binary</span><br></pre></td></tr></table></figure>
+
+<p>在这个命令中：</p>
+<ul>
+<li><code>qemu-arm</code> 是用于启动QEMU ARM用户模式的命令。</li>
+<li><code>-L /path/to/lib</code> 指定根文件系统的路径，这是需要的，因为用户模式QEMU通常需要一些系统库和资源。</li>
+<li><code>-g 12345</code> 指定用于调试的端口号，你可以将这个端口连接到调试器。</li>
+<li><code>/path/to/your/arm_binary</code> 是要执行的ARM架构的二进制文件的路径。</li>
+</ul>
+<p>请将 <code>/path/to/rootfs</code> 和 <code>/path/to/your/arm_binary</code> 替换为实际的路径和文件名。</p>
+<h4 id="qemu-system"><a href="#qemu-system" class="headerlink" title="qemu-system"></a>qemu-system</h4><p>QEMU-System是QEMU项目的一部分，它提供了完整的虚拟化和仿真环境，允许用户模拟整个计算机系统，包括CPU、内存、外部设备等。QEMU-System是一种强大的工具，可用于多种用途，包括虚拟化、操作系统开发、嵌入式系统测试和仿真等。</p>
+<p>QEMU-System是一个非常强大和灵活的工具，广泛用于虚拟化、操作系统开发、嵌入式系统测试和仿真等领域。它是一个开源项目，因此用户可以根据需要进行自定义和扩展。</p>
+<p>如果有文件系统，就可以使用 qemu-system 来进行系统仿真 举个例子来说明各个参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-arm \</span><br><span class="line">	-M vexpress-a9 \</span><br><span class="line">	-kernel vmlinuz-3.2.0-4-vexpress \</span><br><span class="line">	-initrd initrd.img-3.2.0-4-vexpress \</span><br><span class="line">	-drive <span class="keyword">if</span>=sd,file=debian_wheezy_armhf_standard.qcow2 \</span><br><span class="line">	-append <span class="string">&quot;root=/dev/mmcblk0p2 console=ttyAMA0&quot;</span> \</span><br><span class="line">	-net nic \</span><br><span class="line">	-net tap,ifname=tap0,script=no,downscript=no \</span><br><span class="line">	-nographic</span><br></pre></td></tr></table></figure>
+
+<p>-kernel 指定内核镜像文件 bzImage 路径 -initrd 设置内核启动的内存文件系统 bzImage: 压缩的linux内核 vmlinux: 未压缩的ELF格式的linux内核，可以使用extract-vmlinux解压bzImage得到 rootfs.img: 根目录的文件系统 dev_helper.ko: 编译好的驱动模块，也是要分析的目标 start.sh: qemu的启动脚本</p>
+<p>如果使用 qemu-system 进行调试，就得需要根据架构下载三个文件，比如目标系统是 arm 的 32位 小端序 就需要去如下网站下载以下文件： <a target="_blank" rel="noopener" href="https://people.debian.org/~aurel32/qemu/">https://people.debian.org/~aurel32/qemu/</a></p>
+<ul>
+<li>vmlinuz-3.2.0-4-vexpress：zImage 格式压缩的 linux kernel</li>
+<li>initrd.img-3.2.0-4-vexpress：ramdisk 镜像</li>
+<li>debian_wheezy_armhf_standard.qcow2：文件系统镜像</li>
+</ul>
+<p>然后进行网络配置 方便虚拟机和 qemu 进行通信</p>
+<p>虚拟机里：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> tunctl -t tap0 -u `<span class="built_in">whoami</span>`  <span class="comment"># 为了与 QEMU 虚拟机通信，添加一个虚拟网卡</span></span><br><span class="line"><span class="built_in">sudo</span> ifconfig tap0 10.10.10.1/24 <span class="comment"># 为添加的虚拟网卡配置 IP 地址</span></span><br></pre></td></tr></table></figure>
+
+<p>qemu里：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0 10.10.10.2/24</span><br><span class="line">ping -c 3 10.10.10.1 <span class="comment"># 测下网</span></span><br></pre></td></tr></table></figure>
+
+<p>然后 qemu 启动命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> qemu-system-arm \</span><br><span class="line">	-M vexpress-a9 \</span><br><span class="line">	-kernel vmlinuz-3.2.0-4-vexpress \</span><br><span class="line">	-initrd initrd.img-3.2.0-4-vexpress \</span><br><span class="line">	-drive <span class="keyword">if</span>=sd,file=debian_wheezy_armhf_standard.qcow2 \</span><br><span class="line">	-append <span class="string">&quot;root=/dev/mmcblk0p2 console=ttyAMA0&quot;</span> \</span><br><span class="line">	-net nic \</span><br><span class="line">	-net tap,ifname=tap0,script=no,downscript=no \</span><br><span class="line">	-nographic</span><br></pre></td></tr></table></figure>
+
+<p>以下是各种架构的调试命令： aarch64:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> qemu-system-aarch64 \</span><br><span class="line">	-m 1024 \</span><br><span class="line">	-cpu cortex-a57 \</span><br><span class="line">	-M virt \</span><br><span class="line">	-nographic \</span><br><span class="line">	-smp 4 \</span><br><span class="line">	-kernel linux-4.14.221/arch/arm64/boot/Image \</span><br><span class="line">	-append <span class="string">&quot;noinintrd sched_debug root=/dev/vda rootfstype=ext4 rw crashkernel=256M loglevel=8&quot;</span> \</span><br><span class="line">	-drive <span class="keyword">if</span>=none,file=linux_rootfs.ext4,<span class="built_in">id</span>=hd0 \</span><br><span class="line">	-device virtio-blk-device,drive=hd0</span><br></pre></td></tr></table></figure>
+
+<p>armhf:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> qemu-system-arm \</span><br><span class="line">	-M vexpress-a9 \</span><br><span class="line">	-kernel vmlinuz-3.2.0-4-vexpress \</span><br><span class="line">	-initrd initrd.img-3.2.0-4-vexpress \</span><br><span class="line">	-drive <span class="keyword">if</span>=sd,file=debian_wheezy_armhf_standard.qcow2 \</span><br><span class="line">	-append <span class="string">&quot;root=/dev/mmcblk0p2 console=ttyAMA0&quot;</span> \</span><br><span class="line">	-net nic \</span><br><span class="line">	-net tap,ifname=tap0,script=no,downscript=no \</span><br><span class="line">	-nographic</span><br></pre></td></tr></table></figure>
+
+<p>armel:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> qemu-system-arm \</span><br><span class="line">	-M versatilepb \</span><br><span class="line">	-kernel vmlinuz-3.2.0-4-versatile \</span><br><span class="line">	-initrd initrd.img-3.2.0-4-versatile \</span><br><span class="line">	-hda debian_wheezy_armel_standard.qcow2 \</span><br><span class="line">	-append root=/dev/sda1 \</span><br><span class="line">	-net nic \</span><br><span class="line">	-net tap,ifname=tap0,script=no,downscript=no \</span><br><span class="line">	-nographic</span><br></pre></td></tr></table></figure>
+
+<p>mip_32:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> qemu-system-mips \</span><br><span class="line">	-M malta \</span><br><span class="line">	-kernel vmlinux-3.2.0-4-4kc-malta \</span><br><span class="line">	-hda debian_wheezy_mips_standard.qcow2 \</span><br><span class="line">	-append <span class="string">&quot;root=/dev/sda1 console=tty0&quot;</span> \</span><br><span class="line">	-net nic -net tap,ifname=tap0,script=no,downscript=no \</span><br><span class="line">	-nographic</span><br></pre></td></tr></table></figure>
+
+<p>mipsel_32:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> qemu-system-mipsel \</span><br><span class="line">	-M malta \</span><br><span class="line">	-kernel vmlinux-3.2.0-4-4kc-malta \</span><br><span class="line">	-hda debian_wheezy_mipsel_standard.qcow2 \</span><br><span class="line">	-append <span class="string">&quot;root=/dev/sda1 console=tty0&quot;</span> \</span><br><span class="line">	-net nic -net tap,ifname=tap0,script=no,downscript=no \</span><br><span class="line">	-nographic</span><br></pre></td></tr></table></figure>
+
+<p>mipsel_64:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> qemu-system-mips64el \</span><br><span class="line">    -M malta \</span><br><span class="line">    -kernel vmlinux-3.2.0-4-5kc-malta \</span><br><span class="line">    -hda debian_wheezy_mipsel_standard.qcow2 \</span><br><span class="line">    -append <span class="string">&quot;root=/dev/sda1 console=tty0&quot;</span> \</span><br><span class="line">    -net nic \</span><br><span class="line">    -net tap,ifname=tap0,script=no,downscript=no \</span><br><span class="line">    -nographic</span><br></pre></td></tr></table></figure>
+
+<p>例子： 以思科的路由器为例</p>
+<p>固件下载 <a target="_blank" rel="noopener" href="https://software.cisco.com/download/home/283879340/type/282487380/release/1.2.0.9">https://software.cisco.com/download/home/283879340/type/282487380/release/1.2.0.9</a> <a target="_blank" rel="noopener" href="https://software.cisco.com/download/home/285026142/type/282465789/release/1.0.3.44">https://software.cisco.com/download/home/285026142/type/282465789/release/1.0.3.44</a></p>
+<p>使用 binwalk 进行提取</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binwalk -Me RV130X_FW_1.0.3.44.bin</span><br></pre></td></tr></table></figure>
+
+<p>得到如下文件系统 <a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/qemu_systemmode7.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/qemu_systemmode7.png" alt="qemu_systemmode7"></a></p>
+<p>对漏洞程序 httpd 进行查看 可以发现是 arm 的小端序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file httpd</span><br><span class="line">httpd: ELF 32-bit LSB executable, ARM, EABI4 version 1 (SYSV), dynamically linked, interpreter /lib/ld-uClibc.so.0, stripped</span><br></pre></td></tr></table></figure>
+
+<p>qemu 启动命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> qemu-system-arm \</span><br><span class="line">	-M vexpress-a9 \</span><br><span class="line">	-kernel vmlinuz-3.2.0-4-vexpress \</span><br><span class="line">	-initrd initrd.img-3.2.0-4-vexpress \</span><br><span class="line">	-drive <span class="keyword">if</span>=sd,file=debian_wheezy_armhf_standard.qcow2 \</span><br><span class="line">	-append <span class="string">&quot;root=/dev/mmcblk0p2 console=ttyAMA0&quot;</span> \</span><br><span class="line">	-net nic \</span><br><span class="line">	-net tap,ifname=tap0,script=no,downscript=no \</span><br><span class="line">	-nographic</span><br></pre></td></tr></table></figure>
+
+<p>目录结构如下 <a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/qemu_systemmode1.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/qemu_systemmode1.png" alt="qemu_systemmode1"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/qemu_systemmode2.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/qemu_systemmode2.png" alt="qemu_systemmode2"></a></p>
+<p>然后会有个报错</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-arm: Invalid SD card size: 25 GiB</span><br><span class="line">SD card size has to be a power of 2, e.g. 32 GiB.</span><br><span class="line">You can resize disk images with <span class="string">&#x27;qemu-img resize &lt;imagefile&gt; &lt;new-size&gt;&#x27;</span></span><br><span class="line">(note that this will lose data <span class="keyword">if</span> you make the image smaller than it currently is).</span><br><span class="line"></span><br><span class="line">qemu-img resize debian_wheezy_armhf_standard.qcow2 32G</span><br></pre></td></tr></table></figure>
+
+<p>应该是镜像大小不是 2的n 次方</p>
+<p>我们可以手动调整大小</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img resize debian_wheezy_armhf_standard.qcow2 32G</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/qemu_systemmode3.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/qemu_systemmode3.png" alt="qemu_systemmode3"></a></p>
+<p>之后就可以正常运行 qemu <a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/qemu_systemmode4.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/qemu_systemmode4.png" alt="qemu_systemmode4"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/qemu_systemmode5.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/qemu_systemmode5.png" alt="qemu_systemmode5"></a></p>
+<p>然后这时，为了能让虚拟机和 qemu 通信，我们需要配置一下网络 虚拟机里：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> tunctl -t tap0 -u `<span class="built_in">whoami</span>`  <span class="comment"># 为了与 QEMU 虚拟机通信，添加一个虚拟网卡</span></span><br><span class="line"><span class="built_in">sudo</span> ifconfig tap0 10.10.10.1/24 <span class="comment"># 为添加的虚拟网卡配置 IP 地址</span></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/qemu_systemmode6.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/qemu_systemmode6.png" alt="qemu_systemmode6"></a></p>
+<p>qemu里：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0 10.10.10.2/24</span><br><span class="line">ping -c 3 10.10.10.1 <span class="comment"># 测下网</span></span><br></pre></td></tr></table></figure>
+
+<p>传入文件系统</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> scp -r ./squashfs-root root@10.10.10.2:/root/</span><br></pre></td></tr></table></figure>
+
+<p>这里有个坑，如果直接传入 squashfs-root，var 下的软链接会出问题，导致后面 nginx 服务无法正常启动</p>
+<p>然后将 squashfs-root 的压缩包传入 qemu 中然后解压</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar zcvf 1.tar squashfs-root</span><br><span class="line"><span class="built_in">sudo</span> scp -r 1.tar root@10.10.10.2:/root/</span><br></pre></td></tr></table></figure>
+
+<p>解压然后挂载文件系统</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#解压</span></span><br><span class="line"><span class="built_in">cd</span> /root &amp;&amp; tar -xvf  1.tar</span><br><span class="line"><span class="comment"># 然后挂载文件系统</span></span><br><span class="line">mount -o <span class="built_in">bind</span> /dev ./squashfs-root/dev/</span><br><span class="line"><span class="comment"># mount -t sys /sys/ ./squashfs-root/sys/</span></span><br><span class="line">mount -t proc /proc/ ./squashfs-root/proc/</span><br><span class="line"><span class="built_in">chroot</span> ./squashfs-root sh</span><br></pre></td></tr></table></figure>
+
+<p>之后就可以正常调试了</p>
+<h3 id="firmadyne"><a href="#firmadyne" class="headerlink" title="firmadyne"></a>firmadyne</h3><p>FIRMADYNE 是一个自动化且可扩展的系统，用于对基于 Linux 的嵌入式固件进行仿真和动态分析。旨在帮助安全研究人员和逆向工程师研究、测试和分析固件，以识别其中可能存在的漏洞、安全问题和潜在的攻击面。它包括以下组件：</p>
+<ul>
+<li>用于检测固件执行的修改内核（MIPS：v2.6、ARM：v4.1、 v3.10 ）；</li>
+<li>用于模拟硬件 NVRAM 外设的用户空间NVRAM 库；</li>
+<li>一个提取器，用于从下载的固件中提取文件系统和内核；</li>
+<li>一个小型控制台应用程序，用于生成用于调试的附加 shell；</li>
+<li>以及一个用于从 42 多个不同供应商下载固件的爬虫。</li>
+</ul>
+<p>如何安装 firmadyne？ 首先需要按照依赖项</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install busybox-static fakeroot git dmsetup kpartx netcat-openbsd nmap python-psycopg2 python3-psycopg2 snmp uml-utilities util-linux vlan</span><br></pre></td></tr></table></figure>
+
+<p>递归克隆</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --recursive https://github.com/firmadyne/firmadyne.git</span><br></pre></td></tr></table></figure>
+
+<p>还需要安装 binwalk 及其依赖项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ReFirmLabs/binwalk.git</span><br><span class="line"><span class="built_in">cd</span> binwalk</span><br><span class="line"><span class="built_in">sudo</span> ./deps.sh</span><br><span class="line"><span class="built_in">sudo</span> python ./setup.py install</span><br></pre></td></tr></table></figure>
+
+<p>然后就是数据库的安装和配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install postgresql</span><br><span class="line"><span class="built_in">sudo</span> -u postgres createuser -P firmadyne</span><br><span class="line"><span class="built_in">sudo</span> -u postgres createdb -O firmadyne firmware</span><br><span class="line"><span class="built_in">sudo</span> -u postgres psql -d firmware &lt; ./firmadyne/database/schema</span><br></pre></td></tr></table></figure>
+
+<p>记得设置密码为 firmadyne <a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne1.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne1.png" alt="firmadyne1"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne2.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne2.png" alt="firmadyne2"></a></p>
+<p>然后就是二进制组件的安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ./firmadyne; ./download.sh</span><br></pre></td></tr></table></figure>
+
+<p>最后就是 qemu</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install qemu-system-arm qemu-system-mips qemu-system-x86 qemu-utils</span><br></pre></td></tr></table></figure>
+
+<p>如何使用呢？ 首选我们需要启动数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service postgresql startbash</span><br></pre></td></tr></table></figure>
+
+<p>可以随便找个固件进行测试 这里使用 netgear 的固件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -N --<span class="built_in">continue</span> \</span><br><span class="line">http://www.downloads.netgear.com/files/GDC/WNAP320/WNAP320%20Firmware%20Version%202.0.3.zip \</span><br><span class="line">-O firmware.bin</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne3.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne3.png" alt="firmadyne3"></a></p>
+<p>然后使用之前安装的工具进行解压</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 ./sources/extractor/extractor.py -b Netgear -sql 127.0.0.1 -np -nk <span class="string">&quot;firmware.bin&quot;</span> images</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解析固件<code>firmware.bin</code>创建项目</li>
+<li>解压后目录<code>./../images/</code>下会多出一个<code>tar.gz</code>文件,文件名就是这个固件的id</li>
+<li><code>-b Netgear</code>指定固件类型为<code>Netgear</code>,可以随便写一个</li>
+<li><code>-sql</code>指定数据库位置</li>
+<li><code>-np</code>禁止多线程解压</li>
+<li><code>-nk</code>不处理内核</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne4.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne4.png" alt="firmadyne4"></a> 可以看到解压成功 <a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne5.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne5.png" alt="firmadyne5"></a></p>
+<p>images 下多出的 targz <a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne6.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne6.png" alt="firmadyne6"></a></p>
+<p>然后进行自动化分析固件架构</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/getArch.sh ./../images/1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>可以看到是 mipseb 的架构 说白了就是对 busybox 进行架构检测</p>
+<p>同时也会将结果保存到数据库，方便后面自动分析</p>
+<p>然后对固件信息进行收集</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/tar2db.py -i 1 -f ./../images/1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne7.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne7.png" alt="firmadyne7"></a></p>
+<p>同样的，同时也会将结果保存到数据库，方便后面自动分析</p>
+<p>然后这时我们需要对固件创建 img</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/makeImage.sh 1 [<span class="built_in">arch</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>[arch]</code>是可选参数,用于覆盖数据库中的<code>arch</code>记录</li>
+</ul>
+<p>然而实际上不指定就会报错 <a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne8.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne8.png" alt="firmadyne8"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne9.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne9.png" alt="firmadyne9"></a> <a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne10.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne10.png" alt="firmadyne10"></a></p>
+<p>最后对固件的网络接口情况进行分析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/inferNetwork.sh 1 mipseb</span><br></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne11.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne11.png" alt="firmadyne11"></a> <a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne12.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne12.png" alt="firmadyne12"></a></p>
+<p>最后进行固件模拟</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scratch/1/run.sh</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne13.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne13.png" alt="firmadyne13"></a> <a target="_blank" rel="noopener" href="https://github.com/SecureNexusLab/IoTFirmwareAnalysisGuide/blob/main/images/firmadyne14.png"><img src="/picture/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/firmadyne14.png" alt="firmadyne14"></a></p>
+<p>可以看到调试成功</p>
+<h3 id="emux"><a href="#emux" class="headerlink" title="emux"></a>emux</h3><p><a target="_blank" rel="noopener" href="https://github.com/therealsaumil/emux">工具下载</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://c0ke.top">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c0ke.top/2025/07/15/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/">http://c0ke.top/2025/07/15/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://c0ke.top" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/07/15/%E8%BD%A6%E8%81%94%E7%BD%91%E5%85%A5%E9%97%A8/" title="车联网入门"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">车联网入门</div></div></a></div><div class="next-post pull-right"><a href="/2025/07/15/%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" title="路由器漏洞基本知识"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">路由器漏洞基本知识</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">路由器漏洞挖掘工具总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BA%E4%BB%B6%E7%9A%84%E8%A7%A3%E5%8C%85%E4%B8%8E%E5%B0%81%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">固件的解包与封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#firmware-mod-kit"><span class="toc-number">1.1.1.</span> <span class="toc-text">firmware-mod-kit</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">基于文件系统的信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#trommel"><span class="toc-number">1.2.1.</span> <span class="toc-text">trommel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Firmwalker"><span class="toc-number">1.2.2.</span> <span class="toc-text">Firmwalker</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E5%9B%BA%E4%BB%B6"><span class="toc-number">1.3.</span> <span class="toc-text">动态分析固件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FirmAE"><span class="toc-number">1.3.1.</span> <span class="toc-text">FirmAE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#firmware-analysis-toolkit"><span class="toc-number">1.3.2.</span> <span class="toc-text">firmware-analysis-toolkit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qemu"><span class="toc-number">1.3.3.</span> <span class="toc-text">qemu</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#qemu-user"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">qemu-user</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#qemu-system"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">qemu-system</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#firmadyne"><span class="toc-number">1.3.4.</span> <span class="toc-text">firmadyne</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#emux"><span class="toc-number">1.3.5.</span> <span class="toc-text">emux</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tenda-FH1201多处命令注入漏洞分析和复现"/></a><div class="content"><a class="title" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现">Tenda-FH1201多处命令注入漏洞分析和复现</a><time datetime="2025-07-30T03:04:06.916Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GL-iNet 路由器 CVE-2024-39226 漏洞分析"/></a><div class="content"><a class="title" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析">GL-iNet 路由器 CVE-2024-39226 漏洞分析</a><time datetime="2025-07-30T03:04:06.914Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="启动路由器环境"/></a><div class="content"><a class="title" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境">启动路由器环境</a><time datetime="2025-07-30T03:04:06.907Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="修复路由器程序运行环境+远程调试"/></a><div class="content"><a class="title" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试">修复路由器程序运行环境+远程调试</a><time datetime="2025-07-30T03:04:06.906Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ikuai-3.7.10版本以下有授权的cmd执行复现"/></a><div class="content"><a class="title" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现">ikuai-3.7.10版本以下有授权的cmd执行复现</a><time datetime="2025-07-30T03:04:06.904Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

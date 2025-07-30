@@ -1,0 +1,424 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Colab使用教程 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Colab使用教程前言有兴趣学习了李宏毅的Machine learning and deep learning的教程，对教授提出来的使用Google Colab作为训练神经网络的平台深感有用，特此记录使用方法 一、Colab介绍在第一次使用Colab时，最大的困难无疑是对整个平台的陌生而导致无从下手，因此我们首先介绍一些与Colab相关的基础概念，以帮助大家更快地熟悉Colab平台。 Colab是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Colab使用教程">
+<meta property="og:url" content="http://c0ke.top/2025/07/15/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="Colab使用教程前言有兴趣学习了李宏毅的Machine learning and deep learning的教程，对教授提出来的使用Google Colab作为训练神经网络的平台深感有用，特此记录使用方法 一、Colab介绍在第一次使用Colab时，最大的困难无疑是对整个平台的陌生而导致无从下手，因此我们首先介绍一些与Colab相关的基础概念，以帮助大家更快地熟悉Colab平台。 Colab是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png">
+<meta property="article:published_time" content="2025-07-15T08:06:26.160Z">
+<meta property="article:modified_time" content="2025-07-30T03:18:41.382Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://c0ke.top/2025/07/15/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Colab使用教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-30 11:18:41'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Colab使用教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-15T08:06:26.160Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-30T03:18:41.382Z" title="更新于 2025-07-30 11:18:41">2025-07-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">人工智能开发学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Colab使用教程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Colab使用教程"><a href="#Colab使用教程" class="headerlink" title="Colab使用教程"></a>Colab使用教程</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有兴趣学习了李宏毅的Machine learning and deep learning的教程，对教授提出来的使用Google Colab作为训练神经网络的平台深感有用，特此记录使用方法</p>
+<h2 id="一、Colab介绍"><a href="#一、Colab介绍" class="headerlink" title="一、Colab介绍"></a>一、Colab介绍</h2><p>在第一次使用Colab时，最大的困难无疑是对整个平台的陌生而导致无从下手，因此我们首先介绍一些与Colab相关的基础概念，以帮助大家更快地熟悉Colab平台。</p>
+<h3 id="Colab是什么？"><a href="#Colab是什么？" class="headerlink" title="Colab是什么？"></a>Colab是什么？</h3><p>Colab &#x3D; Colaboratory（即合作实验室），是谷歌提供的一个在线工作平台，用户可以直接通过浏览器执行python代码并与他人分享合作。Colab的主要功能当然不止于此，它还为我们提供免费的GPU。熟悉深度学习的同学们都知道：CPU计算力高但核数量少，善于处理线性序列，而GPU计算力低但核数量多，善于处理并行计算。在深度学习中使用GPU进行计算的速度要远快于CPU，因此有高算力的GPU是深度学习的重要保证。由于不是所有GPU都支持深度计算（大部分的Macbook自带的显卡都不支持），同时显卡配置的高低也决定了计算力的大小，因此Colab最大的优势在于我们可以“借用”谷歌免费提供的GPU来进行深度学习。</p>
+<p>综上：Colab &#x3D; “python版”Google doc + 免费GPU</p>
+<h3 id="Colab相关的概念"><a href="#Colab相关的概念" class="headerlink" title="Colab相关的概念"></a>Colab相关的概念</h3><p><strong>Jupyter Notebook：</strong>在Colab中，python代码的执行是基于.ipynb文件，也就是Jupyter Notebook格式的python文件。这种笔记本文件与普通.py文件的区别是可以分块执行代码并立刻得到输出，同时也可以很方便地添加注释，这种互动式操作十分适合一些轻量的任务。</p>
+<p>具体关于Jupyter Notebook的信息可以查看下面官网的链接：</p>
+<p><a href="https://link.zhihu.com/?target=https://jupyter.org/">Project Jupyterjupyter.org&#x2F;<img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-b75509b95a5c40332f461ed97f347bec_180x120.jpg" alt="img"></a></p>
+<p><strong>代码执行程序：</strong>代码执行程序就是Colab在云端的”服务器”。简单来说，我们先在笔记本写好需要运行的代码，连接到代码执行程序，然后Colab会在云端执行代码，最后把结果传回浏览器。</p>
+<p><strong>实例空间：</strong>连接到代码执行程序后，Colab需要为其分配实例空间(Instance)，可以简单理解为运行笔记本而创建的”虚拟机”，其中包含了执行ipynb文件时的默认配置、环境变量、自带的库等等。</p>
+<p><strong>会话</strong>：当笔记本连接到代码执行程序并分配到实例空间后，就成为了一个会话(Session)，用户能开启的会话数量是有限的</p>
+<h2 id="二、Colab工作流程"><a href="#二、Colab工作流程" class="headerlink" title="二、Colab工作流程"></a>二、Colab工作流程</h2><p>介绍完了Colab的基本概念，下面我们来演示具体如何使用Colab</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>首先我们需要创建一个谷歌账户，申请谷歌账户需要能接受短信的手机号码。由于科学上网、如何申请谷歌账户不是本文的写作目的，因此这里就不作展开了，我个人猜测万能的某宝之类应该有解决办法。</p>
+<p>Colab一般配合Google Drive使用（下文会提到这一点）。因此如有必要，我建议拓展谷歌云端硬盘的储存空间，个人认为性价比较高的是基本版或标准版。</p>
+<h3 id="新建笔记本"><a href="#新建笔记本" class="headerlink" title="新建笔记本"></a>新建笔记本</h3><p>有两种方法可以新建一个笔记本，第一种是在在云端硬盘中右键创建。<img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-560b9f843988629f2a6dc7b2d13e2181_1440w-17129265250857.webp" alt="img"></p>
+<p>如果右键后没有发现有这一个选项，那是因为云端硬盘还没有安装Colab。这时在右键后选择“关联更多应用”，然后搜索colab并下载，之后就可以通过右键创建了。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-b1064b1376f238c1fdc6262c13522b90_1440w-17129265250869.webp" alt="img"></p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-44a4925a6e4367ca88b32b581d581d9d_1440w-171292652508611.webp" alt="img"></p>
+<p>第二种方法是直接在浏览器中输入<a href="https://link.zhihu.com/?target=https://colab.research.google.com/">https://colab.research.google.com</a>，进入Colab的页面后点击新建笔记本即可。使用这种方法新建的笔记本时，会在云端硬盘的根目录自动创建一个叫Colab Notebook的文件夹，新创建的笔记本就保存在这个文件夹中。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-03f38b13ce704c36b2454b7d7dfbae60_1440w-171292652508613.webp" alt="img"></p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-656cc1b6e1aeb902b7efd14a1fa5edd0_1440w-171292652508615.webp" alt="img"></p>
+<h3 id="载入笔记本"><a href="#载入笔记本" class="headerlink" title="载入笔记本"></a>载入笔记本</h3><p>可以打开云端硬盘中的已经存在的笔记本，还可以从Github中导入笔记本。如果关联了Github账户，可以选择一个账户中的Project，如果其中有ipynb文件就可以在Colab中打开。注意：关联Github不是把Github中的项目文件夹加载到实例空间！</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-598338d9a4c84556f72af55f8c1f15e8_1440w.webp" alt="img"></p>
+<p>点击头像左侧的设置按钮然后选择Github来关联Github账号</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-f915071111c0a49da2483500c3832cf9_1440w.webp" alt="img"></p>
+<p>关联后可以选择目录和分支</p>
+<h3 id="笔记本界面"><a href="#笔记本界面" class="headerlink" title="笔记本界面"></a>笔记本界面</h3><p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-179a29ccf739cd8072c6e78643c3e554_1440w.webp" alt="img"></p>
+<p><strong>标题</strong>：笔记本的名称</p>
+<p><strong>代码块</strong>：分块执行的代码</p>
+<p><strong>文件浏览</strong>：Colab为笔记本分配的实例空间</p>
+<p><strong>代码执行程序</strong>：用于执行笔记本程序的服务器</p>
+<p><strong>代码段</strong>：常用的代码段，比如装载云端硬盘</p>
+<p><strong>命令面板</strong>：常用的命令，比如查找&#x2F;替换</p>
+<p><strong>终端</strong>：文件浏览下的终端（非常卡，不建议使用）</p>
+<h3 id="连接代码执行程序"><a href="#连接代码执行程序" class="headerlink" title="连接代码执行程序"></a>连接代码执行程序</h3><p>点击连接按钮即可在5s左右的时间内连接到代码执行程序并分配实例空间，此时可以看到消耗的RAM和磁盘</p>
+<p><strong>RAM</strong>：虚拟机运行内存，更大内存意味着更大的算力（之后会在Colab Pro中介绍）</p>
+<p><strong>磁盘</strong>：虚拟机文件的储存空间，要注意的是购买GoogleDrive的存储空间不能增加实例空间内可用的磁盘空间</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-5f098ffce15b5d714411e5361b73a514_1440w.webp" alt="img"></p>
+<p>连接到代码执行程序</p>
+<p>在打开笔记本后，我们默认的文件路径是*”&#x2F;content”<em>，这个路径也是执行笔记本时的路径，同时我们一般把用到的各种文件也保存在这个路径下。在点击</em>“..”<em>后即可返回查看根目录</em>“&#x2F;“<em>（如下图），可以看到根目录中保存的是一些虚拟机的环境变量和预装的库等等。不要随意修改根目录中的内容，以避免运行出错，我们所有的操作都应在</em>“&#x2F;content”*中进行。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-5f2e3e35c2956d035dcafec8855ddbe8_1440w.webp" alt="img"></p>
+<h3 id="执行代码块"><a href="#执行代码块" class="headerlink" title="执行代码块"></a>执行代码块</h3><p>notebook文件通过的代码块来执行代码，同时支持通过*”!<command>“<em>的方式来执行UNIX终端命令（比如</em>“!ls”<em>可以查看当前目录下的文件）。Colab已经预装了大多数常见的深度学习库，比如pytorch，tensorflow等等，如果有需要额外安装的库可以通过</em>“!pip3 install <package>“*命令来安装。下面是一些常见的命令。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载云端硬盘</span></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">&#x27;/content/drive&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看分配到的GPU</span></span><br><span class="line">gpu_info = !nvidia-smi</span><br><span class="line">gpu_info = <span class="string">&#x27;\n&#x27;</span>.join(gpu_info)</span><br><span class="line"><span class="keyword">if</span> gpu_info.find(<span class="string">&#x27;failed&#x27;</span>) &gt;= <span class="number">0</span>:</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;Not connected to a GPU&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  <span class="built_in">print</span>(gpu_info)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装python包</span></span><br><span class="line">!pip3 install &lt;package&gt;</span><br></pre></td></tr></table></figure>
+
+<p>点击“播放”按钮执行代码块。代码块开始执行后，按钮就会进入转圈的状态，表示“正在执行”，外部的圆圈是实线。如果在有代码块执行的情况下继续点击其他代码块的“播放”按钮，则这些代码块进入“等待执行”的状态，按钮也会进入转圈的状态，但外部的圆圈是虚线。在当前代码块结束后，会之前按照点击的顺序依次执行这些代码块。</p>
+<p>点击“播放”按钮执行代码块。代码块开始执行后，按钮就会进入转圈的状态，表示“正在执行”，外部的圆圈是实线。如果在有代码块执行的情况下继续点击其他代码块的“播放”按钮，则这些代码块进入“等待执行”的状态，按钮也会进入转圈的状态，但外部的圆圈是虚线。在当前代码块结束后，会之前按照点击的顺序依次执行这些代码块。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-8a71ff82c82853041d5a62806cc7e05d_1440w.webp" alt="img"></p>
+<h3 id="设置笔记本的运行时类型"><a href="#设置笔记本的运行时类型" class="headerlink" title="设置笔记本的运行时类型"></a><strong>设置笔记本的运行时类型</strong></h3><p>笔记本在打开时的默认硬件加速器是None，运行规格是标准。在深度学习中，我们希望使用GPU来训练模型，同时如果购买了pro，我们希望使用高内存模式。点击代码执行程序，然后点击“更改运行时类型即可”。由于免费的用户所能使用的GPU运行时有限，因此建议在模型训练结束后调回None模式或直接结束会话。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-580fb43357a5438469cbbf7a4d9fdc7d_1440w.webp" alt="img"></p>
+<p>修改硬件加速器和运行时规格</p>
+<p>如果希望主动断开代码执行程序，则点击代码执行程序后选择“断开连接并删除运行时”即可。</p>
+<h3 id="管理会话Session"><a href="#管理会话Session" class="headerlink" title="管理会话Session"></a>管理会话Session</h3><p>当前连接到代码执行程序的笔记本会成为一个会话，通过点击“管理会话”即可查看当前的所有会话，点击“终止”即可断开代码执行程序。用户所能连接的会话数量是有限的，因此到达上限时再开启新会话需要主动断开之前的会话。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-9f2cc90a7452776132fbb3e6ea4868aa_1440w.webp" alt="img"></p>
+<h2 id="三、Colab重要特性"><a href="#三、Colab重要特性" class="headerlink" title="三、Colab重要特性"></a>三、Colab重要特性</h2><p>我们需要进一步了解Colab平台的一些重要特性和使用Colab训练模型时的一些策略</p>
+<h3 id="资源使用的限制"><a href="#资源使用的限制" class="headerlink" title="资源使用的限制"></a>资源使用的限制</h3><p>Google Colab为用户提供免费的GPU，因此资源的使用必然会受到限制，这一点即使是Colab Pro+用户也不例外，而且这种限制无处不在。</p>
+<p><strong>有限的实例空间</strong>：实例空间的内存和磁盘都是有限制的，如果模型训练的过程中超过了内存或磁盘的限制，那么程序运行就会中断并报错。实例空间内的文件保存不是永久的，当代码执行程序被断开时，实例空间内的所有资源都会被释放（我们在*”&#x2F;content”*目录下上传的文件也会全部消失）。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-eb3136ded19c38b65f1e04dbe266a197_1440w.webp" alt="img"></p>
+<p>将文件直接上传到实例空间中时会收到这种警告</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-a164c4c1578785547082d4d01ab31789_1440w.webp" alt="img"></p>
+<p>断开连接时所有的文件会被删除</p>
+<p><strong>有限的连接时间</strong>：笔记本连接到代码执行程序的时长是有限制的，这体现在三个方面：如果关闭浏览器，代码执行程序会在短时间内断开而不是在后台继续执行（这个“短时间”大概在几分钟左右，如果只是切换一下wifi之类的操作不会产生任何影响）；如果空闲状态过长（无互动操作或正在执行的代码块），则会立即断开连接；如果连接时长到达上限（免费用户最长连接12小时），也会立刻断开连接。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-74819302f39be4f13edffc007ab5db08_1440w.webp" alt="img"></p>
+<p>不活动或时长上限就会断连</p>
+<p><strong>有限的GPU运行时</strong>：无论是免费用户还是colab pro用户，每天所能使用的GPU运行时间都是有限的。到达时间上限后，使用GPU的代码执行程序将被立刻断开且用户将被限制在当天继续使用任何形式的GPU。在这种情况下我们只能等待第二天重置。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-0afc41ee734002f68e519b6c42e8fd07_1440w.webp" alt="img"></p>
+<p>即使是Pro+也无法无限制使用GPU</p>
+<p><strong>频繁的互动检测</strong>：当一段时间没有检测到活动时，Colab就会进行互动检测，如果长时间不点击人机身份验证，代码执行程序就会断开。此外，如果频繁地断开和连接代码执行程序，也会出现人机身份验证。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-597b2c4191f648ef5faf41ffd29772a7_1440w.webp" alt="img"></p>
+<p>Colab每隔一段时间就会进行互动检测</p>
+<p><strong>有限的会话数量</strong>：用户所能开启的会话数量都是有限的，免费用户只能开启1个会话，Pro用户则可以开启多个会话。不同的用户可以在一个笔记本上可以进行多个会话，但只能有一个会话执行代码块。如果某个代码块已经开始执行，另一个用户连接到笔记本的会话会显示“忙碌状态”，需要等待代码块执行完后才能执行其他的代码块。注意：掉线重连、切换网络、刷新页面等操作也会使笔记本进入“忙碌状态”。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-1e60492764b8bddc74785e450c147a93_1440w.webp" alt="img"></p>
+<p>正常情况</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-a3068919916c13aebca5876d923548bc_1440w.webp" alt="img"></p>
+<p>忙碌状态</p>
+<h3 id="如何合理使用资源？"><a href="#如何合理使用资源？" class="headerlink" title="如何合理使用资源？"></a>如何合理使用资源？</h3><ol>
+<li>将训练过后的模型日志和其他重要的文件保存到谷歌云盘，而不是本地的实例空间</li>
+<li>运行的代码必须支持“断点续传”能力，简单来说就是必须定义checkpoint相关功能的函数；假设训练完第n个epoch后掉线，模型能够从第n+1个epoch继续训练而不必从头开始</li>
+<li>仅在模型训练时开启GPU模式，在构建模型或其他非必要情况下一律使用None模式</li>
+<li>尽量在网络稳定的情况下开始训练，每隔一段时间查看一下训练的情况</li>
+<li>注册多个免费的谷歌账号；如果本地的显卡也可以训练，交替使用本地电脑和Colab</li>
+</ol>
+<h2 id="四、Colab项目组织"><a href="#四、Colab项目组织" class="headerlink" title="四、Colab项目组织"></a>四、Colab项目组织</h2><p>在正式进入实例演示之前，最后再简单介绍一下在Colab上组织项目的方法</p>
+<h3 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h3><p>在深度学习中，我们常常需要加载超大量的数据集，如何在Colab上快速加载这些数据？</p>
+<ol>
+<li>将整个数据集从本地上传到实例空间</li>
+</ol>
+<p>理论可行但实际不可取。经过作者实测，无论是上传压缩包还是文件夹，这种方法都非常的浪费时间，对于较大的数据集不具备可操作性。</p>
+<ol start="2">
+<li>将整个数据集上传到谷歌云盘，挂载谷歌云盘的之后直接读取云盘内的数据集</li>
+</ol>
+<p>理论可行但风险较大。根据谷歌的说明，Colab读取云盘的I&#x2F;O次数也是有限制的，太琐碎的I&#x2F;O会导致出现“配额限制”。而且云盘的读取效率也低于直接读取实例空间中的数据的效率。</p>
+<p><a href="https://link.zhihu.com/?target=https://research.google.com/colaboratory/faq.html%23drive-quota">为什么云端硬盘操作有时会因配额问题而失败？research.google.com&#x2F;colaboratory&#x2F;faq.html#drive-quota</a></p>
+<ol start="3">
+<li>将数据集以压缩包形式上传到谷歌云盘，然后解压到Colab实例空间</li>
+</ol>
+<p>实测可行。挂载云盘不消耗时间，解压所需的时间远远小于上传数据集的时间。</p>
+<p>此外，由于实例空间会定期释放，因此模型训练完成后的日志也应该储存在谷歌云盘上。综上所述，谷歌云盘是使用Colab必不可少的一环，由于免费的云盘只有15个G，因此建议至少拓展到基本版。</p>
+<h3 id="运行简单的项目"><a href="#运行简单的项目" class="headerlink" title="运行简单的项目"></a>运行简单的项目</h3><p>如果项目中只有几个轻量的模块，也不打算使用git进行版本管理，则直接将这些模块上传到实例空间即可</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-a0d038930457dd8b91e7bc80ed0b97b8_1440w.webp" alt="img"></p>
+<p>小文件直接上传即可</p>
+<h3 id="运行Github项目"><a href="#运行Github项目" class="headerlink" title="运行Github项目"></a>运行Github项目</h3><p>Colab的基本运行单位是Jupyter Notebook，如何在一个notebook上运行一整个复杂的Github项目呢？</p>
+<p>首先创建多个笔记本来对应多个py模块是不行的，因为不同的笔记本会对应不同实例空间，而同一个项目的不同模块应放在同一个实例空间中。为解决这个问题，可以考虑以下几种方法。</p>
+<ol>
+<li>克隆git仓库到实例空间或云盘，通过脚本的方式直接执行项目的主程序</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 克隆仓库到/content/my-repo目录下</span><br><span class="line">!git clone https://github.com/my-github-username/my-git-repo.git </span><br><span class="line">%cd my-git-repo</span><br><span class="line">!./train.py --logdir /my/log/path --data_root /my/data/root --resume</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>克隆git仓库到实例空间或云盘，把主程序中的代码用函数封装，然后在notebook中调用这些函数</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from train import my_training_method</span><br><span class="line">my_training_method(arg1, arg2, ...)</span><br></pre></td></tr></table></figure>
+
+<p>由于笔记本默认的路径是”&#x2F;content”，因此需要修改系统路径后才能直接导入</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">sys.path.append(&#x27;/content/my-git-repo&#x27;) # 把git仓库的目录添加到系统目录</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>克隆git仓库到实例空间或云盘，把原来的主程序模块直接复制到笔记本中</li>
+</ol>
+<p>类似于第二种方法，需要将git仓库路径添加到系统路径，否则会找不到导入的模块</p>
+<h2 id="五、实例演示"><a href="#五、实例演示" class="headerlink" title="五、实例演示"></a>五、实例演示</h2><p>下面以我在这个学期完成的项目为例，向大家完整展示Colab的使用过程。PS：不是推销自己的项目，而是目前我只做了这一个项目(ಥ_ಥ)</p>
+<p>云盘链接：<a href="https://link.zhihu.com/?target=https://drive.google.com/drive/folders/1-4z_Y38jMmIZNe5sNzbF1Le1Kv_ugFcd?usp=sharing">https://drive.google.com/drive/folders/1-4z_Y38jMmIZNe5sNzbF1Le1Kv_ugFcd?usp&#x3D;sharing</a></p>
+<p>点击以后就可以在谷歌云盘的“与我共享”中看到这个文件zhihu_colab，然后将这个文件夹的快捷方式添加到自己的云盘即可：右键文件夹“将快捷方式添加到云盘”，选择“我的云端硬盘”</p>
+<p>zhihu_colab中包含了数据集ROD-synROD.tar和代码文件夹mldl_project（以及这部分里的notebook）</p>
+<p>新建一个notebook后，首先加载自己的谷歌云盘</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from google.colab import drive</span><br><span class="line">drive.mount(&#x27;/content/drive&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>加载成功以后（可以点一下刷新按钮）就可以看到云盘在实例空间中出现了</p>
+<p>谷歌云盘默认的加载路径是*”&#x2F;content&#x2F;drive&#x2F;MyDrive”*</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-54c68ff5c3299e84e472397479e78320_1440w.webp" alt="img"></p>
+<p>&quot;&#x2F;content&#x2F;drive&#x2F;MyDrive&#x2F;zhihu_colab&quot;就是我们要用的文件夹</p>
+<p>在当前目录下(<em>“&#x2F;content”</em>)创建一个叫datasets的文件夹，并将”zhihu_colab”中的数据集解压到这个文件夹</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!mkdir /content/datasets</span><br><span class="line">!tar -xvf &quot;/content/drive/MyDrive/zhihu_colab/ROD-synROD.tar&quot; -C &quot;/content/datasets&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-56518f19bf70dfc35e2862d62de34ecb_1440w.webp" alt="img"></p>
+<p>整个过程应该持续2-3分钟</p>
+<p>查看一下自己分到的GPU是什么，具体的信息很长，只要看中间显卡部分就行了。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gpu_info = !nvidia-smi</span><br><span class="line">gpu_info = &#x27;\n&#x27;.join(gpu_info)</span><br><span class="line">if gpu_info.find(&#x27;failed&#x27;) &gt;= 0:</span><br><span class="line">  print(&#x27;Not connected to a GPU&#x27;)</span><br><span class="line">else:</span><br><span class="line">  print(gpu_info)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-de4bd50cc0d7f4d6cfaba05cfcc35c82_1440w.webp" alt="img"></p>
+<p>红框部分就是分到的显卡</p>
+<p>作为氪金的Pro用户自然分到了最好的P100～去Google查询一下可知这个显卡要自己买的话需要7000多欧。</p>
+<p>同一款GPU不同的功率也有细微的差别，比如29W的P100的训练速度一般比25W的P100要快1分钟左右。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-6a7885af412a63722db34de00f68b7bd_1440w.webp" alt="img"></p>
+<p>等等，2016年？</p>
+<p>查看一下帮助文档（主程序是train_eval.py）</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!python3 /content/drive/MyDrive/zhihu_colab/mldl_project/code/train_eval.py -h</span><br></pre></td></tr></table></figure>
+
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-5757cc2dd564f53c4706c8781a204cad_1440w.webp" alt="img"></p>
+<p>最后就是训练模型了（大家不需要理解这个项目在干什么，只是给大家做个示范）</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">!python3 /content/drive/MyDrive/zhihu_colab/mldl_project/code/train_eval.py \</span><br><span class="line">          --data_root /content/datasets/ROD-synROD \</span><br><span class="line">          --logdir /content/drive/MyDrive/ \</span><br><span class="line">          --resume \</span><br><span class="line">          | tee /content/drive/MyDrive/synRODtoROD.txt -a</span><br></pre></td></tr></table></figure>
+
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-c3396389a527ce7547ad7b12bc4488ce_1440w.webp" alt="img"></p>
+<p>–data_root 用于指定数据集的根目录</p>
+<p>–logdir 用于指定保持模型日志(checkpoint + tensorboard)的路径，注意一定要保存到云盘里</p>
+<p>–resume 表示如果有checkpoint就加载checkpoint</p>
+<p>| 是表示流式输入输出（前一个命令的输出作为后一个命令的输入）</p>
+<p>tee 命令用于将输出保存到文件同时也打印到屏幕，-a表示add模式（如果文件已存在会添加而不是覆盖）</p>
+<p>我们可以看到训练一个epoch大概是17分钟左右（显示训练进度是因为代码里用了tqdm模块），如果是高RAM模式的话大概只要一半左右的时间。</p>
+<p>这就是在Colab上模型训练的所有过程了，可以说是非常的简单的，不需要进行任何额外的配置。</p>
+<h2 id="六、Colab-Pro-Pro"><a href="#六、Colab-Pro-Pro" class="headerlink" title="六、Colab Pro &#x2F; Pro+"></a>六、Colab Pro &#x2F; Pro+</h2><p>因为担心项目完不成，我买了很多Colab Pro和Colab Pro+的账号，在经过一段时间的使用后，和大家分享一下自己的使用感受。</p>
+<p>由于谷歌只给出了不同会员的大致功能区别而没有给出详细参数的区别，我把我个人测试的结果放在下方供大家参考。三种配置下的标准RAM都是12GB，因此没有列出。</p>
+<h3 id="RAM-磁盘"><a href="#RAM-磁盘" class="headerlink" title="RAM-磁盘"></a>RAM-磁盘</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>高RAM</th>
+<th>磁盘</th>
+<th>后台运行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>免费</td>
+<td>❌</td>
+<td>66GB?</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Pro</td>
+<td>25GB</td>
+<td>166GB</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Pro+</td>
+<td>52GB</td>
+<td>225GB</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+<p>把所有账号都升级成PRO以后，现在反而不知道免费版的磁盘大小是多少了……</p>
+<h3 id="GPU模式下会话数量"><a href="#GPU模式下会话数量" class="headerlink" title="GPU模式下会话数量"></a>GPU模式下会话数量</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>标准RAM</th>
+<th>高RAM</th>
+<th>后台运行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>免费</td>
+<td>1</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Pro</td>
+<td>2</td>
+<td>1</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Pro+</td>
+<td>3</td>
+<td>3</td>
+<td>1-2（与高RAM无关）</td>
+</tr>
+</tbody></table>
+<p>注意：高RAM会话的计算速度大致是标准RAM会话的<strong>两倍</strong></p>
+<h3 id="使用Pro-Pro-的个人感受"><a href="#使用Pro-Pro-的个人感受" class="headerlink" title="使用Pro&#x2F;Pro+的个人感受"></a>使用Pro&#x2F;Pro+的个人感受</h3><p>免费版没有高RAM，且需要频繁地互动否则会掉线，我用了很少的时间就升级了，因此个人的体验不是很多</p>
+<p>Pro增加了一个高RAM会话和标准会话，和免费版比相当于算力翻了4倍，效率有了飞跃式提升，而且最大连接时长到了24小时，最大闲置时长也增加了不少，磁盘空间的拓展倒是基本用不上</p>
+<p>Pro+增加到了3个高RAM会话和3个标准会话，在Pro基础上又翻了2.5倍，相当于免费版算力的9倍，Pro+的52GB的高RAM和Pro的25GB的高RAM相比也略有提升（10分钟左右的epoch能快2分钟）。此外还多了后台运行功能，但是在后台运行的笔记本最多只能存在1-2个。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-6eb02f9c2f98af03d61265398092a3d1_1440w.webp" alt="img"></p>
+<p>今天测试时，Pro+只能开启1个后台笔记本</p>
+<p>即使是Pro&#x2F;Pro+也要受到连接时长的限制，如果多个会话从早上开始不间断地进行训练，到了第二天凌晨Colab就会提示使用限额，这时一般需要等到下午1点左右才会重置。</p>
+<p>我们再对比一下不同方案的价格。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-a572a0b4af0d99a27b6526445e77e74f_1440w.webp" alt="img"></p>
+<p>可以看到Pro+比起Pro贵了4倍但是算力却只提升了2.5倍左右，也就是说如果不怕麻烦，也不依赖后台功能的话多，多买几个Pro性价比是高于Pro+的。如果不想在多个账号间来回切换或者比较喜欢能够在关闭浏览器情况下后台运行的话，Pro+也是不错的选择。</p>
+<p>最后说几个支付相关的细节，首先只要在谷歌账户绑定银行卡就能付款，留学生一般有国外银行卡比如MasterCard等，如果是中国卡的话必须要有Visa才能支付。如果买了Pro之后再买Pro+，中间的差价会退还，不用担心重复购买的问题。</p>
+<p><img src="/picture/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/v2-b4c073d573412478e50efa0f2e45831d_1440w.webp" alt="img"></p>
+<p>综上，我个人认为性价比较高的组合是：<strong>每月2欧的谷歌云盘 + 每月9欧的ColabPro。</strong></p>
+<h2 id="七、补充内容"><a href="#七、补充内容" class="headerlink" title="七、补充内容"></a><strong>七、补充内容</strong></h2><h3 id="如何让代码有“断点续传”的能力？"><a href="#如何让代码有“断点续传”的能力？" class="headerlink" title="如何让代码有“断点续传”的能力？"></a><strong>如何让代码有“断点续传”的能力？</strong></h3><p>由于Colab随时有可能断开连接，在Colab上训练模型的代码必须要有可恢复性（能载入上一次训练的结果）。我把两个分别实现保存和加载checkpoint的函数附在下方，给大家作参考（基于pytorch）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">def save_checkpoint(path: Text,</span><br><span class="line">                    epoch: int,</span><br><span class="line">                    modules: Union[nn.Module, Sequence[nn.Module]],</span><br><span class="line">                    optimizers: Union[opt.Optimizer, Sequence[opt.Optimizer]],</span><br><span class="line">                    safe_replacement: bool = True):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Save a checkpoint of the current state of the training, so it can be resumed.</span><br><span class="line">    This checkpointing function assumes that there are no learning rate schedulers or gradient scalers for automatic</span><br><span class="line">    mixed precision.</span><br><span class="line">    :param path:</span><br><span class="line">        Path for your checkpoint file</span><br><span class="line">    :param epoch:</span><br><span class="line">        Current (completed) epoch</span><br><span class="line">    :param modules:</span><br><span class="line">        nn.Module containing the model or a list of nn.Module objects</span><br><span class="line">    :param optimizers:</span><br><span class="line">        Optimizer or list of optimizers</span><br><span class="line">    :param safe_replacement:</span><br><span class="line">        Keep old checkpoint until the new one has been completed</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    # This function can be called both as</span><br><span class="line">    # save_checkpoint(&#x27;/my/checkpoint/path.pth&#x27;, my_epoch, my_module, my_opt)</span><br><span class="line">    # or</span><br><span class="line">    # save_checkpoint(&#x27;/my/checkpoint/path.pth&#x27;, my_epoch, [my_module1, my_module2], [my_opt1, my_opt2])</span><br><span class="line">    if isinstance(modules, nn.Module):</span><br><span class="line">        modules = [modules]</span><br><span class="line">    if isinstance(optimizers, opt.Optimizer):</span><br><span class="line">        optimizers = [optimizers]</span><br><span class="line"> </span><br><span class="line">    # Data dictionary to be saved</span><br><span class="line">    data = &#123;</span><br><span class="line">        &#x27;epoch&#x27;: epoch,</span><br><span class="line">        # Current time (UNIX timestamp)</span><br><span class="line">        &#x27;time&#x27;: time.time(),</span><br><span class="line">        # State dict for all the modules</span><br><span class="line">        &#x27;modules&#x27;: [m.state_dict() for m in modules],</span><br><span class="line">        # State dict for all the optimizers</span><br><span class="line">        &#x27;optimizers&#x27;: [o.state_dict() for o in optimizers]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # Safe replacement of old checkpoint</span><br><span class="line">    temp_file = None</span><br><span class="line">    if os.path.exists(path) and safe_replacement:</span><br><span class="line">        # There&#x27;s an old checkpoint. Rename it!</span><br><span class="line">        temp_file = path + &#x27;.old&#x27;</span><br><span class="line">        os.rename(path, temp_file)</span><br><span class="line"></span><br><span class="line">    # Save the new checkpoint</span><br><span class="line">    with open(path, &#x27;wb&#x27;) as fp:</span><br><span class="line">        torch.save(data, fp)</span><br><span class="line">        # Flush and sync the FS</span><br><span class="line">        fp.flush()</span><br><span class="line">        os.fsync(fp.fileno())</span><br><span class="line"></span><br><span class="line">    # Remove the old checkpoint</span><br><span class="line">    if temp_file is not None:</span><br><span class="line">        os.unlink(path + &#x27;.old&#x27;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def load_checkpoint(path: Text,</span><br><span class="line">                    default_epoch: int,</span><br><span class="line">                    modules: Union[nn.Module, Sequence[nn.Module]],</span><br><span class="line">                    optimizers: Union[opt.Optimizer, Sequence[opt.Optimizer]],</span><br><span class="line">                    verbose: bool = True):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Try to load a checkpoint to resume the training.</span><br><span class="line">    :param path:</span><br><span class="line">        Path for your checkpoint file</span><br><span class="line">    :param default_epoch:</span><br><span class="line">        Initial value for &quot;epoch&quot; (in case there are not snapshots)</span><br><span class="line">    :param modules:</span><br><span class="line">        nn.Module containing the model or a list of nn.Module objects. They are assumed to stay on the same device</span><br><span class="line">    :param optimizers:</span><br><span class="line">        Optimizer or list of optimizers</span><br><span class="line">    :param verbose:</span><br><span class="line">        Verbose mode</span><br><span class="line">    :return:</span><br><span class="line">        Next epoch</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    if isinstance(modules, nn.Module):</span><br><span class="line">        modules = [modules]</span><br><span class="line">    if isinstance(optimizers, opt.Optimizer):</span><br><span class="line">        optimizers = [optimizers]</span><br><span class="line"></span><br><span class="line">    # If there&#x27;s a checkpoint</span><br><span class="line">    if os.path.exists(path):</span><br><span class="line">        # Load data</span><br><span class="line">        data = torch.load(path, map_location=next(modules[0].parameters()).device)</span><br><span class="line"></span><br><span class="line">        # Inform the user that we are loading the checkpoint</span><br><span class="line">        if verbose:</span><br><span class="line">            print(f&quot;Loaded checkpoint saved at &#123;datetime.fromtimestamp(data[&#x27;time&#x27;]).strftime(&#x27;%Y-%m-%d %H:%M:%S&#x27;)&#125;. &quot;</span><br><span class="line">                  f&quot;Resuming from epoch &#123;data[&#x27;epoch&#x27;]&#125;&quot;)</span><br><span class="line"></span><br><span class="line">        # Load state for all the modules</span><br><span class="line">        for i, m in enumerate(modules):</span><br><span class="line">            modules[i].load_state_dict(data[&#x27;modules&#x27;][i])</span><br><span class="line"></span><br><span class="line">        # Load state for all the optimizers</span><br><span class="line">        for i, o in enumerate(optimizers):</span><br><span class="line">            optimizers[i].load_state_dict(data[&#x27;optimizers&#x27;][i])</span><br><span class="line"></span><br><span class="line">        # Next epoch</span><br><span class="line">        return data[&#x27;epoch&#x27;] + 1</span><br><span class="line">    else:</span><br><span class="line">        return default_epoch</span><br></pre></td></tr></table></figure>
+
+<p>在主程序train.py正式开始训练前，添加下面的语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if args.resume: # args.resume是命令行输入的参数，用于指示要不要加载上次训练的结果</span><br><span class="line">    first_epoch = load_checkpoint(checkpoint_path, first_epoch, net_list, optims_list)</span><br></pre></td></tr></table></figure>
+
+<p>在每个epoch训练结束后，保存checkpoint：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Save checkpoint</span><br><span class="line">save_checkpoint(checkpoint_path, epoch, net_list, optims_list)</span><br></pre></td></tr></table></figure>
+
+<p>net_list是需要保存的网络列表，optims_list是需要保存的优化器列表</p>
+<p>这里没有记录scheduler的列表，如果代码里用到了scheduler，那也要保存scheduler的列表。</p>
+<h3 id="如果分到了Tesla-T4怎么办？"><a href="#如果分到了Tesla-T4怎么办？" class="headerlink" title="如果分到了Tesla T4怎么办？"></a>如果分到了Tesla T4怎么办？</h3><p>开启了Pro&#x2F;Pro+的会员，大概率会分到P100，如果不幸分到了Tesla T4而且马上要进行高强度的训练，那只能选择反复地刷显卡。具体方法为断开运行时后再连接，不断重复直到刷出P100为止。常用的玄学方案是先切到标准RAM刷几次，刷出P100后切回高RAM。</p>
+<p>这个过程可能很无聊，但是因为P100的训练速度是Tesla T4的2倍多，多花三十分钟刷一个P100出来可能会节省之后的十几个小时（实际上要不了三十分钟，一般五六分钟就刷出来了）。</p>
+<h3 id="如何使用Tensorboard？"><a href="#如何使用Tensorboard？" class="headerlink" title="如何使用Tensorboard？"></a>如何使用Tensorboard？</h3><p>Tensorboard是一种数据可视化的工具，在Notebook中可以使用下述代码来启动。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%reload_ext tensorboard</span><br><span class="line">%tensorboard --logdir &quot;pathoflogfile&quot;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://c0ke.top">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c0ke.top/2025/07/15/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">http://c0ke.top/2025/07/15/Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://c0ke.top" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/07/15/const%E5%92%8Cstatic%E7%9A%84%E5%8C%BA%E5%88%AB/" title="const和static的区别"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">const和static的区别</div></div></a></div><div class="next-post pull-right"><a href="/2025/07/15/Cobalt%20Strike%20BOF%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" title="Cobalt Strike BOF原理分析"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Cobalt Strike BOF原理分析</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Colab%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">Colab使用教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Colab%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">一、Colab介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Colab%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.2.1.</span> <span class="toc-text">Colab是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Colab%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.2.</span> <span class="toc-text">Colab相关的概念</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Colab%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">二、Colab工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.3.1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E7%AC%94%E8%AE%B0%E6%9C%AC"><span class="toc-number">1.3.2.</span> <span class="toc-text">新建笔记本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%BD%E5%85%A5%E7%AC%94%E8%AE%B0%E6%9C%AC"><span class="toc-number">1.3.3.</span> <span class="toc-text">载入笔记本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%95%8C%E9%9D%A2"><span class="toc-number">1.3.4.</span> <span class="toc-text">笔记本界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.3.5.</span> <span class="toc-text">连接代码执行程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-number">1.3.6.</span> <span class="toc-text">执行代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%9A%84%E8%BF%90%E8%A1%8C%E6%97%B6%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.7.</span> <span class="toc-text">设置笔记本的运行时类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E4%BC%9A%E8%AF%9DSession"><span class="toc-number">1.3.8.</span> <span class="toc-text">管理会话Session</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Colab%E9%87%8D%E8%A6%81%E7%89%B9%E6%80%A7"><span class="toc-number">1.4.</span> <span class="toc-text">三、Colab重要特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E4%BD%BF%E7%94%A8%E7%9A%84%E9%99%90%E5%88%B6"><span class="toc-number">1.4.1.</span> <span class="toc-text">资源使用的限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8%E8%B5%84%E6%BA%90%EF%BC%9F"><span class="toc-number">1.4.2.</span> <span class="toc-text">如何合理使用资源？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Colab%E9%A1%B9%E7%9B%AE%E7%BB%84%E7%BB%87"><span class="toc-number">1.5.</span> <span class="toc-text">四、Colab项目组织</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.5.1.</span> <span class="toc-text">加载数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%AE%80%E5%8D%95%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.5.2.</span> <span class="toc-text">运行简单的项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8CGithub%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.5.3.</span> <span class="toc-text">运行Github项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="toc-number">1.6.</span> <span class="toc-text">五、实例演示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81Colab-Pro-Pro"><span class="toc-number">1.7.</span> <span class="toc-text">六、Colab Pro &#x2F; Pro+</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RAM-%E7%A3%81%E7%9B%98"><span class="toc-number">1.7.1.</span> <span class="toc-text">RAM-磁盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU%E6%A8%A1%E5%BC%8F%E4%B8%8B%E4%BC%9A%E8%AF%9D%E6%95%B0%E9%87%8F"><span class="toc-number">1.7.2.</span> <span class="toc-text">GPU模式下会话数量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Pro-Pro-%E7%9A%84%E4%B8%AA%E4%BA%BA%E6%84%9F%E5%8F%97"><span class="toc-number">1.7.3.</span> <span class="toc-text">使用Pro&#x2F;Pro+的个人感受</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E8%A1%A5%E5%85%85%E5%86%85%E5%AE%B9"><span class="toc-number">1.8.</span> <span class="toc-text">七、补充内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E4%BB%A3%E7%A0%81%E6%9C%89%E2%80%9C%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0%E2%80%9D%E7%9A%84%E8%83%BD%E5%8A%9B%EF%BC%9F"><span class="toc-number">1.8.1.</span> <span class="toc-text">如何让代码有“断点续传”的能力？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%88%86%E5%88%B0%E4%BA%86Tesla-T4%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="toc-number">1.8.2.</span> <span class="toc-text">如果分到了Tesla T4怎么办？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Tensorboard%EF%BC%9F"><span class="toc-number">1.8.3.</span> <span class="toc-text">如何使用Tensorboard？</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tenda-FH1201多处命令注入漏洞分析和复现"/></a><div class="content"><a class="title" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现">Tenda-FH1201多处命令注入漏洞分析和复现</a><time datetime="2025-07-30T03:04:06.916Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GL-iNet 路由器 CVE-2024-39226 漏洞分析"/></a><div class="content"><a class="title" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析">GL-iNet 路由器 CVE-2024-39226 漏洞分析</a><time datetime="2025-07-30T03:04:06.914Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="启动路由器环境"/></a><div class="content"><a class="title" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境">启动路由器环境</a><time datetime="2025-07-30T03:04:06.907Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="修复路由器程序运行环境+远程调试"/></a><div class="content"><a class="title" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试">修复路由器程序运行环境+远程调试</a><time datetime="2025-07-30T03:04:06.906Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ikuai-3.7.10版本以下有授权的cmd执行复现"/></a><div class="content"><a class="title" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现">ikuai-3.7.10版本以下有授权的cmd执行复现</a><time datetime="2025-07-30T03:04:06.904Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

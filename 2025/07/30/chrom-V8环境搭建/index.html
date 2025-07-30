@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>chrom-V8环境搭建 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="chrom-V8环境搭建环境编译chrome 里面的 JavaScript 解释器称为v8。 我们下载的源码称为V8，而V8经过编译之后得到的可执行文件为 d8。根据编译时选择的不同，编译出来的 d8 分为 debug版本 和 release版本，一般把这两个版本都编译出来。 下载源码由于需要去谷歌的网站上下载源码，所以需要保证虚拟机能够走代理。我这里直接设置允许局域网连接，将虚拟机设置为NAT，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chrom-V8环境搭建">
+<meta property="og:url" content="http://c0ke.top/2025/07/30/chrom-V8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="chrom-V8环境搭建环境编译chrome 里面的 JavaScript 解释器称为v8。 我们下载的源码称为V8，而V8经过编译之后得到的可执行文件为 d8。根据编译时选择的不同，编译出来的 d8 分为 debug版本 和 release版本，一般把这两个版本都编译出来。 下载源码由于需要去谷歌的网站上下载源码，所以需要保证虚拟机能够走代理。我这里直接设置允许局域网连接，将虚拟机设置为NAT，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png">
+<meta property="article:published_time" content="2025-07-30T03:04:06.715Z">
+<meta property="article:modified_time" content="2025-07-30T03:18:41.254Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://c0ke.top/2025/07/30/chrom-V8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'chrom-V8环境搭建',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-30 11:18:41'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">chrom-V8环境搭建</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-30T03:04:06.715Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-30T03:18:41.254Z" title="更新于 2025-07-30 11:18:41">2025-07-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CVE-2020-6537/">CVE-2020-6537</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="chrom-V8环境搭建"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="chrom-V8环境搭建"><a href="#chrom-V8环境搭建" class="headerlink" title="chrom-V8环境搭建"></a>chrom-V8环境搭建</h1><h2 id="环境编译"><a href="#环境编译" class="headerlink" title="环境编译"></a>环境编译</h2><p>chrome 里面的 JavaScript 解释器称为v8。</p>
+<p>我们下载的源码称为V8，而V8经过编译之后得到的可执行文件为 d8。根据编译时选择的不同，编译出来的 d8 分为 debug版本 和 release版本，一般把这两个版本都编译出来。</p>
+<h3 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h3><p>由于需要去谷歌的网站上下载源码，所以需要保证虚拟机能够走代理。我这里直接设置允许局域网连接，将虚拟机设置为NAT，那么就可以上梯子。</p>
+<p>随后，依次安装</p>
+<p> <strong>depot_tools</strong></p>
+<p>这个工具是用来得到v8源码的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git</span><br><span class="line">echo &quot;export PATH=$(pwd)/depot_tools:$&#123;PATH&#125;&quot; &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p><strong>ninja</strong></p>
+<p>这个工具是用来编译v8的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/ninja-build/ninja.git</span><br><span class="line">cd ninja &amp;&amp; ./configure.py --bootstrap &amp;&amp; cd ..</span><br><span class="line">echo &quot;export PATH=$(pwd)/ninja:$&#123;PATH&#125;&quot; &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>然后就是重新加载环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source  ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>最后就是去下载V8 源代码：</p>
+<p>设置环境变量后拉取 v8 的代码 但考虑到中英文问题和一些网络代理问题，这里不安装字体依赖，有需要的师傅可以试着去掉该参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fetch v8</span><br><span class="line">./v8/build/install-build-deps.sh --no-chromeos-fonts</span><br></pre></td></tr></table></figure>
+
+<p>写一个脚本去跑编译，方便以后直接换版本编译：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">VER=$1 </span><br><span class="line">if [ -z $2 ]; then</span><br><span class="line">        NAME=$VER</span><br><span class="line">else</span><br><span class="line">        NAME=$2</span><br><span class="line">fi</span><br><span class="line">cd /path/depot_tools/v8</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/path/depot_tools/v8 换成自己的路径</span></span><br><span class="line">git reset --hard $VER</span><br><span class="line">gclient sync -D</span><br><span class="line">gn gen out/x64_$NAME.release --args=&#x27;v8_monolithic=true v8_use_external_startup_data=false is_component_build=false is_debug=false target_cpu =&quot;x64&quot; use_goma=false goma_dir=&quot;None&quot; v8_enable_backtrace=true v8_enable_disassembler=true v8_enable_object_print=true v8_enable_verify_heap=true&#x27;</span><br><span class="line">ninja -C out/x64_$NAME.release d8</span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">time ./build.sh 9.6.180.6</span><br></pre></td></tr></table></figure>
+
+<p>编译效率一般取决于自己的设备性能</p>
+<h3 id="加载补丁"><a href="#加载补丁" class="headerlink" title="加载补丁"></a>加载补丁</h3><p>上面的方法，只适用于编译最新的 V8代码。但是对于我们常见的调试漏洞或者解题，往往需要编译特定版本的 V8 或者加载相应的补丁。</p>
+<p>需要用如下方法。</p>
+<p>一般题目都会给出有漏洞的版本的<code>commitid</code>，所以编译之前先把源码的版本<code>reset</code>到和题目一致的版本，在把题目给出的<code>diff</code>文件应用到源码中：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 6dc88c191f5ecc5389dc26efa3ca0907faef3598</span><br><span class="line">git apply &lt; oob.diff</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">编译debug版本</span></span><br><span class="line">tools/dev/v8gen.py x64.debug</span><br><span class="line">ninja -C out.gn/x64.debug d8</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">编译release版本</span></span><br><span class="line">tools/dev/v8gen.py x64.release</span><br><span class="line">ninja -C out.gn/x64.release d8</span><br></pre></td></tr></table></figure>
+
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>将 “v8&#x2F;tools&#x2F;gdbinit” 保存到自己惯用的目录下，这里称之为 “path”，然后将路径写到 .gdbinit 下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cp v8/tools/gdbinit /path/gdbinit_v8</span><br><span class="line">cat ~/.gdbinit</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">source</span> /home/tokameine/Desktop/env/pwndbg/gdbinit.py</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">source</span> /path/gdbinit_v8</span></span><br></pre></td></tr></table></figure>
+
+<p>做完以后，就能够在源代码中插入如下代码进行调试了：</p>
+<p>可以直接在 <code>js</code>代码中使用<code>%DebugPrint();</code>以及<code>%SystemBreak();</code>下断点。<code>%SystemBreak()</code>其作用是在调试的时候会断在这条语句这里，<code>%DebugPrint()</code> 则是用来打印对象的相关信息，在<code>debug</code>版本下会输出很详细的信息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%<span class="title class_">DebugPrint</span>(x); 打印变量 x 的相关信息</span><br><span class="line">%<span class="title class_">SystemBreak</span>(); 抛出中断，令 gdb 在此处断点</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>但这两条代码并非原有的语法，在执行时需添加参数 “–allow-natives-syntax”， 否则会提示 “SyntaxError: Unexpected token ‘%’”</p>
+</blockquote>
+<h3 id="调试样本"><a href="#调试样本" class="headerlink" title="调试样本"></a>调试样本</h3><p>就用一个简单的 demo 测试一下调试能够正常进行：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//demo.js</span></span><br><span class="line">%<span class="title class_">SystemBreak</span>();</span><br><span class="line"><span class="keyword">var</span> wasmCode = <span class="keyword">new</span> <span class="title class_">Uint8Array</span>([<span class="number">0</span>,<span class="number">97</span>,<span class="number">115</span>,<span class="number">109</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">133</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">96</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">127</span>,<span class="number">3</span>,<span class="number">130</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">132</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">112</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">131</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">129</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">7</span>,<span class="number">145</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">109</span>,<span class="number">101</span>,<span class="number">109</span>,<span class="number">111</span>,<span class="number">114</span>,<span class="number">121</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">109</span>,<span class="number">97</span>,<span class="number">105</span>,<span class="number">110</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">10</span>,<span class="number">138</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">132</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">128</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">65</span>,<span class="number">42</span>,<span class="number">11</span>]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> wasmModule = <span class="keyword">new</span> <span class="title class_">WebAssembly</span>.<span class="title class_">Module</span>(wasmCode);</span><br><span class="line"><span class="keyword">var</span> wasmInstance = <span class="keyword">new</span> <span class="title class_">WebAssembly</span>.<span class="title class_">Instance</span>(wasmModule, &#123;&#125;);</span><br><span class="line"><span class="keyword">var</span> f = wasmInstance.<span class="property">exports</span>.<span class="property">main</span>;</span><br><span class="line">%<span class="title class_">DebugPrint</span>(f);</span><br><span class="line">%<span class="title class_">DebugPrint</span>(wasmInstance);</span><br><span class="line">%<span class="title class_">SystemBreak</span>();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>我们暂时不用在意这段代码在做什么，这无关紧要，我们现在只想知道调试环境是否能够正常工作而已，所以读者只需要知道有这么个变量名为 f 的变量即可</p>
+</blockquote>
+<p>在 v8&#x2F;out&#x2F;x64_$name.release 目录下可以找到二进制程序 d8，它才是解析执行 js 代码的引擎，通过 gdb 去调试该程序，并将 demo.js 作为参数传给它</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ gdb d8</span><br><span class="line">pwndbg&gt; r --allow-natives-syntax /home/tokameine/Desktop/demo/test.js </span><br><span class="line">pwndbg&gt; c</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 gdb 正常发生了中断，但由于我们调试的并非 js 脚本，所以自然不可能顺着脚本中断，而是在 d8 的某行机器码处中断了，此时它会打印出数组 f 的数据：</p>
+<h3 id="调试命令"><a href="#调试命令" class="headerlink" title="调试命令"></a>调试命令</h3><h4 id="job命令"><a href="#job命令" class="headerlink" title="job命令"></a>job命令</h4><p>用于可视化显示<code>JavaScript</code>对象的内存结构。</p>
+<p><code>gdb</code>下使用：job 对象地址</p>
+<h4 id="telescope命令"><a href="#telescope命令" class="headerlink" title="telescope命令"></a>telescope命令</h4><p>功能：查看一下内存数据</p>
+<p>使用：telescope 查看地址 （长度）</p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="指针标记"><a href="#指针标记" class="headerlink" title="指针标记"></a>指针标记</h3><p>V8 使用指针标记机制来区分 指针、双精度数 和 Smis(代表) <code>immediate small integer</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Double: Shown as the 64-bit binary representation without any changes</span><br><span class="line">Smi: Represented as value &lt;&lt; 32, i.e 0xdeadbeef is represented as 0xdeadbeef00000000</span><br><span class="line">Pointers: Represented as addr &amp; 1. 0x2233ad9c2ed8 is represented as 0x2233ad9c2ed9</span><br></pre></td></tr></table></figure>
+
+<p>因此，V8 中 如果一个值表示的是指针，那么会将该值的最低bit 设置为1，所以其实真实的值需要减去 1.</p>
+<p>Job 直接给对象地址就行，telescope 的时候，需要给真实值，需要 -1.</p>
+<h3 id="V8-对象结构"><a href="#V8-对象结构" class="headerlink" title="V8 对象结构"></a>V8 对象结构</h3><p>V8 中的对象有如下属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">map: 定义了如何访问对象</span><br><span class="line">prototype：	对象的原型（如果有）</span><br><span class="line">elements：对象的地址</span><br><span class="line">length：长度</span><br><span class="line">properties：	属性，存有map和length</span><br></pre></td></tr></table></figure>
+
+<p>分析：</p>
+<p>对象里存储的数据是在<code>elemnts</code>指向的内存区域的，而且是在对象的上面。也即，在内存申请上，V8先申请了一块内存存储元素内容，然后申请了一块内存存储这个数组的对象结构，对象中的<code>elements</code>指向了存储元素内容的内存地址。</p>
+<h3 id="map属性详解"><a href="#map属性详解" class="headerlink" title="map属性详解"></a>map属性详解</h3><p>对象的<code>map</code> (数组是对象)是一种数据结构，其中包含以下信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对象的动态类型，即 String，Uint8Array，HeapNumber 等</span><br><span class="line">对象的大小，以字节为单位</span><br><span class="line">对象的属性及其存储位置</span><br><span class="line">数组元素的类型，例如 unboxed 的双精度数或带标记的指针</span><br><span class="line">对象的原型（如果有）</span><br></pre></td></tr></table></figure>
+
+<p>属性名称通常存储在<code>Map</code>中，而属性值则存储在对象本身中几个可能区域之一中。然后，<code>map</code>将提供属性值在相应区域中的确切位置。</p>
+<p>本质上，映射定义了应如何访问对象：</p>
+<p> 对于对象数组：存储的是每个对象的地址</p>
+<p> 对于浮点数组：以浮点数形式存储数值</p>
+<p>所以，如果将对象数组的<code>map</code>换成浮点数组 -&gt; 就变成了浮点数组，会以 浮点数的形式存储对象的地址；如果将对 浮点组的 map 换成对象数组 -&gt; 就变成了对象数组，打印浮点数存储的地址。</p>
+<h3 id="对象和对象数组"><a href="#对象和对象数组" class="headerlink" title="对象和对象数组"></a>对象和对象数组</h3><p>也就是说，对象数组里面，存储的是别的对象的地址。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://c0ke.top">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c0ke.top/2025/07/30/chrom-V8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">http://c0ke.top/2025/07/30/chrom-V8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://c0ke.top" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/07/30/Torque%E5%87%BD%E6%95%B0%E8%A7%A3%E6%9E%90/" title="Torque函数解析"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Torque函数解析</div></div></a></div><div class="next-post pull-right"><a href="/2025/07/30/shadow%E6%96%87%E4%BB%B6%E5%88%86%E6%9E%90/" title="shadow文件分析"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">shadow文件分析</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#chrom-V8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">chrom-V8环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E7%BC%96%E8%AF%91"><span class="toc-number">1.1.</span> <span class="toc-text">环境编译</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81"><span class="toc-number">1.1.1.</span> <span class="toc-text">下载源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E8%A1%A5%E4%B8%81"><span class="toc-number">1.1.2.</span> <span class="toc-text">加载补丁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95"><span class="toc-number">1.2.</span> <span class="toc-text">调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%A0%B7%E6%9C%AC"><span class="toc-number">1.2.1.</span> <span class="toc-text">调试样本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.2.</span> <span class="toc-text">调试命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#job%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">job命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#telescope%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">telescope命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.3.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E6%A0%87%E8%AE%B0"><span class="toc-number">1.3.1.</span> <span class="toc-text">指针标记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#V8-%E5%AF%B9%E8%B1%A1%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.2.</span> <span class="toc-text">V8 对象结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.3.3.</span> <span class="toc-text">map属性详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%AF%B9%E8%B1%A1%E6%95%B0%E7%BB%84"><span class="toc-number">1.3.4.</span> <span class="toc-text">对象和对象数组</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tenda-FH1201多处命令注入漏洞分析和复现"/></a><div class="content"><a class="title" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现">Tenda-FH1201多处命令注入漏洞分析和复现</a><time datetime="2025-07-30T03:04:06.916Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GL-iNet 路由器 CVE-2024-39226 漏洞分析"/></a><div class="content"><a class="title" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析">GL-iNet 路由器 CVE-2024-39226 漏洞分析</a><time datetime="2025-07-30T03:04:06.914Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="启动路由器环境"/></a><div class="content"><a class="title" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境">启动路由器环境</a><time datetime="2025-07-30T03:04:06.907Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="修复路由器程序运行环境+远程调试"/></a><div class="content"><a class="title" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试">修复路由器程序运行环境+远程调试</a><time datetime="2025-07-30T03:04:06.906Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ikuai-3.7.10版本以下有授权的cmd执行复现"/></a><div class="content"><a class="title" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现">ikuai-3.7.10版本以下有授权的cmd执行复现</a><time datetime="2025-07-30T03:04:06.904Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

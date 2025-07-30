@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>车辆数字钥匙常见攻击和防御方法介绍 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="车辆数字钥匙常见攻击和防御方法介绍车辆数字钥匙是汽车智能化变革下的一项创新技术，NFC、UWB、BLE（蓝牙）等不同通信技术，将NFC智能卡片、智能手机、智能手表等智能终端变成汽车钥匙，从而实现无钥匙启动、钥匙分享、远程车辆控制等功能，为人们提供更加智能便捷的用车体验。 但汽车钥匙的数字化发展，也带来了新的安全风险挑战。攻击者通过重放攻击 、滚码遍历等手段，破解车辆钥匙，恶意解锁车辆，给车主带来的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="车辆数字钥匙常见攻击和防御方法介绍">
+<meta property="og:url" content="http://c0ke.top/2025/07/15/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="车辆数字钥匙常见攻击和防御方法介绍车辆数字钥匙是汽车智能化变革下的一项创新技术，NFC、UWB、BLE（蓝牙）等不同通信技术，将NFC智能卡片、智能手机、智能手表等智能终端变成汽车钥匙，从而实现无钥匙启动、钥匙分享、远程车辆控制等功能，为人们提供更加智能便捷的用车体验。 但汽车钥匙的数字化发展，也带来了新的安全风险挑战。攻击者通过重放攻击 、滚码遍历等手段，破解车辆钥匙，恶意解锁车辆，给车主带来的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png">
+<meta property="article:published_time" content="2025-07-15T08:06:26.560Z">
+<meta property="article:modified_time" content="2025-07-30T03:18:41.410Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://c0ke.top/2025/07/15/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '车辆数字钥匙常见攻击和防御方法介绍',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-30 11:18:41'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">车辆数字钥匙常见攻击和防御方法介绍</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-15T08:06:26.560Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-30T03:18:41.410Z" title="更新于 2025-07-30 11:18:41">2025-07-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%A6%E8%81%94%E7%BD%91/">车联网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="车辆数字钥匙常见攻击和防御方法介绍"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="车辆数字钥匙常见攻击和防御方法介绍"><a href="#车辆数字钥匙常见攻击和防御方法介绍" class="headerlink" title="车辆数字钥匙常见攻击和防御方法介绍"></a>车辆数字钥匙常见攻击和防御方法介绍</h1><p>车辆数字钥匙是汽车智能化变革下的一项创新技术，NFC、UWB、BLE（蓝牙）等不同通信技术，将NFC智能卡片、智能手机、智能手表等智能终端变成汽车钥匙，从而实现无钥匙启动、钥匙分享、远程车辆控制等功能，为人们提供更加智能便捷的用车体验。</p>
+<p>但汽车钥匙的数字化发展，也带来了新的安全风险挑战。攻击者通过重放攻击 、滚码遍历等手段，破解车辆钥匙，恶意解锁车辆，给车主带来的较大的人身及财产安全风险。</p>
+<p>本文通过数字钥匙类型及风险点、常见攻击场景和手法介绍、防御方案介绍三个方面，阐述数字钥匙面临的常见攻击及防御方法，详情请查看下文介绍。</p>
+<h2 id="一、数字钥匙类型和风险点"><a href="#一、数字钥匙类型和风险点" class="headerlink" title="一、数字钥匙类型和风险点"></a><strong>一、数字钥匙类型和风险点</strong></h2><h3 id="1、数字钥匙种类"><a href="#1、数字钥匙种类" class="headerlink" title="1、数字钥匙种类"></a><strong>1、数字钥匙种类</strong></h3><p>目前常见的车辆数字钥匙有如下5种：</p>
+<p><strong>无线车钥匙</strong>，由发射器、遥控中央锁控制模块、驾驶授权系统控制模块三个接受器及相关线束组成的控制系统组成。遥控器和发射器集成在车钥匙上，车辆可以根据智能钥匙发来的信号，进入锁止或不锁止状态。大家基本上都用过，上面有解锁按钮、锁定按钮和后备箱打开按钮。</p>
+<p><strong>NFC卡片钥匙</strong>，现在一些新能源汽车会配备NFC卡片钥匙，很薄，刷卡即可解锁车辆。开车时把这个卡片放在中控台上，就可以启动车辆。</p>
+<p><strong>手机蓝牙钥匙</strong>，使用汽车App开启手机蓝牙钥匙后，手机便可以取代随车的遥控钥 匙，进行解锁、上锁和启动车辆。现在一些新能源车辆会配备一个手机蓝牙钥匙，比如极氪APP，跟车辆绑定之后，就可以使用手机APP去解锁车辆、启动车辆。</p>
+<p><strong>UWB+BLE钥匙</strong>，是当下比较重点的一个发展方向。从遥控钥匙诞生，一直发展到后面的蓝牙数字钥匙，中继攻击 一直是绕不开的话题。UWB方案中加入了安全时间戳的技术， 极大提升了UWB防中继攻击能力。</p>
+<p><strong>生物特征钥匙</strong>，基于生物特征信息进行身份识别的一种技术，是当下比较潮的应用。一般会在B柱上方安装一个摄像头，当靠近车辆时通过人脸识别来解锁车辆。</p>
+<p><strong>2、五大数字钥匙面临的风险</strong></p>
+<p>每一种数字钥匙因为使用了特定的技术,都具有特定的风险。比如，无线钥匙面临的重放攻击 、滚码遍历攻击，目前一些厂商已发现重放攻击对车辆数字钥匙影响比较大，已经升级使用了回码机制。</p>
+<p>NFC 、BLE 面临的中继攻击，目前车辆的NFC卡片配备的都是安全等级较高的CPU卡，但是这种卡片对于中继攻击也没有很好的防御办法。</p>
+<p>生物特征钥匙面临对抗攻击，比如常见的AI对抗，通过使用特定的对抗算法，把车主的人脸和攻击者人脸做混合，比如说做成面具或者做成生物指纹或雕刻出来，攻击生物特征识别机制，导致车辆被偷窃。</p>
+<p>UWB+BLE钥匙暂无特定风险攻击。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805152242146.png" alt="image-20240805152242146"></p>
+<h2 id="二、常见攻击场景和手法介绍"><a href="#二、常见攻击场景和手法介绍" class="headerlink" title="二、常见攻击场景和手法介绍"></a><strong>二、常见攻击场景和手法介绍</strong></h2><p>下面将对常见的攻击场景及手法进行介绍。</p>
+<h3 id="1、重放攻击"><a href="#1、重放攻击" class="headerlink" title="1、重放攻击"></a><strong>1、重放攻击</strong></h3><p>重放攻击(Replay Attacks)又称重播攻击、回放攻击，是指攻击者发送一个目的设备已接收过的包，来达到欺骗系统的目的，主要用于身份认证过程，破坏认证的正确性。</p>
+<p>比如，一个车主在车辆附近没有使用滚码技术的无线车钥匙，通过按车钥匙上的解锁按钮，发送一串解锁信号给车辆，此时旁边的攻击者可以使用特定的监听设备，把这个信号记录下来，等到车主不在车辆旁边时，就可以通过重放解锁信号，达到解锁车辆的目的。在这个过程中，黑客并不需要接触到车钥匙，只需要在几十米到一百米左右的距离，接收到解锁信号即可。重放攻击的成本很低，并且非常有效。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805152348108.png" alt="image-20240805152348108"></p>
+<h3 id="2、中继攻击"><a href="#2、中继攻击" class="headerlink" title="2、中继攻击"></a><strong>2、中继攻击</strong></h3><p>“中继攻击”是目前比较难防御的一种攻击手法，指犯罪分子利用汽车的无钥匙进入系统欺骗汽车，让汽车认为无线 遥控器就在它旁边。</p>
+<p>比如，车主正在办公室工作，车辆放在相距几百米的地库。此时两名攻击者黑客A和黑客B，其中黑客A就站在车辆旁边，黑客B在车主附近。黑客A拿出模拟设备，对车辆发出解锁请求，黑客A拿到了要求认证的信息，通过4G、5G技术传输给黑客B。黑客B也有一个模拟出来的蓝牙设备，他把要求认证的信息在靠近车主之后发送给车主真正的蓝牙钥匙，真正的蓝牙钥匙误以为是车辆发过来的认证要求就会进行处理，并返回一个合法的认证信息。</p>
+<p>黑客B再通过4G、5G通道把认证信息返回给黑客A，黑客A将认证信息发送给车辆，就达到了远程解锁车辆的目的。</p>
+<p>在整个过程中，车主和车辆相距较远，车主没有办法发现车辆已经被偷走。黑客A和B并不需要提前知道车辆有没有加密信息，只需要在中继认证挑战、返回认证信息、利用信息，从而实现解锁车辆的目的。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805152408722.png" alt="image-20240805152408722"></p>
+<h3 id="3、人脸识别—对抗攻击"><a href="#3、人脸识别—对抗攻击" class="headerlink" title="3、人脸识别—对抗攻击"></a><strong>3、人脸识别—对抗攻击</strong></h3><p>对抗样本是结合攻击者的图像与被攻击 的图像通过算法计算生成的干扰图案，干扰图案可以使人脸识别系统误判两个面部特征不一致的人为同一个人。</p>
+<p>网上有一个例子，一家公司的研究成果，把车主的照片加入一些干扰图像之后，做成类似于这么一个形状的眼镜，攻击者戴上眼镜之后，就可以绕过手机上的一些人脸识别机制。在整个应用测试过程中，研究员验证了大概20部手机，当时除了iPhone以外，其他基本上所有安卓手机都可以被这种攻击手法所绕过。</p>
+<p>2D相对3D来说，其安全性会更弱一些。因为3D有深度信息，有面部的立体信息，有对人脸整体特征的计算，然后进行比对，准确度会更高。如果是单纯的2D，很有可能被一些照片欺骗，导致对抗攻击。</p>
+<h3 id="4、逻辑漏洞"><a href="#4、逻辑漏洞" class="headerlink" title="4、逻辑漏洞"></a><strong>4、逻辑漏洞</strong></h3><p>比如，特斯拉数字钥匙的逻辑漏洞案例。特斯拉汽车各使用 NFC 卡解锁后 130 秒内自动启动，而且还让汽车处于接受全新钥匙的状态（无需身份验证，车载显示屏提供零指示）。</p>
+<p>研究人员构建了自己的应用程序，名为 Teslakee，该应用程序使用VCSec，特斯拉官方应用程序用于与特斯拉汽车进行通信的语言相同。在特斯拉汽车使用NFC卡片解锁后的130秒内，通过 VCSec调蓝牙后向车辆添加NFC卡片，这样车辆在第二天停在这里的时候，车主在车辆旁边攻击者就可以拿着新添加的NFC卡片去解锁车辆，从而达到偷窃车辆的目的。</p>
+<p>智能手机里APP的数字钥匙有分享功能、添加车钥匙配对新车辆等功能，这些复杂功能背后也存在较多的逻辑问题。比如，车辆在分享车钥匙时，没有很好地控制分享钥匙的时效性，也没有很好地在分钥结束后把相关钥匙删除掉等，都是主机厂在做数字钥匙时，需要主动考虑的业务逻辑上的安全问题</p>
+<h3 id="5、物理攻击"><a href="#5、物理攻击" class="headerlink" title="5、物理攻击"></a><strong>5、物理攻击</strong></h3><p>上述都偏向于远程无线的攻击手法，下面再给大家介绍一下，如何通过物理的方式去攻击。比如说无钥匙启动场景。</p>
+<p>车钥匙有高频和低频两个信号发射器，按下解锁按钮时，车钥匙通过高频信号来远程解锁车辆，当车主拿着车钥匙进入到车辆内部以后，通过低频信号进行通讯，通过低频的方式判断车钥匙是否在车内，并判断是否是合法的车钥匙。</p>
+<p>当发现车钥匙是合法钥匙，接收器会发送类似于验证通过的指令给引擎启动ECU以启动车辆。如果指令每次都相同的，就可以通种物理攻击的方式，通过一些设备直接对引擎ECU发送启动指令，这样就可以绕过车钥匙校验，从而实现无钥匙启动车辆。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805153103823.png" alt="image-20240805153103823"></p>
+<p>接下来介绍几种数字钥匙分析工具，来分析各种数字钥匙的工作机制是否存在安全问题。</p>
+<p><strong>—— 数字钥匙分析工具</strong></p>
+<p><strong>Ubertooth&#x2F;Ellisys Vanguard：</strong>蓝牙通信分析工具。Ubertooth可以进行低功耗蓝牙相关的分析，进行通信申报调频的跟进，捕获相应的通信数据。Ellisys Vanguard可以对低功耗蓝牙及经典蓝牙的通信进行跟踪和分析。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805153118304.png" alt="image-20240805153118304"></p>
+<p><strong>Proxmar：</strong>NFC卡片分析工具。可以用来跟NFC卡片或车辆进行通信，使用NFC通信协议，可以去了解NFC卡片在验证过程中的应答机制，包括它所涉及到的指令以及发送哪些数据。如是一张包含历史漏洞的卡片，也可以使用这个工具进行破解。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805153127876.png" alt="image-20240805153127876"></p>
+<p><strong>HackRF&#x2F;USRP ：</strong>433Mhz通信分析工具 。可以被用来捕获数据，然后使用特定的软件对通信数据进行协调，把它反映成数字信息，去观察分析通讯过程中发送了什么数据、有没有使用规划技术、有没有使用相应的加密技术或者防护技术。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805153141052.png" alt="image-20240805153141052"></p>
+<p><strong>DWM1001-DEV ：</strong>UWB信号分析工具 。可以捕获UWB信号并还原成数字信息，进而分析UWB在与车辆交互中是否按照标准和规范对数据进行处理</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805153209992.png" alt="image-20240805153209992"></p>
+<p><strong>— — 要分析无线信号，首先要知道什么是调制，什么是解调。</strong></p>
+<p>调制就是用基带脉冲对载波波形某个参数进行控制，形成适合于线路传送的信号。解调就是当已调制信号到达接收端时，将经过调制器变换过的类比信号去掉载波恢复成原来的基带数位信号。射频通信常用的调制模式有三种，PSKASK和FSK。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805153325578.png" alt="image-20240805153325578"></p>
+<p><strong>— — 在分析数字钥匙的时候，如何通过专业的硬件和软件把它还原成二进制数据？</strong></p>
+<p>使用URH+SDR设备抓取无线信号，然对它进行解调，无线信号被解调后就会被还原成二进制数据，也可以还原成16进制等，就可以还原出通信当中它所发送的数字信息，这就是整个把无线信号转换成数字信号的过程。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805153356428.png" alt="image-20240805153356428"></p>
+<p>如果需要对还原出来的信号进行篡改，需要先把模拟信号给转换成数字信号，再对数据信号进行调整把它还原成无线信号发送出去。此时候就用到了调制技术，把二进制数据跟特定的载波，用特定的调制模式变成无线信号，最终再通过HackRF硬件设备把它发送出去，这样就可以在接收车钥匙信号后，对它进行篡改，再发送给车端。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805153429159.png" alt="image-20240805153429159"></p>
+<p><strong>下面介绍两种常见的无线信号分析工具。URH、GNURadio</strong>是两个比较常用的无线信分析软件。<strong>URH</strong>是一个用来分析无线私有协议的工具，通过把硬件设备接到电脑，再启动这个软件，就可以接收无线信号，并把无线信号转换成01等序列。还具有调制模式，有规律地去调整一些二进制数据，再把它发送出去。</p>
+<p><strong>GNURadio</strong>是一个强大的开源软件，是一个无线开发工具包，可提供多种信号处理模块，来实现软件无线电，通过它与<strong>HackRF</strong>等硬件设备联用，来模拟发射各种无线信号，可以广泛用来研究频道频率、各种类型的通信。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805153509092.png" alt="image-20240805153509092"></p>
+<h2 id="三、防御方案介绍"><a href="#三、防御方案介绍" class="headerlink" title="三、防御方案介绍"></a><strong>三、防御方案介绍</strong></h2><h3 id="1、防御重放攻击–Rolling-Code"><a href="#1、防御重放攻击–Rolling-Code" class="headerlink" title="1、防御重放攻击–Rolling Code"></a><strong>1、防御重放攻击–Rolling Code</strong></h3><p>传统的解锁指令，无论按多少次解锁指令，Pass code都是相同的，攻击者只用捕获其中一次通信就可解锁车辆。目前主流车厂都配有滚码技术，每次的Pass code是随机的，攻击者无法预测下一次应该发送什么解锁指令，车辆会认为是非法钥匙，就不会去开门，这样就达到了防御重放攻击的目的。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805153843570.png" alt="image-20240805153843570"></p>
+<p>滚码技术涉及两个比较重要的点，首先要有一个计算随机数的种子，第二车钥匙和车端要有一个相同的随机数生成算法。两者把相同的种子丢到随机树生的方法当中之后，车钥匙和车端通过相同算法，每次就会得出一个相同的随机数。因为外部人员不知道种子，也就不知道随机数产生的办法，所以就没有办法预测下一次的解锁指令。</p>
+<h3 id="2、防御中继攻击-–-UWB"><a href="#2、防御中继攻击-–-UWB" class="headerlink" title="2、防御中继攻击 – UWB"></a><strong>2、防御中继攻击 – UWB</strong></h3><p>基于IEEE802.15.4a&#x2F;f&#x2F;z标准的「超宽频」(Ultra-Wideband;UWB)技术是一种利用纳秒级窄脉冲进行资料传输的无线通讯技术。其优势如下图所示</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805154051029.png" alt="image-20240805154051029"></p>
+<p>UWB技术可以终止中继攻击。原因是 UWB 芯片总是测量车钥匙和汽车之间的直线距离(测量光速 TOF)，如果车钥匙不在车内，汽车的引擎就无法启动，非常有效地进行防御中继攻击。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805154059774.png" alt="image-20240805154059774"></p>
+<h3 id="3、BLE安全机制—跳频机制"><a href="#3、BLE安全机制—跳频机制" class="headerlink" title="3、BLE安全机制—跳频机制"></a><strong>3、BLE安全机制—跳频机制</strong></h3><p>BLE具有跳频机制，蓝牙信道有两种通信信道，广播信道和数据信道(advertisingchannelsand datachannels)。其中广播信道只使用37，38，39这三个通道。数据信道共包含37个信道。在进行数据通信的时候，会在37个通道中快速跳频，从比如说从8跳到10、从10跳到15，大概一分钟可以跳1000多次。</p>
+<p>所以对攻击者来说，如果想要捕获跳频数据，普通的设备是没有办法捕捉到。主机厂可通过采购专业的蓝牙设备，把37个信道都监听起来，然后计算出通讯过程中完整的通讯数据，在此基础之上对两种通信的数据进行分析，查看是否有加密等。</p>
+<p>BLE安全机制具有4个安全等级，如下图所示</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805155809240.png" alt="image-20240805155809240"></p>
+<h3 id="4、AUTOSAR-SecOC-–-车载通信协议安全"><a href="#4、AUTOSAR-SecOC-–-车载通信协议安全" class="headerlink" title="4、AUTOSAR SecOC –- 车载通信协议安全"></a><strong>4、AUTOSAR SecOC –- 车载通信协议安全</strong></h3><p>The Autosar concept Secure Onboard Communication(SecOC) 检查单个传输协议数据单元的真实性，以检测攻击，例如重放、欺骗和篡改。</p>
+<p><img src="/picture/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/image-20240805155833549.png" alt="image-20240805155833549"></p>
+<p><strong>SecOC</strong>提供了真实性的功能，它会在数据包当中添加 MAC值去校验完整性，如果尝试重放指令，因为计数器没有及时更新及没有完整性的MAC值做保护，所以就无法存放指令。因此，对于一些关键部位的通信，比如接收器与启动控制器与ECU之间的通信，要使用<strong>SecOC</strong>进行保护，防止出现物理攻击绕过数字钥匙的场景。</p>
+<p>车辆钥匙的数字化发展，为人们带来了更加便捷舒适的用车生活，但其带来的安全风险也不容忽视。主机厂、科技公司及政府机构，都在不断研究新的防御方法、制定相应的安全规范，去解决数字钥匙的安全问题。未来在大家的共同努力下，相信车辆数字钥匙面临的安全风险将逐步得到解决，为人们的智慧安全出行保驾护航。</p>
+<p>本文来源于“车辆数字钥匙安全与应用——2022智能汽车安全守护者云大会 (第六期)”</p>
+<p>演讲嘉宾：极氪车联网安全实验室 王仲宇</p>
+<p><a target="_blank" rel="noopener" href="https://aijishu.com/a/1060000000360757#item-3-4">原文来源</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://c0ke.top">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c0ke.top/2025/07/15/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/">http://c0ke.top/2025/07/15/%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://c0ke.top" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/07/15/%E8%BF%90%E5%8A%A8%E6%89%8B%E7%8E%AF-%E7%89%A9%E8%81%94%E7%BD%91%E4%BB%8B%E7%BB%8D/" title="运动手环-物联网介绍"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">运动手环-物联网介绍</div></div></a></div><div class="next-post pull-right"><a href="/2025/07/15/%E8%BD%A6%E8%81%94%E7%BD%91%E5%85%A5%E9%97%A8/" title="车联网入门"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">车联网入门</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BD%A6%E8%BE%86%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%92%8C%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">车辆数字钥匙常见攻击和防御方法介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E7%B1%BB%E5%9E%8B%E5%92%8C%E9%A3%8E%E9%99%A9%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">一、数字钥匙类型和风险点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%95%B0%E5%AD%97%E9%92%A5%E5%8C%99%E7%A7%8D%E7%B1%BB"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、数字钥匙种类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%B8%B8%E8%A7%81%E6%94%BB%E5%87%BB%E5%9C%BA%E6%99%AF%E5%92%8C%E6%89%8B%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">二、常见攻击场景和手法介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB"><span class="toc-number">1.2.1.</span> <span class="toc-text">1、重放攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E4%B8%AD%E7%BB%A7%E6%94%BB%E5%87%BB"><span class="toc-number">1.2.2.</span> <span class="toc-text">2、中继攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E2%80%94%E5%AF%B9%E6%8A%97%E6%94%BB%E5%87%BB"><span class="toc-number">1.2.3.</span> <span class="toc-text">3、人脸识别—对抗攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.2.4.</span> <span class="toc-text">4、逻辑漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E7%89%A9%E7%90%86%E6%94%BB%E5%87%BB"><span class="toc-number">1.2.5.</span> <span class="toc-text">5、物理攻击</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%98%B2%E5%BE%A1%E6%96%B9%E6%A1%88%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.3.</span> <span class="toc-text">三、防御方案介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E9%98%B2%E5%BE%A1%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB%E2%80%93Rolling-Code"><span class="toc-number">1.3.1.</span> <span class="toc-text">1、防御重放攻击–Rolling Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E9%98%B2%E5%BE%A1%E4%B8%AD%E7%BB%A7%E6%94%BB%E5%87%BB-%E2%80%93-UWB"><span class="toc-number">1.3.2.</span> <span class="toc-text">2、防御中继攻击 – UWB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81BLE%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6%E2%80%94%E8%B7%B3%E9%A2%91%E6%9C%BA%E5%88%B6"><span class="toc-number">1.3.3.</span> <span class="toc-text">3、BLE安全机制—跳频机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81AUTOSAR-SecOC-%E2%80%93-%E8%BD%A6%E8%BD%BD%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8"><span class="toc-number">1.3.4.</span> <span class="toc-text">4、AUTOSAR SecOC –- 车载通信协议安全</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tenda-FH1201多处命令注入漏洞分析和复现"/></a><div class="content"><a class="title" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现">Tenda-FH1201多处命令注入漏洞分析和复现</a><time datetime="2025-07-30T03:04:06.916Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GL-iNet 路由器 CVE-2024-39226 漏洞分析"/></a><div class="content"><a class="title" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析">GL-iNet 路由器 CVE-2024-39226 漏洞分析</a><time datetime="2025-07-30T03:04:06.914Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="启动路由器环境"/></a><div class="content"><a class="title" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境">启动路由器环境</a><time datetime="2025-07-30T03:04:06.907Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="修复路由器程序运行环境+远程调试"/></a><div class="content"><a class="title" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试">修复路由器程序运行环境+远程调试</a><time datetime="2025-07-30T03:04:06.906Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ikuai-3.7.10版本以下有授权的cmd执行复现"/></a><div class="content"><a class="title" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现">ikuai-3.7.10版本以下有授权的cmd执行复现</a><time datetime="2025-07-30T03:04:06.904Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
