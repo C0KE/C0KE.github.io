@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>TBOX全功能 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="title: TBOX全功能date: 2024-07-31 16:17:26tags:    - “车联网”    - “ECU”T-BOX的全称为Telematics Box ，远程&#x2F;车载通信模块，是一个集成车身网络和无线通讯功能的智能终端设备，T-BOX实现了多媒体车机与TSP以及互联网之间的无线路由器. 使得用户有机会远程访问。车辆所配备的各ECU，实现对车辆的启停发动机、开关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TBOX全功能">
+<meta property="og:url" content="http://c0ke.top/2026/03/20/TBOX%E5%85%A8%E5%8A%9F%E8%83%BD/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="title: TBOX全功能date: 2024-07-31 16:17:26tags:    - “车联网”    - “ECU”T-BOX的全称为Telematics Box ，远程&#x2F;车载通信模块，是一个集成车身网络和无线通讯功能的智能终端设备，T-BOX实现了多媒体车机与TSP以及互联网之间的无线路由器. 使得用户有机会远程访问。车辆所配备的各ECU，实现对车辆的启停发动机、开关">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png">
+<meta property="article:published_time" content="2026-03-20T07:05:59.053Z">
+<meta property="article:modified_time" content="2026-03-20T07:41:48.184Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://c0ke.top/2026/03/20/TBOX%E5%85%A8%E5%8A%9F%E8%83%BD/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'TBOX全功能',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-20 15:41:48'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">438</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">TBOX全功能</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-20T07:05:59.053Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-20T07:41:48.184Z" title="更新于 2026-03-20 15:41:48">2026-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%A6%E8%81%94%E7%BD%91/">车联网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="TBOX全功能"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><hr>
+<h2 id="title-TBOX全功能date-2024-07-31-16-17-26tags-“车联网”-“ECU”"><a href="#title-TBOX全功能date-2024-07-31-16-17-26tags-“车联网”-“ECU”" class="headerlink" title="title: TBOX全功能date: 2024-07-31 16:17:26tags:    - “车联网”    - “ECU”"></a>title: TBOX全功能<br>date: 2024-07-31 16:17:26<br>tags:<br>    - “车联网”<br>    - “ECU”</h2><p>T-BOX的全称为Telematics Box ，远程&#x2F;车载通信模块，是一个集成车身网络和无线通讯功能的智能终端设备，T-BOX实现了多媒体车机与TSP以及互联网之间的无线路由器. 使得用户有机会远程访问。车辆所配备的各ECU，实现对车辆的启停发动机、开关空调、开关天窗、开关后备箱门、开关车门、闪灯鸣笛等远程控制。并且TBOX设计有 MCU 来接收处理CAN消息,直接访问车辆所配备的各ECU。</p>
+<p>通常的T-Box控制器的结构图如下所示。<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/202407311613622.png" alt="image.png"></p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/202407311613640.png" alt="image.png"></p>
+<p>那T-Box有哪些功能呢？下面来详细说一说。</p>
+<h1 id="安全策略"><a href="#安全策略" class="headerlink" title="安全策略"></a>安全策略</h1><p>系统安全目标是通过符合TBox应用场景的身份权限管理和访问控制机制，正确地响应授权操作和处理异常行为，对抗针对系统的溢出攻击、暴力破解、中间人攻击、重放、篡改、伪造等多种安全威胁，保证系统文件和数据的可用性、保密性、完整性和可审计性，保证对各类资源的正常访问，以及保证系统在恶意攻击下仍然能够按照预期正常运行。</p>
+<p>首先是安全启动，MCU支持Secure Boot，该模式启动后，MCU采用硬件算法确保启动后的ROM中所保存的程序是用户所期望的，其策略包括在做MCU升级包的时候，会生成Boot Key，升级时将其存放到HSM区域，MCU升级完成后设置Secure Boot模式生效，启动时计算的Boot Key与HSM中保存的Boot Key比对。</p>
+<p>其次是应用软件安全，应用安全目标是要保证TBox上的运行的服务或应用程序具备相应的保密性、完整性的防护措施，可以对抗逆向分析、反编译、篡改、非授权访问等各种针对应用的安全威胁，并确保应用产生、使用的数据得到安全的处理以及TBox的应用或服务与相关服务器之间通信的安全性，保证应用在提供服务时，以及应用在启动、升级、运行等各个模式下的安全性。</p>
+<p>然后是数据存储安全，数据安全目标是要保证TBox所采集、存储、处理、传输的数据的安全性，确保数据的机密性、完整性和可用性得到有效的防护，同时具有清除机制，保护数据生命周期各环节的安全性，具体要求如下：</p>
+<ol>
+<li><p>使用SELinux的权限控制保证数据只能被授权应用访问；</p>
+</li>
+<li><p>利用Openssl和TrustZone提供的加密接口对数据进行加密或签名，保证完整性；</p>
+</li>
+<li><p>利用TrustZone提供的接口对机密数据(Private key ,password…)进行存储；</p>
+</li>
+<li><p>MCU侧使用HSM对机密数据进行存储和加密。</p>
+</li>
+</ol>
+<p>再次是通信安全，对内通信是指各个ECU之间的通信。其安全目标是根据应用场景在不同ECU通信和数据交换时，保证ECU不向电子电气系统发送伪造、重放等攻击方式的指令和数据，不非法占用内部总线资源，保证车内子系统和数据的保密性、完整性，以及在收到非法指令和数据时具有异常处理机制，保证ECU的功能正常，具体要求如下：TBox对以太网连接提供防火墙机制，实现对报文的安全过滤；TBox对CANFD连接提供白名单机制，实现对CANFD信号的安全过滤。</p>
+<p>对外的话通信安全包括TBox与蜂窝网络的通信，与移动终端间的短距离通信（如：BT等），以及与其它车辆和路侧设施等的通信。对外通信安全的目标是根据应用场景在TBox与外部网络或设备建立通信连接时或在通信以及数据交换时，采取必要的认证、加密和完整性校验手段，对抗嗅探、中间人攻击、重放等多种针对通信的安全威胁，保证数据的保密性、完整性以及通信的质量，具体要求如下：1.    TBox对移动网络连接提供防火墙机制，实现对报文的安全过滤；2.    PU与OTA Server，TSP Server之间数据通信前实施基TLS1.2的双向认证。</p>
+<h1 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h1><p><strong>1. 远程控制车窗</strong></p>
+<p>用户通过手机APP远程控制车窗，TBox接收到远程控制车窗的命令后，如果整车总线处于休眠状态，则先唤醒整车网络，否则直接同时发送鉴权认证和控制车窗控制指令，并将执行结果以及失败原因反馈到TSP。</p>
+<p>该功能进入的前提条件为车辆速度≤2km&#x2F;h且车辆挡位处于P挡位。在该条件下，当T-box状态机为running或者listen，收到唤醒指令且收到远程控制车窗指令，则T-box会将车窗控制指令发送给车身控制器，车身控制器则执行车窗控制指令。</p>
+<p>整体的流程图如下所示。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/202407311613152.webp" alt="图片"></p>
+<p>▲图 远程车窗控制流</p>
+<p><strong>2. 远程控制门锁</strong></p>
+<p>用户通过手机APP远程控制车门锁，TBox接收到远程控制门锁的命令后，如果整车总线处于休眠状态，则先唤醒整车网络，否则直接同时发送鉴权认证和上锁&#x2F;解锁控制指令，并将执行结果以及失败原因反馈到TSP。</p>
+<p>该功能进入的前提条件为车辆速度≤2km&#x2F;h且车辆挡位处于P挡位。在该条件下，当T-box状态机为running或者listen，收到唤醒指令且收到远程控制门锁指令，则T-box会将车窗控制指令发送给车身控制器，车身控制器则执行门锁控制指令。</p>
+<p>整体的流程图如下所示。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/202407311613147.webp" alt="图片"></p>
+<p>▲图 远程门锁控制流</p>
+<p>除了车窗和门锁控制，还有其他类似的远程控制功能，比如远程充电控制、远程车门控制、远程寻车、远程空调控制、远程控制净化器、远程座椅加热控制等等。</p>
+<h1 id="远程车辆监控"><a href="#远程车辆监控" class="headerlink" title="远程车辆监控"></a>远程车辆监控</h1><p><strong>1.车辆状态上报</strong><br>当车辆被非法入侵BDCM发出非法入侵报警后，TBox采集车身状态信息和报警标志上传到TSP，TSP同步给APP报警信息，并通知车主。</p>
+<p>当车辆被异常移动，如碰撞、拖车、溜车等，触发TBox的G-sensor阈值，TBox将车身数据和报警标志上传给TSP，TSP将报警信息同步给APP并通知客户。</p>
+<p>该功能触发的前提条件为车辆处于锁车状态；车辆挡位为P挡； 触发G-sensor阈值唤醒T-Box；GNSS位置相较于listen&#x2F;sleep前位置移动≥600m。</p>
+<p>功能的流程图如下所示。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/202407311613140.webp" alt="图片"></p>
+<pre><code>                              ▲图 车辆状态上报流
+</code></pre>
+<p><strong>2 车辆信息周期上报</strong></p>
+<p>TBox采集车辆状态、位置等相关信息，周期性的上报到TSP。该功能在整车上高压正常，且T-box处于功能正常状态。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/202407311613150.webp" alt="图片"></p>
+<pre><code>                            ▲图 车辆信息周期上报流
+</code></pre>
+<p><strong>3 紧急求救功能eCall</strong></p>
+<p>eCall有两种发起的方式，一种是主动发起的方式，这种方式是由车上的人员主动触发车上的eCall按钮发起的；另外一种方式是被动发起。由于交通事故碰撞等原因导致车上的安全气囊弹出，TBox收到报文后，自动拨打eCall电话。</p>
+<p>车辆被碰撞之后或者手动按下SOS按键时，TBox采集车辆位置信息和车辆信息上传至TSP，而后自动拨打救援中心电话建立通话，并把通话过程显示在CID。</p>
+<p>功能的执行流程如下所示。</p>
+<p>a. eCall系统会在汽车启动后启动，并完成所有初始化；</p>
+<p>b. 手动或被动触发eCall后，LTE中的modem上的所有其他通讯暂停，并且Mic和Spk都将切换到eCall服务，将其他音源mute；</p>
+<p>c. 车上的eCall系统基本同时和急救系统建立数据与语音通讯链路；</p>
+<p>d. 当急救中心后台收到eCall请求， eCall系统会首先上传MSD数据；</p>
+<p>e. 当MSD数据从传输成功后，接通车辆与急救中心的语音链接，车上人员与急救中心后台人员通话；</p>
+<p>f. 急救中心后台自动解析MSD数据，并根据MSD数据内容及时调度最近的救援；</p>
+<p>g. 当急救中心后台发现数据有误时，可重复请求MSD数据直到数据正确为止；</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/202407311613036.webp" alt="图片"></p>
+<pre><code>                                ▲图 紧急呼叫流
+</code></pre>
+<h1 id="OTA功能"><a href="#OTA功能" class="headerlink" title="OTA功能"></a>OTA功能</h1><p>Tbox支持软件在线升级功能，负责自己和域内其它ETH节点的升级。在Tbox软件中会部署第三方提供的升级管理模块，负责升级包下载、备份、还原、升级状态管控、从节点升级包传输，同时还部署程序安装模块，负责Tbox自身固件和软件的刷写。</p>
+<p>OTA升级方式主要有以下三种：</p>
+<p><strong>主动升级</strong>：由车主在HU大屏上点击设置，进入版本查询与升级，主动发起版本查询、下载、升级事宜，并且相应步骤都应给用户充分都提示和确认，多用于用户在取消推送升级后进行手动发起OTA升级。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/202407311613033.webp" alt="图片"></p>
+<p><strong>推送升级</strong>：由OTA升级服务器后台推送版本升级，车主在HU大屏货手机APP上上点击确认，下载、升级由后台OTA升级程序自动完成，过程中给用户一次性授权提示和操作，多用于重大功能更新迭代，提高OTA升级覆盖率。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/202407311613091.webp" alt="图片"></p>
+<p><strong>静默升级</strong>：主要用来强制性修复重大bug，上电满足版本查询和下载条件后Tbox就运行OTA功能，进行查询和下载，下载完成后等待升级条件满足，条件满足后进行强制性升级，升级时间段多选择在半夜12点后。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/202407311613181.webp" alt="图片"></p>
+<p>OTA都升级软件包有以下两种：</p>
+<p>差分升级包：差分升级包是指在当前版本之上有新版本可升级，且版本跨度不大，更改内容比较小，制作差分升级包来供设备升级，从而达到节省升级时间、提高升级效率、节约流量、内存占用小的目的。</p>
+<p>全量升级包：全量升级包则是一个完整的升级包，适用于版本跨度大，更改内容较多，升级重要内容的版本，优点是安全、稳定，缺点是软件包大，下载时间长，升级时长。</p>
+<p>其中主动升级的流程为例，其流程如下。</p>
+<p>查询、下载</p>
+<ol>
+<li><p>车主点击中控大屏中的设置选项，进入查询版本功能；</p>
+</li>
+<li><p>T-box收到IDCM发出都版本查询指令，搜集车辆ECU都版本信息；</p>
+</li>
+<li><p>T-box将搜集到都ECU版本信息上报给OTA升级服务器；</p>
+</li>
+<li><p>OTA升级服务器收到版本信息后，进行版本比对，如有新版本则发送版本信息和下载地址到T-box，否则回复无新版本可更新；</p>
+</li>
+<li><p>T-box判断上次软件下载是否完成，如果完成则等待授权条件满足后，Tbox发送升级授权请求到授权模块，否则继续上次未完成的下载流程（授权条件：车速低于10km&#x2F;h）；</p>
+</li>
+<li><p>授权模块发送授权结果给T-box，T-box将授权结果上传到OTA升级服务器；</p>
+</li>
+<li><p>T-box通过OTA升级服务器下发的地址下载升级包；</p>
+</li>
+<li><p>T-box上报下载升级包结果（如果下载失败，本次升级结束）；</p>
+</li>
+<li><p>T-box校验升级包的合法性以及完整性；</p>
+</li>
+<li><p>T-box上报并在相关显示模块上显示升级包的合法校验结果（如果校验失败，则本次升级结束）；</p>
+</li>
+</ol>
+<p>升级</p>
+<ol>
+<li><p>用户在中控大屏上点击开始升级；</p>
+</li>
+<li><p>Tbox收到指令后开始执行升级任务；</p>
+</li>
+<li><p>Tbox升级结束，T-box将升级结果发送给IDCM，并重启；</p>
+</li>
+<li><p>Tbox上报升级结果到OTA升级服务器；</p>
+</li>
+<li><p>OTA升级服务器同步升级结果到手机APP。</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://c0ke.top">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c0ke.top/2026/03/20/TBOX%E5%85%A8%E5%8A%9F%E8%83%BD/">http://c0ke.top/2026/03/20/TBOX%E5%85%A8%E5%8A%9F%E8%83%BD/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://c0ke.top" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2026/03/20/UDS-10%E6%9C%8D%E5%8A%A1/" title="UDS-10服务"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">UDS-10服务</div></div></a></div><div class="next-post pull-right"><a href="/2026/03/20/TLS/" title="TLS"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">TLS</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">438</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-TBOX%E5%85%A8%E5%8A%9F%E8%83%BDdate-2024-07-31-16-17-26tags-%E2%80%9C%E8%BD%A6%E8%81%94%E7%BD%91%E2%80%9D-%E2%80%9CECU%E2%80%9D"><span class="toc-number">1.</span> <span class="toc-text">title: TBOX全功能date: 2024-07-31 16:17:26tags:    - “车联网”    - “ECU”</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5"><span class="toc-number"></span> <span class="toc-text">安全策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="toc-number"></span> <span class="toc-text">远程控制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E8%BD%A6%E8%BE%86%E7%9B%91%E6%8E%A7"><span class="toc-number"></span> <span class="toc-text">远程车辆监控</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OTA%E5%8A%9F%E8%83%BD"><span class="toc-number"></span> <span class="toc-text">OTA功能</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E6%8A%80%E6%9C%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="如何成为技术负责人"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何成为技术负责人"/></a><div class="content"><a class="title" href="/2026/03/20/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E6%8A%80%E6%9C%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="如何成为技术负责人">如何成为技术负责人</a><time datetime="2026-03-20T07:05:59.066Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于模板的安卓进程间通信Fuzzing"/></a><div class="content"><a class="title" href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing">基于模板的安卓进程间通信Fuzzing</a><time datetime="2026-03-20T07:05:59.057Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UDS诊断和通信管理"/></a><div class="content"><a class="title" href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理">UDS诊断和通信管理</a><time datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用RTL-SDR打开车门"/></a><div class="content"><a class="title" href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门">使用RTL-SDR打开车门</a><time datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UDS时间参数总结"/></a><div class="content"><a class="title" href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结">UDS时间参数总结</a><time datetime="2026-03-20T07:05:59.055Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

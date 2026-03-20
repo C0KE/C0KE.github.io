@@ -53,7 +53,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2025-09-09 16:31:01'
+  postUpdate: '2026-03-20 15:41:55'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -171,219 +171,116 @@
     document.addEventListener('pjax:send', () => { preloader.initLoading() })
     document.addEventListener('pjax:complete', () => { preloader.endLoading() })
   }
-})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/%E9%B2%B8%E8%90%BD.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Daily Study</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/15/IO_FILE%E8%B0%83%E8%AF%95/" title="IO_FILE调试"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO_FILE调试"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/15/IO_FILE%E8%B0%83%E8%AF%95/" title="IO_FILE调试">IO_FILE调试</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-15T08:06:26.224Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/House-of/">House of</a></span></div><div class="content">IO_FILE做题流程前言在调试IO_FILE类型的题的时候总结的知识点
-关于IO_FILE的libc更换在调试IO类型的题的时候，在之前我们需要换libc，因为一般题目给的libc都是没有符号表的，于是我们寻找一个与之对应的有符号表的libc即可，最好是一样的
-![image-20231208151227955](C:\Users\Lenovo\Desktop\学习日志\笔记\CTF笔记\PWN笔记\堆学习\House of\picutre\image-20231208151227955.png)
-没有一模一样的带符号的libc的，相同版本号的也可以
-IO_FILE结构体查看有时候我们在分析IO的时候有对应的结构体可以看是最好的，这样我们就能明确知道我们改了哪些数据，这也是我们为什么要换libc的原因
-自带的符号表变量如果是libc里面本身就有的符号,下面的命令可以直接打印出结构
-1p [*_IO_list_all]
-
-可以看到输出结果如下
-![image-20231208151953793](C:\Users\Lenovo\Desktop\学习日志\笔记\CTF笔记\PWN笔记\堆 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/15/IO_FILE%E5%81%9A%E9%A2%98%E6%80%BB%E7%BB%93_W/" title="IO_FILE做题总结_W"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO_FILE做题总结_W"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/15/IO_FILE%E5%81%9A%E9%A2%98%E6%80%BB%E7%BB%93_W/" title="IO_FILE做题总结_W">IO_FILE做题总结_W</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-15T08:06:26.223Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/IO-FILE/">_IO_FILE</a></span></div><div class="content">IO_FILE做题总结前言在调试IO_FILE类型的题的时候总结的知识点
-关于IO_FILE的libc更换在调试IO类型的题的时候，在之前我们需要换libc，因为一般题目给的libc都是没有符号表的，于是我们寻找一个与之对应的有符号表的libc即可，最好是一样的
-
-没有一模一样的带符号的libc的，相同版本号的也可以
-IO_FILE结构体查看有时候我们在分析IO的时候有对应的结构体可以看是最好的，这样我们就能明确知道我们改了哪些数据，这也是我们为什么要换libc的原因
-自带的符号表变量如果是libc里面本身就有的符号,下面的命令可以直接打印出结构
-1p [*_IO_list_all]
-
-可以看到输出结果如下
-
-根据不同的结构体的属性，前面添加* ，&amp;， 不加，有不同的效果
-
-
-修改后的不会自动识别的地址有时候我们需要将IO_FILE的结构体或者JUMP表的结构体的地址更改，但是这种时候直接打印地址是不会自动转换为结构体的
-于是我们就需要自己去加
-例如我要查看我伪造的IO_FILE结构体对不对,用下面这个命令去定义即可
-1p *(struct _IO_FILE_plus *)   ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/15/IO_FILE%E5%81%9A%E9%A2%98%E6%80%BB%E7%BB%93/" title="IO_FILE做题总结"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO_FILE做题总结"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/15/IO_FILE%E5%81%9A%E9%A2%98%E6%80%BB%E7%BB%93/" title="IO_FILE做题总结">IO_FILE做题总结</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-15T08:06:26.222Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/IO-FILE/">_IO_FILE</a></span></div><div class="content">IO_FILE做题总结前言在调试IO_FILE类型的题的时候总结的知识点
-关于IO_FILE的libc更换在调试IO类型的题的时候，在之前我们需要换libc，因为一般题目给的libc都是没有符号表的，于是我们寻找一个与之对应的有符号表的libc即可，最好是一样的
-
-没有一模一样的带符号的libc的，相同版本号的也可以
-IO_FILE结构体查看有时候我们在分析IO的时候有对应的结构体可以看是最好的，这样我们就能明确知道我们改了哪些数据，这也是我们为什么要换libc的原因
-自带的符号表变量如果是libc里面本身就有的符号,下面的命令可以直接打印出结构
-1p [*_IO_list_all]
-
-可以看到输出结果如下
-
-根据不同的结构体的属性，前面添加* ，&amp;， 不加，有不同的效果
-
-
-修改后的不会自动识别的地址有时候我们需要将IO_FILE的结构体或者JUMP表的结构体的地址更改，但是这种时候直接打印地址是不会自动转换为结构体的
-于是我们就需要自己去加
-例如我要查看我伪造的IO_FILE结构体对不对,用下面这个命令去定义即可
-1p *(struct _IO_FILE_plus *)   ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/15/IO_FILE%20%E7%BB%93%E6%9E%84/" title="IO_FILE 结构"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO_FILE 结构"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/15/IO_FILE%20%E7%BB%93%E6%9E%84/" title="IO_FILE 结构">IO_FILE 结构</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-15T08:06:26.221Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/IO-FILE/">_IO_FILE</a></span></div><div class="content">IO_FILE 结构FILE 介绍FILE 在 Linux 系统的标准 IO 库中是用于描述文件的结构，称为文件流。 FILE 结构在程序执行 fopen 等函数时会进行创建，并分配在堆中。我们常定义一个指向 FILE 结构的指针来接收这个返回值。
-FILE 结构定义在 libio.h 中，如下所示
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566struct _IO_FILE &#123;  int _flags;       /* High-order word is _IO_MAGIC; rest is flags. */#define _IO_file_flags _flags  /* The following pointers correspond to the C++ streambuf protocol. */  /* Note:  Tk uses the _IO_read_ ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/15/IC%E5%8D%A1%E7%A0%B4%E8%A7%A3%E5%92%8C%E5%A4%8D%E5%88%B6/" title="IC卡破解和复制"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IC卡破解和复制"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/15/IC%E5%8D%A1%E7%A0%B4%E8%A7%A3%E5%92%8C%E5%A4%8D%E5%88%B6/" title="IC卡破解和复制">IC卡破解和复制</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-15T08:06:26.220Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7/">其他工具</a></span></div><div class="content">IC卡破解和复制实验前言对IC卡感兴趣就研究了点，用于搞点好玩意，比如水卡破解什么的，这玩意自己搞来玩玩就行了。
-工具
-ACR122
-用于读取和破解IC信息的，IC本身是有一定加密的。
-
-IC可复制白卡
-和名字一样，复制卡的载体
-
-
-实验步骤读取IC卡
-卡片放上去，然后运行一下M1卡服务程序就行，对应的程序我会放到后面的
-
-
-
-它会生成下面的文件
-
-
-
-这个文件可以转换为TXT文件来方便我们读取
-
-
-
-打开文件分析对应的IC信息，这个IC是学校的水卡里面有49.80元
-
-
-经过分析第八扇区和第九扇区是对应的金额，我们学校的水卡有点特殊，分为大钱包和小钱包，实验出来第八扇区是大钱包，第九扇区是小钱包，并且具有校验码，我还没有分析出来校验码的规律是什么，最近事情较多，后面再来搞了。
-
-
-
-
-复制IC卡由于没有分析成功校验码，于是我们直接找一张其他白卡写入这个数据，也能实现再生一张卡
-
-用IC克隆工具来克隆，先初始化，然后连接，最后导入对应的dunp文件，点击复制卡就行了
-
-
-我们就能得到一张新的49.8的水卡了
-
-
-</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/15/ICS_CTF%E7%AB%9E%E8%B5%9B/" title="ICS_CTF竞赛"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ICS_CTF竞赛"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/15/ICS_CTF%E7%AB%9E%E8%B5%9B/" title="ICS_CTF竞赛">ICS_CTF竞赛</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-15T08:06:26.219Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%A5%E6%8E%A7/">工控</a></span></div><div class="content">ICS_CTF竞赛国内工控比赛考察点采用 CTF 分类模型，总结分析当前工控 ICS 比赛中的关键点
-
-
-
-比赛类型
-考察点
-与 CTF 异同
-
-
-
-内网渗透
-Web 端渗透测试、CMS 系统、工控发布展示系统、数据库系统
-与 Web 渗透相关
-
-
-逆向分析
-固件分析、工控软件逆向
-实际场景逆向
-
-
-工控协议
-工控流量分析、Misc 类
-Misc 流量分析，工控场景流量特征
-
-
-工控编程
-PLC 编程、HMI 组态、RTU 编程等
-工控实际组态软件使用，梯形图识别与分析
-
-
-根据漏洞类型其实还可以区分细化题目类型，包括常见的 Web 注入类、固件弱口令、后门程序、协议重放与逻辑问题、组态部署问题等常见的工控场景安全问题。
-
-
-
-比赛类型
-漏洞类型
-
-
-
-内网渗透
-Web 类（SQL、XSS、命令注入、敏感文件泄露 .git/.idea/.project 等、）
-
-
-逆向分析
-固件分析、工控软件逆向
-
-
-工控协议
-工控流量分析、Misc 类
-
-
-工控编程
-PLC 编程、HMI 组态
-
-
-针对目前出现或曾经出现的 ICS CTF 题目类型，其实与 CTF 竞赛有许多重合点，因此不再此赘述， ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/15/ICS_CTF%20%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%20%C2%B6/" title="ICS_CTF 学习资源 ¶"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ICS_CTF 学习资源 ¶"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/15/ICS_CTF%20%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%20%C2%B6/" title="ICS_CTF 学习资源 ¶">ICS_CTF 学习资源 ¶</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-15T08:06:26.217Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%A5%E6%8E%A7/">工控</a></span></div><div class="content">ICS_CTF 学习资源
-EscortLab 收集整理了一系列相关关 IoT 资料，供大家学习
-
-IoT 产业资讯 https://www.iotdunia.com/iotdunia
-利用框架
-isf 利用框架 https://github.com/dark-lbp/isf
-isf 利用框架 https://github.com/w3h/isf
-
-整理 ICS 资源
-icsmaster https://github.com/w3h/icsmaster
-rapidscada https://github.com/RapidScada/scada
-
-弱口令集合
-工控弱口令 https://github.com/scadastrangelove/SCADAPASS
-TOP1 万内系列弱口令 https://github.com/danielmiessler/SecLists/tree/master/Passwords
-
-蜜罐 honeypot
-Conpot https://github.com/mushorg/conpot
-
-利用小工具
-PLC 扫描发现工具 PLCscan https:// ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/15/ICS_CTF%20%E5%8F%91%E7%8E%B0/" title="ICS_CTF 发现"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ICS_CTF 发现"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/15/ICS_CTF%20%E5%8F%91%E7%8E%B0/" title="ICS_CTF 发现">ICS_CTF 发现</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-15T08:06:26.216Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%A5%E6%8E%A7/">工控</a></span></div><div class="content">ICS_CTF 发现工控设备发现工控设备发现是工控比赛的前提，目前针对工控设备扫描中，在 Nmap、Metasploit、Censes 集成了大量的工具，用于挖掘当前在线 PLC、DCS 等 ICS 设备。
-工控扫描脚本基于工控端口的信息扫描脚本在大量 IP 中如何发现工控设备, 除了工控特殊端口意外，大量端口都是正常服务，例如 ftp、ssh、telnet、smtp、ntp 等正常网络服务。下面列表列举了当前可以利用开源工控扫描脚本。
-
-
-
-端口
-协议 &#x2F; 设备
-来源
-
-
-
-102(TCP)
-siemens s7
-nmap –script s7-info.nse -p 102 [host] nmap -sP –script s71200-enumerate-old.nse -p 102 [host]
-
-
-502(TCP)
-modbus
-nmap –script modicon-info -p 502 [host]
-
-
-2404(TCP)
-IEC 60870-5-104
-nmap -Pn -n -d –script iec-identify.nse –script-args& ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/15/ICS_CTF%20%E5%88%A9%E7%94%A8%20/" title="ICS_CTF 利用"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ICS_CTF 利用"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/15/ICS_CTF%20%E5%88%A9%E7%94%A8%20/" title="ICS_CTF 利用">ICS_CTF 利用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-15T08:06:26.215Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%A5%E6%8E%A7/">工控</a></span></div><div class="content">ICS_CTF 利用Exploit 是针对某种漏洞提供的多种利用方法，针对某一种漏洞可以有很多利用方法。 针对工控领域，其实目前多见的利用方式：组态利用、通信劫持、Web 渗透。
-组态利用组态是工控场景的核心，是工控编程与实现功能的核心内容，如果你不太懂组态，请自行学习自动化领域工业控制系统组态的相关书籍。 最好的学习方式是拿到相关的产品说明书，针对说明书上的内容一点一点学习。
-组态的利用方法：
-
-强制 IO(最管用的一种调试方法)
-工程加密与解密（工程加密是 PLC 一种保护措施，但仍存在被破解的可能）
-上载下载（基础概念请自行恶补）
-PLC 等目标设备的内存分布（基础概念请自行恶补）
-其他附加功能（例如 ftp、ntp 等）
-
-通信劫持通信劫持是工控场景中最经典利用方式，例如 ARP 劫持、PLC&#x2F;HMI 通信劫持、PLC 会话劫持、PLC 命令执行等内容。 通信劫持的方法：
-
-ARP 劫持，ARP 劫持可以阻断 PLC 与其他设备的通信，鉴于工程会存在写死 IP 等交互地址，未必管用，但是值得一试
-PLC&#x2F;HMI 通信劫持，采用旁路设备接入或控制 PLC 设备 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/15/House%20Of%20%E7%B3%BB%E5%88%97%E7%AE%80%E4%BB%8B/" title="House Of 系列简介"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="House Of 系列简介"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/15/House%20Of%20%E7%B3%BB%E5%88%97%E7%AE%80%E4%BB%8B/" title="House Of 系列简介">House Of 系列简介</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-15T08:06:26.214Z" title="发表于 2025-07-15 16:06:26">2025-07-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/House-of/">House of</a></span></div><div class="content">House Of 系列简介House Of SpiritHouse Of Spirit 是一种 fastbin attack ，通过利用 free 函数来释放一个 fake chunk，将地址 free 到堆的 bin 链中，然后实现对栈地址的读写实现WAA
-保护检查
-
-fake chunk 的 ISMMAP 位不能为 1，因为 free 时，如果是 mmap 的 chunk，会单独处理
-fake chunk 地址需要对齐， MALLOC_ALIGN_MASK
-fake chunk 的 size 大小需要满足对应的 fastbin 的需求，同时也得对齐
-fake chunk 的 next chunk 的大小不能小于 2 * SIZE_SZ，同时也不能大于av-&gt;system_mem
-fake chunk 对应的 fastbin 链表头部不能是该 fake chunk，即不能构成 double free 的情况
-
-主要是：当前chunk的size（chunk-&gt;size），和下一个chunk的size（nextchunk-&gt;size）
-利用条件
-
-可以控制 free 的 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/32/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/#content-inner">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/#content-inner">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/#content-inner">41</a><a class="extend next" rel="next" href="/page/34/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">404</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">60</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tenda-FH1201多处命令注入漏洞分析和复现"/></a><div class="content"><a class="title" href="/2025/07/30/Tenda-FH1201%E5%A4%9A%E5%A4%84%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E5%92%8C%E5%A4%8D%E7%8E%B0/" title="Tenda-FH1201多处命令注入漏洞分析和复现">Tenda-FH1201多处命令注入漏洞分析和复现</a><time datetime="2025-07-30T03:04:06.916Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GL-iNet 路由器 CVE-2024-39226 漏洞分析"/></a><div class="content"><a class="title" href="/2025/07/30/GL-iNet%20%E8%B7%AF%E7%94%B1%E5%99%A8%20CVE-2024-39226%20%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" title="GL-iNet 路由器 CVE-2024-39226 漏洞分析">GL-iNet 路由器 CVE-2024-39226 漏洞分析</a><time datetime="2025-07-30T03:04:06.914Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="启动路由器环境"/></a><div class="content"><a class="title" href="/2025/07/30/%E5%90%AF%E5%8A%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E7%8E%AF%E5%A2%83/" title="启动路由器环境">启动路由器环境</a><time datetime="2025-07-30T03:04:06.907Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="修复路由器程序运行环境+远程调试"/></a><div class="content"><a class="title" href="/2025/07/30/%E4%BF%AE%E5%A4%8D%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83+%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="修复路由器程序运行环境+远程调试">修复路由器程序运行环境+远程调试</a><time datetime="2025-07-30T03:04:06.906Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ikuai-3.7.10版本以下有授权的cmd执行复现"/></a><div class="content"><a class="title" href="/2025/07/30/ikuai-3.7.10%E7%89%88%E6%9C%AC%E4%BB%A5%E4%B8%8B%E6%9C%89%E6%8E%88%E6%9D%83%E7%9A%84cmd%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/" title="ikuai-3.7.10版本以下有授权的cmd执行复现">ikuai-3.7.10版本以下有授权的cmd执行复现</a><time datetime="2025-07-30T03:04:06.904Z" title="发表于 2025-07-30 11:04:06">2025-07-30</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">438</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/%E9%B2%B8%E8%90%BD.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Daily Study</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2026/03/20/M1%E6%B0%B4%E5%8D%A1%E7%A0%B4%E8%A7%A3%E6%95%99%E7%A8%8B/" title="M1水卡破解教程"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="M1水卡破解教程"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/20/M1%E6%B0%B4%E5%8D%A1%E7%A0%B4%E8%A7%A3%E6%95%99%E7%A8%8B/" title="M1水卡破解教程">M1水卡破解教程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-20T06:57:34.688Z" title="发表于 2026-03-20 14:57:34">2026-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/RFID/">RFID</a></span></div><div class="content">M1水卡破解教程前置知识1、如果一个读卡器周围有多张卡，读卡器的电磁场激活卡片后，卡片会把自己的 UID 回复给读卡器，读卡器根据 UID 选择卡片，然后读卡器与卡片进行认证，通过之后才进行正常的数据传输，避免信息的混肴和丢失
+2、ISO&#x2F;IEC 14443-3 是一项国际标准，主要涉及近场通讯（NFC）和射频识别（RFID）技术中用于接触式集成电路卡（IC卡）和读卡器之间通信的协议标准，在 14443-3 中读卡器（近距离耦合设备）简写为 PCD，卡片（近距离集成电路卡片）简写为 PICC
+M1卡这里的M1卡指的是A卡，也就是ISO&#x2F;IEC 14443 Type A卡，本来是在学习这篇关于M1的AES认证机制的时候突然想到以前搞的ACR克隆M1卡的实验，但是那个比较基础，于是我就花了一些时间去研究了一下关于M1的的水卡的校验原理，发现还算比较简单的
+实验先贴上我的实验数据
+12345678910119 扇区0区块:0021470100000000000031383230396D1区块:E40300000000000000000000140000FB2区块:E403 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/03/20/ls%20libc.so.6%20version%20%60GLIBC_2.28'%20not%20found%20(required%20by%20ls)--linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%AD%E6%9C%89libc.so.6%E6%96%87%E4%BB%B6/" title="ls libc.so.6 version `GLIBC_2.28' not found (required by ls)--linux系统下文件夹中有libc.so.6文件"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ls libc.so.6 version `GLIBC_2.28' not found (required by ls)--linux系统下文件夹中有libc.so.6文件"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/20/ls%20libc.so.6%20version%20%60GLIBC_2.28'%20not%20found%20(required%20by%20ls)--linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%AD%E6%9C%89libc.so.6%E6%96%87%E4%BB%B6/" title="ls libc.so.6 version `GLIBC_2.28' not found (required by ls)--linux系统下文件夹中有libc.so.6文件">ls libc.so.6 version `GLIBC_2.28' not found (required by ls)--linux系统下文件夹中有libc.so.6文件</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-20T06:57:34.686Z" title="发表于 2026-03-20 14:57:34">2026-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99%E7%9A%84%E8%A7%A3%E5%86%B3/">各种报错的解决</a></span></div><div class="content">ls: libc.so.6: version &#96;GLIBC_2.28’ not found (required by ls)–linux系统下文件夹中有libc.so.6文件ls出现报错因为当前文件夹下面存在libc.so.6文件，并且版本低于当前系统libc的版本，因为LD_LIBRARY_PATH设置有问题。                                                                                                                        
+
+libc调用顺序
+缓存搜索：系统首先会查找之前运行过的程序的缓存，如果之前已经加载了libc库，那么会直接使用缓存中的libc库。
+程序指定的动态链接库搜索路径：程序可以通过调用ldconfig或者设置LD_LIBRARY_PATH环境变量来指定动态链接库搜索路径，这些路径会被系统搜索。
+系统默认搜索路径：如果以上步骤都没有找到libc库，那么系统会按照默认的搜索路径进行搜索，这些路径通常包括&#x2F;lib、&#x2F;usr ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/03/20/Linux%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA(IO)-%E9%94%99%E8%AF%AF%E6%B5%81and%20setvbuf/" title="Linux输入-输出(IO)-错误流and setvbuf"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux输入-输出(IO)-错误流and setvbuf"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/20/Linux%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA(IO)-%E9%94%99%E8%AF%AF%E6%B5%81and%20setvbuf/" title="Linux输入-输出(IO)-错误流and setvbuf">Linux输入-输出(IO)-错误流and setvbuf</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-20T06:57:34.684Z" title="发表于 2026-03-20 14:57:34">2026-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a></span></div><div class="content">Linux输入-输出(I&#x2F;O)-错误流and setvbuf前言因为一个文件的运行错误，导致我以为是setvbuf的问题，各种找文章了解，后来发现是一个设置的问题，太寄了，看都看差不多了，那就总结一下。
+(I&#x2F;O)基本概念
+I&#x2F;O重定向通常与FD有关，shell的FD通常为10个（FD：文件标识符—-&gt;系统为每个打开的文件指定一个文件标识符以便系统对文件进行跟踪，文件标识符是一个数字，不同数字代表不同的含义）
+常用的FD有三个，为0(stdin ，标准输入)，1(stdout ,标准输出)、2（stderr， 标准错误输出）
+
+直接I&#x2F;O，绕过内核缓冲
+fd &#x3D; open(filepath, O_WRONLY | O_DIRECT); &#x2F;&#x2F;O_DIRECT直接IO标志
+
+从用户空间直接将数据传递到文件或磁盘设备，把这种操作也称为直接 I&#x2F;O（direct I&#x2F;O）或裸 I&#x2F;O（raw I&#x2F;O）。
+
+对于大多数应用程序而言，使用直接 I&#x2F;O可能会大大降低性能。因为 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/03/20/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%A4%B4%E6%96%87%E4%BB%B6%E8%A7%A3%E9%87%8A/" title="Linux网络编程常用头文件解释"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux网络编程常用头文件解释"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/20/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%B8%B8%E7%94%A8%E5%A4%B4%E6%96%87%E4%BB%B6%E8%A7%A3%E9%87%8A/" title="Linux网络编程常用头文件解释">Linux网络编程常用头文件解释</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-20T06:57:34.682Z" title="发表于 2026-03-20 14:57:34">2026-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/socket%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">socket网络编程</a></span></div><div class="content">Linux网络编程常用头文件解释常用文件头sys&#x2F;types.h：数据类型定义
+sys&#x2F;socket.h：提供socket函数及数据结构
+netinet&#x2F;in.h：定义数据结构sockaddr_in
+arpa&#x2F;inet.h：提供IP地址转换函数
+netdb.h：提供设置及获取域名的函数
+sys&#x2F;ioctl.h：提供对I&#x2F;O控制的函数
+sys&#x2F;poll.h：提供socket等待测试机制的函数
+**其他在网络程序中常见的头文件 **unistd.h：提供通用的文件、目录、程序及进程操作的函数
+errno.h：提供错误号errno的定义，用于错误处理
+fcntl.h：提供对文件控制的函数
+time.h：提供有关时间的函数
+crypt.h：提供使用DES加密算法的加密函数
+pwd.h：提供对&#x2F;etc&#x2F;passwd文件访问的函数
+shadow.h：提供对&#x2F;etc&#x2F;shadow文件访问的函数
+pthread.h：提供多线程操作的函数
+signal.h：提供对信号操作的函数
+sys&#x2F ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/03/20/Linux%E7%B3%BB%E7%BB%9F%E6%9F%A5%E7%9C%8B%E6%AD%A3%E5%9C%A8%E4%BD%BF%E7%94%A8%E7%9A%84%E7%AB%AF%E5%8F%A3/" title="Linux系统查看正在使用的端口"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux系统查看正在使用的端口"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/20/Linux%E7%B3%BB%E7%BB%9F%E6%9F%A5%E7%9C%8B%E6%AD%A3%E5%9C%A8%E4%BD%BF%E7%94%A8%E7%9A%84%E7%AB%AF%E5%8F%A3/" title="Linux系统查看正在使用的端口">Linux系统查看正在使用的端口</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-20T06:57:34.680Z" title="发表于 2026-03-20 14:57:34">2026-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Web%E7%AC%94%E8%AE%B0/">Web笔记</a></span></div><div class="content">Linux系统查看正在使用的端口端口可以认为是设备与外界通讯交流的出口，就好像是门牌号一样，那么在Linux系统中如何查看正在使用的端口？
+一、使用 netstat 检查端口netstat 是一个命令行工具，可以提供有关网络连接的信息。
+要列出正在侦听的所有 TCP 或 UDP 端口，包括使用端口和套接字状态的服务，请使用以下命令：netstat -tunlp
+此命令中使用的选项具有以下含义：
+-t – 显示 TCP 端口。-u – 显示 UDP 端口。-n – 显示数字地址而不是主机名。-l – 仅显示侦听端口。-p – 显示进程的 PID 和名称。仅当您以 root 或 sudo 用户身份运行命令时，才会显示此信息。
+查询指定端口通过grep过滤：netstat -tnlp | grep :80
+显示示例：
+
+注：Proto – 套接字使用的协议。Local Address – 进程侦听的 IP 地址和端口号。PID&#x2F;Program name – PID 和进程名称。
+二、使用 ss 检查端口ss 是新的 netstat，命令选项大致相同。它缺少一些 netstat 功能 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/03/20/linux%E7%AE%A1%E9%81%93/" title="linux管道"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux管道"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/20/linux%E7%AE%A1%E9%81%93/" title="linux管道">linux管道</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-20T06:57:34.678Z" title="发表于 2026-03-20 14:57:34">2026-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%9D%A2%E8%AF%95%E7%AC%94%E8%AE%B0/">面试笔记</a></span></div><div class="content">linux管道在Linux系统中，管道（pipe）是一种用于进程间通信的技术，允许一个进程的输出直接成为另一个进程的输入。管道是一个非常重要的功能，因为它支持命令行中多个程序的协作，使得Linux和Unix系统的命令行工具非常强大和灵活。
+基本概念管道，用符号 | 表示，在命令行中非常常见。它创建了一个通道，使得一个程序的标准输出可以直接传送到另一个程序的标准输入。
+示例假设你想查找一个文件中包含特定文本的行数，你可以使用 grep 命令来搜索文本，然后用 wc 命令来计算行数。通过管道连接这两个命令：
+123bashCopy codecat filename.txt | grep &quot;search_text&quot; | wc -l
+
+这里的操作流程如下：
+
+cat filename.txt 命令读取文件内容并将其输出。
+grep &quot;search_text&quot; 从上一个命令接收输入，筛选出含有 “search_text” 的行，然后输出这些行。
+wc -l 接收上一个命令的输出，计算并返回行数。
+
+工作原理在技术层面，管道是通过在内核中创建一个缓冲区实现的 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/03/20/Linux%E7%A5%9E%E5%99%A8strace%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" title="Linux神器strace的使用方法"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux神器strace的使用方法"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/20/Linux%E7%A5%9E%E5%99%A8strace%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" title="Linux神器strace的使用方法">Linux神器strace的使用方法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-20T06:57:34.676Z" title="发表于 2026-03-20 14:57:34">2026-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/PWN%E7%9A%84%E8%84%9A%E6%9C%AC%E5%92%8C%E5%B0%8F%E6%8A%80%E5%B7%A7/">PWN的脚本和小技巧</a></span></div><div class="content">Linux神器strace的使用方法前言在Linux系统中，strace命令是一个集诊断、调试、统计与一体的工具，可用来追踪调试程序，能够与其他命令搭配使用。
+场景1、在操作系统运维中会出现程序或系统命令运行失败，通过报错和日志无法定位问题根因。
+2、如何在没有内核或程序代码的情况下查看系统调用的过程。
+说明1、strace是有用的诊断，说明和调试工具，Linux系统管理员可以在不需要源代码的情况下即可跟踪系统的调用。
+2、strace显示有关进程的系统调用的信息，这可以帮助确定一个程序使用的哪个函数，当然在系统出现问题时可以使用 strace定位系统调用过程中失败的原因，这是定位系统问题的很好的方法。
+strace的常用参数及示例
+-c
+
+统计每一系统调用的所执行的时间,次数和出错的次数等。
+示例：打印执行uptime时系统系统调用的时间、次数、出错次数和syscall
+1# strace -c uptime
+
+
+-d
+显示有关标准错误的strace本身的一些调试输出。
+
+-f
+跟踪子进程，这些子进程是由于fork（2）系统调用而由当前跟踪的进程创建的。
+
+-i在系统调用时打印指令指 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/03/20/Linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86/" title="Linux用户和用户组管理"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux用户和用户组管理"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/20/Linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86/" title="Linux用户和用户组管理">Linux用户和用户组管理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-20T06:57:34.674Z" title="发表于 2026-03-20 14:57:34">2026-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7/">其他工具</a></span></div><div class="content">Linux用户和用户组管理前言当你需要管理一台容纳多个用户的Linux机器时，比起一些基本的用户管理工具所提供的方法，有时候你需要对这些用户采取更多的用户权限管理方式。特别是当你要管理某些用户的权限时，这个想法尤为重要。
+Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。
+用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。
+每个用户账号都拥有一个唯一的用户名和各自的口令。
+用户在登录时键入正确的用户和口令后，就能够进入系统和自己的主目录
+实现用户账号的管理，要完成的工作主要有如下几个方面：
+
+用户账号的添加，删除与修改
+用户口令的管理
+用户组的管理
+
+一，Linux系统用户账号的管理用户账号的管工作涉及到用户账号的添加，修改，删除，查询。
+添加用户账号就是在系统中创建一个新的账号，然后为新账号分配用户号，用户组，主目录和登录Shell等资源。刚添加的账号是被锁定的，无法使用。
+添加用户账号userad ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/03/20/Linux%E6%90%AD%E5%BB%BAARM%E7%9A%84GDB%E5%92%8C%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/" title="Linux搭建ARM的GDB和运行环境"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux搭建ARM的GDB和运行环境"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/20/Linux%E6%90%AD%E5%BB%BAARM%E7%9A%84GDB%E5%92%8C%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/" title="Linux搭建ARM的GDB和运行环境">Linux搭建ARM的GDB和运行环境</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-20T06:57:34.672Z" title="发表于 2026-03-20 14:57:34">2026-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/linux%E7%AC%94%E8%AE%B0/">linux笔记</a></span></div><div class="content">Linux搭建ARM的GDB和运行环境0x00 前言本文中所介绍的方法目前只测试了单个的demo，并没有拿大型的项目做测试，但是应该是大同小异。这里介绍两种方法，一种是有独立的ARM硬件，另一种是依靠qemu实现的模拟化，其实其本质都是一样的。如果是大型项目的话最好还是建议有一个原生的环境，毕竟模拟环境通常会遇到一些意外的事。
+0x01 依靠qemu搭建环境环境准备
+
+
+ubuntu 20.04
+
+
+这里我的物理机是ubuntu，虚拟机一样的。首先需要安装一下qemu的环境和编译ARM汇编机器码的交叉gcc编译器，其安装命令如下
+12luna@ubuntu:~$ sudo apt update -y &amp;&amp; sudo apt upgrade -yluna@ubuntu:~$ sudo apt install qemu-user qemu-user-static gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu binutils-aarch64-linux-gnu-dbg build-essential
+
+然后我们编写一个测试 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/03/20/linux%E6%8F%90%E6%9D%83/" title="linux提权"><img class="post-bg" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux提权"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/20/linux%E6%8F%90%E6%9D%83/" title="linux提权">linux提权</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-20T06:57:34.671Z" title="发表于 2026-03-20 14:57:34">2026-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/PWN%E7%9A%84%E8%84%9A%E6%9C%AC%E5%92%8C%E5%B0%8F%E6%8A%80%E5%B7%A7/">PWN的脚本和小技巧</a></span></div><div class="content">LINUX提权前言上一次打AWD被锁权限了，估计是被打烂了然后对方提的权，这启发了我，我也来提提权限
+以下内容都是来自下面的文章https://mp.weixin.qq.com/s?__biz=MzAwMzYxNzc1OA==&amp;mid=2247484463&amp;idx=1&amp;sn=f1fd9b1db84657ecda05b186a8f7785f&amp;chksm=9b39229eac4eab884bb8e8130423d895afc7b1ff336d6146a425b7087aa0faf9e0c806e09706&amp;mpshare=1&amp;scene=23&amp;srcid=0410kOxtw1DLpOurcUy9co8Q&amp;sharer_sharetime=1681100889288&amp;sharer_shareid=5d46a70d7c2e5fe23fd7f12f781a2ad4#rd
+suid提权1https://github.com/rebootuser/LinEnum    #检测环境
+
+12345ls -al xxx  #查看权限r ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/32/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/#content-inner">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/#content-inner">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/#content-inner">44</a><a class="extend next" rel="next" href="/page/34/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">438</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E6%8A%80%E6%9C%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="如何成为技术负责人"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何成为技术负责人"/></a><div class="content"><a class="title" href="/2026/03/20/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E6%8A%80%E6%9C%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="如何成为技术负责人">如何成为技术负责人</a><time datetime="2026-03-20T07:05:59.066Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于模板的安卓进程间通信Fuzzing"/></a><div class="content"><a class="title" href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing">基于模板的安卓进程间通信Fuzzing</a><time datetime="2026-03-20T07:05:59.057Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UDS诊断和通信管理"/></a><div class="content"><a class="title" href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理">UDS诊断和通信管理</a><time datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用RTL-SDR打开车门"/></a><div class="content"><a class="title" href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门">使用RTL-SDR打开车门</a><time datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UDS时间参数总结"/></a><div class="content"><a class="title" href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结">UDS时间参数总结</a><time datetime="2026-03-20T07:05:59.055Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             <a class="card-more-btn" href="/categories/" title="查看更多">
     <i class="fas fa-angle-right"></i></a>
             </div>
             <ul class="card-category-list" id="aside-cat-list">
-            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/APT%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90/"><span class="card-category-list-name">APT攻击分析</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AWD%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">AWD笔记</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Blockchain%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">Blockchain笔记</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTFwiki/"><span class="card-category-list-name">CTFwiki</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">CTF笔记</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CVE-2020-6537/"><span class="card-category-list-name">CVE-2020-6537</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CVE%E5%A4%8D%E7%8E%B0%E8%AE%A1%E5%88%92/"><span class="card-category-list-name">CVE复现计划</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Crypto%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">Crypto笔记</span><span class="card-category-list-count">1</span></a></li>
-            </ul></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/07/"><span class="card-archive-list-date">七月 2025</span><span class="card-archive-list-count">404</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">404</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-09-09T08:31:00.277Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/%E9%B2%B8%E8%90%BD.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/APT%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90/"><span class="card-category-list-name">APT攻击分析</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AWD%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">AWD笔记</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Blockchain%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">Blockchain笔记</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTFwiki/"><span class="card-category-list-name">CTFwiki</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">CTF笔记</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CVE-2020-6418/"><span class="card-category-list-name">CVE-2020-6418</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CVE-2020-6537/"><span class="card-category-list-name">CVE-2020-6537</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CVE-2021-21220/"><span class="card-category-list-name">CVE-2021-21220</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><span class="card-archive-list-count">438</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">438</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-03-20T07:41:53.804Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/%E9%B2%B8%E8%90%BD.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
   init: (str) => {
     window.typed = new Typed('#subtitle', Object.assign({
       strings: str,

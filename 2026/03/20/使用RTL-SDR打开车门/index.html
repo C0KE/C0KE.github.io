@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>使用RTL-SDR打开车门 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="title: 使用RTL-SDR打开车门date: 2024-07-31 14:48:16tags:    - “车联网”    - “无线电”在最近几年，入侵汽车在当代社会的黑客圈中成为热点，很多文章表明汽车产业还有很多东西等待完善，在本篇文章中，我会让你熟悉我一直研究的一些概念，以及如何在网状网络中使用一些便宜的部件渗透远程开门系统。 软件无线电 Software-defined radio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用RTL-SDR打开车门">
+<meta property="og:url" content="http://c0ke.top/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="title: 使用RTL-SDR打开车门date: 2024-07-31 14:48:16tags:    - “车联网”    - “无线电”在最近几年，入侵汽车在当代社会的黑客圈中成为热点，很多文章表明汽车产业还有很多东西等待完善，在本篇文章中，我会让你熟悉我一直研究的一些概念，以及如何在网状网络中使用一些便宜的部件渗透远程开门系统。 软件无线电 Software-defined radio">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png">
+<meta property="article:published_time" content="2026-03-20T07:05:59.056Z">
+<meta property="article:modified_time" content="2026-03-20T07:41:48.187Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://c0ke.top/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用RTL-SDR打开车门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-20 15:41:48'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">438</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">使用RTL-SDR打开车门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-20T07:41:48.187Z" title="更新于 2026-03-20 15:41:48">2026-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%A6%E8%81%94%E7%BD%91/">车联网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用RTL-SDR打开车门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><hr>
+<h2 id="title-使用RTL-SDR打开车门date-2024-07-31-14-48-16tags-“车联网”-“无线电”"><a href="#title-使用RTL-SDR打开车门date-2024-07-31-14-48-16tags-“车联网”-“无线电”" class="headerlink" title="title: 使用RTL-SDR打开车门date: 2024-07-31 14:48:16tags:    - “车联网”    - “无线电”"></a>title: 使用RTL-SDR打开车门<br>date: 2024-07-31 14:48:16<br>tags:<br>    - “车联网”<br>    - “无线电”</h2><p>在最近几年，入侵汽车在当代社会的黑客圈中成为热点，很多文章表明汽车产业还有很多东西等待完善，在本篇文章中，我会让你熟悉我一直研究的一些概念，以及如何在网状网络中使用一些便宜的部件渗透远程开门系统。</p>
+<p><strong>软件无线电</strong></p>
+<p>Software-defined radio（SDR）即软件无线电，它是一种实现无线通信的新概念和体制。其中已在硬件上被实现的组件（例如混频器，滤波器，放大器，调制器&#x2F;解调器，检测器等）可以通过软件手段在个人计算机上或嵌入式系统中被代替，即很多功能是在软件平台上实现的。虽然SDR不是一个新概念，但是随着数字电子学的飞速发展，很多东西从理论可行转变为实际可行。</p>
+<p>然而大多数SDR设备都非常昂贵，特别是HackRF，BladeRF等等，如果你在寻找最便宜的方案，那么RTL2382U是个不错的选择，它们在Ebay上只需大约15美元。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240729174211.png" alt="image.png"></p>
+<p><em>这是我的RTL2382U以及一个天线。</em></p>
+<p><a target="_blank" rel="noopener" href="http://images2017.cnblogs.com/blog/640760/201708/640760-20170828184248171-1526478173.jpg"><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/640760-20170828184248171-1526478173.jpg"></a></p>
+<p><em>这是另一个，我没有停止用它，因为我在用它后面的GPS模块。</em></p>
+<p>使用这个设备和Linux机器连接起来，然后用HDSDR查看按键时的实时情况。</p>
+<p><a target="_blank" rel="noopener" href="http://images2017.cnblogs.com/blog/640760/201708/640760-20170828184330124-426566207.jpg"><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/640760-20170828184330124-426566207.jpg"></a></p>
+<p><em>如你所见，宝马汽车制造商使用频段315Mhz，屏幕上的红线是我按下按钮时出现的。</em></p>
+<p>当受害者走向他们的汽车并且按下解锁键时，信号就会被发送到汽车，然后门就会被解锁，所以我们需要在这一切发生之前拦截所有交互。</p>
+<p><strong>如何制作一个干扰器</strong></p>
+<p>在这部分，我在ebay上购买了一些CC1101无线射频收发器，我们将通过这些，使用ardunio nano板来实施拦截和重放。</p>
+<p><a target="_blank" rel="noopener" href="http://images2017.cnblogs.com/blog/640760/201708/640760-20170828184457202-1915877596.jpg"><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/640760-20170828184457202-1915877596.jpg"></a></p>
+<p>如上图，我们有两个CC1101收发器连接在ardunio nano上，任何手机都可以为nano供电，根据其收发强度，其有效范围可达10米。</p>
+<p>这个没有太多技术含量，我修改了panstamp库来使其在315Mhz上工作，因为原本的库在433Mhz，868Mhz和915Mhz上工作，而这些频段我们都不需要。接下来我们需要找出315频段的频谱中的highbyte，middlebyte和lowbyte。</p>
+<p><a target="_blank" rel="noopener" href="http://images2017.cnblogs.com/blog/640760/201708/640760-20170828184522312-1630731395.png"><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/640760-20170828184522312-1630731395.png"></a></p>
+<p>低，中，高是三个寄存器，其值可以改变工作频率。我使用的是12：29：137。</p>
+<p>必须注意的是，在美国境内使用干扰器是非法的，这篇文章中的任何成功攻击的信息都被移除，它只提供了使用的基础且没有深入，感谢理解！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &quot;EEPROM.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;cc1101.h&quot;</span></span><br><span class="line"></span><br><span class="line">CC1101 cc1101;</span><br><span class="line"></span><br><span class="line">// The LED <span class="keyword">is</span> wired to the Arduino Output <span class="number">4</span> (physical panStamp pin <span class="number">19</span>)</span><br><span class="line"><span class="comment">#define LEDOUTPUT 7</span></span><br><span class="line"></span><br><span class="line">// counter to get increment <span class="keyword">in</span> each loop</span><br><span class="line">byte counter;</span><br><span class="line">byte b;</span><br><span class="line">byte syncWord = <span class="number">199</span>;</span><br><span class="line"></span><br><span class="line">void blinker()&#123;</span><br><span class="line">//digitalWrite(LEDOUTPUT, HIGH);</span><br><span class="line">//delay(<span class="number">100</span>);</span><br><span class="line">//digitalWrite(LEDOUTPUT, LOW);</span><br><span class="line">///delay(<span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void setup()</span><br><span class="line">&#123;</span><br><span class="line">//Serial.begin(<span class="number">38400</span>);</span><br><span class="line">Serial.begin(<span class="number">9200</span>);</span><br><span class="line">Serial.println(<span class="string">&quot;start&quot;</span>);</span><br><span class="line"></span><br><span class="line">// reset the counter</span><br><span class="line">counter=<span class="number">0</span>;</span><br><span class="line">Serial.println(<span class="string">&quot;initializing...&quot;</span>);</span><br><span class="line">// initialize the RF Chip</span><br><span class="line">cc1101.init();</span><br><span class="line"></span><br><span class="line">cc1101.setSyncWord(&amp;syncWord, false);</span><br><span class="line">cc1101.setCarrierFreq(CFREQ_315);</span><br><span class="line">cc1101.disableAddressCheck();</span><br><span class="line">//cc1101.setTxPowerAmp(PA_LowPower);</span><br><span class="line"></span><br><span class="line">//Serial.<span class="built_in">print</span>(<span class="string">&quot;CC1101_PARTNUM &quot;</span>); //cc1101=<span class="number">0</span></span><br><span class="line">Serial.println(cc1101.readReg(CC1101_PARTNUM, CC1101_STATUS_REGISTER));</span><br><span class="line">//Serial.<span class="built_in">print</span>(<span class="string">&quot;CC1101_VERSION &quot;</span>); //cc1101=<span class="number">4</span></span><br><span class="line">Serial.println(cc1101.readReg(CC1101_VERSION, CC1101_STATUS_REGISTER));</span><br><span class="line">//Serial.<span class="built_in">print</span>(<span class="string">&quot;CC1101_MARCSTATE &quot;</span>);</span><br><span class="line">Serial.println(cc1101.readReg(CC1101_MARCSTATE, CC1101_STATUS_REGISTER) &amp; <span class="number">0x1f</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void send_data() &#123;</span><br><span class="line">CCPACKET data;</span><br><span class="line">data.length=<span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">data.data[<span class="number">0</span>]=<span class="number">10</span>;</span><br><span class="line">data.data[<span class="number">2</span>]=<span class="number">1</span>;</span><br><span class="line">data.data[<span class="number">3</span>]=<span class="number">1</span>;</span><br><span class="line">data.data[<span class="number">4</span>]=<span class="number">0</span>;</span><br><span class="line">//cc1101.flushTxFifo ();</span><br><span class="line">Serial.<span class="built_in">print</span>(cc1101.readReg(CC1101_MARCSTATE, CC1101_STATUS_REGISTER));</span><br><span class="line"><span class="keyword">if</span>(cc1101.sendData(data))&#123;</span><br><span class="line">send_data();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">void loop()</span><br><span class="line">&#123;</span><br><span class="line">send_data();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>上面的代码是我在使用CC1101时发现的，对我们来说效果不是特别好。</p>
+<p>我首先要直接发送一个脉冲信号来阻止所有其他信号。在数据数组中填充1似乎是不错的主意。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &quot;EEPROM.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;cc1101.h&quot;</span></span><br><span class="line"></span><br><span class="line">CC1101 cc1101;</span><br><span class="line">CCPACKET data;</span><br><span class="line"></span><br><span class="line">void setup()</span><br><span class="line">&#123;</span><br><span class="line">  // initialize the RF Chip</span><br><span class="line">  cc1101.init();</span><br><span class="line">  </span><br><span class="line">  // For <span class="number">315</span> MHz -&gt; 0C1D8A</span><br><span class="line">  // 0C1D8A gives <span class="number">315000061.03515625</span> Hz</span><br><span class="line">  </span><br><span class="line">  cc1101.writeReg(CC1101_FREQ2,  <span class="number">0x0C</span>); // <span class="type">Set</span> Transmitter</span><br><span class="line">  cc1101.writeReg(CC1101_FREQ1,  <span class="number">0X1D</span>); // freq to</span><br><span class="line">  cc1101.writeReg(CC1101_FREQ0,  <span class="number">0x8A</span>); // <span class="number">315</span> MHz</span><br><span class="line">  </span><br><span class="line">  data.length = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="built_in">int</span> a = <span class="number">0</span>; a &lt; <span class="number">100</span>; a++) &#123;</span><br><span class="line">    data.data[a]= <span class="number">1</span>;              // Filling the data array</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void loop()</span><br><span class="line">&#123;</span><br><span class="line">  cc1101.sendData(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240729174351.png" alt="image.png"></p>
+<p>当受害者按下解锁按钮时，信号首先被拦截，然后干扰信号（我们称之为signalX）被捕获并保存，随后我们将使用GNURadio来从原始的钥匙信号信号（我们称之为signalY）中分离出我们创建的实际干扰信号。当受害者再次按下解锁按钮时，我们原来保存的signalX就被发送给汽车，signalY在稍后可以重放来解锁同一辆车。当信号被捕获时，你需要进行逆向才能发回。我使用GNURadio接收并解调原来的ASK信号，将其变成二进制调制波形，之后我可以用来重放。</p>
+<p>振幅偏移调变（ASK）是振幅调制的一种形式，表示数字数据作为载波振幅的变化。在ASK系统中，通过在T秒的持续时间内传送固定幅度载波和固定频率来表示二进制1。如果信号值1不发送，则为0。</p>
+<p><strong>这个系统有用吗？</strong></p>
+<p>有用，我在两辆车和一辆卡车上测试了这个，都成功的打开了车门。可怕的是，任何人都可以花费不多的美元来实现这个系统；更可怕的是，SDR设备的价格正在稳步下滑，在这种情况下获取一个定制的设备会变得更加容易。</p>
+<p><strong>进阶</strong></p>
+<p>经过批量攻击概念的证明，我写了一些东西，证明了这种攻击不仅可以一次攻击一辆车，还可以一次攻击数百辆的汽车。下面是一些关键点。</p>
+<blockquote>
+<p>购买捕获设备（我们称之为veh1），通过磁铁吸附在汽车下面，<br>当对方的密钥信号被捕获和解调时，我们想通过网状网络发送这个信号。<br>Wifi或者蓝牙的距离不足以传输信号，我会使用的LoRa（长距离低功耗无线通讯技术），其有效范围可达15英里。<br>veh1连接到其中心设备，并将其二进制调制波形发送出去。<br>如果能搭建一个类似发送包的网络就更好了，给每一个设备一个名字，这样一来你就知道那个设备对应的是哪辆车了。<br>收集数据：车辆名称，颜色，位置和重放攻击数据。<br>将其放置在任何车辆上，中央设备可以在几分钟内完成。</p>
+</blockquote>
+<p>必须注意的是，在中国使用干扰器也是非法的，这篇文章中的任何成功攻击的信息都被移除，它只提供了基础的思路且没有深入。该文章仅供研究如何防范，感谢理解！</p>
+<p><strong>原文链接：<a target="_blank" rel="noopener" href="https://www.anthonys.io/using-rtl-sdr-to-open-car-doors/">anthonys</a></strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://c0ke.top">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c0ke.top/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/">http://c0ke.top/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://c0ke.top" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">UDS诊断和通信管理</div></div></a></div><div class="next-post pull-right"><a href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">UDS时间参数总结</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">438</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8date-2024-07-31-14-48-16tags-%E2%80%9C%E8%BD%A6%E8%81%94%E7%BD%91%E2%80%9D-%E2%80%9C%E6%97%A0%E7%BA%BF%E7%94%B5%E2%80%9D"><span class="toc-number">1.</span> <span class="toc-text">title: 使用RTL-SDR打开车门date: 2024-07-31 14:48:16tags:    - “车联网”    - “无线电”</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E6%8A%80%E6%9C%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="如何成为技术负责人"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何成为技术负责人"/></a><div class="content"><a class="title" href="/2026/03/20/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E6%8A%80%E6%9C%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="如何成为技术负责人">如何成为技术负责人</a><time datetime="2026-03-20T07:05:59.066Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于模板的安卓进程间通信Fuzzing"/></a><div class="content"><a class="title" href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing">基于模板的安卓进程间通信Fuzzing</a><time datetime="2026-03-20T07:05:59.057Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UDS诊断和通信管理"/></a><div class="content"><a class="title" href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理">UDS诊断和通信管理</a><time datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用RTL-SDR打开车门"/></a><div class="content"><a class="title" href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门">使用RTL-SDR打开车门</a><time datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UDS时间参数总结"/></a><div class="content"><a class="title" href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结">UDS时间参数总结</a><time datetime="2026-03-20T07:05:59.055Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

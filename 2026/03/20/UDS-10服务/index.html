@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>UDS-10服务 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="title: UDS 10服务date: 2024-07-31 14:44:38tags:    - “车联网”    - “UDS诊断服务”前言在使用汽车UDS诊断服务的过程中，我们会用到一个十分常见的诊断服务$10服务。该服务基本上时执行其他特别任务的前置服务，所以有必要跟大家一起介绍该服务的基本特点，首先，请问大家几个基础问题？  10服务是做什么的呢？  10服务有哪些子服务呢？  10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UDS-10服务">
+<meta property="og:url" content="http://c0ke.top/2026/03/20/UDS-10%E6%9C%8D%E5%8A%A1/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="title: UDS 10服务date: 2024-07-31 14:44:38tags:    - “车联网”    - “UDS诊断服务”前言在使用汽车UDS诊断服务的过程中，我们会用到一个十分常见的诊断服务$10服务。该服务基本上时执行其他特别任务的前置服务，所以有必要跟大家一起介绍该服务的基本特点，首先，请问大家几个基础问题？  10服务是做什么的呢？  10服务有哪些子服务呢？  10">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png">
+<meta property="article:published_time" content="2026-03-20T07:05:59.054Z">
+<meta property="article:modified_time" content="2026-03-20T07:41:48.185Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://c0ke.top/2026/03/20/UDS-10%E6%9C%8D%E5%8A%A1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UDS-10服务',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-20 15:41:48'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">438</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">UDS-10服务</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-20T07:05:59.054Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-20T07:41:48.185Z" title="更新于 2026-03-20 15:41:48">2026-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%A6%E8%81%94%E7%BD%91/">车联网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="UDS-10服务"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><hr>
+<h2 id="title-UDS-10服务date-2024-07-31-14-44-38tags-“车联网”-“UDS诊断服务”"><a href="#title-UDS-10服务date-2024-07-31-14-44-38tags-“车联网”-“UDS诊断服务”" class="headerlink" title="title: UDS 10服务date: 2024-07-31 14:44:38tags:    - “车联网”    - “UDS诊断服务”"></a>title: UDS 10服务<br>date: 2024-07-31 14:44:38<br>tags:<br>    - “车联网”<br>    - “UDS诊断服务”</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在使用汽车UDS诊断服务的过程中，我们会用到一个十分常见的诊断服务$10服务。该服务基本上时执行其他特别任务的前置服务，所以有必要跟大家一起介绍该服务的基本特点，首先，请问大家几个基础问题？</p>
+<ul>
+<li><p>10服务是做什么的呢？</p>
+</li>
+<li><p>10服务有哪些子服务呢？</p>
+</li>
+<li><p>10服务的请求格式及响应格式又是如何定义的呢？</p>
+</li>
+<li><p>执行10服务自身有无前置条件呢？</p>
+</li>
+</ul>
+<p>本文我们来一起探索并回答这些问题。为了便于大家理解，以下是本文的主题大纲：</p>
+<hr>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/Pasted%20image%2020240706025308.png" alt="Pasted image 20240706025308"></p>
+<hr>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><h4 id="服务功能"><a href="#服务功能" class="headerlink" title="服务功能"></a>服务功能</h4><p><strong>功能描述</strong></p>
+<p>在《<strong>ISO14229-1</strong>》ISO标准文档中针对10服务做了十分详细的说明，总结下来其主要体现为以下几点：</p>
+<ul>
+<li><p><strong>10服务是用来使能Server(即ECU)不同诊断会话的一种服务；</strong></p>
+</li>
+<li><p><strong>不同的诊断会话则规定了Server在相应session可以开启的功能权限；</strong></p>
+</li>
+<li><p><strong>在不同的诊断会话则应使用对应的数据链路层的时间参数；</strong></p>
+</li>
+</ul>
+<p>其中最为核心的一点就是<strong>诊断服务权限控制</strong>。如下图1所示，则明确规定了不同的诊断服务在默认会话和非默认会话下的可用性，其中“X”则代表可用，”not applicable”则代表不可用。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/Pasted%20image%2020240706025357.png" alt="Pasted image 20240706025357"><br>                            图1 10诊断服务权限控制</p>
+<p><strong>应用场景</strong></p>
+<ul>
+<li><p>如上图1所示，当执行27或者28等非常规服务时，则需要在非默认会话下执行，在默认会话下则不能够使用；</p>
+</li>
+<li><p>当需要重新编程Server时，那么此时需进入到编程会话下，这样所有与编程会话相关的诊断服务便可以设定仅允许在该session下运行；</p>
+</li>
+<li><p>当整车制造商或者零部件供应商需要在自定义的seesion下完成某些特别的操作时，可以采用10服务控制，如产线内部使用的特定服务便可以在其自定义的会话下进行，避免与客户的会话下服务需求起冲突。</p>
+</li>
+</ul>
+<h4 id="10服务请求"><a href="#10服务请求" class="headerlink" title="10服务请求"></a>10服务请求</h4><p><strong>服务请求是Client发送给到Server的诊断服务指令</strong>。其中Client可以理解为Tester，Server可以理解为ECU节点。</p>
+<p><strong>请求格式</strong></p>
+<p>按照14229-1标准所述，如下图2所示：<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/Pasted%20image%2020240706025504.png" alt="Pasted image 20240706025504"><br>                            图2 10服务诊断请求格式</p>
+<p>图中各参数解释如下图3所示：<img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/Pasted%20image%2020240706025529.png" alt="Pasted image 20240706025529"><br>                            图3 10服务诊断请求格式说明</p>
+<p><strong>会话类型</strong>  </p>
+<p>由上图3我们提到10服务会话类型，该会话类型可以主要可以分为六种：</p>
+<ul>
+<li><p><strong>默认会话(0x01)；</strong></p>
+</li>
+<li><p><strong>编程会话(0x02);</strong></p>
+</li>
+<li><p><strong>扩展会话(0x03);</strong></p>
+</li>
+<li><p><strong>安全诊断会话(0x04);</strong></p>
+</li>
+<li><p><strong>整车制造商自定义会话(0x40-0x5F);</strong></p>
+</li>
+<li><p><strong>零部件供应商自定义会话(0x60-0x7E);</strong></p>
+</li>
+</ul>
+<p>如下图4所示，对上述六种会话类型的功能特点做了简要说明。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/Pasted%20image%2020240706025556.png" alt="Pasted image 20240706025556"><br>                            图4 各诊断会话特点</p>
+<p><strong>请求示例</strong>  </p>
+<p>以进入编程会话为例，如下图5所示：<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/Pasted%20image%2020240706025646.png" alt="Pasted image 20240706025646"><br>图5 编程会话请求</p>
+<p>由上可知，在不考虑特殊场景的前提下，只需发送”10 02”诊断请求便可以让Server进入到编程会话。  </p>
+<p><strong>suppressPosRspMsgIndicationBit</strong>: 为subfunction的<strong>Bit 7</strong>位。</p>
+<ul>
+<li><p>如果该Bit位为1，则表示抑制正响应，Server不需要给到Client正响应；</p>
+</li>
+<li><p>如果该Bit位为0，则表示不抑制正响应，Server应该给予Client正响应；</p>
+</li>
+</ul>
+<p>在第2个Byte中该Bit位为0且特别提到抑制正响应为False，则表示不抑制正响应，Server正常回复就是。</p>
+<h4 id="10服务响应"><a href="#10服务响应" class="headerlink" title="10服务响应"></a>10服务响应</h4><p>10服务响应是针对Server对Client诊断请求的响应。</p>
+<p><strong>正响应格式</strong></p>
+<p>如下图6所示为10服务诊断正响应的格式：<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/Pasted%20image%2020240706030012.png" alt="Pasted image 20240706030012"><br>图6 10诊断服务正响应格式</p>
+<p>其中sessionParameterRecord的具体含义如下图7所示,<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/Pasted%20image%2020240706030028.png" alt="Pasted image 20240706030028">图7 10诊断正响应时间参数格式<br>其中关于P2Server以及P2*Server参数均来源于客户诊断需求规范，按照客户需求配置即可</p>
+<p><strong>正响应实例</strong></p>
+<p>如下图8所示，针对上述图5所示的编程会话请求所作出的实际响应。</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/Pasted%20image%2020240706030106.png" alt="Pasted image 20240706030106"><br>图8 10编程会话请求正响应</p>
+<p>由图8可知，P2Server的值为50ms，P2*Server的值为500ms；  </p>
+<p><strong>负响应NRC支持</strong></p>
+<p>绝大多数情况下，Server针对Client的请求都会给到正响应，但正如之前所提到的进入编程会话前需确保整车处于安全状态，如引擎熄火，车速不能超过3km&#x2F;h等，或者为了防止不按照诊断请求格式进行请求，那么Server需要通过某种方式来告诉Client执行不成功的原因在哪里以便于便于调查问题直至得到正响应。</p>
+<p>因此ISO14229-1针对所有的诊断服务提供了一种统一的诊断负响应的诊断格式：<strong>7F +SID + NRC</strong>。</p>
+<p>其中NRC全称为Negetive Responce Code，每个NRC具有唯一的含义来代表当前诊断请求错误的原因所在。</p>
+<p>当然每个诊断服务支持的NRC不尽相同，具体支持的NRC需要参考ISO14229-1标准文档，对于10服务而言支持的NRC如下表：<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/Pasted%20image%2020240706030126.png" alt="Pasted image 20240706030126"><br>图9 10服务NRC支持</p>
+<p>例如当进入到编程会话时且当前车速条件不满足，此时Client发送诊断指令”<strong>10 02</strong>“请求Server进入编程模式时，Server将会回复“<strong>7F 10 22</strong>”来告诉请求者当前进入编程会话的条件不满足，请再次检查进入编程会话的条件</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://c0ke.top">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c0ke.top/2026/03/20/UDS-10%E6%9C%8D%E5%8A%A1/">http://c0ke.top/2026/03/20/UDS-10%E6%9C%8D%E5%8A%A1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://c0ke.top" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">UDS时间参数总结</div></div></a></div><div class="next-post pull-right"><a href="/2026/03/20/TBOX%E5%85%A8%E5%8A%9F%E8%83%BD/" title="TBOX全功能"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">TBOX全功能</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">438</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-UDS-10%E6%9C%8D%E5%8A%A1date-2024-07-31-14-44-38tags-%E2%80%9C%E8%BD%A6%E8%81%94%E7%BD%91%E2%80%9D-%E2%80%9CUDS%E8%AF%8A%E6%96%AD%E6%9C%8D%E5%8A%A1%E2%80%9D"><span class="toc-number">1.</span> <span class="toc-text">title: UDS 10服务date: 2024-07-31 14:44:38tags:    - “车联网”    - “UDS诊断服务”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-number">1.2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%8A%9F%E8%83%BD"><span class="toc-number">1.2.1.</span> <span class="toc-text">服务功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10%E6%9C%8D%E5%8A%A1%E8%AF%B7%E6%B1%82"><span class="toc-number">1.2.2.</span> <span class="toc-text">10服务请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10%E6%9C%8D%E5%8A%A1%E5%93%8D%E5%BA%94"><span class="toc-number">1.2.3.</span> <span class="toc-text">10服务响应</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E6%8A%80%E6%9C%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="如何成为技术负责人"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何成为技术负责人"/></a><div class="content"><a class="title" href="/2026/03/20/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E6%8A%80%E6%9C%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="如何成为技术负责人">如何成为技术负责人</a><time datetime="2026-03-20T07:05:59.066Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于模板的安卓进程间通信Fuzzing"/></a><div class="content"><a class="title" href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing">基于模板的安卓进程间通信Fuzzing</a><time datetime="2026-03-20T07:05:59.057Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UDS诊断和通信管理"/></a><div class="content"><a class="title" href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理">UDS诊断和通信管理</a><time datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用RTL-SDR打开车门"/></a><div class="content"><a class="title" href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门">使用RTL-SDR打开车门</a><time datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UDS时间参数总结"/></a><div class="content"><a class="title" href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结">UDS时间参数总结</a><time datetime="2026-03-20T07:05:59.055Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E7%99%BD%E5%A4%A9.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

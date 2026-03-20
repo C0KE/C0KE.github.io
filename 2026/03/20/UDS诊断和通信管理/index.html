@@ -1,0 +1,545 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>UDS诊断和通信管理 | Daily Study</title><meta name="author" content="C0KE"><meta name="copyright" content="C0KE"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="title: UDS诊断和通信管理date: 2024-07-31 14:34:49tags:    - “车联网”    - “UDS诊断协议”UDS 功能单元诊断服务标识符分为以下功能单元：  诊断和通信管理 数据传输 存储数据传输 输入输出控制 远程激活常规控制 上传&#x2F;下载  在本章中，我们将重点介绍诊断和通信管理。  诊断和通信管理该诊断和通信管理功能单元用于控制ECU中的诊断">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UDS诊断和通信管理">
+<meta property="og:url" content="http://c0ke.top/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Daily Study">
+<meta property="og:description" content="title: UDS诊断和通信管理date: 2024-07-31 14:34:49tags:    - “车联网”    - “UDS诊断协议”UDS 功能单元诊断服务标识符分为以下功能单元：  诊断和通信管理 数据传输 存储数据传输 输入输出控制 远程激活常规控制 上传&#x2F;下载  在本章中，我们将重点介绍诊断和通信管理。  诊断和通信管理该诊断和通信管理功能单元用于控制ECU中的诊断">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png">
+<meta property="article:published_time" content="2026-03-20T07:05:59.056Z">
+<meta property="article:modified_time" content="2026-03-20T07:41:48.186Z">
+<meta property="article:author" content="C0KE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png"><link rel="shortcut icon" href="/img/fa.jpg"><link rel="canonical" href="http://c0ke.top/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UDS诊断和通信管理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-20 15:41:48'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">438</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Daily Study"><span class="site-name">Daily Study</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">UDS诊断和通信管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-20T07:41:48.186Z" title="更新于 2026-03-20 15:41:48">2026-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%A6%E8%81%94%E7%BD%91/">车联网</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="UDS诊断和通信管理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><hr>
+<h2 id="title-UDS诊断和通信管理date-2024-07-31-14-34-49tags-“车联网”-“UDS诊断协议”"><a href="#title-UDS诊断和通信管理date-2024-07-31-14-34-49tags-“车联网”-“UDS诊断协议”" class="headerlink" title="title: UDS诊断和通信管理date: 2024-07-31 14:34:49tags:    - “车联网”    - “UDS诊断协议”"></a>title: UDS诊断和通信管理<br>date: 2024-07-31 14:34:49<br>tags:<br>    - “车联网”<br>    - “UDS诊断协议”</h2><h2 id="UDS-功能单元"><a href="#UDS-功能单元" class="headerlink" title="UDS 功能单元"></a><strong>UDS 功能单元</strong></h2><p>诊断服务标识符分为以下功能单元：</p>
+<ul>
+<li>诊断和通信管理</li>
+<li>数据传输</li>
+<li>存储数据传输</li>
+<li>输入输出控制</li>
+<li>远程激活常规控制</li>
+<li>上传&#x2F;下载</li>
+</ul>
+<p>在本章中，我们将重点介绍诊断和通信管理。</p>
+<hr>
+<h2 id="诊断和通信管理"><a href="#诊断和通信管理" class="headerlink" title="诊断和通信管理"></a><strong>诊断和通信管理</strong></h2><p>该诊断和通信管理功能单元用于控制ECU中的诊断和通信相关操作。<br>它提供以下服务。</p>
+<ol>
+<li>诊断会话控制  -  (0x10)</li>
+<li>ECU复位  –  (0x11)</li>
+<li>安全访问  –  (0x27)</li>
+<li>通信控制  –  (0x28)</li>
+<li>身份验证  –  (0x29)</li>
+<li>测试设备在线  –  (0x3E)</li>
+<li>访问时序参数  –  (0x83)</li>
+<li>安全的数据传输  –  (0x84)</li>
+<li>控制 DTC 设置 –  (0x85)</li>
+<li>事件响应  –  (0x86)</li>
+<li>链路控制  –  (0x87)</li>
+</ol>
+<h3 id="0x10-诊断会话控制"><a href="#0x10-诊断会话控制" class="headerlink" title="0x10 诊断会话控制"></a><strong>0x10 诊断会话控制</strong></h3><p>诊断会话的服务 ID 为 <strong>0x10</strong>，响应 SID 为 <strong>0x50</strong>。<br>诊断会话控制是 UDS 使用的最重要的服务之一。诊断会话控制用于控制ECU的诊断会话。此服务用于将当前诊断会话更改为其他会话。<br>这些会话用于启用或禁用ECU中的一组特定诊断功能和特性。<br>UDS 中有许多可用服务，某些服务只有在 ECU 处于默认会话中时才能访问，而其他一些服务可以在其他会话中访问 ECU。<br>我们可以说这个诊断会话控制是访问ECU的网关。在执行任何诊断操作之前，此诊断服务应授予运行相应服务的访问权限。这是由汽车制造商决定的。<br>例如，假设在默认会话中，我们无法升级 ECU 的软件，因为默认会话无权对 ECU 进行重新编程。只有在编程会话中，我们才能由授权的线路工程师对ECU进行重新编程。<br>此诊断会话的主要目的是为 ECU 提供安全性。它将防止 ECU 进行不必要的访问。只有授权人员才能访问它。如果每个诊断服务都可以访问ECU，则它可能会因软件的错误闪烁而损坏。<br>因此，在发出任何诊断请求之前，客户端必须确保此服务在ECU当前会话中是可访问的或不可访问的。如果没有，则在执行所需的请求后首先发送会话更改请求。</p>
+<p>如果服务器 (ECU) 处于非默认会话中，或者诊断处于非活动状态5秒钟，则ECU将进入默认会话。</p>
+<p>这有许多子功能，下表中对此进行了解释。</p>
+<table>
+<thead>
+<tr>
+<th><strong>子功能</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>默认会话 (0x01)</td>
+<td>此会话处于空闲状态。每当 ECU 通电时，它只会处于此默认会话中。ECU 将保持默认会话状态，直到从客户端请求另一个诊断会话。<br><br>此会话中提供了写入数据字节标识符  (0x2E) 、读取数据字节标识符  (0x22) 、ECU 复位  (0x11) 、测试人员存在  (0x3E)  和读取 DTC  (0x19)   等服务。<br><br>安全访问  (0x27)  不可用。与所有其他诊断会话控制子功能相比，此服务的安全性较低。<br><br>示例：在车库中，有人正在尝试读取诊断故障代码  (DTC) 。</td>
+</tr>
+<tr>
+<td>编程环节 (0x02)</td>
+<td>此会话用于对ECU进行编程或将数据从客户端传输到服务器。<br><br>默认会话中允许的所有服务都允许在此会话中使用。<br><br>如果此会话结束或过期，ECU 将进入默认会话。<br><br>示例：编程会话时终端线工程师刷新校准软件。</td>
+</tr>
+<tr>
+<td>扩展会话 (0x03)</td>
+<td>默认会话中允许的所有服务都允许在此会话中<br><br>此会话还用于解锁其他诊断功能<br><br>此会话中允许安全访问  (0x27) ，这意味着在此会话中已解锁安全级别<br><br>如果此会话结束或过期，则 ECU 进入默认会话<br><br>示例：此会话是下线工程师进行动态车辆测试以检查安全级别</td>
+</tr>
+<tr>
+<td>安全系统 诊断系统 (0x04)</td>
+<td>用于测试所有安全关键型诊断功能。<br><br>此诊断会话控制子功能具有很高的安全性。<br><br>示例：此会话正在检查安全气囊和胎压监测器的安全性。</td>
+</tr>
+<tr>
+<td>0x05 0x3F</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>特定车辆制造 (0x40 至 0x5F)</td>
+<td>此会话取决于每个 OEM，如果他们想根据自己的要求实现任何会话，他们可以使用它。</td>
+</tr>
+<tr>
+<td>系统供应商特定 (0x60 0X7E)</td>
+<td>此会话也类似于车辆制造特定，但而不是车辆制造商，如果系统供应商想要根据其特定要求实施任何会话，则可以使用它。</td>
+</tr>
+<tr>
+<td>0x7F</td>
+<td>保留</td>
+</tr>
+</tbody></table>
+<p><strong>请求帧格式：</strong></p>
+<p>请求帧格式如下所示。<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240706184957.png" alt="image.png"></p>
+<p><strong>响应帧格式：</strong></p>
+<p>有两种类型的响应帧。这是一个积极的回应和一个消极的回应。</p>
+<p><strong>积极回应：</strong><br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240706185026.png" alt="image.png"></p>
+<p><strong>否定回应：</strong><br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240706185045.png" alt="image.png"></p>
+<p>请查看以下示例，了解诊断会话转换<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240706185104.png" alt="image.png"><br>如果我们想从一个非默认会话切换到另一个非默认会话，首先我们需要切换到默认会话，然后我们可以切换到另一个非默认会话。</p>
+<h3 id="0x11-ECU-复位"><a href="#0x11-ECU-复位" class="headerlink" title="0x11 ECU 复位"></a><strong>0x11 ECU 复位</strong></h3><p>ECU 重置的服务 ID 为 <strong>0x11</strong>，响应 SID 为 <strong>0x51</strong>。</p>
+<p>ECU复位服务用于重新启动车辆中的特定ECU或所有ECU。这项服务的动机是将ECU从故障或挂起状态或非工作状态中恢复。</p>
+<p>在ECU复位期间，它不会接受来自客户端的任何请求，也不会向客户端发送任何响应。此服务在扩展会话中受支持。</p>
+<p>复位成功后，ECU将返回默认会话。</p>
+<p>这有许多子功能，下表中对此进行了解释。</p>
+<table>
+<thead>
+<tr>
+<th>子功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>硬复位  (0x01)</td>
+<td>硬复位意味着从ECU中取出电池 (电源) ，然后将ECU与电池重新连接。<br><br>在这种类型的复位中，ECU会重新初始化系统的核心硬件组件，并且还会重新初始化非易失性和易失性存储器。<br><br>此重置可能会丢失一些数据，因为在ECU运行期间电池突然被取出</td>
+</tr>
+<tr>
+<td>重置时键关闭  (0x02)</td>
+<td>钥匙关开复位只是车辆的点火关断过程。这是微控制器的正常睡眠-唤醒模式。<br><br>当我们进行 Key Off  On 复位 ECU 时，不会立即断电。它将进入启动模式，然后将所有数据存储在非易失性存储器中，并在不丢失任何数据的情况下取消初始化硬件变量。<br><br>在这种重置方法中，没有丢失数据的机会。这是重置的正确方法，大多数 OEM 都在使用这种类型的 ECU 重置。</td>
+</tr>
+<tr>
+<td>软复位  (0x03)</td>
+<td>软重置只不过是重新启动应用程序的主要软件。当我们进行这种类型的重置时，微控制器的堆栈指针指向 main ()   函数的地址。然后它将首先开始执行。<br><br>例如，将进行看门狗重置。每当挂起或发生任何故障时，该看门狗定时器将重置微控制器，并从 main ()   函数启动</td>
+</tr>
+<tr>
+<td>启用快速电源关断  (0x04)</td>
+<td>在这种类型的复位中，不会发生点火关闭。ECU将进入睡眠模式，ECU随时准备唤醒</td>
+</tr>
+<tr>
+<td>禁用快速电源关机  (0x05)</td>
+<td>此服务用于禁用以前启用的快速电源关机</td>
+</tr>
+</tbody></table>
+<p>以下示例说明了ECU复位过程</p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240706185403.png" alt="image.png"></p>
+<h3 id="0x27-安全访问"><a href="#0x27-安全访问" class="headerlink" title="0x27 安全访问"></a><strong>0x27 安全访问</strong></h3><p>安全访问的服务 ID 为 <strong>0x27</strong>，响应 SID 为 <strong>0x67</strong>。</p>
+<p>此安全访问诊断服务用于提供对 UDS 协议服务的安全访问，以避免安全漏洞。出于安全考虑，某些诊断数据和服务可能会受到限制。</p>
+<p>此服务将授予对特定服务的读取和写入访问权限。在处理任何服务 ID  (SID)  操作之前，必须检查安全访问，以了解客户端是否有权对此 SID 进行读取或写入。</p>
+<p><strong>例如</strong>，要上传和下载软件，无法由所有人访问常规控制和<strong>VIN</strong> (车辆识别号) DID，一些授权测试人员只能访问这些SID。</p>
+<p>安全访问权限基于这两个授予，</p>
+<ol>
+<li><strong>1.Seed  (0x01)</strong></li>
+<li><strong>2.key  (0x02)</strong></li>
+</ol>
+<ul>
+<li>测试人员使用 SID 0x27和子功能 ID 0x01发送解锁 ECU 的请求。0x01意味着请求种子。</li>
+<li>UDS 服务器接收请求，假设条件正确，并根据加密算法生成随机种子和密钥，服务器将种子发送到客户端并得到肯定的响应。</li>
+<li>使用接收到的种子，测试工具生成密钥并将此密钥发送到服务器，以使用 SID 0x27和子功能 ID 0x02解锁 ECU。0x02 表示关键。</li>
+<li>如果测试工具 (客户端) 发送的解锁密钥与服务器期望密钥匹配，则发送肯定响应并解锁ECU，否则将发送带有特定否定响应代码的否定响应。</li>
+</ul>
+<p>以下示例说明了整个过程。<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240706185958.png" alt="image.png"><br>示例：</p>
+<ol>
+<li><p>client requests the “Seed”, <code>27 SF</code>，sf为奇数（odd） &#x3D;&#x3D;2n-1&#x3D;&#x3D;，代表安全等级；</p>
+</li>
+<li><p>server sends the “Seed”, <code>67 SF Seed</code>, SF与请求中的值相等；如果服务端处于unlocked状态，则Seed为0;</p>
+</li>
+<li><p>client sends the “Key” (appropriate for the Seed received), <code>27 SF Key</code>，SF值为&#x3D;&#x3D;2n&#x3D;&#x3D;，即上一请求中的等级+1；</p>
+</li>
+<li><p>server responds that the “Key” was valid and that it will unlock itself. 肯定响应<code>67 SF</code>，SF 为 &#x3D;&#x3D;2n&#x3D;&#x3D;</p>
+</li>
+</ol>
+<h3 id="0x28-通信控制"><a href="#0x28-通信控制" class="headerlink" title="0x28 通信控制"></a><strong>0x28 通信控制</strong></h3><p>通信控件的服务 ID 为 <strong>0x28</strong>，响应 SID 为 <strong>0x68</strong>。</p>
+<p>此通信控制服务用于控制ECU服务器的通信。这意味着此服务通过诊断线启用或禁用来自服务器  (ECU)  的消息的传输或接收。</p>
+<p>此服务用于控制ECU的发射器和接收器。测试人员可以同时使用多种类型的通信。</p>
+<p>在希望为所有或一组ECU停止通信的上下文中，此服务非常有用。例如，可以在软件下载期间使用它，以最大限度地提高可用带宽。</p>
+<p>有 3 种类型的通信类型可用，它们是：</p>
+<ol>
+<li>正常通信消息  (<strong>0x01</strong>)</li>
+<li>网络管理通信消息  (<strong>0x02</strong>)</li>
+<li>正常通信消息和网络管理通信消息  (<strong>0x03</strong>)</li>
+</ol>
+<p>下表解释了子功能。</p>
+<table>
+<thead>
+<tr>
+<th>子功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启用 Tx 和启用 Rx  (0x00)</td>
+<td>在此类型中启用消息的传输和接收。</td>
+</tr>
+<tr>
+<td>启用 Rx 并禁用 Tx  (0x01)</td>
+<td>在此类型中，消息的传输被禁用，消息的接收被启用。</td>
+</tr>
+<tr>
+<td>禁用 Rx 并启用 Tx  (0x02)</td>
+<td>在此类型中，消息的传输处于启用状态，消息的接收处于禁用状态。</td>
+</tr>
+<tr>
+<td>禁用 Tx 和 Rx  (0x03)</td>
+<td>在这种类型的通信中，消息的传输和接收都被禁用。</td>
+</tr>
+</tbody></table>
+<p>以下示例说明了整个过程。<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240706195050.png" alt="image.png"></p>
+<h2 id="0x29-认证"><a href="#0x29-认证" class="headerlink" title="0x29 认证"></a><strong>0x29 认证</strong></h2><p>此身份验证服务是在 ye 之后添加的ar 2020，这用于为比安全会计允许的更现代的身份验证方法提供标准化方法ess  (<strong>0x27</strong>) 服务，包括使用基于 PKI 的证书交换进行双向身份验证。</p>
+<p>身份验证的服务 ID 为 <strong>0x29</strong>，响应 SID 为 <strong>0x69</strong>。</p>
+<h2 id="0x3E-测试设备在线"><a href="#0x3E-测试设备在线" class="headerlink" title="0x3E  测试设备在线"></a><strong>0x3E  测试设备在线</strong></h2><p>测试设备的服务 ID 为 <strong>0x3E</strong>，响应 SID 为 <strong>0x7E</strong>。</p>
+<p>它是UDS协议中的重要服务之一，我们将看到这个服务ID的用途。</p>
+<p>此服务用于向服务器指示客户端仍连接到服务器。此服务用于使服务器在当前会话中保持活动状态，默认会话除外。</p>
+<p>为了使客户端保持在当前会话 (非默认会话) 中，使用测试器在场  (<strong>0x3E</strong>) ，客户端将定期发送此服务  (<strong>0x3E</strong>) 。</p>
+<p>如果客户端与服务器交换任何数据的时间不超过大约 5 秒的 S3 计时器值 (此计时值在下面的 S3 计时器中进行了说明) ，则出于安全考虑，服务器  (ECU)  将断开连接并自动回退到默认会话。</p>
+<p>下表解释了子功能。</p>
+<table>
+<thead>
+<tr>
+<th>子功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x00 – 不支持 SuppressPosResMsgIndication  (SPRMI)</td>
+</tr>
+<tr>
+<td>0x80 – SuppressPosResMsgIndication  (SPRMI)   支持 (第 7 位已设置 –  (SPRMIB) )</td>
+</tr>
+</tbody></table>
+<p><strong>什么是 S3 计时器？</strong><br>S3 服务器参数是在每个 ECU 中实现的服务器  (ECU)  端时序参数。S3 服务器参数的主要功能是在超时后从非默认会话 (编程、扩展、安全系统会话) 自动返回到默认会话。超时值仅基于 S3 参数。</p>
+<p>当测试人员请求更改为非默认会话时，S3 计时器将启动，并且 S3 计时器值可能因 OEM 而异，但大多数 OEM 将 S3 值保留为 5 秒。</p>
+<p><strong>为什么我们需要 S3 计时器？</strong><br>如果客户端在该期间的非默认会话中没有执行任何操作，则为了安全起见，ECU将自动进入默认会话。</p>
+<p>假设服务器在超时后不进入默认会话并保持在相同的非默认会话中。如果我们启动车辆，ECU将无法工作。因此，可能会发生事故或其他故障。</p>
+<p><strong>SPRMIB：</strong><br>抑制正响应消息指示位  (SPRMIB) 仅在具有子功能字节的子功能服务中受支持。该位用于定义 ECU 的正响应是否要向客户端公开</p>
+<p>suppressPosResMsgIndicationBit仅通过 CAN 接口受支持，而 K 线和 ITS 接口不受支持。</p>
+<p>如果服务支持 suppressPosResMsgIndicationBit，则位 7 将解释为suppressPosResMsgIndicationBit</p>
+<ul>
+<li>当位 7 为“1” (SPRMIB&#x3D;1)  时，ECU 不会向客户端发送正响应，这意味着它将抑制正响应。</li>
+<li>当位 7 为“0” (SPRMIB&#x3D;0) 时，ECU 将向客户端发送正响应，这意味着不抑制正响应。</li>
+<li>如果服务不支持 SPRMIB，则它将发送否定响应 (不支持子函数) ，并显示 suppressPosResMsgIndicationBit (SPRMIB) &#x3D;1<br>注意：使用 SPRMIB 我们只能抑制积极的反应。否定反应不能被抑制</li>
+</ul>
+<p>以下是一些具有支持 SPRMIB 的子功能的服务。</p>
+<table>
+<thead>
+<tr>
+<th>SID</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x10</td>
+<td>诊断会话控制</td>
+</tr>
+<tr>
+<td>0x11</td>
+<td>ECU复位</td>
+</tr>
+<tr>
+<td>0x19</td>
+<td>阅读DTC(故障诊断代码)信息</td>
+</tr>
+<tr>
+<td>0x27</td>
+<td>安全访问</td>
+</tr>
+<tr>
+<td>0x28</td>
+<td>通信控制</td>
+</tr>
+<tr>
+<td>0x31</td>
+<td>日常控制</td>
+</tr>
+<tr>
+<td>0x3E</td>
+<td>测试人员在场</td>
+</tr>
+<tr>
+<td>0x83</td>
+<td>访问时序参数</td>
+</tr>
+<tr>
+<td>0x85</td>
+<td>控制DTC设置</td>
+</tr>
+<tr>
+<td>0x97</td>
+<td>链路控制</td>
+</tr>
+</tbody></table>
+<p>下面的例子解释了积极响应的完整过程  </p>
+<p><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240706200711.png">  </p>
+<p>如果服务不支持 SPRMIB，则它将发送否定响应  (不支持子函数)  suppressPosResMsgIndicationBit  (SPRMIB) &#x3D; 1。  </p>
+<p>我们知道现在的测试器只有两个子功能，即0x00和0x80。因此，不支持0x01 0x7F。如果发送不支持的子函数，则它将发送否定响应。</p>
+<p>下面的示例解释了否定响应的完整过程。<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240706220943.png" alt="image.png"></p>
+<h2 id="0x83-访问时序参数"><a href="#0x83-访问时序参数" class="headerlink" title="0x83 访问时序参数"></a><strong>0x83 访问时序参数</strong></h2><p>访问计时参数的服务 ID 为 <strong>0x83</strong>，响应 SID 为 <strong>0xC3</strong>。</p>
+<p>此访问计时参数服务用于在此通信期间读取和写入通信链路的默认计时参数。在控制器和客户端之间的通信中，必须遵守某些时间。</p>
+<p>如果在未发送任何消息的情况下超过这些值，则必须假定连接已中断。通过使用此服务，可以读取&#x2F;写入超时值和消息间隔时间。</p>
+<p>下表解释了子功能</p>
+<table>
+<thead>
+<tr>
+<th>子功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x01 – 读取扩展时序参数集</td>
+</tr>
+<tr>
+<td>0x02 – 将时序参数设置为默认值</td>
+</tr>
+<tr>
+<td>0x03- 读取当前活动的时序参数</td>
+</tr>
+<tr>
+<td>0x04- 将时序参数设置为给定值</td>
+</tr>
+<tr>
+<td>建议在物理寻址方法中使用此服务  (0x83) ，因为服务器支持一组不同的扩展时序参数。</td>
+</tr>
+</tbody></table>
+<h2 id="0x85-控制-DTC-设置"><a href="#0x85-控制-DTC-设置" class="headerlink" title="0x85 控制 DTC 设置"></a><strong>0x85 控制 DTC 设置</strong></h2><p>控件 DTC 设置的服务 ID 为 <strong>0x85</strong>，响应 SID 为 <strong>0xC5</strong>。</p>
+<p>通常，诊断故障代码 (DTC) 用于指示由ECU引起的故障。在某些情况下，测试人员可能会认为不检测ECU中发生的某些错误。</p>
+<p>届时，我们可以使用这项服务。当客户端&#x2F;测试人员在发生故障时需要停止或恢复服务器&#x2F;ECU更新DTC时，使用控制DTC设置服务。</p>
+<p>当客户知道车辆中的问题但试图通过做一些额外的实验来找到根本原因时，这将非常有帮助。</p>
+<p>控制DTC设置服务用于打开或关闭故障错误代码的检测。</p>
+<p>当客户端请求服务器关闭时，服务器会收到请求并暂时关闭此功能，并且服务器将保留当前值并挂起新值。</p>
+<p>稍后，当客户端请求服务器打开时，服务器将使用新值进行更新</p>
+<p>如果在控制 DTC 设置处于 OFF 状态时，用户请求清除诊断信息服务  (0x14) ，则服务器仍可能清除 DTC 信息。</p>
+<p>如果客户端在服务器的 DTC 设置已处于 OFF 模式时请求关闭服务，则服务器将以肯定响应进行响应，并将忽略该请求。</p>
+<p>下表解释了子功能。</p>
+<table>
+<thead>
+<tr>
+<th>子功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>打开 – 0x01</td>
+</tr>
+<tr>
+<td>关闭 - 0x02</td>
+</tr>
+</tbody></table>
+<p> 以下示例说明了整个过程。<br><img src="https://blog-1301216421.cos.ap-chengdu.myqcloud.com/20240706223717.png" alt="image.png"></p>
+<h2 id="0x86-事件响应"><a href="#0x86-事件响应" class="headerlink" title="0x86 事件响应"></a><strong>0x86 事件响应</strong></h2><p>“事件响应”的服务 ID 为<strong>0x86</strong>，“响应 SID”为<strong>0xC6</strong>。</p>
+<p>此事件响应服务请求服务器启动或停止对特定事件的响应传输。当发生特定事件时，此服务会自动执行诊断服务，而无需从客户端获取请求。</p>
+<p>客户端使用可选事件参数指定事件，并使用在事件发生时要执行的服务参数指定服务。使用此服务测试仪可以将ECU配置为在发生任何定义的事件时向测试仪发送响应，而无需请求。</p>
+<p>例如，假设电源中断是车辆中的事件。如果在驱动ECU时发生电源中断，它将不会等待测试人员的请求。ECU会将响应发送给测试仪&#x2F;客户端。在这种情况下，测试人员将收到否定的响应。</p>
+<p>下表解释了子功能。</p>
+<table>
+<thead>
+<tr>
+<th>子功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x00 – 停止事件响应</td>
+</tr>
+<tr>
+<td>0x01- 关于 DTC 状态更改</td>
+</tr>
+<tr>
+<td>0x02 – 定时器中断</td>
+</tr>
+<tr>
+<td>0x03 – 关于更改数据标识符</td>
+</tr>
+<tr>
+<td>0x04 – 报告激活的事件</td>
+</tr>
+<tr>
+<td>0x05 – 在事件时开始响应</td>
+</tr>
+<tr>
+<td>0x06 – 对事件的明确响应</td>
+</tr>
+<tr>
+<td>0x07-关于价值的比较</td>
+</tr>
+</tbody></table>
+<h2 id="0x87-链路控制"><a href="#0x87-链路控制" class="headerlink" title="0x87 链路控制"></a><strong>0x87 链路控制</strong></h2><p>链接控件的服务 ID 为 <strong>0x87</strong>，响应 SID 为 <strong>0xC7</strong>。</p>
+<p>链路控制可用于更改客户端和服务器之间的通信参数，以提高波特率。因此，测试人员可以非常快速地在测试人员和服务器之间交换数据。</p>
+<p>下表解释了子功能。</p>
+<table>
+<thead>
+<tr>
+<th>子功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x01 – 使用固定波特率验证波特率转换</td>
+</tr>
+<tr>
+<td>0x02 – 使用特定波特率验证波特率转换</td>
+</tr>
+<tr>
+<td>0x03 – 转换波特率</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://c0ke.top">C0KE</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://c0ke.top/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/">http://c0ke.top/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://c0ke.top" target="_blank">Daily Study</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">基于模板的安卓进程间通信Fuzzing</div></div></a></div><div class="next-post pull-right"><a href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门"><img class="cover" src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用RTL-SDR打开车门</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/73c31ad1881611ebb6edd017c2d2eca2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">C0KE</div><div class="author-info__description">C0KE's Study Diary</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">438</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">67</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/C0KE"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/C0KE" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62675330?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2269279877@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">人人都有选择如何活着的权力</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86date-2024-07-31-14-34-49tags-%E2%80%9C%E8%BD%A6%E8%81%94%E7%BD%91%E2%80%9D-%E2%80%9CUDS%E8%AF%8A%E6%96%AD%E5%8D%8F%E8%AE%AE%E2%80%9D"><span class="toc-number">1.</span> <span class="toc-text">title: UDS诊断和通信管理date: 2024-07-31 14:34:49tags:    - “车联网”    - “UDS诊断协议”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UDS-%E5%8A%9F%E8%83%BD%E5%8D%95%E5%85%83"><span class="toc-number">2.</span> <span class="toc-text">UDS 功能单元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">诊断和通信管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x10-%E8%AF%8A%E6%96%AD%E4%BC%9A%E8%AF%9D%E6%8E%A7%E5%88%B6"><span class="toc-number">3.1.</span> <span class="toc-text">0x10 诊断会话控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x11-ECU-%E5%A4%8D%E4%BD%8D"><span class="toc-number">3.2.</span> <span class="toc-text">0x11 ECU 复位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x27-%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE"><span class="toc-number">3.3.</span> <span class="toc-text">0x27 安全访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x28-%E9%80%9A%E4%BF%A1%E6%8E%A7%E5%88%B6"><span class="toc-number">3.4.</span> <span class="toc-text">0x28 通信控制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x29-%E8%AE%A4%E8%AF%81"><span class="toc-number">4.</span> <span class="toc-text">0x29 认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x3E-%E6%B5%8B%E8%AF%95%E8%AE%BE%E5%A4%87%E5%9C%A8%E7%BA%BF"><span class="toc-number">5.</span> <span class="toc-text">0x3E  测试设备在线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x83-%E8%AE%BF%E9%97%AE%E6%97%B6%E5%BA%8F%E5%8F%82%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">0x83 访问时序参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x85-%E6%8E%A7%E5%88%B6-DTC-%E8%AE%BE%E7%BD%AE"><span class="toc-number">7.</span> <span class="toc-text">0x85 控制 DTC 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x86-%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94"><span class="toc-number">8.</span> <span class="toc-text">0x86 事件响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x87-%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6"><span class="toc-number">9.</span> <span class="toc-text">0x87 链路控制</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E6%8A%80%E6%9C%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="如何成为技术负责人"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何成为技术负责人"/></a><div class="content"><a class="title" href="/2026/03/20/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E6%8A%80%E6%9C%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA/" title="如何成为技术负责人">如何成为技术负责人</a><time datetime="2026-03-20T07:05:59.066Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于模板的安卓进程间通信Fuzzing"/></a><div class="content"><a class="title" href="/2026/03/20/%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%89%E5%8D%93%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1Fuzzing/" title="基于模板的安卓进程间通信Fuzzing">基于模板的安卓进程间通信Fuzzing</a><time datetime="2026-03-20T07:05:59.057Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UDS诊断和通信管理"/></a><div class="content"><a class="title" href="/2026/03/20/UDS%E8%AF%8A%E6%96%AD%E5%92%8C%E9%80%9A%E4%BF%A1%E7%AE%A1%E7%90%86/" title="UDS诊断和通信管理">UDS诊断和通信管理</a><time datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用RTL-SDR打开车门"/></a><div class="content"><a class="title" href="/2026/03/20/%E4%BD%BF%E7%94%A8RTL-SDR%E6%89%93%E5%BC%80%E8%BD%A6%E9%97%A8/" title="使用RTL-SDR打开车门">使用RTL-SDR打开车门</a><time datetime="2026-03-20T07:05:59.056Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结"><img src="https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/Sci-Fi%20Energy%20Core.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="UDS时间参数总结"/></a><div class="content"><a class="title" href="/2026/03/20/UDS%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93/" title="UDS时间参数总结">UDS时间参数总结</a><time datetime="2026-03-20T07:05:59.055Z" title="发表于 2026-03-20 15:05:59">2026-03-20</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://picgo-c0ke.oss-cn-hangzhou.aliyuncs.com/img/sealed%E5%A4%9C%E6%99%9A.png')"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By C0KE</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="false" data-text="C0KE,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
